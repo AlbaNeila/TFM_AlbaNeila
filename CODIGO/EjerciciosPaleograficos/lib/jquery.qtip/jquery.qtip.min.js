@@ -1,0 +1,1 @@
+http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.css
