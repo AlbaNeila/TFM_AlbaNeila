@@ -21,12 +21,46 @@
     <script  src = "../lib/dhtmlxGrid/codebase/ext/dhtmlxgrid_srnd.js"></script>   
     
 	<script>
+	var mygrid;
+	$(document).ready(function(){
+		setTimeout(function() {
+        var td;
+	    	var img;
+	    	var grupo;
+			var filas =$('.objbox tr').each(function (index){
+	    		 $(this).children("td").each(function (index2) {
+	    		 	if(index2 == 2){
+	    		 		$(this).children("img").bind('click',function($this){
+	    		 			img = this;
+	    		 			var idfila = $(this).attr("id");
+	    		 			grupo = mygrid.cellById(idfila-1, 0).getValue();
+	    		 			$.ajax({
+							  type: "POST",
+							  url: "../controller/tooltipInfo_helper.php",
+							  async: false,
+							  data: {
+								  grupo:grupo			  	
+							  },
+							  dataType:"text",	
+							  success: function(request){
+							  	set_tooltipInfo(img,request);
+							  }				  
+							});
+	    		 			  		 		
+	    				});
+
+	    			}
+	    		});
+	    	});
+    }, 6000);				
+	}); 
+		    
 	    function validateForm() {
-	    	debugger;
 	    	var grupos = new Array();
 	    	var cont = 0;
 	    	var empty=false;
 	    	var flag = true;
+	    	
 	    	
 	    	$("#formRegister").find(':input').each(function() {	        	
 	        	if(!empty){
@@ -39,40 +73,39 @@
 	    	
 	    	if(!empty){
 		    	if(!check_user($("#usuario"))){
-		    		set_tooltip($("#usuario"),"Debe contener entre 3-15 caracteres alfanumericos");
+		    		set_tooltip($("#usuario"),"<?php echo(_("Debe contener entre 3-15 caracteres alfanumericos"));?>");
 		    		flag = false;
 		    	}
 		    	if(!check_email($("#email"))){
-		    		set_tooltip($("#email"),"Formato no válido");
+		    		set_tooltip($("#email"),"<?php echo(_("Formato no válido"));?>");
 		    		flag = false;
 		    	}
 		    	if(!check_names($("#nombre"))){
-		    		set_tooltip($("#nombre"),"Formato no válido");
+		    		set_tooltip($("#nombre"),"<?php echo(_("Formato no válido"));?>");
 		    		flag = false;
 		    	}
 		    	if(!check_names($("#apellidos"))){
-		    		set_tooltip($("#apellidos"),"Formato no válido");
+		    		set_tooltip($("#apellidos"),"<?php echo(_("Formato no válido"));?>");
 		    		flag = false;
 		    	}
 		    	if(!check_password("#password")){
-		    		set_tooltip($("#password"),"Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico");
+		    		set_tooltip($("#password"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
 		    		flag = false;
 		    	}
 		    	else{
 		    		if(!check_password("#password2")){
-		    			set_tooltip($("#password2"),"Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico");
+		    			set_tooltip($("#password2"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
 		    			flag = false;
 		    		}
 		    		else{
 		    			if(!check_passwords()){
-		    				set_tooltip($("#password2"),"Las contraseñas no coinciden");
+		    				set_tooltip($("#password2"),"<?php echo(_("Las contraseñas no coinciden"));?>");
 		    				flag = false;
 		    			}
 		    		}
 		    	}
-	    	}
-	    	if(flag){
-	    		mygrid.forEachRow(function(id){
+		    	
+		    	mygrid.forEachRow(function(id){
 				    mygrid.forEachCell(id,function(c){
 				       if(c.isChecked()){
 				       	 grupos[cont] = mygrid.cellById(id, 0).getValue();
@@ -80,7 +113,13 @@
 				       }
 				    });
 				});
-				
+				if(grupos.length == 0){
+					set_tooltip($("#gridRegistro"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
+					flag = false;
+				}
+	    	}
+	    	
+	    	if(flag){				
 		    	var request = $.ajax({
 				  type: "POST",
 				  url: "../controller/registerController.php",
@@ -97,7 +136,6 @@
 				  dataType:"json",					  
 				});
 				request.success(function(json){
-					debugger;
 					if((json.captcha) == "captcha"){
 						set_tooltip($("#textcaptcha"),"<?php echo(_("Texto captcha inválido"));?>");
 						flag = false;
@@ -111,11 +149,28 @@
 		    return flag;
 		}
 	
+					 
+		function doInitGrid(){
+			mygrid = new dhtmlXGridObject('gridRegistro');
+			mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+			mygrid.setHeader("Grupo, Profesor, Información, Seleccionar");
+			mygrid.setInitWidths("*,*,100,100");
+			mygrid.setColAlign("left,left,center,center");
+			mygrid.setColTypes("ro,ro,img,ch");
+			mygrid.enableSmartRendering(true);
+			mygrid.enableAutoHeight(true,100);
+			mygrid.enableAutoWidth(true);
+			mygrid.enableTooltips("true,true,false,false");
+			mygrid.setSizes();
+			mygrid.setSkin("light");
+			mygrid.init();					
+			mygrid.loadXML("../controller/gridRegistro.php");			
+		}
 	</script>
     
     
 </head>
-<body>
+<body onload="doInitGrid()">
 	<div class="formsInicio" style="width: 50%;min-width: 632px;margin-top: 1%">
 		<form action="registerOk.php" method="post" onsubmit="return validateForm()" id="formRegister">
 			<h2><?php echo(_("Registro UBUPaleo"));?></h2>
@@ -130,24 +185,7 @@
 				<label><?php echo(_("Usuario"));?></label></td> <td><input type="text" name="usuario_nombre" id="usuario"/>
 				<label><?php echo(_("Email"));?></label></td> <td><input type="text" name="usuario_email" placeholder="<?php echo(_("email@ejemplo.com"));?>" id="email"/>
 			</div>			   
-			<div id="gridRegistro" style="width: 90%; height: 90%" ></div>
-			<script>
-				mygrid = new dhtmlXGridObject('gridRegistro');
-				mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-				mygrid.setHeader("Grupo, Profesor, Información, Seleccionar");
-				mygrid.setInitWidths("*,*,100,100");
-				mygrid.setColAlign("left,left,center,center");
-				mygrid.setColTypes("ro,ro,img,ch");
-				mygrid.enableSmartRendering(true);
-				mygrid.enableAutoHeight(true,100);
-				mygrid.enableAutoWidth(true);
-				mygrid.enableTooltips("true,true,false,false");
-				mygrid.setSizes();
-				mygrid.setSkin("light");
-				mygrid.init();						
-				mygrid.loadXML("../controller/gridRegistro.php");
-
-			</script>
+			<div id="gridRegistro" style="width: 90%; height: 90%"></div>
 
 			<label><?php echo(_("Introduzca el texto de la imagen:"));?></label>
 			<table>

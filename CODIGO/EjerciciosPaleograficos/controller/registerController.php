@@ -36,22 +36,16 @@
 							$grupos   =   $_POST["grupos"];
 						    $grupos   =    json_decode("$grupos",true);
 						    foreach($grupos as $grupo){
-						    	$result3 = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo, grupo.idUsuarioCreador FROM grupo WHERE grupo.nombre='".$grupo."'");
+						    	$result3 = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre='".$grupo."'");
 								if($result3!=FALSE){ //Tenemos el idGrupo del grupo al que se ha solicitado acceso
-									if($row=mysqli_fetch_assoc($result2)) {
+									if($row=mysqli_fetch_assoc($result3)) {
 										$idGrupo = $row['idGrupo'];
-										$idProfesor = $row['idUsuarioCreador'];
-										$reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO solicitud (solicitud.idAlumno,solicitud.idGrupo,solicitud.idProfesor) VALUES ('".$idUsuario."', '".$idGrupo."', '".$idProfesor.")");
-										if($reg2){
-											 $insertUser = 'true';
-										}
+										$reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_grupo (usuario_grupo.idUsuario,usuario_grupo.idGrupo,usuario_grupo.solicitud) VALUES ('".$idUsuario."', '".$idGrupo."', '1')");
 									}
 								}
 						    }
 						}					    
 					}
-	            }else {
-	                $insertUser = 'false';
 	            }	
             }
 		}

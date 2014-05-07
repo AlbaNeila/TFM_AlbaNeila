@@ -33,8 +33,8 @@
 	  		$cell= $row->appendChild($dom->createElement("cell"));
 			$domAtribute = $dom->createAttribute('type');
 			$domAtribute->value='img';
-			$cell->appendChild($domAtribute);;
-			$contenido = ("../public/img/info.png");
+			$cell->appendChild($domAtribute);
+			$contenido = ("../public/img/info.png' id='".$cont."");
 			$cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
 	  	}
 	  	if($i==3){ //Columna del checkbox

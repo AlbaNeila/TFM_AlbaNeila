@@ -62,6 +62,7 @@
 	}
 	
 	function set_tooltip(campo,mensaje){
+		debugger;
 		$(campo).qtip({ 
 			content: mensaje,
             style: {
@@ -78,7 +79,28 @@
             },
             hide: {
                 event: false,
-                inactive:2000
+                inactive:2500
+            }
+        });
+	}
+	
+	function set_tooltipInfo(campo,mensaje){
+		$(campo).qtip({ 
+			content: mensaje,
+            style: {
+                classes: 'qtip-blue'
+            },
+            position: {
+                my: 'left center',  // Position my top left...
+                at: 'right center', // at the bottom right of...
+                target: $(campo) // my target
+            },
+            show: {
+                event: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready                        
+            },
+            hide: {
+                event: 'unfocus'
             }
         });
 	}
