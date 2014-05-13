@@ -16,7 +16,7 @@
 	$result = mysql_query("SELECT grupo.nombre,usuario.nombre,usuario.idUsuario,grupo.idGrupo FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.tipo='PROFESOR'");
 	
 	header("Content-type: text/xml");
-	$dom = new DOMDocument("1.0","iso-8859-1");
+	$dom = new DOMDocument("1.0","UTF-8");
 	$dom->formatOutput = true;
 	$rows = $dom->appendChild($dom->createElement("rows"));
 	$cont = 0;

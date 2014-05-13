@@ -1,5 +1,15 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("base_connector.php");
+require_once("data_connector.php");
 
 /*! DataItem class for Scheduler component
 **/
@@ -17,6 +27,10 @@ class SchedulerDataItem extends DataItem{
 			$extra = $this->config->text[$i]["name"];
 			$str.="<".$extra."><![CDATA[".$this->data[$extra]."]]></".$extra.">";
 		}
+		if ($this->userdata !== false)
+			foreach ($this->userdata as $key => $value)
+				$str.="<".$key."><![CDATA[".$value."]]></".$key.">";
+
 		return $str."</event>";
 	}
 }
@@ -27,7 +41,7 @@ class SchedulerDataItem extends DataItem{
 class SchedulerConnector extends Connector{
 	
 	protected $extra_output="";//!< extra info which need to be sent to client side
-	private $options=array();//!< hash of OptionsConnector 
+	protected $options=array();//!< hash of OptionsConnector 
 	
 			
 	/*! assign options collection to the column
@@ -46,31 +60,8 @@ class SchedulerConnector extends Connector{
 		}
 		$this->options[$name]=$options;
 	}
-	/*! generates xml description for options collections
-		
-		@param list 
-			comma separated list of column names, for which options need to be generated
-	*/
-	protected function fill_collections(){
-		foreach ($this->options as $k=>$v) { 
-			$name = $k;
-			$this->extra_output.="<coll_options for='{$name}'>";
-			if (!is_string($this->options[$name]))
-				$this->extra_output.=$this->options[$name]->render();
-			else
-				$this->extra_output.=$this->options[$name];
-			$this->extra_output.="</coll_options>";
-		}
-	}
-	
-	/*! renders self as  xml, ending part
-	*/
-	protected function xml_end(){
-		$this->fill_collections();
-		return $this->extra_output."</data>";
-	}
-	
-	
+
+
 	/*! constructor
 		
 		Here initilization of all Masters occurs, execution timer initialized
@@ -82,11 +73,14 @@ class SchedulerConnector extends Connector{
 			name of class, which will be used for item rendering, optional, DataItem will be used by default
 		@param data_type
 			name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+	 * @param render_type
+			name of class which will be used for rendering.
 	*/	
-	public function __construct($res,$type=false,$item_type=false,$data_type=false){
+	public function __construct($res,$type=false,$item_type=false,$data_type=false,$render_type=false){
 		if (!$item_type) $item_type="SchedulerDataItem";
 		if (!$data_type) $data_type="SchedulerDataProcessor";
-		parent::__construct($res,$type,$item_type,$data_type);
+		if (!$render_type) $render_type="RenderStrategy";
+		parent::__construct($res,$type,$item_type,$data_type,$render_type);
 	}
 
 	//parse GET scoope, all operations with incoming request must be done here
@@ -118,4 +112,120 @@ class SchedulerDataProcessor extends DataProcessor{
 	}
 }
 
+
+class JSONSchedulerDataItem extends SchedulerDataItem{
+	/*! return self as XML string
+	*/
+	function to_xml(){
+		if ($this->skip) return "";
+		
+		$obj = array();
+		$obj['id'] = $this->get_id();
+		$obj['start_date'] = $this->data[$this->config->text[0]["name"]];
+		$obj['end_date'] = $this->data[$this->config->text[1]["name"]];
+		$obj['text'] = $this->data[$this->config->text[2]["name"]];
+		for ($i=3; $i<sizeof($this->config->text); $i++){
+			$extra = $this->config->text[$i]["name"];
+			$obj[$extra]=$this->data[$extra];
+		}
+
+		if ($this->userdata !== false)
+			foreach ($this->userdata as $key => $value)
+				$obj[$key]=$value;
+
+		return $obj;
+	}
+}
+
+
+class JSONSchedulerConnector extends SchedulerConnector {
+	
+	protected $data_separator = ",";
+
+	/*! constructor
+		
+		Here initilization of all Masters occurs, execution timer initialized
+		@param res 
+			db connection resource
+		@param type
+			string , which hold type of database ( MySQL or Postgre ), optional, instead of short DB name, full name of DataWrapper-based class can be provided
+		@param item_type
+			name of class, which will be used for item rendering, optional, DataItem will be used by default
+		@param data_type
+			name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+	*/	
+	public function __construct($res,$type=false,$item_type=false,$data_type=false,$render_type=false){
+		if (!$item_type) $item_type="JSONSchedulerDataItem";
+		if (!$data_type) $data_type="SchedulerDataProcessor";
+		if (!$render_type) $render_type="JSONRenderStrategy";
+		parent::__construct($res,$type,$item_type,$data_type,$render_type);
+	}
+
+	protected function xml_start() {
+		return '{ "data":';
+	}
+
+	protected function xml_end() {
+		$this->fill_collections();
+		$end = (!empty($this->extra_output)) ? ', "collections": {'.$this->extra_output.'}' : '';
+		foreach ($this->attributes as $k => $v)
+			$end.=", ".$k.":\"".$v."\"";
+		$end .= '}';
+		return $end;
+	}
+
+	/*! assign options collection to the column
+		
+		@param name 
+			name of the column
+		@param options
+			array or connector object
+	*/
+	public function set_options($name,$options){
+		if (is_array($options)){
+			$str=array();
+			foreach($options as $k => $v)
+				$str[]='{"id":"'.$this->xmlentities($k).'", "value":"'.$this->xmlentities($v).'"}';
+			$options=implode(",",$str);
+		}
+		$this->options[$name]=$options;
+	}
+
+
+	/*! generates xml description for options collections
+		
+		@param list 
+			comma separated list of column names, for which options need to be generated
+	*/
+	protected function fill_collections(){
+		$options = array();
+		foreach ($this->options as $k=>$v) { 
+			$name = $k;
+			$option="\"{$name}\":[";
+			if (!is_string($this->options[$name]))
+				$option.=substr($this->options[$name]->render(),0,-2);
+			else
+				$option.=$this->options[$name];
+			$option.="]";
+			$options[] = $option;
+		}
+		$this->extra_output .= implode($this->data_separator, $options);
+	}
+
+
+	/*! output fetched data as XML
+		@param res
+			DB resultset 
+	*/
+	protected function output_as_xml($res){
+		$data=$this->xml_start();
+		$data.=$this->render_set($res);
+		$data.=$this->xml_end();
+
+		$out = new OutputWriter($data, "");
+		$out->set_type("json");
+		$this->event->trigger("beforeOutput", $this, $out);
+		$out->output("", true, $this->encoding);
+	}
+}
 ?>

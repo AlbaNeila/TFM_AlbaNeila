@@ -1,19 +1,26 @@
 <?php
-/*!
-	@file
-	Inner classes, which do common tasks. No one of them is purposed for direct usage. 
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
 */
 
 /*! Class which allows to assign|fire events.
 */
 class EventMaster{
 	private $events;//!< hash of event handlers
+	private $master;
 	private static $eventsStatic=array();
 	
 	/*! constructor
 	*/
 	function __construct(){
 		$this->events=array();
+		$this->master = false;
 	}
 	/*! Method check if event with such name already exists.
 		@param name
@@ -34,7 +41,13 @@ class EventMaster{
 		@param method
 			function which will be attached. You can use array(class, method) if you want to attach the method of the class.
 	*/
-	public function attach($name,$method){
+	public function attach($name,$method=false){
+		//use class for event handling
+		if ($method === false){
+			$this->master = $name;
+			return;
+		}
+		//use separate functions
 		$name=strtolower($name);
 		if (!array_key_exists($name,$this->events))
 			$this->events[$name]=array();
@@ -92,6 +105,11 @@ class EventMaster{
 					throw new Exception("Incorrect function assigned to event: ".$method);
 				call_user_func_array($method, $arg_list);
 			}
+
+		if ($this->master !== false)
+			if (method_exists($this->master, $name))
+				call_user_func_array(array($this->master, $name), $arg_list);
+
 		return true;
 	}
 }

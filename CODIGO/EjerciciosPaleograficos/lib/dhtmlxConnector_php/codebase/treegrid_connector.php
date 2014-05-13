@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("grid_connector.php");
 
 /*! DataItem class for TreeGrid component
@@ -48,8 +57,8 @@ class TreeGridDataItem extends GridDataItem{
 /*! Connector for dhtmlxTreeGrid
 **/
 class TreeGridConnector extends GridConnector{
-	private $id_swap = array();
-	
+	protected $parent_name = 'id';
+
 	/*! constructor
 		
 		Here initilization of all Masters occurs, execution timer initialized
@@ -61,73 +70,28 @@ class TreeGridConnector extends GridConnector{
 			name of class, which will be used for item rendering, optional, DataItem will be used by default
 		@param data_type
 			name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+	 *	@param render_type
+	 *		name of class which will provides data rendering
 	*/	
-	public function __construct($res,$type=false,$item_type=false,$data_type=false){
+	public function __construct($res,$type=false,$item_type=false,$data_type=false,$render_type=false){
 		if (!$item_type) $item_type="TreeGridDataItem";
 		if (!$data_type) $data_type="TreeGridDataProcessor";
-		parent::__construct($res,$type,$item_type,$data_type);
-	
-		$this->event->attach("afterInsert",array($this,"parent_id_correction_a"));
-		$this->event->attach("beforeProcessing",array($this,"parent_id_correction_b"));
+		if (!$render_type) $render_type="TreeRenderStrategy";
+		parent::__construct($res,$type,$item_type,$data_type,$render_type);
 	}
 
-	/*! store info about ID changes during insert operation
-		@param dataAction 
-			data action object during insert operation
-	*/	
-	public function parent_id_correction_a($dataAction){
-		$this->id_swap[$dataAction->get_id()]=$dataAction->get_new_id();
-	}
-	/*! update ID if it was affected by previous operation
-		@param dataAction 
-			data action object, before any processing operation
-	*/
-	public function parent_id_correction_b($dataAction){
-		$relation = $this->config->relation_id["db_name"];
-		$value = $dataAction->get_value($relation);
-		
-		if (array_key_exists($value,$this->id_swap))
-			$dataAction->set_value($relation,$this->id_swap[$value]);
-	}
-		
-	/*! process treegrid specific options in incoming request
-	*/
+	/*! process treegrid specific options in incoming request */
 	public function parse_request(){
 		parent::parse_request();
-		
-		if (isset($_GET["id"]))
-			$this->request->set_relation($_GET["id"]);
+
+		if (isset($_GET[$this->parent_name]))
+			$this->request->set_relation($_GET[$this->parent_name]);
 		else
 			$this->request->set_relation("0");
-			
+
 		$this->request->set_limit(0,0); //netralize default reaction on dyn. loading mode
 	}
-	
-	/*! process treegrid specific options in incoming request
-	*/	
-	protected function render_set($res){
-		$output="";
-		$index=0;
-		while ($data=$this->sql->get_next($res)){
-			$data = new $this->names["item_class"]($data,$this->config,$index);
-			$this->event->trigger("beforeRender",$data);
-		//there is no info about child elements, 
-		//if we are using dyn. loading - assume that it has,
-		//in normal mode juse exec sub-render routine			
-			if ($data->has_kids()===-1 && $this->dload)
-					$data->set_kids(true);
-			$output.=$data->to_xml_start();
-			if ($data->has_kids()===-1 || ( $data->has_kids()==true && !$this->dload)){
-				$sub_request = new DataRequestConfig($this->request);
-				$sub_request->set_relation($data->get_id());
-				$output.=$this->render_set($this->sql->select($sub_request));
-			}
-			$output.=$data->to_xml_end();
-			$index++;
-		}
-		return $output;
-	}	
-	
+
 	/*! renders self as  xml, starting part
 	*/	
 	protected function xml_start(){

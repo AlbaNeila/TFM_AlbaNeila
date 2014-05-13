@@ -66,7 +66,7 @@ body{
 	
 	vertical-align:center;
 	
-	min-width: 785px;
+	min-width: 890px;
 }
 
 /* CREACION DEL MENU A PARTIR DE UNA LISTA*/
@@ -90,21 +90,6 @@ body{
 	height:27px;
 }
 
-#menu li a:hover{
-	background: #fff8dd; /* Old browsers */
-	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZjhkZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOWRmOTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,  #fff8dd 0%, #f9df98 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff8dd), color-stop(100%,#f9df98)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #fff8dd 0%,#f9df98 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #fff8dd 0%,#f9df98 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #fff8dd 0%,#f9df98 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #fff8dd 0%,#f9df98 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff8dd', endColorstr='#f9df98',GradientType=0 ); /* IE6-8 */
-	
-	font-size:103%;
-}
-
 #menu2{
 	padding:0;
 	margin:0;
@@ -114,7 +99,7 @@ body{
 	display:inline;
 }
 
-#menu2 li a,label,#en_US,#es_ES{
+#menu2 ~ li, a,label,#en_US,#es_ES{
 	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size:70%;
 	color:#304369;
@@ -128,10 +113,52 @@ body{
 }
 
 /* CONTENT */
+form h3{
+	text-shadow:2px 2px #e0e0e0;
+}
 
 .divContent {
 	margin:0 2%;
 	height:100%;
+}
+
+.divForm{
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:100%;
+	color:#2e2d2d;
+	background-color: white;
+	
+	margin: 2% auto;	
+	padding:0% 2% 2% 2%;
+	border: 2px solid #4a4a4a;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	box-shadow: 2px 2px 5px #a4a4a4;
+}
+
+.divForm p{
+	font-size: 70%;
+}
+
+.divForm input{
+	padding: .4em;
+}
+
+.divForm label{
+	float:none;
+	display: block;
+  	margin: 1em 0 0 0;
+}
+
+.divForm input[type=submit]{
+	display: block;
+  	margin: 1em 0;
+  	padding: 0.4em;
+}
+
+.divForm input[type=text]:focus{
+	box-shadow: 0 0 7px #bfdaff;
 }
 
 

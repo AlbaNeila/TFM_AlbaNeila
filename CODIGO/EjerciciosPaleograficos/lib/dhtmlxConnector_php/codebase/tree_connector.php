@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("base_connector.php");
 
 /*! DataItem class for Tree component
@@ -20,7 +29,6 @@ class TreeDataItem extends DataItem{
 		$this->im2=false;
 		$this->check=false;
 		$this->attrs = array();
-		$this->userdata = array();
 	}
 	/*! get id of parent record
 		
@@ -98,16 +106,6 @@ class TreeDataItem extends DataItem{
 		}
 	}
 	
-	/*! set userdata section for the item
-		
-		@param name
-			name of userdata
-		@param value
-			value of userdata
-	*/
-	function set_userdata($name, $value){
-		$this->userdata[$name]=$value;
-	}
 	
 	/*! assign image for tree's item
 		
@@ -137,8 +135,9 @@ class TreeDataItem extends DataItem{
 		foreach ($this->attrs as $key => $value)
 			$str1.=$key."='".$this->xmlentities($value)."' ";
 		$str1.=">";
-		foreach ($this->userdata as $key => $value)
-			$str1.="<userdata name='".$key."'><![CDATA[".$value."]]></userdata>";
+		if ($this->userdata !== false)
+			foreach ($this->userdata as $key => $value)
+				$str1.="<userdata name='".$key."'><![CDATA[".$value."]]></userdata>";
 			
 		return $str1;
 	}
@@ -156,8 +155,8 @@ require_once("filesystem_item.php");
 /*! Connector for the dhtmlxtree
 **/
 class TreeConnector extends Connector{
-	private $id_swap = array();
-	
+	protected $parent_name = 'id';
+
 	/*! constructor
 		
 		Here initilization of all Masters occurs, execution timer initialized
@@ -169,75 +168,36 @@ class TreeConnector extends Connector{
 			name of class, which will be used for item rendering, optional, DataItem will be used by default
 		@param data_type
 			name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+	 *	@param render_type
+	 *		name of class which will provides data rendering
 	*/	
-	public function __construct($res,$type=false,$item_type=false,$data_type=false){
+	public function __construct($res,$type=false,$item_type=false,$data_type=false, $render_type=false){
 		if (!$item_type) $item_type="TreeDataItem";
 		if (!$data_type) $data_type="TreeDataProcessor";
-		parent::__construct($res,$type,$item_type,$data_type);
-		
-		$this->event->attach("afterInsert",array($this,"parent_id_correction_a"));
-		$this->event->attach("beforeProcessing",array($this,"parent_id_correction_b"));
+		if (!$render_type) $render_type="TreeRenderStrategy";
+		parent::__construct($res,$type,$item_type,$data_type,$render_type);
 	}
-	
-	/*! store info about ID changes during insert operation
-		@param dataAction 
-			data action object during insert operation
-	*/
-	public function parent_id_correction_a($dataAction){
-		$this->id_swap[$dataAction->get_id()]=$dataAction->get_new_id();
-	}
-	/*! update ID if it was affected by previous operation
-		@param dataAction 
-			data action object, before any processing operation
-	*/
-	public function parent_id_correction_b($dataAction){
-		$relation = $this->config->relation_id["db_name"];
-		$value = $dataAction->get_value($relation);
-		
-		if (array_key_exists($value,$this->id_swap))
-			$dataAction->set_value($relation,$this->id_swap[$value]);
-	}
-	
-	
+
+	//parse GET scoope, all operations with incoming request must be done here
 	public function parse_request(){
 		parent::parse_request();
 		
-		if (isset($_GET["id"]))
-			$this->request->set_relation($_GET["id"]);
+		if (isset($_GET[$this->parent_name]))
+			$this->request->set_relation($_GET[$this->parent_name]);
 		else
 			$this->request->set_relation("0");
 			
 		$this->request->set_limit(0,0); //netralize default reaction on dyn. loading mode
 	}
-	
 
-   
-	protected function render_set($res){
-		$output="";
-		$index=0;
-		while ($data=$this->sql->get_next($res)){
-			$data = new $this->names["item_class"]($data,$this->config,$index);
-			$this->event->trigger("beforeRender",$data);
-		//there is no info about child elements, 
-		//if we are using dyn. loading - assume that it has,
-		//in normal mode juse exec sub-render routine			
-			if ($data->has_kids()===-1 && $this->dload)
-					$data->set_kids(true);
-			$output.=$data->to_xml_start();
-			if ($data->has_kids()===-1 || ( $data->has_kids()==true && !$this->dload)){
-				$sub_request = new DataRequestConfig($this->request);
-				$sub_request->set_relation($data->get_id());
-				$output.=$this->render_set($this->sql->select($sub_request));
-			}
-			$output.=$data->to_xml_end();
-			$index++;
-		}
-		return $output;
-	}
    /*! renders self as  xml, starting part
 	*/
 	public function xml_start(){
-		return "<tree id='".$this->request->get_relation()."'>";
+		$attributes = "";
+		foreach($this->attributes as $k=>$v)
+			$attributes .= " ".$k."='".$v."'";
+
+		return "<tree id='".$this->request->get_relation()."'".$attributes.">";
 	}
 	
 	/*! renders self as  xml, ending part

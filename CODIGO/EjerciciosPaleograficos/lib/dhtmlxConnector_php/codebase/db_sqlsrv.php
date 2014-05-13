@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("db_common.php");
 /*! MSSQL implementation of DataWrapper
 **/
@@ -14,6 +23,13 @@ class SQLSrvDBDataWrapper extends DBDataWrapper{
 		else
 			$res = sqlsrv_query($this->connection,$sql);
 		
+		if ($res === false){
+			$errors = sqlsrv_errors();
+			$message = Array();
+			foreach($errors as $error)
+				$message[]=$error[$i]["SQLSTATE"].$error[$i]["code'"].$error[$i]["message"];
+			throw new Exception("SQLSrv operation failed\n".implode("\n\n", $message));
+		}
 		
 		if ($this->insert_operation){
 			sqlsrv_next_result($res);
@@ -49,6 +65,9 @@ class SQLSrvDBDataWrapper extends DBDataWrapper{
 	}		
 	
 	protected function select_query($select,$from,$where,$sort,$start,$count){
+		if (!$from)
+			return $select;
+			
 		$sql="SELECT " ;
 		if ($count)
 			$sql.=" TOP ".($count+$start);

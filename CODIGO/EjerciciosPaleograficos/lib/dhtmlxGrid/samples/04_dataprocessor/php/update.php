@@ -50,7 +50,7 @@ function delete_row(){
 //include XML Header (as response will be in xml format)
 header("Content-type: text/xml");
 //encoding may differ in your case
-echo('<?xml version="1.0" encoding="iso-8859-1"?>'); 
+/*echo('<?xml version="1.0" encoding="iso-8859-1"?>');*/ 
 
 
 $mode = $_GET["!nativeeditor_status"]; //get request mode
@@ -75,8 +75,8 @@ switch($mode){
 
 
 //output update results
-echo "<data>";
+/*echo "<data>";
 echo "<action type='".$action."' sid='".$rowId."' tid='".$newId."'/>";
 echo "</data>";
-
+*/
 ?>

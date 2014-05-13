@@ -15,7 +15,7 @@ class OutputWriter{
 	private $start;
 	private $end;
 	private $type;
-
+	
 	public function __construct($start, $end = ""){
 		$this->start = $start;
 		$this->end = $end;
@@ -31,15 +31,10 @@ class OutputWriter{
 	public function set_type($add){
 		$this->type=$add;
 	}
-	public function output($name="", $inline=true, $encoding=""){
+	public function output($name="", $inline=true){
 		ob_clean();
-		
-		if ($this->type == "xml"){
-			$header = "Content-type: text/xml";
-			if ("" != $encoding)
-				$header.="; charset=".$encoding;
-			header($header);
-		}
+		if ($this->type == "xml")
+			header("Content-type: text/xml");
 			
 		echo $this->__toString();
 	}
@@ -413,11 +408,6 @@ class Connector {
 				$dp->process($this->config,$this->request);
 			}
 			else {
-				if (!$this->access->check("read")){
-					LogMaster::log("Access control: read operation blocked");
-					echo "Access denied";
-					die();
-				}
 				$wrap = new SortInterface($this->request);
 				$this->event->trigger("beforeSort",$wrap);
 				$wrap->store();
@@ -549,7 +539,8 @@ class Connector {
 		
 		$out = new OutputWriter($start, $end);
 		$this->event->trigger("beforeOutput", $this, $out);
-		$out->output("", true, $this->encoding);
+		
+		$out->output();
 	}
 
 

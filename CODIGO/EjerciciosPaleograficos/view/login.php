@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo(_("Acceso UBUPaleo"));?></title>
+	<title><?php echo(_("Acceso UBUPal"));?></title>
 	<link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_formstyles.css" />
 	<script src="../lib/jquery.qtip/jquery-1.10.2.min.js"></script>	
@@ -52,9 +52,9 @@
 	    if(empty($_SESSION['usuario_nombre'])) { // comprobamos que las variables de sesión estén vacías        
 	?>			
 	<div class="formsInicio" style="width:22%;min-width:278px;">
-        <form action="templates/index.php" method="post" onsubmit="return validateForm()">
-        	<h2><?php echo(_("Acceso UBUPaleo"));?></h2>
-        	<label><?php echo(_("Usuario:"));?></label>
+        <form action="groupTeacher.php" method="post" onsubmit="return validateForm()">
+        	<h2><?php echo(_("Acceso UBUPal"));?></h2>
+        	<label><?php echo(_("DNI:"));?></label>
 			<input  type="text" name="usuario_nombre" id="usuario" />
         	<label ><?php echo(_("Contraseña:"));?></label>
         	<input  type="password" name="usuario_clave" id="password"/>
@@ -65,7 +65,7 @@
     </div>
 	<?php
 	    }else {
-			header("Location: templates/index.php");
+			header("Location: groupTeacher.php");
 	    }
 	?>
 </body>

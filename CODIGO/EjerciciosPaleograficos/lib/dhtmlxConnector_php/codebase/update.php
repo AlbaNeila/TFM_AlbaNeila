@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 
 /*! DataItemUpdate class for realization Optimistic concurrency control
 	Wrapper for DataItem object
@@ -191,8 +200,8 @@ class DataUpdate{
 
 	/*! adds action version in output XML as userdata
 	*/
-	public function version_output() {
-			echo $this->get_version();
+	public function version_output($conn, $out) {
+		$out->add($this->get_version());
 	}
 
 

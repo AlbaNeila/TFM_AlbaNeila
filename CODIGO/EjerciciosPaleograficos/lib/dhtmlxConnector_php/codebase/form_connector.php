@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("base_connector.php");
 
 /*! DataItem class for dhxForm component
@@ -10,7 +19,7 @@ class FormDataItem extends DataItem{
 		if ($this->skip) return "";
 		$str="";
 		for ($i = 0; $i < count($this->config->data); $i++) {
-			$str .= "<".$this->config->data[$i]['db_name']."><![CDATA[".$this->data[$this->config->data[$i]['db_name']]."]]></".$this->config->data[$i]['db_name'].">";
+			$str .= "<".$this->config->data[$i]['name']."><![CDATA[".$this->data[$this->config->data[$i]['name']]."]]></".$this->config->data[$i]['name'].">";
 		}
 		return $str;
 	}

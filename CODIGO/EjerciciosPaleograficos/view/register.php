@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo(_("Registro UBUPaleo"));?></title>
+	<title><?php echo(_("Registro UBUPal"));?></title>
 	
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
 	<link rel="stylesheet" href="../public/css/ubupaleo_formstyles.css" />
@@ -72,8 +72,8 @@
 	        });
 	    	
 	    	if(!empty){
-		    	if(!check_user($("#usuario"))){
-		    		set_tooltip($("#usuario"),"<?php echo(_("Debe contener entre 3-15 caracteres alfanumericos"));?>");
+		    	if(!check_dni($("#usuario"))){
+		    		set_tooltip($("#usuario"),"<?php echo(_("DNI no válido"));?>");
 		    		flag = false;
 		    	}
 		    	if(!check_email($("#email"))){
@@ -173,7 +173,7 @@
 <body onload="doInitGrid()">
 	<div class="formsInicio" style="width: 50%;min-width: 632px;margin-top: 1%">
 		<form action="registerOk.php" method="post" onsubmit="return validateForm()" id="formRegister">
-			<h2><?php echo(_("Registro UBUPaleo"));?></h2>
+			<h2><?php echo(_("Registro UBUPal"));?></h2>
 			<p><?php echo(_("Todos los campos del formulario son obligatorios."));?></p>
 			<div class="divForm">
 				<label><?php echo(_("Apellidos"));?></label></td> <td><input type="text" name="usuario_apellidos" id="apellidos"/>
@@ -181,7 +181,7 @@
 				<label><?php echo(_("Repita la contraseña"));?></label></td> <td><input type="password" name="usuario_clave_conf" id="password2"/>
 			</div>	
 			<div class="divForm">
-				<label><?php echo(_("Nombre"));?></label></td> <td><input type="text" name="nombre"  id="nombre"/>
+				<label><?php echo(_("DNI"));?></label></td> <td><input type="text" name="nombre"  id="nombre"/>
 				<label><?php echo(_("Usuario"));?></label></td> <td><input type="text" name="usuario_nombre" id="usuario"/>
 				<label><?php echo(_("Email"));?></label></td> <td><input type="text" name="usuario_email" placeholder="<?php echo(_("email@ejemplo.com"));?>" id="email"/>
 			</div>			   

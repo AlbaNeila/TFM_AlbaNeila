@@ -1,5 +1,13 @@
 <?php
-
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 class ConvertService{
 	private $url;
 	private $type;
@@ -47,7 +55,8 @@ class ConvertService{
 		curl_setopt($handle, CURLOPT_POST, true);
 		curl_setopt($handle, CURLOPT_HEADER, false);
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($handle, CURLOPT_POSTFIELDS, array("grid_xml" => (string)$out ));
+		curl_setopt($handle, CURLOPT_POSTFIELDS, "grid_xml=".urlencode(str_replace("<rows>","<rows profile='color'>", $out)));
+		
 		
 		$out->reset();
 		$out->set_type("pdf");

@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("base_connector.php");
 
 /*! DataItem class for DataView component
@@ -52,14 +61,19 @@ class DataViewConnector extends Connector{
 	/*! renders self as  xml, starting part
 	*/
 	protected function xml_start(){
+		$attributes = "";
+		foreach($this->attributes as $k=>$v)
+			$attributes .= " ".$k."='".$v."'";
+
+		$start.= ">";
 		if ($this->dload){
 			if ($pos=$this->request->get_start())
-				return "<data pos='".$pos."'>";
+				return "<data pos='".$pos."'".$attributes.">";
 			else
-				return "<data total_count='".$this->sql->get_size($this->request)."'>";
+				return "<data total_count='".$this->sql->get_size($this->request)."'".$attributes.">";
 		}
 		else
-			return "<data>";
+			return "<data".$attributes.">";
 	}	
 }
 ?>

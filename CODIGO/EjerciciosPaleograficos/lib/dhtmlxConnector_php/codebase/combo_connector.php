@@ -1,4 +1,14 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
+
 require_once("base_connector.php");
 /*! DataItem class for Combo component
 **/
@@ -65,7 +75,7 @@ class ComboConnector extends Connector{
 		}
 			
 		if (isset($_GET["mask"]))
-			$this->request->set_filter($this->config->text[0]["name"],$_GET["mask"]."%","LIKE");
+			$this->request->set_filter($this->config->text[0]["db_name"],$_GET["mask"]."%","LIKE");
 			
 		LogMaster::log($this->request);
 	}

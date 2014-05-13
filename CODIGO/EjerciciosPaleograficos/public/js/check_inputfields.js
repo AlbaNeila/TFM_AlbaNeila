@@ -12,9 +12,20 @@
 		return true;
 	}
 	
-	function check_user(campo){
-		if(!(/^[a-zA-Z0-9]{3,15}$/.test($(campo).val()))){
+	function check_dni(campo){
+		var dni = $(campo).val();
+	   	var numero = dni.substring(0,dni.length-1);
+		var l = dni.substring(dni.length-1,dni.length);
+		var letra = l.toUpperCase();
+		var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+		
+		if(numero<0 || numero>99999999){
 			return false;
+		}else{
+			var letraObtenida = letras[numero%23];
+			if(letraObtenida!=letra){
+				return false;
+			}
 		}
 		return true;
 	}
@@ -62,7 +73,6 @@
 	}
 	
 	function set_tooltip(campo,mensaje){
-		debugger;
 		$(campo).qtip({ 
 			content: mensaje,
             style: {

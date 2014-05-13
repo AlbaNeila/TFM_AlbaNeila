@@ -1,4 +1,13 @@
 <?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 require_once("base_connector.php");
 
 /*! DataItem class for dhxForm:options
@@ -9,7 +18,8 @@ class OptionsDataItem extends DataItem{
 	function to_xml(){
 		if ($this->skip) return "";
 		$str ="";
-		$str .= "<item value=\"".$this->data[$this->config->data[0]['db_name']]."\" label=\"".$this->data[$this->config->data[1]['db_name']]."\" />";
+		
+		$str .= "<item value=\"".$this->xmlentities($this->data[$this->config->data[0]['db_name']])."\" label=\"".$this->xmlentities($this->data[$this->config->data[1]['db_name']])."\" />";
 		return $str;
 	}
 }

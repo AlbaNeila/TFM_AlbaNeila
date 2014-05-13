@@ -1,4 +1,13 @@
-<?php	
+<?php
+/*
+This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
+to use it in non-GPL project. Please contact sales@dhtmlx.com for details
+*/
+?><?php	
+/*
+	@author dhtmlx.com
+	@license GPL, see license.txt
+*/
 
 class GridConfiguration{
 	
@@ -18,6 +27,9 @@ class GridConfiguration{
 	protected $headerSorts  = false;
 	protected $headerColors = false;
 	protected $headerHidden = false;
+	protected $headerFormat = false;
+	
+	protected $convert_mode = false;
 	
 	function __construct($headers = false){
 	 	if ($headers === false || $headers === true )
@@ -146,6 +158,14 @@ class GridConfiguration{
 		$this->headerIds = $this->parse_param_array($idsStr);
 	}
 
+	/*! sets number/date format
+		@param formatArr
+			array of mask formats for number/dates , delimited by headerDelimiter (default is ,)
+	*/
+	public function setColFormat($formatArr) {
+		$this->headerFormat = $this->parse_param_array($formatArr);
+	}
+
 	/*! attaches header
 		@param values
 			array of header names or string of header names, delimited by headerDelimiter (default is ,)
@@ -233,13 +253,101 @@ class GridConfiguration{
         	$_GET["dhx_colls"] = implode(",",$temp);
     }
 
+
+	/*! gets header as array
+	 */
+	private function getHeaderArray() {
+		$head = Array();
+		$head[0] = $this->headerNames;
+		$head = $this->getAttaches($head, $this->headerAttaches);
+		return $head;
+	}
+
+
+	/*! get footer as array
+	 */
+	private function getFooterArray() {
+		$foot = Array();
+		$foot = $this->getAttaches($foot, $this->footerAttaches);
+		return $foot;
+	}
+
+
+	/*! gets array of data with attaches
+	 */
+	private function getAttaches($to, $from) {
+		for ($i = 0; $i < count($from); $i++) {
+			$line = $from[$i]['values'];
+			$to[] = $line;
+		}
+		return $to;
+	}
+
+
+	/*! calculates rowspan array according #cspan markers
+	 */
+	private function processCspan($data) {
+		$rspan = Array();
+		for ($i = 0; $i < count($data); $i++) {
+			$last = 0;
+			$rspan[$i] = Array();
+			for ($j = 0; $j < count($data[$i]); $j++) {
+				$rspan[$i][$j] = 0;
+				if ($data[$i][$j] === '#cspan') {
+					$rspan[$i][$last]++;
+				} else {
+					$last = $j;
+				}
+			}
+		}
+		return $rspan;
+	}
+
+
+	/*! calculates colspan array according #rspan markers
+	 */
+	private function processRspan($data) {
+		$last = Array();
+		$cspan = Array();
+		for ($i = 0; $i < count($data); $i++) {
+			$cspan[$i] = Array();
+			for ($j = 0; $j < count($data[$i]); $j++) {
+				$cspan[$i][$j] = 0;
+				if (!isset($last[$j])) $last[$j] = 0;
+				if ($data[$i][$j] === '#rspan') {
+					$cspan[$last[$j]][$j]++;
+				} else {
+					$last[$j] = $i;
+				}
+			}
+		}
+		return $cspan;
+	}
+	
+	
+	/*! sets mode of output format: usual mode or convert mode.
+	 *	@param mode
+	 *		true - convert mode, false - otherwise
+	 */
+	public function set_convert_mode($mode) {
+		$this->convert_mode = $mode;
+	}
+
+
 	/*! adds header configuration in output XML
 	*/
 	public function attachHeaderToXML($conn, $out) {
         if (!$conn->is_first_call()) return; //render head only for first call
 
-		
+		$head = $this->getHeaderArray();
+		$foot = $this->getFooterArray();
+		$rspan = $this->processRspan($head);
+		$cspan = $this->processCspan($head);
+
 		$str = '<head>';
+
+		if ($this->convert_mode) $str .= "<columns>";
+
 		for ($i = 0; $i < count($this->headerNames); $i++) {
 			$str .= '<column';
 			$str .= ' type="'. $this->headerTypes[$i].'"';
@@ -250,32 +358,68 @@ class GridConfiguration{
 			$str .= $this->headerSorts[$i]  ? ' sort="'.$this->headerSorts[$i].'"' : '';
 			$str .= $this->headerColors[$i] ? ' color="'.$this->headerColors[$i].'"' : '';
 			$str .= $this->headerHidden[$i] ? ' hidden="'.$this->headerHidden[$i].'"' : '';
+			$str .= $this->headerFormat[$i] ? ' format="'.$this->headerFormat[$i].'"' : '';
+			$str .= $cspan[0][$i] ? ' colspan="'.($cspan[0][$i] + 1).'"' : '';
+			$str .= $rspan[0][$i] ? ' rowspan="'.($rspan[0][$i] + 1).'"' : '';
 			$str .= '>'.$this->headerNames[$i].'</column>';
 		}
-		$str .= '<settings><colwidth>'.$this->headerWidthsUnits.'</colwidth></settings>';
-		if ((count($this->headerAttaches) > 0)||(count($this->footerAttaches) > 0)) {
-			$str .= '<afterInit>';
-		}
-		for ($i = 0; $i < count($this->headerAttaches); $i++) {
-			$str .= '<call command="attachHeader">';
-			$str .= '<param>'.implode(",",$this->headerAttaches[$i]['values']).'</param>';
-			if ($this->headerAttaches[$i]['styles'] != null) {
-				$str .= '<param>'.implode(",",$this->headerAttaches[$i]['styles']).'</param>';
+		
+		if (!$this->convert_mode) {
+			$str .= '<settings><colwidth>'.$this->headerWidthsUnits.'</colwidth></settings>';
+			if ((count($this->headerAttaches) > 0)||(count($this->footerAttaches) > 0)) {
+				$str .= '<afterInit>';
 			}
-			$str .= '</call>';
-		}
-		for ($i = 0; $i < count($this->footerAttaches); $i++) {
-			$str .= '<call command="attachFooter">';
-			$str .= '<param>'.implode(",",$this->footerAttaches[$i]['values']).'</param>';
-			if ($this->footerAttaches[$i]['styles'] != null) {
-				$str .= '<param>'.implode(",",$this->footerAttaches[$i]['styles']).'</param>';
+			for ($i = 0; $i < count($this->headerAttaches); $i++) {
+				$str .= '<call command="attachHeader">';
+				$str .= '<param>'.implode(",",$this->headerAttaches[$i]['values']).'</param>';
+				if ($this->headerAttaches[$i]['styles'] != null) {
+					$str .= '<param>'.implode(",",$this->headerAttaches[$i]['styles']).'</param>';
+				}
+				$str .= '</call>';
 			}
-			$str .= '</call>';
-		}
-		if ((count($this->headerAttaches) > 0)||(count($this->footerAttaches) > 0)) {
-			$str .= '</afterInit>';
+			for ($i = 0; $i < count($this->footerAttaches); $i++) {
+				$str .= '<call command="attachFooter">';
+				$str .= '<param>'.implode(",",$this->footerAttaches[$i]['values']).'</param>';
+				if ($this->footerAttaches[$i]['styles'] != null) {
+					$str .= '<param>'.implode(",",$this->footerAttaches[$i]['styles']).'</param>';
+				}
+				$str .= '</call>';
+			}
+			if ((count($this->headerAttaches) > 0)||(count($this->footerAttaches) > 0)) {
+				$str .= '</afterInit>';
+			}
+		} else {
+			$str .= "</columns>";
+			for ($i = 1; $i < count($head); $i++) {
+				$str .= "<columns>";
+				for ($j = 0; $j < count($head[$i]); $j++) {
+					$str .= '<column';
+					$str .= $cspan[$i][$j] ? ' colspan="'.($cspan[$i][$j] + 1).'"' : '';
+					$str .= $rspan[$i][$j] ? ' rowspan="'.($rspan[$i][$j] + 1).'"' : '';
+					$str .= '>'.$head[$i][$j].'</column>';
+				}
+				$str .= "</columns>\n";
+			}
 		}
 		$str .= '</head>';
+		
+		
+		if ($this->convert_mode && count($foot) > 0) {
+			$rspan = $this->processRspan($foot);
+			$cspan = $this->processCspan($foot);
+			$str .= "<foot>";
+			for ($i = 0; $i < count($foot); $i++) {
+				$str .= "<columns>";
+				for ($j = 0; $j < count($foot[$i]); $j++) {
+					$str .= '<column';
+					$str .= $cspan[$i][$j] ? ' colspan="'.($cspan[$i][$j] + 1).'"' : '';
+					$str .= $rspan[$i][$j] ? ' rowspan="'.($rspan[$i][$j] + 1).'"' : '';
+					$str .= '>'.$foot[$i][$j].'</column>';
+				}
+				$str .= "</columns>\n";
+			}
+			$str .= "</foot>";
+		}
 		
 		$out->add($str);
 	}
