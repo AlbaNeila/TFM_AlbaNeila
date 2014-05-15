@@ -2,8 +2,7 @@
 session_start();
 ob_start();
 ?>
-<script src="../lib/dhtmlxDataProcessor/codebase/dhtmlxdataprocessor.js"></script>
-<script src="../lib/dhtmlxDataProcessor/codebase/dhtmlxdataprocessor_deprecated.js"></script>
+
 <script>
     function validateForm() {
         var u = check_empty($("#nombregrupo"));
@@ -35,64 +34,75 @@ ob_start();
         }       
         return flag;
     }
+    
+    function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
+            },
+            position: {
+                my: 'center', at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
+            },
+            hide: false,
+            style: {classes: 'qtip-blue'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
+            }
+        });
+    }
+    
+    function deleteGroup(){
 
+    }
+    
+    function addEventsToImages(){
+        setTimeout(function() {
+            var td;
+            var img;
+            var grupo;
+            $('.objbox tr').each(function (index){
+                 $(this).children("td").each(function (index2) {
+                    if(index2 == 4){ //Imagen alerta solicitud
+                        $(this).children("img").bind('click',function($this){
+                            alert("click en alerta solicitud");
+                            window.location = $('#anchorOpenModal').attr('href');                                          
+                        });
+                    }
+                    if(index2 == 5){ //Imagen eliminar grupo 
+                        $(this).children("img").bind('click',function($this){
+                            var idfila = $(this).attr("id");
+                            var idGrupo = $('.objbox tr').eq(idfila);
+                             var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el grupo"));?>'}),
+                              ok = $('<button />', {text: 'Ok', click: function() {deleteGroup();}}),
+                              cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+                        
+                            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar grupo"))?>'); 
+                        });
+                    }
+                });
+            });
+        },3000);
+    }
 
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-ob_start();
-?>
-  	<?php
-  		$tipoUsuario = $_SESSION['usuario_tipo'];
-		if($tipoUsuario == 'ALUMNO'){
-  	?>
-  		<ul id="menu">
-  			<li><a href="#" style="text-decoration:underline"><?php echo(_("Colecciones"));?></a></li>
-  			<li><a href="#"><?php echo(_("Grupos"));?></a></li>
-  			<li><a href="#"><?php echo(_("Estadísticas"));?></a></li>
-  			<li><a href="#"><?php echo(_("Ayuda"));?></a></li>
-  		</ul>
-  		<ul id="menu2">
-  			<li><a href="../controller/logout.php">Salir</a></li>
-  			<li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
-  			<li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
-  			<li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>  			
-  		</ul> 		
-  		<?php
-		}elseif($tipoUsuario == 'PROFESOR'){
-  		?>
-  		<ul id="menu">
-  			<li><a href="collectionsTeacher.php" ><?php echo(_("Colecciones"));?></a></li>
-  			<li><a href="groupTeacher.php" class="active"><?php echo(_("Grupos"));?></a></li>
-  			<li><a href="exercisesTeacher.php"><?php echo(_("Ejercicios"));?></a></li>
-  			<li><a href="statisticsTeacher.php"><?php echo(_("Estadísticas"));?></a></li>
-  			<li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
-  		</ul>
-  		<ul id="menu2">
-  			<li><a href="../controller/logout.php">Salir</a></li>
-  			<li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
-  			<li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
-  			<li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>  			
-  		</ul>
-  		<?php
-  		}else{
-  		?>
-  		<ul id="menu">
-  			<li><a href="#" style="text-decoration:underline"><?php echo(_("Usuarios"));?></a></li>
-  			<li><a href="#"><?php echo(_("Colecciones"));?></a></li>
-  			<li><a href="#"><?php echo(_("Ejercicios"));?></a></li>
-  			<li><a href="#"><?php echo(_("Estadísticas"));?></a></li>
-  		</ul>
-  		<ul id="menu2">
-  			<li><a href="../controller/logout.php">Salir</a></li>
-  			<li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
-  			<li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
-  			<li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>  			
-  		</ul>
-  		<?php
-		}
-$GLOBALS['TEMPLATE']['menu']= ob_get_clean();
-
+include ('/menu/menuGroupTeacher.php');
 ob_start();
 ?>
         <div class="divForm" style="width:22%;min-width:278px;" action="groupTeacher.php" method="post" onsubmit="return validateForm()">
@@ -120,10 +130,9 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("light");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridGroups.php");  
+            mygrid.loadXML("../controller/gridGroups.php",addEventsToImages);  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
-                    debugger;
                     var row = new Array();
                     var cont = 0;
                     mygrid.forEachCell(rId,function(c){
@@ -162,6 +171,33 @@ ob_start();
             });
         </script>
         
+        <a href="#openModal" id="anchorOpenModal"></a>
+        <div id="openModal" class="modalDialog">
+            <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <h3><?php echo(_("Solicitud de acceso"));?></h3>
+            <div id="gridRequests" style="width: 90%; height: 90%"></div>
+        <script>
+            var mygrid = new dhtmlXGridObject('gridRequests');
+            mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+            mygrid.setHeader("Nombre, Apellidos, Email, Seleccionar");
+            mygrid.setInitWidths("*,*,*,100");
+            mygrid.setColAlign("left,left,left,center");
+            mygrid.setColTypes("ro,ro,ro,ch");
+            mygrid.enableSmartRendering(true);
+            mygrid.enableAutoHeight(true,200);
+            mygrid.enableAutoWidth(true);
+            mygrid.enableTooltips("true,true,true,false");
+            mygrid.setSizes();
+            mygrid.setSkin("light");
+            mygrid.init();                  
+            mygrid.loadXML("../controller/gridGroups.php");  
+        </script>
+                    <input  type="submit" name="enviar" value="<?php echo(_("Aceptar"));?>" id="aceptarSol" />
+            <input  type="submit" name="enviar" value="<?php echo(_("Rechazar"));?>" id="rechazarSol" />
+            <input  type="submit" name="enviar" value="<?php echo(_("Posponer"));?>" id="posponerSol" />
+            </div>
+        </div>
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');

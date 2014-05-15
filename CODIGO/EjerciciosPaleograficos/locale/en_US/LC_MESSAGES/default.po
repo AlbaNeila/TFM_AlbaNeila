@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EjerciciosPaleograficos\n"
-"POT-Creation-Date: 2014-04-30 17:30+0100\n"
-"PO-Revision-Date: 2014-04-30 17:31+0100\n"
+"POT-Creation-Date: 2014-05-15 17:30+0100\n"
+"PO-Revision-Date: 2014-05-15 17:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -14,33 +14,347 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _\n"
-"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\EjerciciosPaleograficos\n"
+"X-Poedit-SearchPath-0: C:\\xampp\\htdocs\\TFM_AlbaNeila\\CODIGO"
+"\\EjerciciosPaleograficos\n"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/gettext/index.php:38
-msgid "Hello World"
-msgstr "Hola mundo"
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:10
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:25
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:42
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:10
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:25
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:42
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:10
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:25
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:42
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:7
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:22
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:39
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:10
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:25
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:42
+msgid "Colecciones"
+msgstr "Collections"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:10
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:21
-msgid "Acceso UBUPaleo"
-msgstr "UBUPaleo Access"
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:11
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:26
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:11
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:26
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:11
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:26
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:8
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:23
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:11
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:26
+msgid "Grupos"
+msgstr "Groups"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:22
-msgid "Usuario:"
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:12
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:28
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:44
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:12
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:28
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:44
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:12
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:28
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:44
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:9
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:25
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:41
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:12
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:28
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:44
+msgid "Estadísticas"
+msgstr "Statistics"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:13
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:29
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:13
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:29
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:13
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:29
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:10
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:26
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:13
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:29
+msgid "Ayuda"
+msgstr "Help"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:17
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:33
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:48
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:17
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:33
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:48
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:17
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:33
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:48
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:14
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:30
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:45
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:17
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:33
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:48
+msgid "Bienvenid@:"
+msgstr "Welcome:"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:18
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:34
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:49
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:18
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:34
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:49
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:18
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:34
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:49
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:15
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:31
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:46
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:18
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:34
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:49
+msgid "Inglés"
+msgstr "English"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:19
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:35
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:50
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:19
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:35
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:50
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:19
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:35
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:50
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:16
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:32
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:47
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:19
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:35
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:50
+msgid "Español"
+msgstr "Spanish"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:27
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:43
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:27
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:43
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:27
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:43
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:24
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:40
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:27
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:43
+msgid "Ejercicios"
+msgstr "Exercises"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/collectionsTeacher.php:41
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/exercisesTeacher.php:41
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/helpTeacher.php:41
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/menu/menuGroupTeacher.php:38
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/statisticsTeacher.php:41
+#, fuzzy
+msgid "Usuarios"
 msgstr "User:"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:24
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:34
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:172
+msgid ""
+"Ya existe un grupo con el mismo nombre. Por favor, introduzca un nombre de "
+"grupo diferente."
+msgstr ""
+"There already exists a group with the same name. Please enter a different "
+"group name."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:99
+msgid "¿Está seguro de que desea eliminar el grupo"
+msgstr "Are you sure you want to delete the group?"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:101
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:103
+msgid "Confirmación eliminar grupo"
+msgstr "Confirmation delete group"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:119
+msgid "Añadir nuevo grupo"
+msgstr "Add new group"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:120
+msgid "Nombre"
+msgstr "Name"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:122
+msgid "Descripción"
+msgstr "Description"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:124
+msgid "Añadir"
+msgstr "Add"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/groupTeacher.php:154
+msgid "No puede estar vacío."
+msgstr "Can't be empty"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:9
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:56
+#, fuzzy
+msgid "Acceso UBUPal"
+msgstr "UBUPaleo Access"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:41
+msgid "Usuario o contraseña incorrectos"
+msgstr "Incorrect username or password"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:57
+msgid "DNI:"
+msgstr "DNI:"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:59
 msgid "Contraseña:"
 msgstr "Password:"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:26
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:61
 msgid "Entrar"
 msgstr "Login"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:27
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:62
 msgid "Registro de alumnos"
 msgstr "Students register"
 
-#: C:\xampp\htdocs\EjerciciosPaleograficos/sistema_usuarios_php_mysql/acceso.php:28
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/login.php:63
 msgid "¿Ha extraviado la contraseña?"
 msgstr "¿Don't remember your password?"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:9
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:176
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:9
+#, fuzzy
+msgid "Registro UBUPal"
+msgstr "UBUPaleo Access"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:76
+msgid "DNI no válido"
+msgstr "Invalid DNI"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:80
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:84
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:88
+msgid "Formato no válido"
+msgstr "Invalid format"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:92
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:97
+msgid ""
+"Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"
+msgstr "Must contain 8-10 characters, at least one digit and one alphanumeric"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:102
+msgid "Las contraseñas no coinciden"
+msgstr "Passwords don't match"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:117
+msgid "Debe seleccionar al menos un grupo"
+msgstr "You have to select at least one group"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:140
+msgid "Texto captcha inválido"
+msgstr "Captcha text invalid"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:144
+msgid ""
+"Ya existe un usuario con el mismo nombre, introduzca uno diferente por favor"
+msgstr ""
+"A user already exists with the same name, please enter a different username"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:177
+msgid "Todos los campos del formulario son obligatorios."
+msgstr "All form fields are required."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:179
+msgid "Apellidos"
+msgstr "Surnames"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:180
+#, fuzzy
+msgid "Contraseña"
+msgstr "Password:"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:181
+#, fuzzy
+msgid "Repita la contraseña"
+msgstr "¿Don't remember your password?"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:184
+msgid "DNI"
+msgstr "DNI"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:185
+#, fuzzy
+msgid "Usuario"
+msgstr "User:"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:186
+msgid "Email"
+msgstr "Email"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:186
+msgid "email@ejemplo.com"
+msgstr "email@example.com"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:190
+msgid "Introduzca el texto de la imagen:"
+msgstr "Enter image text"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:194
+msgid "Cambiar el texto"
+msgstr "Change text"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/register.php:200
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:24
+msgid "Volver"
+msgstr "Go back"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:19
+#, fuzzy
+msgid "Registro correcto"
+msgstr "Students register"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:20
+msgid "¡Bienvenido!"
+msgstr "¡Welcome!"
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:21
+msgid "Su cuenta ha sido creada con éxito."
+msgstr "Your account has been successfully created."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:22
+msgid ""
+"Ya puede acceder a la aplicación UBUPal. Cuando el profesor acepte sus "
+"solicitudes tendrá acceso a los grupos seleccionados."
+msgstr ""
+"Now you can access to UBUPal application . When the teacher accepts your "
+"requests you will have access to the selected groups."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/registerOk.php:23
+msgid "Muchas gracias."
+msgstr "Thank you."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/template.php:45
+msgid "Realización de Ejercicios Paleográficos"
+msgstr "Paleographic Exercises  Performing "
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/template.php:75
+msgid ""
+"Estás accediendo a una página restringida, para ver su contenido debes estar "
+"registrado."
+msgstr ""
+"You are accessing a restricted page, to view its contents you must be "
+"registered."
+
+#: C:\xampp\htdocs\TFM_AlbaNeila\CODIGO\EjerciciosPaleograficos/view/template.php:76
+msgid "Ir a la página de inicio"
+msgstr "Go to homepage"
+
+#~ msgid "Hello World"
+#~ msgstr "Hola mundo"
