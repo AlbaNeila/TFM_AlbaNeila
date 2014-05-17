@@ -225,6 +225,7 @@
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	font-family: 'Lucida Grande', sans-serif;
+	z-index: 10000000 !important;
 }
 
 	.qtip-blue .qtip-titlebar{

@@ -164,7 +164,7 @@
 			mygrid.setSizes();
 			mygrid.setSkin("light");
 			mygrid.init();					
-			mygrid.loadXML("../controller/gridRegistro.php");			
+			mygrid.loadXML("../gridControllers/controller/gridRegistro.php");			
 		}
 	</script>
     

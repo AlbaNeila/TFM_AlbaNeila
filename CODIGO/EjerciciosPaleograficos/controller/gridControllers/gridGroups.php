@@ -1,6 +1,6 @@
 <?php    
     session_start();  
-    require_once("../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+    require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
     //Configuración Base de Datos
     define("BD", "EJPALEO");
     define("HOST", "localhost");
@@ -51,7 +51,7 @@
                             $domAtribute = $dom->createAttribute('type');
                             $domAtribute->value='img';
                             $cell->appendChild($domAtribute);
-                            $contenido = ("../public/img/alert.png' id='req".$cont." ");
+                            $contenido = ("../public/img/alert.png' id='".$cont." ");
                             $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
                     }
                     else{
@@ -65,7 +65,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/delete.png' id=".$cont."");
+                $contenido = ("../public/img/delete.png' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=3 && $i!=4 && $i!=5){

@@ -10,6 +10,15 @@
         case 'checkUpdateGrid':
             checkUpdateGrid();
             break;
+        case 'deleteGroup':
+            deleteGroup();
+            break;
+        case 'acceptRequest':
+            acceptRequest();
+            break;
+        case 'rejectRequest':
+            rejectRequest();
+            break;
     }
 
     function newGroup(){
@@ -49,5 +58,61 @@
         else{
             echo 0;
         }
+    }
+    
+    function deleteGroup(){
+        $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
+    
+        $result = mysqli_query($GLOBALS['link'],"DELETE FROM grupo WHERE grupo.idGrupo= '".$idGrupo."'");
+        
+        if($result!=FALSE){
+                    echo 1; //Delete grupo OK
+        }
+        else{
+            echo 0; //Error
+        }
+
+    }
+    
+    function acceptRequest(){
+        $idGrupo = $_POST["idGrupo"];
+        $alumnos = $_POST["alumnos"];
+        $alumnos = json_decode("$alumnos",true);
+        
+        $flag=true;
+        
+       for($cont=0; $cont < count($alumnos);$cont++){
+            $result = mysqli_query($GLOBALS['link'],"UPDATE usuario_grupo SET usuario_grupo.solicitud='0' WHERE usuario_grupo.idGrupo='".$idGrupo."' AND usuario_grupo.idUsuario='".$alumnos[$cont]."'");
+            if(!$result){
+                $flag = false;
+            }
+        }
+       if($flag){
+        echo 1;
+       }
+       else {
+        echo 0;   
+       }
+    }
+    
+    function rejectRequest(){
+        $idGrupo = $_POST["idGrupo"];
+        $alumnos = $_POST["alumnos"];
+        $alumnos = json_decode("$alumnos",true);
+        
+        $flag=true;
+        
+       for($cont=0; $cont < count($alumnos);$cont++){
+            $result = mysqli_query($GLOBALS['link'],"DELETE FROM usuario_grupo WHERE usuario_grupo.idGrupo='".$idGrupo."' AND usuario_grupo.idUsuario='".$alumnos[$cont]."'");
+            if(!$result){
+                $flag = false;
+            }
+        }
+       if($flag){
+        echo 1;
+       }
+       else {
+        echo 0;   
+       }
     }
 ?> 

@@ -115,6 +115,27 @@
         });
 	}
 	
+	function set_infoMessage(mensaje){
+		$(window).qtip({ 
+			content: mensaje,
+            style: {
+                classes: 'qtip-blue'
+            },
+            position: {
+                adjust: {
+		            x: 10
+		        }
+            },
+            show: {
+                event: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready                        
+            },
+            hide: {
+                event: false,
+                inactive:2500
+            }
+        });
+	}
 	
 	
 	
