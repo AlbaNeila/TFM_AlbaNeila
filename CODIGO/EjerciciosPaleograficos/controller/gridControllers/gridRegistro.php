@@ -1,5 +1,5 @@
 <?php      
-	require_once("../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+	require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
 	//Configuración Base de Datos
 	define("BD", "EJPALEO");
 	define("HOST", "localhost");

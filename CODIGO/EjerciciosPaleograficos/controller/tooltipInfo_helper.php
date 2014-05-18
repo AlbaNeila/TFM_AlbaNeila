@@ -7,7 +7,7 @@
 
 						    
 	
-	$result = mysqli_query($GLOBALS['link'],"SELECT grupo.descripcion FROM grupo WHERE grupo.nombre='".$grupo."'");
+	$result = mysqli_query($GLOBALS['link'],"SELECT grupo.descripcion FROM grupo WHERE grupo.nombre='".utf8_decode($grupo)."'");
     if($result!=FALSE){
     	if($row=mysqli_fetch_assoc($result)){
     		$desc = $row['descripcion'];

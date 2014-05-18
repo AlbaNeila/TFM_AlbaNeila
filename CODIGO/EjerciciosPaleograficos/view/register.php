@@ -31,6 +31,7 @@
 	    		 $(this).children("td").each(function (index2) {
 	    		 	if(index2 == 2){
 	    		 		$(this).children("img").bind('click',function($this){
+	    		 		    debugger;
 	    		 			img = this;
 	    		 			var idfila = $(this).attr("id");
 	    		 			grupo = mygrid.cellById(idfila-1, 0).getValue();
@@ -43,6 +44,7 @@
 							  },
 							  dataType:"text",	
 							  success: function(request){
+							      debugger;
 							  	set_tooltipInfo(img,request);
 							  }				  
 							});
@@ -164,7 +166,7 @@
 			mygrid.setSizes();
 			mygrid.setSkin("light");
 			mygrid.init();					
-			mygrid.loadXML("../gridControllers/controller/gridRegistro.php");			
+			mygrid.loadXML("../controller/gridControllers/gridRegistro.php");			
 		}
 	</script>
     
