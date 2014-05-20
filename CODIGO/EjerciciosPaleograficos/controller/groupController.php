@@ -19,6 +19,9 @@
         case 'rejectRequest':
             rejectRequest();
             break;
+        case 'deleteStudent':
+            deleteStudent();
+            break;
     }
 
     function newGroup(){
@@ -114,5 +117,20 @@
        else {
         echo 0;   
        }
+    }
+    
+    function deleteStudent(){
+        $idAlumno = mysqli_real_escape_string($GLOBALS['link'],$_POST['idAlumno']);
+        $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['idGrupo']);
+    
+        $result = mysqli_query($GLOBALS['link'],"DELETE FROM usuario_grupo WHERE usuario_grupo.idUsuario= '".$idAlumno."' AND usuario_grupo.idGrupo='".$idGrupo."'");
+        
+        if($result!=FALSE){
+                    echo 1; //Delete grupo OK
+        }
+        else{
+            echo 0; //Error
+        }
+
     }
 ?> 

@@ -123,6 +123,14 @@ ob_start();
                             dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar grupo"))?>'); 
                         });
                     }
+                    if(index2 == 6){ //Imagen entrar
+                        $(this).children("img").bind('click',function($this){
+                            var idfila = $(this).attr("id");
+                            var idGrupo = mygrid.cells(idfila-1, 0).getValue();
+                            var grupo = mygrid.cells(idfila-1, 1).getValue();
+                            window.location.href = 'groupTeacherStudents.php?grupo='+grupo+'&idGrupo='+idGrupo;
+                        });
+                    }
                 });
             });
         },6000);
@@ -234,14 +242,14 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("Codigo grupo, Nombre, Descripción, Nº alumnos, Solicitudes, Eliminar");
-            mygrid.setInitWidths("125,*,*,125,100,100");
-            mygrid.setColAlign("left,left,left,left,center,center");
-            mygrid.setColTypes("ro,ed,ed,ro,ro,ro");
+            mygrid.setHeader("Codigo grupo, Nombre, Descripción, Nº alumnos, Solicitudes, Eliminar,Entrar");
+            mygrid.setInitWidths("125,*,*,125,100,100,100");
+            mygrid.setColAlign("left,left,left,left,center,center,center");
+            mygrid.setColTypes("ro,ed,ed,ro,ro,ro,ro");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,200);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,false,false,false,false");
+            mygrid.enableTooltips("false,true,false,false,false,false,false");
             mygrid.setSizes();
             mygrid.setSkin("light");
             mygrid.init();                  
@@ -255,7 +263,7 @@ ob_start();
                         row[cont]=c.getValue();
                         cont++;
                     });
-                    row[1]=nValue;
+                    //row[1]=nValue;
                     if(nValue == ""){
                         set_tooltip($('.cellSelected'),"<?php echo(_("No puede estar vacío."));?>");
                         return false;

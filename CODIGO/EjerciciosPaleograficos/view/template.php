@@ -27,13 +27,16 @@ include('../init.php');
 	<script>
 		function changeLanguage(language){
 			var request = $.ajax({
-			  type: "GET",
-			  url: "../init.php",
+			  type: "POST",
+			  url: "../controller/languageController.php",
 			  async: false,
 			  data: {
 			  	lang: language
 			  },
 			  dataType: "script",	
+			  success:function(){
+			      location.reload();
+			  }
 			});
 		}
 	</script>

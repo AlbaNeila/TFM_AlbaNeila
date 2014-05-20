@@ -5,19 +5,24 @@ ob_start();
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
 
 <script src="../lib/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
-
 <script src="../lib/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
+<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
+
 <script>
 
     function validateForm() {
+        var flag = false;
         var u = check_empty($("#nombrecoleccion"));
         var p = check_empty($("#descripcioncoleccion"));
-        debugger;
-        var combo = combo.getSelectedIndex(); 
-        var flag = false;
+
+        var checked_array = combo.getChecked();
+        if(checked_array.length == 0){
+            set_tooltip($("#combo_zone"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
+            flag=false;
+        }
         
-        if(u || p){
+        if(u || p || !flag){
             flag= false;
         }
         else{
@@ -26,21 +31,112 @@ ob_start();
               url: "../controller/collectionController.php",
               async: false,
               data: {
-                method:"newCollection", collection: $("#nombrecoleccion").val(), description: $("#descripcioncoleccion").val(), group: combo.getActualValue(),ordered: $("#ordenadacoleccion")[0].selectedIndex
+                method:"newCollection", collection: $("#nombrecoleccion").val(), description: $("#descripcioncoleccion").val(), groups: JSON.stringify(checked_array),ordered: $("#ordenadacoleccion")[0].selectedIndex
               },
               dataType: "script",   
             });
             request.success(function(request){
+                    if($.trim(request) == "0"){
+                        flag= false;
+                        alert("error");
+                    }
                     if($.trim(request) == "1"){
                         flag= true;
                     }
-                    else{
+                    if($.trim(request) == "2"){
                         flag= false;
                         set_tooltip($("#nombregrupo"),"<?php echo(_("Ya existe una colección con el mismo nombre. Por favor, introduzca un nombre de colección diferente."));?>");
                     }
             });
         }       
         return flag;
+    }
+    
+    function addEventsToImages(){
+    $(window).ready(function() { 
+        setTimeout(function() {
+            var td;
+            var img;
+            var grupo;
+            $('.objbox tr').each(function (index){
+                 $(this).children("td").each(function (index2) {
+                    if(index2 == 6){ //Imagen eliminar colección 
+                        $(this).children("img").bind('click',function($this){
+                            var idfila = $(this).attr("id");
+                            var coleccion = mygrid.cells(idfila, 0).getValue();
+                             var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
+                              ok = $('<button />', {text: 'Ok', click: function() {deleteCollection(coleccion);}}),
+                              cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+                        
+                            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 
+                        });
+                    }
+                    if(index2 == 7){ //Imagen entrar
+                        $(this).children("img").bind('click',function($this){
+                            var idfila = $(this).attr("id");
+                            var idColeccion = mygrid.cells(idfila, 0).getValue();
+                            var coleccion = mygrid.cells(idfila, 1).getValue();
+                            window.location.href = 'documentTeacher.php?coleccion='+coleccion+'&idColeccion='+idColeccion;
+                        });
+                    }
+                });
+            });
+        },6000);
+    });
+}
+
+function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
+            },
+            position: {
+                my: 'center', at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
+            },
+            hide: false,
+            style: {classes: 'qtip-blue'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
+            }
+        });
+    }
+
+    function deleteCollection(coleccion){
+        if(coleccion!=""){
+            var request = $.ajax({
+              type: "POST",
+              url: "../controller/collectionController.php",
+              async: false,
+              data: {
+                method:"deleteCollection", coleccion: coleccion
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridCollections.php",addEventsToImages);  
+                    }
+                    else{
+                        alert("error");
+                    }
+            });
+        }
     }
 </script>
 <?php
@@ -57,10 +153,10 @@ ob_start();
                 <input type="text" id="descripcioncoleccion" />
                 <label><?php echo(_("Grupo"));?></label>
                 
-                <div id="combo_zone" style="width:200px; height:30px;"></div>
+                <div id="combo_zone" style="width:200px; height:20px;"></div>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
-                    var combo = new dhtmlXCombo("combo_zone","comboGroups",155);
+                    var combo = new dhtmlXCombo("combo_zone","comboGroups",200,'checkbox');
                     combo.enableOptionAutoWidth(true);
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
@@ -68,7 +164,7 @@ ob_start();
                 </script>
                 
                  <label><?php echo(_("Ordenada"));?></label>
-                <select id="ordenadacoleccion">
+                <select id="ordenadacoleccion" >
                   <option value="no"><?php echo(_("No"));?></option>
                   <option value="yes"><?php echo(_("Sí"));?></option>
                 </select>
@@ -80,19 +176,59 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("Codigo colección, Nombre, Descripción, Nº documentos, Nº grupos, Ordenada, Eliminar");
-            mygrid.setInitWidths("125,*,*,125,100,100,100");
-            mygrid.setColAlign("left,left,left,center,center,center,center");
-            mygrid.setColTypes("ro,ed,ed,ro,ro,co,img");
+            mygrid.setHeader("Codigo colección, Nombre, Descripción, Nº documentos, Nº grupos, Ordenada, Eliminar, Entrar");
+            mygrid.setInitWidths("125,*,*,125,100,100,100,100");
+            mygrid.setColAlign("left,left,left,center,center,center,center,center");
+            mygrid.setColTypes("ro,ed,ed,ro,ro,co,img,img");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,200);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,true,false,false,false,false");
+            mygrid.enableTooltips("false,true,true,false,false,false,false,false");
             mygrid.setSizes();
             mygrid.setSkin("light");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
-            
+            mygrid.loadXML("../controller/gridControllers/gridCollections.php",addEventsToImages);  
+            mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
+                if (stage == 2){
+                    debugger;
+                    var row = new Array();
+                    var cont = 0;
+                    var flag;
+                    mygrid.forEachCell(rId,function(c){
+                        row[cont]=c.getValue();
+                        cont++;
+                    });
+                    //row[1]=nValue;
+                    if(nValue == ""){
+                        set_tooltip($('.cellSelected'),"<?php echo(_("No puede estar vacío."));?>");
+                        return false;
+                    }
+                    else{
+                        var request = $.ajax({
+                          type: "POST",
+                          url: "../controller/collectionController.php",
+                          async: false,
+                          data: {
+                            method:"checkUpdateGrid", row:JSON.stringify(row) 
+                          }  
+                        });
+                        request.success(function(request){
+                                if($.trim(request) == "1"){
+                                    mygrid.cellById(rId, cInd).setValue(nValue); 
+                                    mygrid.editStop();
+                                    flag= true;
+                                }
+                                else{ 
+                                    set_tooltip($('.cellSelected'),"<?php echo(_("Ya existe un grupo con el mismo nombre. Por favor, introduzca un nombre de grupo diferente."));?>");
+                                    mygrid.cells(rId,cInd).setValue(oValue);
+                                    mygrid.editStop(true);
+                                    flag= false;
+                                }
+                        });
+                    }
+                    return flag;
+                }
+            });
         </script>
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();

@@ -30,7 +30,7 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=5;$i++){
+      for($i=0;$i<=6;$i++){
             if($i==3){ //columna nº alumnos
             $numalumnos = "";
             $idGrupo = $fila[0];
@@ -68,7 +68,15 @@
                 $contenido = ("../public/img/delete.png' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=3 && $i!=4 && $i!=5){
+            if($i==5){ //Columna de la imagen entrar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = ("../public/img/enter.png' id='".$cont."");
+                $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
+            }
+            if($i!=3 && $i!=4 && $i!=5 && $i!=6){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));

@@ -30,7 +30,7 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=6;$i++){
+      for($i=0;$i<=7;$i++){
           if($i==3){ //columna nº de documentos
             $numdocumentos = "";
             $idColeccion = $fila[0];
@@ -64,12 +64,47 @@
                 $contenido = ("../public/img/delete.png' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i==5){ //Columna ordenada -> para que no se salga del índice de $i
-                $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                $contenido = ("$fila[3]");
+            if($i==7){ //Columna de la imagen entrar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = ("../public/img/enter.png' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=3 && $i!=4 && $i!=6 && $i!=5){
+            if($i==5){ //Columna ordenada -> para que no se salga del índice de $i
+            $c= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
+                $c->appendChild($domAtribute);
+            
+                $cell= $c->appendChild($dom->createElement("column")); 
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='co';
+                $cell->appendChild($domAtribute);
+                
+                $option=$cell->appendChild($dom->createElement("option"));
+                $option->appendChild($dom->createCDATASection("NO"));
+                $domAtribute = $dom->createAttribute('value');
+                $domAtribute->value='0';
+                $option->appendChild($domAtribute);
+                if($fila[3] == 0){
+                    $domAtribute = $dom->createAttribute('selected');
+                    $domAtribute->value='true';
+                    $option->appendChild($domAtribute);
+                }
+                $option=$cell->appendChild($dom->createElement("option"));
+                $option->appendChild($dom->createCDATASection("SI"));
+                $domAtribute = $dom->createAttribute('value');
+                $domAtribute->value='1';
+                $option->appendChild($domAtribute);
+                if($fila[3] == 1){
+                    $domAtribute = $dom->createAttribute('selected');
+                    $domAtribute->value='true';
+                    $option->appendChild($domAtribute);
+                }
+                
+
+            }
+            if($i!=3 && $i!=4 && $i!=6 && $i!=5 && $i!=7){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
