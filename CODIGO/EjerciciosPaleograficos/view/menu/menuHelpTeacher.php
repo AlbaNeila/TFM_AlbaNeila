@@ -1,5 +1,6 @@
 <?php
         ob_start();
+        include('../init.php');
         $tipoUsuario = $_SESSION['usuario_tipo'];
         if($tipoUsuario == 'ALUMNO'){
 ?>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+include('../init.php');
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
 
@@ -176,7 +177,7 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("Codigo colección, Nombre, Descripción, Nº documentos, Nº grupos, Ordenada, Eliminar, Entrar");
+            mygrid.setHeader("<?php echo(_("Código colección"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº documentos"));?>, <?php echo(_("Nº grupos"));?>, <?php echo(_("Ordenada"));?>, <?php echo(_("Eliminar"));?>, <?php echo(_("Acceder"));?>");
             mygrid.setInitWidths("125,*,*,125,100,100,100,100");
             mygrid.setColAlign("left,left,left,center,center,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ro,ro,co,img,img");

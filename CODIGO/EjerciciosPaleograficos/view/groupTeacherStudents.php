@@ -95,7 +95,7 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("Nombre, Apellidos, Email, Eliminar");
+            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Eliminar"));?>");
             mygrid.setInitWidths("*,*,*,100");
             mygrid.setColAlign("left,left,left,center");
             mygrid.setColTypes("ro,ro,ro,img");

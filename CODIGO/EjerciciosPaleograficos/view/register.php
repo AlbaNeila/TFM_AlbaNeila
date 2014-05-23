@@ -44,7 +44,6 @@
 							  },
 							  dataType:"text",	
 							  success: function(request){
-							      debugger;
 							  	set_tooltipInfo(img,request);
 							  }				  
 							});

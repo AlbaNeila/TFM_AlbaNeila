@@ -242,7 +242,7 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("Codigo grupo, Nombre, Descripción, Nº alumnos, Solicitudes, Eliminar,Entrar");
+            mygrid.setHeader("<?php echo(_("Código grupo"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº alumnos"));?>, <?php echo(_("Solicitudes"));?>, <?php echo(_("Eliminar"));?>,<?php echo(_("Acceder"));?>");
             mygrid.setInitWidths("125,*,*,125,100,100,100");
             mygrid.setColAlign("left,left,left,left,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ro,ro,ro,ro");
@@ -305,7 +305,7 @@ ob_start();
         <script>
             var mygrid2 = new dhtmlXGridObject('gridRequests');
             mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid2.setHeader("Nombre, Apellidos, Email, Seleccionar");
+            mygrid2.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Seleccionar"));?>");
             mygrid2.setInitWidths("*,*,*,100");
             mygrid2.setColAlign("left,left,left,center");
             mygrid2.setColTypes("ro,ro,ro,ch");
