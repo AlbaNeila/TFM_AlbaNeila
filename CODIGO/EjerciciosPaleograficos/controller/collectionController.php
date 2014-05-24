@@ -23,7 +23,7 @@
         $groups = $_POST["groups"];
         $groups = json_decode("$groups",true);
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion.nombre FROM coleccion WHERE coleccion.nombre= '".$collection."'");
+        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion.nombre FROM coleccion WHERE coleccion.nombre= '".utf8_decode($collection)."'");
         
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección

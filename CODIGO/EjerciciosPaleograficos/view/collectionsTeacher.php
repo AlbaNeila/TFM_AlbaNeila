@@ -13,7 +13,7 @@ include('../init.php');
 <script>
 
     function validateForm() {
-        var flag = false;
+        var flag = true;
         var u = check_empty($("#nombrecoleccion"));
         var p = check_empty($("#descripcioncoleccion"));
 
@@ -46,7 +46,7 @@ include('../init.php');
                     }
                     if($.trim(request) == "2"){
                         flag= false;
-                        set_tooltip($("#nombregrupo"),"<?php echo(_("Ya existe una colección con el mismo nombre. Por favor, introduzca un nombre de colección diferente."));?>");
+                        set_tooltip($("#nombrecoleccion"),"<?php echo(_("Ya existe una colección con el mismo nombre. Por favor, introduzca un nombre de colección diferente."));?>");
                     }
             });
         }       

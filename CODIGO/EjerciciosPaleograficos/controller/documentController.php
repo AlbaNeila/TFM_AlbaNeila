@@ -7,6 +7,15 @@
         case 'deleteDoc':
             deleteDoc();
             break;
+        case 'checkUpdateGrid':
+            checkUpdateGrid();
+            break;
+        case 'checkNameDocument':
+            checkNameDocument();
+            break;
+        case 'updatePermissionsGroup':
+            updatePermissionsGroup();
+            break;
     }
     
     function deleteDoc(){
@@ -28,5 +37,70 @@
             echo 0; //Error
         }
 
+    }
+    
+    function checkNameDocument(){
+        $document = $_POST['document'];
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".utf8_decode($document)."'");
+        
+        if($result!=FALSE){
+            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre
+                echo 1;
+            }
+            else{
+                echo 2;
+            }
+        }else{
+            echo 0;
+        }
+        
+    }
+    
+    function checkUpdateGrid(){
+        $row = $_POST["row"];
+        $row = json_decode("$row",true);
+        $idDocument = $_POST['idDoc'];
+        
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".$row[0]."' and documento.idDocumento<>'".$idDocument."'");
+        
+        if($result!=FALSE){
+            if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre, por lo que actualizamos la fila
+                $result2 = mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.nombre='".utf8_decode($row[0])."', documento.descripcion='".utf8_decode($row[1])."',documento.fecha='".utf8_decode($row[2])."' ,documento.tipoEscritura='".utf8_decode($row[3])."' WHERE documento.idDocumento='".$idDocument."'");
+                if($result2!=FALSE)
+                    echo 1;
+            }
+            else{
+                echo 0;
+            }
+        }
+        else{
+            echo 0;
+        }
+    }
+
+    function updatePermissionsGroup(){
+        $groups = $_POST["groups"];
+        $groups= json_decode("$groups",true);
+        $permissions = $_POST["permissions"];
+        $permissions= json_decode("$permissions",true);
+        $idCollection = $_POST['idCollection'];
+        
+        $cont=0;
+        
+        
+        foreach($groups as $group){
+            $result = mysqli_query($GLOBALS['link'],"SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$grupo."' and grupo_coleccion.idColeccion='".$idCollection."'");
+            if($permissions[cont]==true){
+                if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
+                    
+                }
+            }
+            else{
+                if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
+                }
+            }
+            $cont++;
+        }
+        
     }
 ?> 
