@@ -9,8 +9,6 @@ $coleccion=$_REQUEST['coleccion'];
 if(isset($_REQUEST['idColeccion'])){
 $idColeccion=$_REQUEST['idColeccion'];
 }
-$dataCollection = "../controller/documentController.php?coleccion=$coleccion&idColeccion=$idColeccion";
-
 ob_start();
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
@@ -55,7 +53,6 @@ ob_start();
                  $(this).children("td").each(function (index2) {
                     if(index2 == 6){ //Imagen eliminar documento 
                         $(this).children("img").bind('click',function($this){
-                            debugger;
                             var idfila = $(this).attr("id");
                             var doc = mygrid.cellById(idfila-1,0).getAttribute("idDoc");
                              var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el documento? Se eliminarán también los ejercicios creados a partir de él."));?>'}),
@@ -68,9 +65,16 @@ ob_start();
                     if(index2 == 7){ //Imagen modificar ficheros
                         $(this).children("img").bind('click',function($this){
                             var idfila = $(this).attr("id");
-                            var idGrupo = mygrid.cells(idfila-1, 0).getValue();
-                            var grupo = mygrid.cells(idfila-1, 1).getValue();
-                            window.location.href = 'groupTeacherStudents.php?grupo='+grupo+'&idGrupo='+idGrupo;
+                            var doc = mygrid.cellById(idfila-1,0).getAttribute("idDoc");
+                            //Agregamos un hidden con el id del doc seleccionado
+                            var input = document.createElement("input");
+                            input.setAttribute("type", "hidden");                           
+                            input.setAttribute("id", "idHidden");                            
+                            input.setAttribute("value", doc);
+                            input.setAttribute("name","idDoc");
+                            var modal = document.getElementById("openModal");
+                            document.getElementById("formChangeDoc").appendChild(input);
+                            window.location = $('#anchorOpenModal').attr('href');
                         });
                     }
                 });
@@ -111,7 +115,6 @@ ob_start();
     
     function deleteDoc(doc){
         if(doc!=""){
-            debugger;
             var request = $.ajax({
               type: "POST",
               url: "../controller/documentController.php",
@@ -122,7 +125,6 @@ ob_start();
               dataType: "script",   
             });
             request.success(function(request){
-                debugger;
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>,addEventsToImages);
@@ -132,6 +134,26 @@ ob_start();
                     }
             });
         }
+    }
+    
+    function validateChange() {
+        var flag = true;
+        var i = check_empty($("#changeimagen"));
+        var tr = check_empty($("#changetranscripcion"));
+        
+        if($("#changetranscripcion").val()!=""){
+            var file = $("#changetranscripcion").val();
+            var ext = file.split('.').pop().toLowerCase();
+           if ($.inArray(ext, ['xml']) == -1) {
+                set_tooltip($("#changetranscripcion"),"<?php echo(_("La transcripción debe ser un archivo con extensión .xml"));?>");
+                flag = false;
+            } 
+        }
+        
+        if(i || tr || !flag){
+            flag= false;
+        }
+        return flag;
     }
 
 </script>
@@ -145,7 +167,7 @@ ob_start();
         <h3><?php echo(_("Colección: ")).$coleccion;?></h3>
         
         <div class="divForm" style="width:22%;min-width:278px;" >
-            <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php" onsubmit="return validateForm()" >
+            <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocs" onsubmit="return validateForm()" >
                 <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                 <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
                 <h3><?php echo(_("Añadir nuevo documento"));?></h3>
@@ -180,11 +202,31 @@ ob_start();
             mygrid.enableAutoWidth(true);
             mygrid.enableTooltips("false,true,true,false,false,false,false,false");
             mygrid.setSizes();
-            mygrid.setSkin("light");
+            mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>,addEventsToImages);
          </script>
          </div> 
+         
+         <a href="#openModal" id="anchorOpenModal"></a>
+        <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                <form method="post" enctype="multipart/form-data" id="formChangeDoc" action="../controller/addDocumentController.php?method=changeDocs" onsubmit="return validateChange()" >
+                    <h3><?php echo(_("Modificar ficheros"));?></h3>
+                    <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
+                    <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
+                    <label><?php echo(_("Imagen"));?></label>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    <input type="file" id="changeimagen" name="changeimagen"/>
+                    <label><?php echo(_("Transcripción"));?></label>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    <input type="file" id="changetranscripcion" name="changetranscripcion"/>
+                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    <input  type="submit" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
+                </form>
+            </div>
+        </div>
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');

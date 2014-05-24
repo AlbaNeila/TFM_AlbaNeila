@@ -4,7 +4,7 @@ ob_start();
 include('../init.php');
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
-
+<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlx_custom.css">  
 <script src="../lib/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
@@ -158,6 +158,7 @@ ob_start();
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_zone","comboGroups",200,'checkbox');
+                    dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
@@ -186,7 +187,7 @@ ob_start();
             mygrid.enableAutoWidth(true);
             mygrid.enableTooltips("false,true,true,false,false,false,false,false");
             mygrid.setSizes();
-            mygrid.setSkin("light");
+            mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridCollections.php",addEventsToImages);  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){

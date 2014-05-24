@@ -5,7 +5,8 @@ include('../init.php');
   <head>
   	<meta content="text/html; charset=utf-8"/>
 	<title>UBUPal</title>	
-	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">	
+	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
+	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlx_custom.css">   	
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:800italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="../public/css/ubupaleo_styles.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_gridstyles.css" />

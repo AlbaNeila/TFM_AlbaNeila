@@ -184,7 +184,6 @@ ob_start();
         var grupos = new Array();
         var alumnos = new Array();
         var cont = 0;
-        debugger;
         mygrid2.forEachRow(function(id){
             mygrid2.forEachCell(id,function(c){
                if(c.isChecked()){
