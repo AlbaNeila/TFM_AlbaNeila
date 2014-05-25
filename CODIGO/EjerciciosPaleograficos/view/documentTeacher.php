@@ -182,22 +182,28 @@ ob_start();
     }
     
     function saveGroupPermissions(){
-        debugger;
         var groups = new Array();
         var permissions = new Array();
         var cont=0;
+        var cont2=0;
         mygrid2.forEachRow(function(id){
              groups[cont] = mygrid2.cellById(id,0).getAttribute("idGroup");
-             var html = mygrid2.cells(id,1).getValue();
-             var check = html.split(" ");
-             if(check.length==3){
-                 permissions[cont]=false;
-             }
-             else{
-                 permissions[cont]=true;
-             }
              cont++;
         });
+        
+         $('#gridGestionGrupos .objbox tr').each(function (index){
+            $(this).children("td").each(function (index2) {
+                if(index2 == 1){ //Permitir
+                    if($(this).children("input").is(':checked')){ 
+                       permissions[cont2]=true;
+                    }else{
+                        permissions[cont2]=false;
+                    }
+                    cont2++;
+                }
+            });
+         });
+        
         var request = $.ajax({
               type: "POST",
               url: "../controller/documentController.php",
@@ -209,7 +215,7 @@ ob_start();
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
-                        alert("true");
+                        window.location = $('#closeModal').attr('href');
                     }
                     else{
                         alert("error");
@@ -254,11 +260,11 @@ ob_start();
         <a href="#gestionarGrupos"><?php echo(_("Gestionar grupos"));?></a>
         <div id="gestionarGrupos" class="modalDialog2">
             <div>
-                <a href="#close" id="closeModal" title="Close2" class="close">X</a>
+                <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
                     <h3><?php echo(_("Gestionar grupos"));?></h3>
                     <label><?php echo $coleccion;?></label>
-                    <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
-                    <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
+                    <input type="hidden" id="coleccion" name="coleccion" value="<?php echo $coleccion;?>">
+                    <input type="hidden" id="idColeccion" name="idColeccion" value="<?php echo $idColeccion;?>">
                     
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
                     <script>

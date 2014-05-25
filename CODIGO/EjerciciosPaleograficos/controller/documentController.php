@@ -86,21 +86,28 @@
         $idCollection = $_POST['idCollection'];
         
         $cont=0;
-        
+        $flag=1;
         
         foreach($groups as $group){
-            $result = mysqli_query($GLOBALS['link'],"SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$grupo."' and grupo_coleccion.idColeccion='".$idCollection."'");
-            if($permissions[cont]==true){
+            $result = mysqli_query($GLOBALS['link'],"SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$group."' and grupo_coleccion.idColeccion='".$idCollection."'");
+            if($permissions[$cont]==true){
                 if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
-                    
+                     $insert = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".$group."','".$idCollection."')");
+                     if(!$insert){
+                         $flag = 0;
+                     }
                 }
             }
             else{
                 if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
+                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$group."' AND grupo_coleccion.idColeccion='".$idCollection."'");
+                    if(!$delete){
+                         $flag = 0;
+                     }
                 }
             }
             $cont++;
         }
-        
+        echo $flag;
     }
 ?> 

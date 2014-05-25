@@ -56,7 +56,7 @@ ob_start();
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200);
-                    dhtmlx.skin = 'dhx_skyblue';
+                    //dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
