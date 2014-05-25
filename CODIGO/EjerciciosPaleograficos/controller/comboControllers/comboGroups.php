@@ -10,7 +10,7 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $result = mysql_query("SELECT grupo.nombre FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
+    $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -22,7 +22,7 @@
         if($cont == 0){
             $domElement = $dom->createElement("option");
             $domAtribute = $dom->createAttribute('value');
-            $domAtribute->value=utf8_encode($fila[0]);
+            $domAtribute->value=utf8_encode($fila[1]);
             $domElement->appendChild($domAtribute);
             $row = $rows->appendChild($domElement);
             $domAtribute = $dom->createAttribute('selected');
@@ -33,7 +33,7 @@
         }else{
             $domElement = $dom->createElement("option");
             $domAtribute = $dom->createAttribute('value');
-            $domAtribute->value=utf8_encode($fila[0]);
+            $domAtribute->value=utf8_encode($fila[1]);
             $domElement->appendChild($domAtribute);
             $row = $rows->appendChild($domElement);
             $row->appendChild($dom->createCDATASection(utf8_encode($fila[0])));
