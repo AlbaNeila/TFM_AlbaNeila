@@ -40,16 +40,38 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu1.php');
 ob_start();
 ?>
-        <div class="divForm" style="width:22%;min-width:278px;" action="groupTeacher.php" method="post" onsubmit="return validateForm()">
-            <form>
-                <h3><?php echo(_("USUARIOS"));?></h3>
+    <div class="submenu">
+        <div class="submenuitem"><a href="usersAdmin.php" style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>
+        <div class="submenuitem"><a href="#"><?php echo(_("Profesores"));?></a></div>
+        <div class="submenuitem"><a href="#"><?php echo(_("Grupos"));?></a></div>
+    </div>
+
+    <div class="formulario"  action="groupTeacher.php" method="post" onsubmit="return validateForm()">
+        <form>
+            <fieldset>
+            <legend><h3><?php echo(_("Nuevo alumno"));?></h3></legend>
+            <div class="blockformulario">
                 <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombregrupo">
-                <label><?php echo(_("Descripción"));?></label>
-                <input type="text" id="descripciongrupo" />
-                <input  type="submit" name="newTeacher" value="<?php echo(_("Añadir"));?>" id="newTeacher" />
-            </form>
-        </div>       
+                <input type="text" id="nombrealumno">              
+                <label><?php echo(_("DNI"));?></label>
+                <input type="text" id="dnialumno" />
+            </div>
+            <div class="blockformulario">
+                <label><?php echo(_("Apellidos"));?></label>
+                <input type="text" id="apellidosalumno" />
+                <label><?php echo(_("Contraseña"));?></label>
+                <input type="text" id="passwordalumno" />
+            </div>
+            <div class="blockformulario">
+                <label><?php echo(_("Email"));?></label>
+                <input type="text" id="emailalumno"/>
+            </div>
+            <div style="clear: both">
+            <input  type="submit" name="newStudent" value="<?php echo(_("Crear"));?>" id="newStudent" />
+            </div>
+            </fieldset>        
+        </form>
+    </div>       
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
