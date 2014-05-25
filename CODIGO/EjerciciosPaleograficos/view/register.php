@@ -163,7 +163,7 @@
 			mygrid.enableAutoWidth(true);
 			mygrid.enableTooltips("true,true,false,false");
 			mygrid.setSizes();
-			mygrid.setSkin("light");
+			mygrid.setSkin("dhx_skyblue");
 			mygrid.init();					
 			mygrid.loadXML("../controller/gridControllers/gridRegistro.php");			
 		}

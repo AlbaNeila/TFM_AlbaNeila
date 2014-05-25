@@ -25,7 +25,7 @@
 	    else{
 			var request = $.ajax({
 			  type: "POST",
-			  url: "../controller/loginController.php",
+			  url: "../controller/loginController.php?method=checkLogin",
 			  async: false,
 			  data: {
 			  	usuario: $("#usuario").val(), password: $("#password").val()
@@ -52,7 +52,7 @@
 	    if(empty($_SESSION['usuario_nombre'])) { // comprobamos que las variables de sesión estén vacías        
 	?>			
 	<div class="formsInicio" style="width:22%;min-width:278px;">
-        <form action="groupTeacher.php" method="post" onsubmit="return validateForm()">
+        <form action="../controller/loginController.php?method=login" method="post" onsubmit="return validateForm()">
         	<h2><?php echo(_("Acceso UBUPal"));?></h2>
         	<label><?php echo(_("DNI:"));?></label>
 			<input  type="text" name="usuario_nombre" id="usuario" />
@@ -65,7 +65,15 @@
     </div>
 	<?php
 	    }else {
-			header("Location: groupTeacher.php");
+    		if($_SESSION['usuario_tipo'] == "ADMIN"){
+                header("Location: ../view/groupTeacher.php");
+            }
+            if($_SESSION['usuario_tipo'] == "PROFESOR"){
+                header("Location: ../view/usersAdmin.php");
+            }
+            if($_SESSION['usuario_tipo'] == "ALUMNO"){
+                header("Location: ../view/groupTeacher.php");
+            }
 	    }
 	?>
 </body>

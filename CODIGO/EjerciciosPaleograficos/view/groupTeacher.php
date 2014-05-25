@@ -224,7 +224,7 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menuGroupTeacher.php');
+include ('/menu/menu2.php');
 ob_start();
 ?>
         <div class="divForm" style="width:22%;min-width:278px;" action="groupTeacher.php" method="post" onsubmit="return validateForm()">
@@ -243,14 +243,14 @@ ob_start();
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid.setHeader("<?php echo(_("Código grupo"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº alumnos"));?>, <?php echo(_("Solicitudes"));?>, <?php echo(_("Eliminar"));?>,<?php echo(_("Acceder"));?>");
             mygrid.setInitWidths("125,*,*,125,100,100,100");
-            mygrid.setColAlign("left,left,left,left,center,center,center");
+            mygrid.setColAlign("left,left,left,center,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ro,ro,ro,ro");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,200);
             mygrid.enableAutoWidth(true);
             mygrid.enableTooltips("false,true,false,false,false,false,false");
             mygrid.setSizes();
-            mygrid.setSkin("light");
+            mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridGroups.php",addEventsToImages);  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
@@ -313,7 +313,7 @@ ob_start();
             mygrid2.enableAutoWidth(true);
             mygrid2.enableTooltips("true,true,true,false");
             mygrid2.setSizes();
-            mygrid2.setSkin("light");
+            mygrid2.setSkin("dhx_skyblue");
             mygrid2.init();
         </script>
             <input  type="submit" name="enviar" onclick="aceptarSolicitud()" value="<?php echo(_("Aceptar"));?>" id="aceptarSol"  />

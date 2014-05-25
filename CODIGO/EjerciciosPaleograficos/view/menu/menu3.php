@@ -36,10 +36,10 @@
         }else{
         ?>
         <ul id="menu">
-            <li><a href="#" style="text-decoration:underline"><?php echo(_("Usuarios"));?></a></li>
-            <li><a href="#"><?php echo(_("Colecciones"));?></a></li>
-            <li><a href="#"><?php echo(_("Ejercicios"));?></a></li>
-            <li><a href="#"><?php echo(_("Estadísticas"));?></a></li>
+            <li><a href="usersAdmin.php"><?php echo(_("Usuarios"));?></a></li>
+            <li><a href="collectionsAdmin.php"><?php echo(_("Colecciones"));?></a></li>
+            <li><a href="exercisesAdmin.php" style="text-decoration:underline"><?php echo(_("Ejercicios"));?></a></li>
+            <li><a href="statisticsAdmin.php"><?php echo(_("Estadísticas"));?></a></li>
         </ul>
         <ul id="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>

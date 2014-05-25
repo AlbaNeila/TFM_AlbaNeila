@@ -104,7 +104,7 @@ ob_start();
             mygrid.enableAutoWidth(true);
             mygrid.enableTooltips("true,true,true,false");
             mygrid.setSizes();
-            mygrid.setSkin("light");
+            mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>,addEventsToImages);  
         </script>

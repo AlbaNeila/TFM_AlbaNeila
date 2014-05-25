@@ -56,7 +56,7 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menuExercisesTeacher.php');
+include ('/menu/menu3.php');
 ob_start();
 ?>
         <div class="divForm" style="width:22%;min-width:278px;" action="exercisesTeacher.php" method="post" onsubmit="return validateForm()">

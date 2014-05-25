@@ -142,7 +142,7 @@ function dialogue(content, title) {
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menuCollectionsTeacher.php');
+include ('/menu/menu1.php');
 ob_start();
 ?>
         <div class="divForm" style="width:22%;min-width:278px;" action="collectionsTeacher.php" method="post" onsubmit="return validateForm()">
