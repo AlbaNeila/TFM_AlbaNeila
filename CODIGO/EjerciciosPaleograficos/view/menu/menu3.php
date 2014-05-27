@@ -4,13 +4,13 @@
         $tipoUsuario = $_SESSION['usuario_tipo'];
         if($tipoUsuario == 'ALUMNO'){
 ?>
-        <ul id="menu">
+        <ul class="menu">
             <li><a href="#" style="text-decoration:underline"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="#"><?php echo(_("Grupos"));?></a></li>
             <li><a href="#"><?php echo(_("Estadísticas"));?></a></li>
             <li><a href="#"><?php echo(_("Ayuda"));?></a></li>
         </ul>
-        <ul id="menu2">
+        <ul class="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
@@ -19,14 +19,14 @@
         <?php
         }elseif($tipoUsuario == 'PROFESOR'){
         ?>
-        <ul id="menu">
+        <ul class="menu">
             <li><a href="collectionsTeacher.php" ><?php echo(_("Colecciones"));?></a></li>
             <li><a href="groupTeacher.php" ><?php echo(_("Grupos"));?></a></li>
             <li><a href="exercisesTeacher.php" style="text-decoration: underline"><?php echo(_("Ejercicios"));?></a></li>
             <li><a href="statisticsTeacher.php"><?php echo(_("Estadísticas"));?></a></li>
             <li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
-        <ul id="menu2">
+        <ul class="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
@@ -35,13 +35,13 @@
         <?php
         }else{
         ?>
-        <ul id="menu">
+        <ul class="menu">
             <li><a href="usersAdmin.php"><?php echo(_("Usuarios"));?></a></li>
             <li><a href="collectionsAdmin.php"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="exercisesAdmin.php" style="text-decoration:underline"><?php echo(_("Ejercicios"));?></a></li>
             <li><a href="statisticsAdmin.php"><?php echo(_("Estadísticas"));?></a></li>
         </ul>
-        <ul id="menu2">
+        <ul class="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>

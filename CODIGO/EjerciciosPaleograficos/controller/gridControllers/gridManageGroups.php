@@ -14,9 +14,14 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
     
-    $idColeccion = $_REQUEST['idColeccion'];
-    $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
-    $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idColeccion."'");
+    $idSearched = $_REQUEST['idSearched'];
+    if($_REQUEST['method'] == 'student'){
+        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
+        $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."'");
+    }else{
+        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
+        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idColeccion."'");
+    }
     
     $grupos = array();
     while($row = mysql_fetch_array($result2))

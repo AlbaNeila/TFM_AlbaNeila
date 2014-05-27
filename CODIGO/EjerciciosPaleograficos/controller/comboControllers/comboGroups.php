@@ -10,7 +10,13 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
+    if($_REQUEST['method']=="admin"){
+        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo");
+    }
+    else{
+        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
+    }
+    
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

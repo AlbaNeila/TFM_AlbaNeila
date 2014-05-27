@@ -227,17 +227,23 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu2.php');
 ob_start();
 ?>
-        <div class="divForm" style="width:22%;min-width:278px;" action="groupTeacher.php" method="post" onsubmit="return validateForm()">
-            <form>
-                <h3><?php echo(_("Añadir nuevo grupo"));?></h3>
+        <div class="formulario" >
+            <form  action="groupTeacher.php" method="post" onsubmit="return validateForm()">
+                <fieldset>
+                <legend><h3><?php echo(_("Añadir nuevo grupo"));?></h3></legend>
+                <div class="blockformulario">
                 <label><?php echo(_("Nombre"));?></label>
                 <input type="text" id="nombregrupo">
                 <label><?php echo(_("Descripción"));?></label>
                 <input type="text" id="descripciongrupo" />
+                </div>
+                <div style="clear: both">
                 <input  type="submit" name="newTeacher" value="<?php echo(_("Añadir"));?>" id="newTeacher" />
+                </div>
+                </fieldset>
             </form>
         </div>
-        <div id="gridGroups" style="width: 90%; height: 90%"></div>
+        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

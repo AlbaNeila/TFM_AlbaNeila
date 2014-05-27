@@ -85,7 +85,7 @@ function dialogue(content, title) {
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menuGroupTeacher.php');
+include ('/menu/menu2.php');
 ob_start();
 ?>
         <h3><?php echo(_("Grupo: ")); echo $grupo;?></h3>

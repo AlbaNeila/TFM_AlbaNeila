@@ -26,7 +26,7 @@
             <li><a href="statisticsTeacher.php"><?php echo(_("Estadísticas"));?></a></li>
             <li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
-        <ul idclass"menu2">
+        <ul class="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>

@@ -159,7 +159,7 @@ body{
 
 .formulario{
 	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size:80%;
+	font-size:70%;
 	color:#304369;
 	display:inline-block;
 	position:absolute;
@@ -177,11 +177,11 @@ body{
     display: block;
     font-weight: bold;
     margin: 1em 0 0.3em;
-    padding: 1% 0 1% 2%;
+    padding: 3px 0px 5px 5px;
     width: 195px;
 }
 
-.formulario input{
+.formulario input,select{
 	display: block;
 	padding: .4em;
 }
@@ -192,6 +192,10 @@ body{
 
 .formulario input[type='button']{
 	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.formulario input[type='file']{
+	margin:-3px -5px;
 }
 
 .formulario h3{
@@ -216,6 +220,9 @@ body{
 	box-shadow: 0 0 7px #bfdaff;
 }
 
+.buttonformulario{
+	clear: both;
+}
 /* SUBMENU*/
 .submenu{
 	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -241,6 +248,10 @@ body{
 	font-size: 80%;
 	text-align: center;
 	
+}
+
+.submenuitem a:hover{
+	font-weight: bold;
 }
 
 .submenuitem a{

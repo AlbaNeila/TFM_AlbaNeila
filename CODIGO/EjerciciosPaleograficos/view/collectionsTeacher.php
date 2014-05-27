@@ -145,15 +145,24 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu1.php');
 ob_start();
 ?>
-        <div class="divForm" style="width:22%;min-width:278px;" action="collectionsTeacher.php" method="post" onsubmit="return validateForm()">
-            <form>
-                <h3><?php echo(_("Añadir nueva colección"));?></h3>
+        <div  class="formulario"   >
+            <form action="collectionsTeacher.php" method="post" onsubmit="return validateForm()">
+                 <fieldset>
+                
+                <legend><h3><?php echo(_("Añadir nueva colección"));?></h3></legend>
+                <div class="blockformulario">
                 <label><?php echo(_("Nombre"));?></label>
                 <input type="text" id="nombrecoleccion">
+                <label><?php echo(_("Ordenada"));?></label>
+                <select id="ordenadacoleccion" >
+                  <option value="no"><?php echo(_("No"));?></option>
+                  <option value="yes"><?php echo(_("Sí"));?></option>
+                </select>
+                </div>
+                <div class="blockformulario">
                 <label><?php echo(_("Descripción"));?></label>
                 <input type="text" id="descripcioncoleccion" />
-                <label><?php echo(_("Grupo"));?></label>
-                
+                <label><?php echo(_("Grupo"));?></label>               
                 <div id="combo_zone" style="width:200px; height:20px;"></div>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
@@ -162,25 +171,23 @@ ob_start();
                     combo.enableOptionAutoWidth(true);
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
-                    combo.loadXML("../controller/comboControllers/comboGroups.php"); 
-                </script>
-                
-                 <label><?php echo(_("Ordenada"));?></label>
-                <select id="ordenadacoleccion" >
-                  <option value="no"><?php echo(_("No"));?></option>
-                  <option value="yes"><?php echo(_("Sí"));?></option>
-                </select>
+                    combo.loadXML("../controller/comboControllers/comboGroups.php?method=teacher"); 
+                </script>                                 
+                </div>
+                <div style="clear: both">
                 <input  type="submit" name="newCollection" value="<?php echo(_("Añadir"));?>" id="newCollection" />
+                </div>
             </form>
+            </fieldset>
         </div>
         
-        <div id="gridCollections" style="width: 90%; height: 90%"></div>
+        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid.setHeader("<?php echo(_("Código colección"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº documentos"));?>, <?php echo(_("Nº grupos"));?>, <?php echo(_("Ordenada"));?>, <?php echo(_("Eliminar"));?>, <?php echo(_("Acceder"));?>");
             mygrid.setInitWidths("125,*,*,125,100,100,100,100");
-            mygrid.setColAlign("left,left,left,center,center,center,center,center");
+            mygrid.setColAlign("center,left,left,center,center,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ro,ro,co,img,img");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,200);

@@ -226,33 +226,43 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menuCollectionsTeacher.php');
+include ('/menu/menu1.php');
 include('../init.php');
 ob_start();
 ?>
        
         <h3><?php echo(_("Colección: ")).$coleccion;?></h3>
         
-        <div class="divForm" style="width:22%;min-width:278px;" >
+        <div class="formulario"  >
             <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocs" onsubmit="return validateForm()" >
+                <fieldset>
                 <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                 <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
-                <h3><?php echo(_("Añadir nuevo documento"));?></h3>
+                <legend><h3><?php echo(_("Añadir nuevo documento"));?></h3></legend>
+                <div class="blockformulario">
                 <label><?php echo(_("Nombre"));?></label>
                 <input type="text" id="nombredoc" name="name">
                 <label><?php echo(_("Descripción"));?></label>
                 <input type="text" id="descripciondoc" name="description"/>
+                </div>
+                <div class="blockformulario">
                 <label><?php echo(_("Tipo escritura"));?></label>
                 <input type="text" id="tipoesc" name="type"/>
                 <label><?php echo(_("Fecha"));?></label>
                 <input type="text" id="fechadoc" name="date"/>
+                </div>
+                <div class="blockformulario">
                 <label><?php echo(_("Imagen"));?></label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
                 <input type="file" id="imagen" name="imagen"/>
                 <label><?php echo(_("Transcripción"));?></label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
                 <input type="file" id="transcripcion" name="transcripcion"/>
+                </div>
+                <div class="buttonformulario">
                 <input  type="submit" name="newDoc" value="<?php echo(_("Añadir"));?>" id="newDoc" />
+                </div>
+                </fieldset>
             </form>
 
         </div>
@@ -281,7 +291,7 @@ ob_start();
                         mygrid2.setSizes();
                         mygrid2.setSkin("dhx_skyblue");
                         mygrid2.init();
-                        mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idColeccion="+<?php echo $idColeccion;?>);
+                        mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+<?php echo $idColeccion;?>+"&method=collection");
                     </script>
                     
                     <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
@@ -289,7 +299,7 @@ ob_start();
             </div>
         </div>
         
-        <div id="gridDocs" style="width: 90%; height: 90%"></div>
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

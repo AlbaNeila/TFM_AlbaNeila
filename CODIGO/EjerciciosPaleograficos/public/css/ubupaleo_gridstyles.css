@@ -2,3 +2,11 @@
 .objbox img:hover{
 	cursor:pointer;
 }
+
+.gridAfterForm{
+	display:inline-block;
+	position:absolute;
+	left: 155px;
+	bottom:185px;
+	top:410px;
+}
