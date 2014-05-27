@@ -13,7 +13,7 @@ ob_start();
     function validateForm() {
        var empty=false;
        var flag = true;
-       $("#formStudents").find(':input').each(function() {              
+       $("#formTeachers").find(':input').each(function() {              
             if(!empty){
                 empty = check_empty(this);
             }else{
@@ -21,32 +21,26 @@ ob_start();
                 flag=false;
             }
         });
-        
-        var checked_array = combo.getChecked();
-        if(checked_array.length == 0){
-            set_tooltip($("#combo_zone"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
-            flag=false;
-        }
             
         if(!empty){
-            if(!check_dni($("#dnialumno"))){
-                set_tooltip($("#dnialumno"),"<?php echo(_("DNI no válido"));?>");
+            if(!check_dni($("#dniprofesor"))){
+                set_tooltip($("#dniprofesor"),"<?php echo(_("DNI no válido"));?>");
                 flag = false;
             }
-            if(!check_email($("#emailalumno"))){
-                set_tooltip($("#emailalumno"),"<?php echo(_("Formato no válido"));?>");
+            if(!check_email($("#emailprofesor"))){
+                set_tooltip($("#emailprofesor"),"<?php echo(_("Formato no válido"));?>");
                 flag = false;
             }
-            if(!check_names($("#nombrealumno"))){
-                set_tooltip($("#nombrealumno"),"<?php echo(_("Formato no válido"));?>");
+            if(!check_names($("#nombreprofesor"))){
+                set_tooltip($("#nombreprofesor"),"<?php echo(_("Formato no válido"));?>");
                 flag = false;
             }
-            if(!check_names($("#apellidosalumno"))){
-                set_tooltip($("#apellidosalumno"),"<?php echo(_("Formato no válido"));?>");
+            if(!check_names($("#apellidosprofesor"))){
+                set_tooltip($("#apellidosprofesor"),"<?php echo(_("Formato no válido"));?>");
                 flag = false;
             }
-            if(!check_password("#passwordalumno")){
-                set_tooltip($("#passwordalumno"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+            if(!check_password("#passwordprofesor")){
+                set_tooltip($("#passwordprofesor"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
                 flag = false;
             }
         }
@@ -57,7 +51,7 @@ ob_start();
               url: "../controller/userController.php",
               async: false,
               data: {
-                method:"newStudent", dnialumno: $("#dnialumno").val(), emailalumno: $("#emailalumno").val(),nombrealumno:$("#nombrealumno").val(),apellidosalumno:$('#apellidosalumno').val(),passwordalumno:$('#passwordalumno').val(),grupos: JSON.stringify(checked_array),
+                method:"newTeacher", dniprofesor: $("#dniprofesor").val(), emailprofesor: $("#emailprofesor").val(),nombreprofesor:$("#nombreprofesor").val(),apellidosprofesor:$('#apellidosprofesor').val(),passwordprofesor:$('#passwordprofesor').val(),
               },
               dataType: "script",   
             });
@@ -71,7 +65,7 @@ ob_start();
                     }
                     if($.trim(request) == "2"){
                         flag= false;
-                        set_tooltip($("#dnialumno"),"<?php echo(_("Ya existe un usuario con el mismo DNI."));?>");
+                        set_tooltip($("#dniprofesor"),"<?php echo(_("Ya existe un usuario con el mismo DNI."));?>");
                     }
             });
         }       
@@ -80,26 +74,26 @@ ob_start();
     
     function consultGroups(){
         var rowId = mygrid.getSelectedId();
-        var idStudent = mygrid.cellById(rowId, 0).getValue();
-        $("#idStudent").val(idStudent);
-        $("#studentName").html(mygrid.cellById(rowId, 1).getValue());
+        var idTeacher = mygrid.cellById(rowId, 0).getValue();
+        $("#idTeacher").val(idTeacher);
+        $("#teacherName").html(mygrid.cellById(rowId, 1).getValue());
         mygrid2.clearAll();
-        mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+idStudent+"&method=student");
+        mygrid2.loadXML("../controller/gridControllers/gridTeacherGroups.php?idSearched="+idTeacher);
         window.location = $('#anchorOpenModal').attr('href'); 
     }
     
-    function deleteStudent(){
+    function deleteTeacher(){
         var rowId = mygrid.getSelectedId();
         var idUser = mygrid.cellById(rowId, 0).getValue();
 
 
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el alumno?"));?>'}),
-                      ok = $('<button />', {text: 'Ok', click: function() {deleteStudentAdmin(idUser);}}),
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el profesor?"));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteTeacherAdmin(idUser);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
-        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar alumno"))?>'); 
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar profesor"))?>'); 
     }
     
-    function deleteStudentAdmin(idUser){
+    function deleteTeacherAdmin(idUser){
         if(idUser!=""){
             var request = $.ajax({
               type: "POST",
@@ -112,7 +106,7 @@ ob_start();
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
-                        mygrid.updateFromXML("../controller/gridControllers/gridStudentsAdmin.php",false,true); 
+                        mygrid.updateFromXML("../controller/gridControllers/gridTeachersAdmin.php",false,true); 
                     }
                     else{
                         alert("error");
@@ -152,49 +146,6 @@ ob_start();
         });
     }
     
-    function saveGroupPermissions(){
-        var groups = new Array();
-        var permissions = new Array();
-        var cont=0;
-        var cont2=0;
-        mygrid2.forEachRow(function(id){
-             groups[cont] = mygrid2.cellById(id,0).getAttribute("idGroup");
-             cont++;
-        });
-        
-         $('#gridGestionGrupos .objbox tr').each(function (index){
-            $(this).children("td").each(function (index2) {
-                if(index2 == 1){ //Permitir
-                    if($(this).children("input").is(':checked')){ 
-                       permissions[cont2]=true;
-                    }else{
-                        permissions[cont2]=false;
-                    }
-                    cont2++;
-                }
-            });
-         });
-        
-        var request = $.ajax({
-              type: "POST",
-              url: "../controller/userController.php",
-              async: false,
-              data: {
-                method:"updatePermissionsStudent", groups: JSON.stringify(groups),permissions:JSON.stringify(permissions),idStudent: $("#idStudent").val()
-              },
-              dataType: "script",   
-            });
-            request.success(function(request){
-                    if($.trim(request) == "1"){
-                        window.location = $('#closeModal').attr('href');
-                        mygrid.updateFromXML("../controller/gridControllers/gridStudentsAdmin.php",false,true); 
-                    }
-                    else{
-                        alert("error");
-                    }
-            });
-    }
-    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -202,54 +153,43 @@ include ('/menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a href="usersAdmin.php" style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>
-        <div class="submenuitem"><a href="teachersAdmin.php"><?php echo(_("Profesores"));?></a></div>
+        <div class="submenuitem"><a href="usersAdmin.php" ><?php echo(_("Alumnos"));?></a></div>
+        <div class="submenuitem"><a href="teachersAdmin.php"  style="font-weight: bold"><?php echo(_("Profesores"));?></a></div>
         <div class="submenuitem"><a href="groupsAdmin.php"><?php echo(_("Grupos"));?></a></div>
     </div>
 
     <div class="formulario"  >
-        <form id="formStudents" action="usersAdmin.php" method="post" onsubmit="return validateForm()">
+        <form id="formTeachers" action="teachersAdmin.php" method="post" onsubmit="return validateForm()">
             <fieldset>
                 
-            <legend><h3><?php echo(_("Nuevo alumno"));?></h3></legend>
+            <legend><h3><?php echo(_("Nuevo profesor"));?></h3></legend>
             <div class="blockformulario">
                 <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombrealumno">              
+                <input type="text" id="nombreprofesor">              
                 <label><?php echo(_("DNI"));?></label>
-                <input type="text" id="dnialumno" />
+                <input type="text" id="dniprofesor" />
             </div>
             <div class="blockformulario">
                 <label><?php echo(_("Apellidos"));?></label>
-                <input type="text" id="apellidosalumno" />
+                <input type="text" id="apellidosprofesor" />
                 <label><?php echo(_("Contraseña"));?></label>
-                <input type="text" id="passwordalumno" />
+                <input type="text" id="passwordprofesor" />
             </div>
             <div class="blockformulario">
                 <label><?php echo(_("Email"));?></label>
-                <input type="text" id="emailalumno"/>
-                <label><?php echo(_("Grupos"));?></label>
-                <div id="combo_zone" style="width:200px; height:20px;"></div>
-                <script>
-                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
-                    var combo = new dhtmlXCombo("combo_zone","comboGroups",200,'checkbox');
-                    dhtmlx.skin = 'dhx_skyblue';
-                    combo.enableOptionAutoWidth(true);
-                    combo.enableOptionAutoHeight(true);
-                    combo.enableOptionAutoPositioning();
-                    combo.loadXML("../controller/comboControllers/comboGroups.php?method=admin"); 
-                </script>
+                <input type="text" id="emailprofesor"/>
             </div>
             
             <div class="buttonformulario">
-            <input  type="submit" name="newStudent" value="<?php echo(_("Crear"));?>" id="newStudent" />
+            <input  type="submit" name="newTeacher" value="<?php echo(_("Crear"));?>" id="newTeacher" />
             </div>
             </fieldset>        
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%"></div>
+    <div class="gridAfterForm" id="gridTeachers" style="width: 85%; height: 85%"></div>
         <script>
-            var mygrid = new dhtmlXGridObject('gridStudents');
+            var mygrid = new dhtmlXGridObject('gridTeachers');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid.setHeader("<?php echo(_("Código usuario"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("DNI"));?>, <?php echo(_("Contraseña"));?>,<?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>,<?php echo(_("Eliminar"));?>");
             mygrid.setInitWidths("70,*,*,*,*,*,90,90,80");
@@ -262,7 +202,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridStudentsAdmin.php");
+            mygrid.loadXML("../controller/gridControllers/gridTeachersAdmin.php");
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();
@@ -272,15 +212,14 @@ ob_start();
                         row[cont]=c.getValue();
                         cont++;
                     });
-                    //row[1]=nValue;
 
                     var idUser = mygrid.cellById(rId,0).getValue();
-                    var dniStudent = mygrid.cellById(rId,4).getValue();
+                    var dniUser = mygrid.cellById(rId,4).getValue();
                     var input = document.createElement("input");
                     input.setAttribute("type", "hidden");                           
                     input.setAttribute("id", "idHidden");                            
-                    input.setAttribute("value", dniStudent);
-                    document.getElementById("formStudents").appendChild(input);
+                    input.setAttribute("value", dniUser);
+                    document.getElementById("formTeachers").appendChild(input);
                     if(!check_dni($("#idHidden"))){
                         set_tooltip($(".cellSelected"),"<?php echo(_("DNI no válido"));?>");
                         return false;
@@ -323,29 +262,27 @@ ob_start();
         <div id="openModal" class="modalDialog">
             <div>
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
-                    <h3><?php echo(_("Gestionar acceso a grupos:"));?></h3>
-                    <label><?php echo(_("Alumno:"));?></label>
-                    <label id="studentName"></label>
+                    <h3><?php echo(_("Grupos del profesor:"));?></h3>
+                    <label id="teacherName"></label>
                     <input type="hidden" id="idStudent" name="idStudent">                    
-                    <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
+                    <div id="gridGestionGrupos" style="width: 70%; height: 70%"></div>
                     <script>
                         var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
                         mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-                        mygrid2.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
+                        mygrid2.setHeader("<?php echo(_("Grupos"));?>");
                         mygrid2.setInitWidths("*,*,*");
-                        mygrid2.setColAlign("center,center,center");
-                        mygrid2.setColTypes("ro,ro,ro");
+                        mygrid2.setColAlign("center");
+                        mygrid2.setColTypes("ro");
                         mygrid2.enableSmartRendering(true);
                         mygrid2.enableAutoHeight(true,200);
                         mygrid2.enableAutoWidth(true);
-                        mygrid2.enableTooltips("true,false,false");
+                        mygrid2.enableTooltips("true");
                         mygrid2.setSizes();
                         mygrid2.setSkin("dhx_skyblue");
                         mygrid2.init();
                     </script>
                     
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Salir"));?>" id="cancelar" />
             </div>
         </div>   
 <?php       
