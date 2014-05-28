@@ -7,6 +7,9 @@
         case 'newGroup':
             newGroup();
             break;
+        case 'newGroupAdmin':
+            newGroupAdmin();
+            break;
         case 'checkUpdateGrid':
             checkUpdateGrid();
             break;
@@ -33,6 +36,26 @@
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
                 $reg = mysqli_query($GLOBALS['link'],"INSERT INTO grupo (grupo.nombre, grupo.descripcion, grupo.idUsuarioCreador) VALUES ('".utf8_decode($grupo)."','".utf8_decode($descripcion)."','".$_SESSION['usuario_id']."')");
+                if($reg) {
+                    echo 1; //Nuevo grupo OK
+                }
+            }
+            else{
+                echo 0; //Ya existe un grupo con el mismo nombre
+            }
+        }
+    }
+    
+    function newGroupAdmin(){
+        $grupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
+        $descripcion = mysqli_real_escape_string($GLOBALS['link'],$_POST['descripcion']);
+        $profesor = mysqli_real_escape_string($GLOBALS['link'],$_POST['profesor']);
+    
+        $result = mysqli_query($GLOBALS['link'],"SELECT grupo.nombre FROM grupo WHERE grupo.nombre= '".$grupo."'");
+        
+        if($result!=FALSE){
+            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
+                $reg = mysqli_query($GLOBALS['link'],"INSERT INTO grupo (grupo.nombre, grupo.descripcion, grupo.idUsuarioCreador) VALUES ('".utf8_decode($grupo)."','".utf8_decode($descripcion)."','".$profesor."')");
                 if($reg) {
                     echo 1; //Nuevo grupo OK
                 }
