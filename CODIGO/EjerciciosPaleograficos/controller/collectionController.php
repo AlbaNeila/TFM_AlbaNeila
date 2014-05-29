@@ -33,15 +33,9 @@
                     $idCollection=mysqli_fetch_assoc($result4);
                     $idCollection = $idCollection['idColeccion'];
                     foreach($groups as $group){
-                        $result3 = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre='".utf8_decode($group)."'");
-                        if($result3!=FALSE){ //Tenemos el idGrupo del grupo que tiene acceso a la colección
-                            if($row=mysqli_fetch_assoc($result3)) {
-                                $idGrupo = $row['idGrupo'];
-                                $reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".utf8_decode($idGrupo)."','".utf8_decode($idCollection)."')");
-                                if(!$reg2){
-                                    $flag = 0;
-                                }
-                            }
+                        $reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".utf8_decode($group)."','".utf8_decode($idCollection)."')");
+                        if(!$reg2){
+                            $flag = 0;
                         }
                     }
                 }

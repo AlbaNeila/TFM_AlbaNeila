@@ -18,9 +18,14 @@
     if($_REQUEST['method'] == 'student'){
         $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
         $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."'");
-    }else{
+    }
+    if($_REQUEST['method'] == 'collectionAdmin'){
+        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
+        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
+    }
+   if($_REQUEST['method'] == 'collection'){
         $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
-        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idColeccion."'");
+        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
     }
     
     $grupos = array();
