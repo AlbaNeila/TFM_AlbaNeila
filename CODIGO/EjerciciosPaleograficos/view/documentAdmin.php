@@ -79,7 +79,7 @@ ob_start();
     }
     
     
-        function dialogue(content, title) {
+    function dialogue(content, title) {
         $('<div />').qtip({
             content: {
                 text: content,

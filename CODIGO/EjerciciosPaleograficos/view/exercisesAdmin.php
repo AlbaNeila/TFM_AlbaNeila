@@ -1,6 +1,254 @@
 <?php
 session_start();
 ob_start();
+?>
+<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
+<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlx_custom.css">  
+<script src="../lib/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
+<script src="../lib/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
+<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
+<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
+
+<script>
+    function validateForm() {
+        var u = check_empty($("#nombreejercicio"));
+        var p = check_empty($("#objetivo"));
+        var flag = true;
+        var grupos = combo6.getChecked();
+        if(grupos.length == 0){
+            set_tooltip($("#combo_grupo"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
+            flag=false;
+        }
+        
+        var idDocumento = combo2.getSelectedValue();
+        if(idDocumento==null){
+            set_tooltip($("#combo_grupo"),"<?php echo(_("Debe seleccionar un documento a partir del que crear un ejercicio"));?>");
+            flag=false;
+        }
+        
+        if(u || p || !flag){
+            flag= false;
+        }
+        else{
+           var request = $.ajax({
+              type: "POST",
+              url: "../controller/exercisesController.php",
+              async: false,
+              data: {
+                method:"newExercise",
+                name: $("#nombreejercicio").val(),
+                idDocument: idDocumento,
+                idCollection:combo.getSelectedValue(),
+                groups: JSON.stringify(grupos),
+                dificult:combo3.getSelectedValue(),
+                correction:combo5.getSelectedValue(),
+                target:combo4.getSelectedValue(),
+                targetnum:$("#objetivo").val()
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        flag= true;
+                    }
+                    if($.trim(request) == "0"){
+                        flag= false;
+                        alert("error");
+                    }
+                    if($.trim(request) == "2"){
+                        flag=false;
+                        set_tooltip($("#nombreejercicio"),"<?php echo(_("Ya existe un ejercicio con el mismo nombre. Por favor, introduzca un nombre de ejercicio diferente."));?>");
+                    }
+            });
+        }       
+        return flag;
+    }
+    
+    function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
+            },
+            position: {
+                my: 'center', at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
+            },
+            hide: false,
+            style: {classes: 'qtip-blue'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
+            }
+        });
+    }
+    
+    function deleteEj(){
+        var rowId = mygrid.getSelectedId();
+        var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+
+
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el ejercicio?"));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteEjAdmin(idEj);}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar ejercicio"))?>'); 
+    }
+    
+    function deleteEjAdmin(idEj){
+        if(idEj!=""){
+            var request = $.ajax({
+              type: "POST",
+              url: "../controller/exercisesController.php",
+              async: false,
+              data: {
+                method:"deleteExercise", idEj: idEj
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                    }
+                    else{
+                        alert("error");
+                    }
+            });
+        }
+    }
+    
+</script>
+<?php
+$GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu3.php');
+ob_start();
+?>
+<div class="formulario"  >
+            <form action="exercisesAdmin.php" method="post" onsubmit="return validateForm()">
+                <fieldset>
+                <legend><h3><?php echo(_("Añadir nuevo ejercicio"));?></h3></legend>
+                <p><?php echo(_("Seleccione un documento a partir del que crear un ejercicio:"));?></p>
+                <div class="blockformulario">
+                <label><?php echo(_("Colección"));?></label>               
+                <div id="combo_collection" style="width:200px; height:20px;"></div>
+                <script>
+                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
+                    var combo = new dhtmlXCombo("combo_collection","comboCollection",200);
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo.enableOptionAutoWidth(true);
+                    combo.setOptionHeight(250);
+                    combo.enableOptionAutoPositioning();
+                    combo.loadXML("../controller/comboControllers/comboCollectionsAdmin.php");
+                    combo.attachEvent("onChange", function(){
+                        var selectedCollection = combo.getSelectedValue();
+                        combo2.clearAll(true);
+                        combo2.loadXML("../controller/comboControllers/comboDocuments.php?idCollection="+selectedCollection); 
+                    });  
+                </script>
+                <label><?php echo(_("Nombre"));?></label>
+                <input type="text" id="nombreejercicio" />
+               
+                </div>
+                <div class="blockformulario">
+                <label><?php echo(_("Documento"));?></label>               
+                <div id="combo_document" style="width:200px; height:20px;"></div>
+                <script>
+                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
+                    var combo2 = new dhtmlXCombo("combo_document","comboDocument",200);
+                   // dhtmlx.skin = 'dhx_skyblue';
+                    combo2.enableOptionAutoWidth(true);
+                    combo2.enableOptionAutoHeight(true);
+                    combo2.enableOptionAutoPositioning();
+                </script>
+                <label><?php echo(_("Grupo"));?></label>               
+                <div id="combo_grupo" style="width:200px; height:20px;"></div>
+                <script>
+                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
+                    var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
+                    dhtmlx.skin = 'dhx_skyblue';
+                    combo6.enableOptionAutoWidth(true);
+                    combo6.setOptionHeight(250);
+                    combo6.enableOptionAutoPositioning();
+                    combo6.loadXML("../controller/comboControllers/comboGroups.php?method=admin"); 
+                </script>
+                </div>
+                <div class="blockformulario">
+                <label><?php echo(_("Pistas"));?></label>
+                <select style='width:200px;'  id="combo_pistas" name="alfa1">
+                    <option value="0"><?php echo(_("Fácil"));?></option>
+                    <option value="1"><?php echo(_("Medio"));?></option>
+                    <option value="2"><?php echo(_("Difícil"));?></option>
+                </select>
+                <script>
+                    var combo3=dhtmlXComboFromSelect("combo_pistas");
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo3.enableOptionAutoWidth(true);
+                    combo3.enableOptionAutoHeight(true);
+                    combo3.enableOptionAutoPositioning();
+                </script>
+                <label><?php echo(_("Modo corrección"));?></label>
+                <select style='width:200px;'  id="combo_modo" name="alfa1">
+                    <option value="0"><?php echo(_("Corregir al final"));?></option>
+                    <option value="1"><?php echo(_("Corregir paso a paso"));?></option>
+                </select>
+                <script>
+                    var combo5=dhtmlXComboFromSelect("combo_modo");
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo5.enableOptionAutoWidth(true);
+                    combo5.enableOptionAutoHeight(true);
+                    combo5.enableOptionAutoPositioning();
+                </script>
+                <label><?php echo(_("Objetivo"));?></label>
+                <select style='width:200px;'  id="combo_objetivo" name="alfa1">
+                    <option value="0"><?php echo(_("% palabras acertadas"));?></option>
+                    <option value="1"><?php echo(_("Nº máximo de fallos"));?></option>
+                </select>
+                <script>
+                    var combo4=dhtmlXComboFromSelect("combo_objetivo");
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo4.enableOptionAutoWidth(true);
+                    combo4.enableOptionAutoHeight(true);
+                    combo4.enableOptionAutoPositioning();
+                </script>
+                <input type="text" id="objetivo" size="4" />
+                </div>
+                <div class="buttonformulario">
+                <input  type="submit" name="newExercise" value="<?php echo(_("Añadir"));?>" id="newExercise" />
+                </div>
+                </fieldset>
+            </form>
+        </div>
+        
+        <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:500px !important;"></div>
+        <script>
+            var mygrid = new dhtmlXGridObject('gridExercises');
+            mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+            mygrid.setHeader("<?php echo(_("Código ejercicio"));?>, <?php echo(_("Ejercicio"));?>, <?php echo(_("Documento"));?>,  <?php echo(_("Pistas"));?>, <?php echo(_("Objetivo"));?>,<?php echo(_("Modo corrección"));?>, <?php echo(_("Colección"));?>,<?php echo(_("Grupos"));?>,<?php echo(_("Eliminar"));?>");
+            mygrid.setInitWidths("90,*,*,90,*,*,*,90,90");
+            mygrid.setColAlign("center,left,left,left,left,left,left,center,center");
+            mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img,img");
+            mygrid.enableSmartRendering(true);
+            mygrid.enableAutoHeight(true,400);
+            mygrid.enableAutoWidth(true);
+            mygrid.enableTooltips("false,true,true,false,false,false,true,false,false");
+            mygrid.setSizes();
+            mygrid.setSkin("dhx_skyblue");
+            mygrid.init();                  
+            mygrid.loadXML("../controller/gridControllers/gridExercises.php");  
+        </script>
+<?php       
+$GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
 ?>

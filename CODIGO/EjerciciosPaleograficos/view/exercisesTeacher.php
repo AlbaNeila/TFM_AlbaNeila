@@ -174,6 +174,6 @@ ob_start();
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
- ?>
+?>
 
 
