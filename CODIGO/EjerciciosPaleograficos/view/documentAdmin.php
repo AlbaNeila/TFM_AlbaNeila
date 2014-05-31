@@ -178,6 +178,67 @@ ob_start();
         return flag;
     }
     
+    function showCollections(){
+        var rowId = mygrid.getSelectedId();
+        var idDoc = mygrid.cellById(rowId, 0).getAttribute("idDoc");
+        //Agregamos un hidden con el id del doc seleccionado
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");                           
+        input.setAttribute("id", "idHidden");                            
+        input.setAttribute("value", idDoc);
+        input.setAttribute("name","idDoc");
+
+        document.getElementById("gridGestionColecciones").appendChild(input);
+        window.location = $('#anchorGestionarColecciones').attr('href');
+        mygrid2.clearAll();
+        mygrid2.loadXML("../controller/gridControllers/gridManageCollections.php?idSearched="+idDoc);
+    }
+    
+    function saveCollectionsAccess(){
+        var colecciones = new Array();
+        var cont = 0;
+        var idDoc=$("#idHidden").val();
+        debugger;
+            
+        mygrid2.forEachRow(function(id){
+            mygrid2.forEachCell(id,function(c){
+               if(c.isChecked()){
+                 colecciones[cont] = c.getAttribute("idCol");
+                 cont++;
+               }
+            });
+        });
+        if(colecciones.length == 0){
+            set_tooltip($("#gridGestionColecciones"),"<?php echo(_("El documento debe encontrarse al menos en una colección"));?>");
+            return false;
+        }
+
+        var request = $.ajax({
+          type: "POST",
+          url: "../controller/collectionController.php",
+          async: false,
+          data: {
+            method:"saveDocumentAccess", collections: JSON.stringify(colecciones), idDocument:idDoc
+          },
+          dataType: "script",   
+        });
+        request.success(function(request){
+                if($.trim(request) == "1"){
+                    $("#idHidden").remove();
+                    window.location = $('#closeModal2').attr('href');
+                }
+                else{
+                    $("#idHidden").remove();
+                    alert("error");
+                }
+        });
+        
+    }
+    
+    function cancelCollectionsAcces(){
+        $("#idHidden").remove();
+        window.location = $('#closeModal2').attr('href');
+    }
     
 </script>
 <?php
@@ -298,7 +359,7 @@ ob_start();
          </script>
          </div> 
          
-          <a href="#openModal" id="anchorOpenModal"></a>
+        <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
             <div>
                 
@@ -314,6 +375,35 @@ ob_start();
                     <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
                     <input  type="submit" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
                 </form>
+            </div>
+        </div>
+        
+        <a href="#gestionarColecciones" id="anchorGestionarColecciones"></a>
+        <div id="gestionarColecciones" class="modalDialog2">
+            <div>
+                <a href="#close" id="closeModal2" onclick="$('#idHidden').remove();"  title="Close" class="close">X</a>
+                    <h3><?php echo(_("Gestionar colecciones"));?></h3>
+                    
+                    <div id="gridGestionColecciones" style="width: 100%; height: 100%"></div>
+                    <script>
+                        var mygrid2 = new dhtmlXGridObject('gridGestionColecciones');
+                        mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+                        mygrid2.setHeader("<?php echo(_("Colección"));?>, <?php echo(_("Asignar documento"));?>");
+                        mygrid2.setInitWidths("*,*");
+                        mygrid2.setColAlign("center,center");
+                        mygrid2.setColTypes("ro,ch");
+                        mygrid2.enableSmartRendering(true);
+                        mygrid2.enableAutoHeight(true,200);
+                        mygrid2.enableAutoWidth(true);
+                        mygrid2.enableTooltips("true,false");
+                        mygrid2.setSizes();
+                        mygrid2.setSkin("dhx_skyblue");
+                        mygrid2.init();
+                        
+                    </script>
+                    
+                    <input  type="button" name="cancelar" onclick="cancelCollectionsAcces()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    <input  type="submit" name="enviar" onclick="saveCollectionsAccess()" value="<?php echo(_("Guardar"));?>" id="aceptarAccesoColecciones" />
             </div>
         </div>
          

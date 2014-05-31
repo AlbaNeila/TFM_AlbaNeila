@@ -13,6 +13,9 @@
         case 'deleteCollection':
             deleteCollection();
             break;
+        case 'saveDocumentAccess':
+            saveDocumentAccess();
+            break;
     }
 
     function newCollection(){
@@ -125,4 +128,42 @@
         echo 0;   
        }
     }
+    
+    function saveDocumentAccess(){
+        $idDocument=mysqli_real_escape_string($GLOBALS['link'],$_POST['idDocument']);
+        $collections = $_POST["collections"];
+        $collections = json_decode("$collections",true);
+        $return = 1;
+        
+        //Para borrar las filas de las colecciones en las que ya no esta el documento
+        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion_documento.idColeccion FROM coleccion_documento WHERE coleccion_documento.idDocumento= '".$idDocument."'");
+        if($result!=FALSE){
+            while($row=mysqli_fetch_assoc($result)) {
+                $flag=false;
+                if(in_array($row['idColeccion'],$collections)){
+                    $flag = true;
+                }
+                if(!$flag){// si no esta la coleccion en la lista, borramos la fila porque se le ha denegado el acceso
+                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM coleccion_documento WHERE coleccion_documento.idColeccion='".$row['idColeccion']."' AND coleccion_documento.idDocumento='".$idDocument."'");
+                    if(!$delete){
+                        $return =0;
+                    }
+                }// si no no hacemos nada, porque el usuario le ha dado acceso y ya lo tiene
+            }
+        }else{
+            $return =0;
+        }
+        
+        //Para añadir las filas de las colecciones a las que se le ha proporcionado acceso al documento ahora
+         foreach($collections as $idCollection){
+             $result2 = mysqli_query($GLOBALS['link'],"SELECT coleccion_documento.idColeccion FROM coleccion_documento WHERE coleccion_documento.idDocumento= '".$idDocument."' AND coleccion_documento.idColeccion='".$idCollection."'");
+             if(!$fila=mysqli_fetch_assoc($result2)){//Si no hay filas -> Insert
+                $insert = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion_documento (coleccion_documento.idColeccion, coleccion_documento.idDocumento) VALUES ('".$idCollection."','".$idDocument."')");
+                if(!$insert){
+                    $return =0;
+                }
+              }        
+         }
+         echo $return;
+     }
 ?> 

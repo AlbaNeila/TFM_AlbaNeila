@@ -31,7 +31,6 @@
 	    		 $(this).children("td").each(function (index2) {
 	    		 	if(index2 == 2){
 	    		 		$(this).children("img").bind('click',function($this){
-	    		 		    debugger;
 	    		 			img = this;
 	    		 			var idfila = $(this).attr("id");
 	    		 			grupo = mygrid.cellById(idfila-1, 0).getValue();
