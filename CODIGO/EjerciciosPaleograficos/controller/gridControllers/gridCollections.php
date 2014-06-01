@@ -61,7 +61,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/delete.png' id='".$cont."");
+                $contenido = ("../public/img/delete.png^^javascript:deleteCollection()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i==7){ //Columna de la imagen entrar
@@ -69,7 +69,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/enter.png' id='".$cont."");
+                $contenido = ("../public/img/enter.png^^javascript:accessCollection()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i==5){ //Columna ordenada -> para que no se salga del índice de $i

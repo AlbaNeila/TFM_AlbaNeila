@@ -36,7 +36,10 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/delete.png' id='".$fila[3]."");
+                $domAtribute = $dom->createAttribute('id');
+                $domAtribute->value=$fila[3];
+                $cell->appendChild($domAtribute);
+                $contenido = ("../public/img/delete.png^^javascript:deleteStudent()^' idStudent='".$fila[3]."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=3){

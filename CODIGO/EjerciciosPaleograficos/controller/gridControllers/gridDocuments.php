@@ -55,7 +55,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/delete.png' id='".$cont."");
+                $contenido = ("../public/img/delete.png^^javascript:deleteDocument()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
            if($i==8){ //Columna de la imagen modificar ficheros
@@ -63,7 +63,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/editfiles.png' id='".$cont."");
+                $contenido = ("../public/img/editfiles.png^^javascript:editFiles()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=0 && $i!=6 && $i!=5 && $i!=7 && $i!=8){

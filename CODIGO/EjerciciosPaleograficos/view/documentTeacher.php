@@ -68,45 +68,6 @@ ob_start();
         return flag;
     }
     
-    function addEventsToImages(){
-    $(window).ready(function() { 
-        setTimeout(function() {
-            var td;
-            var img;
-            var grupo;
-            $('.objbox tr').each(function (index){
-                 $(this).children("td").each(function (index2) {
-                    if(index2 == 6){ //Imagen eliminar documento 
-                        $(this).children("img").bind('click',function($this){
-                            var idfila = $(this).attr("id");
-                            var doc = mygrid.cellById(idfila-1,0).getAttribute("idDoc");
-                             var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el documento? Se eliminarán también los ejercicios creados a partir de él."));?>'}),
-                              ok = $('<button />', {text: 'Ok', click: function() {deleteDoc(doc);}}),
-                              cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
-                        
-                            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar documento"))?>'); 
-                        });
-                    }
-                    if(index2 == 7){ //Imagen modificar ficheros
-                        $(this).children("img").bind('click',function($this){
-                            var idfila = $(this).attr("id");
-                            var doc = mygrid.cellById(idfila-1,0).getAttribute("idDoc");
-                            //Agregamos un hidden con el id del doc seleccionado
-                            var input = document.createElement("input");
-                            input.setAttribute("type", "hidden");                           
-                            input.setAttribute("id", "idHidden");                            
-                            input.setAttribute("value", doc);
-                            input.setAttribute("name","idDoc");
-                            var modal = document.getElementById("openModal");
-                            document.getElementById("formChangeDoc").appendChild(input);
-                            window.location = $('#anchorOpenModal').attr('href');
-                        });
-                    }
-                });
-            });
-        },6000);
-    });
-}
         function dialogue(content, title) {
         $('<div />').qtip({
             content: {
@@ -138,6 +99,30 @@ ob_start();
         });
     }
     
+    function editFiles(){
+        var rowId = mygrid.getSelectedId();
+        var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
+        //Agregamos un hidden con el id del doc seleccionado
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");                           
+        input.setAttribute("id", "idHidden");                            
+        input.setAttribute("value", doc);
+        input.setAttribute("name","idDoc");
+        var modal = document.getElementById("openModal");
+        document.getElementById("formChangeDoc").appendChild(input);
+        window.location = $('#anchorOpenModal').attr('href');
+    }
+    
+    function deleteDocument(){
+        var rowId = mygrid.getSelectedId();
+        var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el documento? Se eliminarán también los ejercicios creados a partir de él."));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteDoc(doc);}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+    
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar documento"))?>'); 
+    }
+    
     function deleteDoc(doc){
         if(doc!=""){
             var request = $.ajax({
@@ -152,7 +137,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>,addEventsToImages);
+                        mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>);
                     }
                     else{
                         alert("error");
@@ -314,7 +299,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>,addEventsToImages);
+            mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();

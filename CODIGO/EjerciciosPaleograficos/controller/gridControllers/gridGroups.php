@@ -51,7 +51,7 @@
                             $domAtribute = $dom->createAttribute('type');
                             $domAtribute->value='img';
                             $cell->appendChild($domAtribute);
-                            $contenido = ("../public/img/alert.png' id='".$cont." ");
+                            $contenido = ("../public/img/alert.png^^javascript:showRequest()^' id='".$cont." ");
                             $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
                     }
                     else{
@@ -65,7 +65,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/delete.png' id='".$cont."");
+                $contenido = ("../public/img/delete.png^^javascript:deleteGroup()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i==5){ //Columna de la imagen entrar
@@ -73,7 +73,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/enter.png' id='".$cont."");
+                $contenido = ("../public/img/enter.png^^javascript:accessGroup()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=3 && $i!=4 && $i!=5 && $i!=6){

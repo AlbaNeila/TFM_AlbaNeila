@@ -5,31 +5,8 @@ $grupo=$_REQUEST['grupo'];
 $idGrupo=$_REQUEST['idGrupo'];
 ?>
 <script>
-    function addEventsToImages(){
-    $(window).ready(function() { 
-        setTimeout(function() {
-            var td;
-            var img;
-            var grupo;
-            $('.objbox tr').each(function (index){
-                 $(this).children("td").each(function (index2) {
-                    if(index2 == 3){ //Imagen eliminar alumno 
-                        $(this).children("img").bind('click',function($this){
-                            var idAlumno = $(this).attr("id");
-                             var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea denegar el acceso al grupo a este alumno?"));?>'}),
-                              ok = $('<button />', {text: 'Ok', click: function() {deleteStudent(idAlumno);}}),
-                              cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
-                        
-                            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación denegar acceso alumno"))?>'); 
-                        });
-                    }                  
-                });
-            });
-        },6000);
-    });
-}
 
-function dialogue(content, title) {
+    function dialogue(content, title) {
         $('<div />').qtip({
             content: {
                 text: content,
@@ -60,21 +37,32 @@ function dialogue(content, title) {
         });
     }
     
-    function deleteStudent(idAlumno){
-        if(idAlumno!=""){
+    function deleteStudent(){
+        var rowId = mygrid.getSelectedId();
+        var idStudent = mygrid.cellById(rowId, 3).getAttribute("id");
+        
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea denegar el acceso a esta colección al alumno?"));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteStudentTeacher(idStudent);}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+                
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar alumno"))?>');
+    }
+    
+    function deleteStudentTeacher(idStudent){
+        if(idStudent!=""){
             var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
               async: false,
               data: {
-                method:"deleteStudent", idAlumno: idAlumno, idGrupo:<?php echo $idGrupo;?>,
+                method:"deleteStudent", idAlumno: idStudent, idGrupo:<?php echo $idGrupo;?>,
               },
               dataType: "script",   
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>,addEventsToImages);   
+                        mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>);   
                     }
                     else{
                         alert("error");
@@ -106,7 +94,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>,addEventsToImages);  
+            mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>);  
         </script>
         
 <?php       

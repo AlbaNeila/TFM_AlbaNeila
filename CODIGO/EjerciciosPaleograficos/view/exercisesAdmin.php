@@ -99,7 +99,6 @@ ob_start();
         var rowId = mygrid.getSelectedId();
         var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
 
-
         var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el ejercicio?"));?>'}),
                       ok = $('<button />', {text: 'Ok', click: function() {deleteEjAdmin(idEj);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
@@ -222,7 +221,6 @@ ob_start();
     }
     
     function saveGroupPermissions(){
-        debugger;
         var groups = new Array();
         var permissions = new Array();
         var cont=0;

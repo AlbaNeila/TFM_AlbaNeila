@@ -53,40 +53,8 @@ include('../init.php');
         return flag;
     }
     
-    function addEventsToImages(){
-    $(window).ready(function() { 
-        setTimeout(function() {
-            var td;
-            var img;
-            var grupo;
-            $('.objbox tr').each(function (index){
-                 $(this).children("td").each(function (index2) {
-                    if(index2 == 6){ //Imagen eliminar colección 
-                        $(this).children("img").bind('click',function($this){
-                            var idfila = $(this).attr("id");
-                            var coleccion = mygrid.cells(idfila, 0).getValue();
-                             var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
-                              ok = $('<button />', {text: 'Ok', click: function() {deleteCollection(coleccion);}}),
-                              cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
-                        
-                            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 
-                        });
-                    }
-                    if(index2 == 7){ //Imagen entrar
-                        $(this).children("img").bind('click',function($this){
-                            var idfila = $(this).attr("id");
-                            var idColeccion = mygrid.cells(idfila, 0).getValue();
-                            var coleccion = mygrid.cells(idfila, 1).getValue();
-                            window.location.href = 'documentTeacher.php?coleccion='+coleccion+'&idColeccion='+idColeccion;
-                        });
-                    }
-                });
-            });
-        },6000);
-    });
-}
 
-function dialogue(content, title) {
+    function dialogue(content, title) {
         $('<div />').qtip({
             content: {
                 text: content,
@@ -116,22 +84,40 @@ function dialogue(content, title) {
             }
         });
     }
+    
+    function accessCollection(){
+        var rowId = mygrid.getSelectedId();
+        var idColeccion = mygrid.cellById(rowId, 0).getValue();
+        var coleccion = mygrid.cellById(rowId, 1).getValue();
+        
+        window.location.href = 'documentTeacher.php?coleccion='+coleccion+'&idColeccion='+idColeccion;
+    }
+    
+    function deleteCollection(){
+       var rowId = mygrid.getSelectedId();
+       var idColeccion = mygrid.cellById(rowId, 0).getValue();
+       var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionTeacher(idColeccion);}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+    
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>');
+    }
 
-    function deleteCollection(coleccion){
-        if(coleccion!=""){
+    function deleteCollectionTeacher(idColeccion){
+        if(idColeccion!=""){
             var request = $.ajax({
               type: "POST",
               url: "../controller/collectionController.php",
               async: false,
               data: {
-                method:"deleteCollection", coleccion: coleccion
+                method:"deleteCollection", coleccion: idColeccion
               },
               dataType: "script",   
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridCollections.php",addEventsToImages);  
+                        mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
                     }
                     else{
                         alert("error");
@@ -196,7 +182,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridCollections.php",addEventsToImages);  
+            mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     debugger;
