@@ -10,3 +10,13 @@
 	bottom:185px;
 	top:410px;
 }
+
+.gridAfterForm select{
+	padding:0;
+	margin:1px;
+	display:inline;
+}
+
+.gridAfterForm input{
+	padding:0;
+}

@@ -40,29 +40,65 @@
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
-           if($i==4){
+          if($i==3){ //Select dificultad realización
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $tips=$fila[3];
+                if($tips==0){
+                  $options = "<option value='0' selected>Fácil</option>
+                                <option value='1'>Medio</option>
+                                <option value='2'>Difícil</option>";
+                }
+                if($tips==1){
+                   $options = "<option value='0'>Fácil</option>
+                        <option value='1' selected>Medio</option>
+                        <option value='2'>Difícil</option>";
+                }
+                if($tips==2){
+                   $options = "<option value='0'>Fácil</option>
+                        <option value='1'>Medio</option>
+                        <option value='2' selected>Difícil</option>";
+                }
+                
+                $contenido="<select id='tips' name='tips' onchange='updateTips(this)'>$options</select>";
+                $cell->appendChild($dom->createCDATASection($contenido));
+            }
+           if($i==4){ //Objetivo
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                $domAtribute = $dom->createAttribute('idDoc');
-                $domAtribute->value=$fila[0];
-                $cell->appendChild($domAtribute);
-                $contenido = ("$fila[$i] $fila[5] ");
-                $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
+                $target=$fila[4];
+                if($target=='% palabras acertadas'){
+                  $options = "<option value='0' selected>% palabras acertadas</option>
+                              <option value='1'>Nº máximo de fallos</option>";
+                }
+                else{
+                   $options = "<option value='0'>% palabras acertadas</option>
+                               <option value='1' selected>Nº máximo de fallos</option>";
+                }
+                $contenido = "<select id='target$cont' name='target' onchange='updateTarget(this)'>$options</select> <input id='target$cont' size='1' type='text' value='$fila[5]'/>";
+                $cell->appendChild($dom->createCDATASection($contenido));
            } 
+            if($i==6){
+                $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
+                $correction=$fila[6];
+                if($correction==0){
+                    $options="<option value='0' selected>Corregir al final</option>
+                              <option value='1'>Corregir paso a paso</option>";
+                }else{
+                    $options="<option value='0' selected>Corregir al final</option>
+                              <option value='1'selected>Corregir paso a paso</option>";
+                }
+                $contenido="<select id='correction' name='correction' onchange='updateCorrectionMode(this)'>$options</select>";
+                $cell->appendChild($dom->createCDATASection($contenido));
+            }
            if($i==7){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $contenido="";
-                $result3 = mysql_query("SELECT coleccion.nombre FROM coleccion,grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio = '$fila[0]' AND grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion");
+                $result3 = mysql_query("SELECT coleccion.nombre,coleccion.idColeccion FROM coleccion,grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio = '$fila[0]' AND grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion");
                 if($collection=mysql_fetch_assoc($result3)) {
                     $contenido=utf8_encode($collection['nombre']);
-                }  
-                $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
-           } 
-           if($i==6){
-                $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                $domAtribute = $dom->createAttribute('idDoc');
-                $domAtribute->value=$fila[0];
-                $cell->appendChild($domAtribute);
-                $contenido = ("$fila[6] ");
+                } 
+                $domAtribute = $dom->createAttribute('idCol');
+                $domAtribute->value=$collection['idColeccion'];
+                $cell->appendChild($domAtribute); 
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
            } 
            if($i==9){ //Columna de la imagen eliminar
@@ -73,17 +109,15 @@
                 $contenido = ("../public/img/delete.png^^javascript:deleteEj()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-           if($i==8){ //Columna de la imagen modificar ficheros
+           if($i==8){ 
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-               
                 $contenido = (" ../public/img/groups.png^^javascript:consultGroups()^' id='".$fila[0]."");
-
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=2 && $i!=4 && $i!=5 && $i!=6  && $i!=7 && $i!=8 && $i!=9 ){
+            if($i==0 || $i==1 ){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $domAtribute = $dom->createAttribute('idEj');
                 $domAtribute->value=$fila[0];

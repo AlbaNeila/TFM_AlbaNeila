@@ -10,6 +10,21 @@
         case 'deleteExercise':
             deleteExercise();
             break;
+        case 'updateTips':
+            updateTips();
+            break;
+        case 'updateTarget':
+            updateTarget();
+            break;
+        case 'updateCorrectionMode':
+            updateCorrectionMode();
+            break;
+        case 'checkUpdateGrid':
+            checkUpdateGrid();
+            break;
+        case 'updatePermissionsGroup':
+            updatePermissionsGroup();
+            break;
     }
     
     function newExercise(){
@@ -32,7 +47,7 @@
         $result = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre FROM ejercicio WHERE ejercicio.nombre= '".utf8_decode($name)."'");
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre
-                 $insert = mysqli_query($GLOBALS['link'],"INSERT INTO ejercicio (ejercicio.nombre, ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDocumento,ejercicio.idDificultad) VALUES ('".$name."','".$correction."','".$target."','".$targetnum."','".$idDocument."','".$dificult."')");
+                 $insert = mysqli_query($GLOBALS['link'],"INSERT INTO ejercicio (ejercicio.nombre, ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDocumento,ejercicio.idDificultad) VALUES ('".$name."','".$correction."','".utf8_decode($target)."','".$targetnum."','".$idDocument."','".$dificult."')");
                  if(!$insert){
                      $flag = 0;
                  }else{
@@ -57,7 +72,7 @@
     }
 
     function deleteExercise(){
-        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
+       $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         
        $result = mysqli_query($GLOBALS['link'],"DELETE FROM ejercicio WHERE ejercicio.idEjercicio= '".$idEj."'");
         
@@ -67,6 +82,106 @@
         else{
             echo 0; //Error
         }
+    }
+    
+    function updateTips(){
+        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
+        $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
+        
+        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.idDificultad='".$value."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        if($result!=FALSE){
+                    echo 1; //Delete grupo OK
+        }
+        else{
+            echo 0; //Error
+        }
+    }
+    
+    function updateTarget(){
+        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
+        $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
+        $numTarget= mysqli_real_escape_string($GLOBALS['link'],$_POST['numTarget']);
+        if($value==0){
+            $value='% palabras acertadas';
+        }else{
+            $value=('nº máximo de fallos');
+        }
+        
+        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.tipo_objetivo='".utf8_decode($value)."',ejercicio.valor_objetivo='".$numTarget."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        if($result!=FALSE){
+                    echo 1; //Delete grupo OK
+        }
+        else{
+            echo 0; //Error
+        }
+    }
+    
+    function updateCorrectionMode(){
+        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
+        $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
+        
+        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.comprobarTranscripcion='".$value."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        if($result!=FALSE){
+                    echo 1; //Delete grupo OK
+        }
+        else{
+            echo 0; //Error
+        }
+    }
+    
+    function checkUpdateGrid(){
+        $row = $_POST["row"];
+        $row = json_decode("$row",true);
+        
+        $result = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre FROM ejercicio WHERE ejercicio.nombre= '".utf8_decode($row[1])."' and ejercicio.idEjercicio<>'".$row[0]."'");
+        
+        if($result!=FALSE){
+            if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro ejercicio con el mismo nombre, por lo que actualizamos la fila
+                $result2 = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.nombre='".utf8_decode($row[1])."' WHERE ejercicio.idEjercicio='".$row[0]."'");
+                if($result2!=FALSE)
+                    echo 1;
+            }
+            else{
+                echo 0;
+            }
+        }
+        else{
+            echo 0;
+        }
+    }
+    
+    function updatePermissionsGroup(){
+        $groups = $_POST["groups"];
+        $groups= json_decode("$groups",true);
+        $permissions = $_POST["permissions"];
+        $permissions= json_decode("$permissions",true);
+        $idEj = $_POST['idEj'];
+        $idCol = $_POST['idCol'];
+        
+        $cont=0;
+        $flag=1;
+        
+        foreach($groups as $group){
+            $result = mysqli_query($GLOBALS['link'],"SELECT grupo_ejercicio_coleccion.idGrupo FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idGrupo= '".$group."' and grupo_ejercicio_coleccion.idEjercicio='".$idEj."' and grupo_ejercicio_coleccion.idColeccion='".$idCol."'");
+            if($permissions[$cont]==true){
+                if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
+                     $insert = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_ejercicio_coleccion (grupo_ejercicio_coleccion.idGrupo, grupo_ejercicio_coleccion.idColeccion,grupo_ejercicio_coleccion.idEjercicio) VALUES ('".$group."','".$idCol."','".$idEj."')");
+                     if(!$insert){
+                         $flag = 0;
+                     }
+                }
+            }
+            else{
+                if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
+                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idGrupo= '".$group."' AND grupo_ejercicio_coleccion.idColeccion='".$idCol."' AND grupo_ejercicio_coleccion.idEjercicio='".$idEj."'");
+                    if(!$delete){
+                         $flag = 0;
+                     }
+                }
+            }
+            $cont++;
+        }
+        echo $flag;
     }
     
 ?> 

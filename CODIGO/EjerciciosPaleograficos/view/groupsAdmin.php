@@ -117,7 +117,6 @@ ob_start();
     }
     
     function showAlert(){
-        debugger;
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
         //Agregamos un hidden con el id del grupo seleccionado

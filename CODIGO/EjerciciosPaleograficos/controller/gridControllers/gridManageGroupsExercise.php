@@ -14,25 +14,15 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
     
-    $idSearched = $_REQUEST['idSearched'];
-    if($_REQUEST['method'] == 'student'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
-        $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."'");
-    }
-    if($_REQUEST['method'] == 'collectionAdmin'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
-        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
-    }
-   if($_REQUEST['method'] == 'collection'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
-        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
-    }
+
+   $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
+   $result2 = mysql_query("SELECT grupo_ejercicio_coleccion.idGrupo FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio='".$_REQUEST['idSearched']."'");
 
     
-    $grupos = array();
+    $groups = array();
     while($row = mysql_fetch_array($result2))
         {
-            $grupos[] = $row['idGrupo'];
+            $groups[] = $row['idGrupo'];
         }
     
     header("Content-type: text/xml");
@@ -49,34 +39,33 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=3;$i++){
+      for($i=0;$i<=2;$i++){
           $flag = false;
-          if(in_array($fila[0],$grupos)){
+          if(in_array($fila[0],$groups)){
               $flag = true;
           }
-            if($i==2){ //Radiobutton aceptar
-                $cell= $row->appendChild($dom->createElement("cell"));
+            if($i==2){ //checkbox
                 if($flag){
-                    $contenido = ("<input type='radio' name='radio$cont' checked='checked'></input>");
+                    $contenido = '1';
                 }
                 else{
-                    $contenido = ("<input type='radio' name='radio$cont'></input>");
+                    $contenido = '0';
                 }
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
-            }
-            if($i==3){ //Radiobutton rechazar
+                
                 $cell= $row->appendChild($dom->createElement("cell"));
-                if(!$flag){
-                    $contenido = ("<input type='radio' name='radio$cont' checked='checked'></input>");
-                }
-                else{
-                    $contenido = ("<input type='radio' name='radio$cont'></input>");
-                }
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='ch';
+                $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('idEj');
+                $domAtribute->value=$fila[0];
+                $cell->appendChild($domAtribute);
+
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=0 && $i!=2 && $i!=3){
+            if($i!=0 && $i!=2){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                $domAtribute = $dom->createAttribute('idGroup');
+                $domAtribute = $dom->createAttribute('idEj');
                 $domAtribute->value=$fila[0];
                 $cell->appendChild($domAtribute);
                 $contenido = ("$fila[$i]");
