@@ -11,9 +11,9 @@ ob_start();
 
 <script>
     function validateForm() {
-       var u = check_empty($("#nombreejercicio"));
+        var u = check_empty($("#nombreejercicio"));
         var p = check_empty($("#objetivo"));
-        var flag = false;
+        var flag = true;
         var grupos = combo6.getChecked();
         if(grupos.length == 0){
             set_tooltip($("#combo_grupo"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
@@ -32,10 +32,18 @@ ob_start();
         else{
            var request = $.ajax({
               type: "POST",
-              url: "../controller/groupController.php",
+              url: "../controller/exercisesController.php",
               async: false,
               data: {
-                method:"newGroup", grupo: $("#nombregrupo").val(), descripcion: $("#descripciongrupo").val()
+                method:"newExercise",
+                name: $("#nombreejercicio").val(),
+                idDocument: idDocumento,
+                idCollection:combo.getSelectedValue(),
+                groups: JSON.stringify(grupos),
+                dificult:combo3.getSelectedValue(),
+                correction:combo5.getSelectedValue(),
+                target:combo4.getSelectedValue(),
+                targetnum:$("#objetivo").val()
               },
               dataType: "script",   
             });
@@ -43,13 +51,221 @@ ob_start();
                     if($.trim(request) == "1"){
                         flag= true;
                     }
-                    else{
+                    if($.trim(request) == "0"){
                         flag= false;
-                        set_tooltip($("#nombregrupo"),"<?php echo(_("Ya existe un grupo con el mismo nombre. Por favor, introduzca un nombre de grupo diferente."));?>");
+                        alert("error");
+                    }
+                    if($.trim(request) == "2"){
+                        flag=false;
+                        set_tooltip($("#nombreejercicio"),"<?php echo(_("Ya existe un ejercicio con el mismo nombre. Por favor, introduzca un nombre de ejercicio diferente."));?>");
                     }
             });
         }       
         return flag;
+    }
+    
+    function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
+            },
+            position: {
+                my: 'center', at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
+            },
+            hide: false,
+            style: {classes: 'qtip-blue'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
+            }
+        });
+    }
+    
+    function deleteEj(){
+        var rowId = mygrid.getSelectedId();
+        var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el ejercicio?"));?>'}),
+                      ok = $('<button />', {text: 'Ok', click: function() {deleteEjAdmin(idEj);}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar ejercicio"))?>'); 
+    }
+    
+    function deleteEjAdmin(idEj){
+        if(idEj!=""){
+            var request = $.ajax({
+              type: "POST",
+              url: "../controller/exercisesController.php",
+              async: false,
+              data: {
+                method:"deleteExercise", idEj: idEj
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                    }
+                    else{
+                        alert("error");
+                    }
+            });
+        }
+    }
+    
+    function updateTips(select){
+       var rowId = mygrid.getSelectedId();
+       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+       var value = select.options[select.selectedIndex].value;
+       var request = $.ajax({
+              type: "POST",
+              url: "../controller/exercisesController.php",
+              async: false,
+              data: {
+                method:"updateTips", idEj: idEj, value:value
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                    }
+                    else{
+                        alert("error");
+                    }
+            }); 
+    }
+    
+    function updateTarget(select){
+       var rowId = mygrid.getSelectedId();
+       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+       var value = select.options[select.selectedIndex].value;
+       var idTarget = select.getAttribute("id");
+       var numTarget = $('input#' + idTarget).val();
+       if(numTarget==""){
+           mygrid.clearAll();
+           mygrid.loadXML("../controller/gridControllers/gridExercises.php",set_tooltip($('input#' + idTarget),"<?php echo(_("Debe introducir un valor"));?>"));
+           return false;
+       }else{
+           var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"updateTarget", idEj: idEj, value:value,numTarget:numTarget
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                        }
+                        else{
+                            alert("error");
+                        }
+                }); 
+        }
+    }
+    
+    function updateCorrectionMode(select){
+       var rowId = mygrid.getSelectedId();
+       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+       var value = select.options[select.selectedIndex].value;
+       var request = $.ajax({
+              type: "POST",
+              url: "../controller/exercisesController.php",
+              async: false,
+              data: {
+                method:"updateCorrectionMode", idEj: idEj, value:value
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                    }
+                    else{
+                        alert("error");
+                    }
+            }); 
+    }
+    
+    function consultGroups(){
+        var rowId = mygrid.getSelectedId();
+        var idEj = mygrid.cellById(rowId, 0).getValue();
+        var idCol = mygrid.cellById(rowId, 6).getAttribute("idCol");
+        $("#idEj").val(idEj);
+        $("#idCol").val(idCol);
+        $("#ejName").html(mygrid.cellById(rowId, 1).getValue());
+        mygrid2.clearAll();
+        mygrid2.loadXML("../controller/gridControllers/gridManageGroupsExercise.php?idSearched="+idEj);
+        window.location = $('#anchorOpenModal').attr('href'); 
+    }
+    
+    function saveGroupPermissions(){
+        var groups = new Array();
+        var permissions = new Array();
+        var cont=0;
+        var cont2=0;
+        mygrid2.forEachRow(function(id){
+             groups[cont] = mygrid2.cellById(id,0).getAttribute("idEj");
+             cont++;
+        });
+
+         
+         mygrid2.forEachRow(function(id){
+               if(mygrid2.cellById(id,1).isChecked()){
+                 permissions[cont2] = true;
+               }else{
+                  permissions[cont2] = false; 
+               }
+               cont2++;
+        });
+        if(permissions.indexOf(true)==-'1'){
+            set_tooltip($("#gridGestionGrupos"),"<?php echo(_("Debe seleccionar al menos un grupo"));?>");
+            flag = false;
+        }
+        else{
+            var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"updatePermissionsGroup", groups: JSON.stringify(groups),permissions:JSON.stringify(permissions),idEj:$("#idEj").val(),idCol:$("#idCol").val()
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            window.location = $('#closeModal').attr('href');
+                        }
+                        else{
+                            alert("error");
+                        }
+                });
+        }
+    }
+    
+    function cancelGroupPermissions(){
+        window.location = $('#closeModal').attr('href'); 
     }
     
 </script>
@@ -58,8 +274,8 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu3.php');
 ob_start();
 ?>
-        <div class="formulario"  >
-            <form action="exercisesTeacher.php" method="post" onsubmit="return validateForm()">
+<div class="formulario"  >
+            <form action="exercisesAdmin.php" method="post" onsubmit="return validateForm()">
                 <fieldset>
                 <legend><h3><?php echo(_("Añadir nuevo ejercicio"));?></h3></legend>
                 <p><?php echo(_("Seleccione un documento a partir del que crear un ejercicio:"));?></p>
@@ -71,9 +287,9 @@ ob_start();
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200);
                     //dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
-                    combo.enableOptionAutoHeight(true);
+                    combo.setOptionHeight(250);
                     combo.enableOptionAutoPositioning();
-                    combo.loadXML("../controller/comboControllers/comboCollections.php");
+                    combo.loadXML("../controller/comboControllers/comboCollectionsAdmin.php");
                     combo.attachEvent("onChange", function(){
                         var selectedCollection = combo.getSelectedValue();
                         combo2.clearAll(true);
@@ -102,16 +318,16 @@ ob_start();
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
                     dhtmlx.skin = 'dhx_skyblue';
                     combo6.enableOptionAutoWidth(true);
-                    combo6.enableOptionAutoHeight(true);
+                    combo6.setOptionHeight(250);
                     combo6.enableOptionAutoPositioning();
-                    combo6.loadXML("../controller/comboControllers/comboGroups.php?method=teacher"); 
+                    combo6.loadXML("../controller/comboControllers/comboGroups.php?method=admin"); 
                 </script>
                 </div>
                 <div class="blockformulario">
-                <label><?php echo(_("Pistas"));?></label>
+                <label><?php echo(_("Dificultad realización"));?></label>
                 <select style='width:200px;'  id="combo_pistas" name="alfa1">
-                    <option value="1"><?php echo(_("Fácil"));?></option>
-                    <option value="2"><?php echo(_("Medio"));?></option>
+                    <option value="0"><?php echo(_("Fácil"));?></option>
+                    <option value="1"><?php echo(_("Medio"));?></option>
                     <option value="2"><?php echo(_("Difícil"));?></option>
                 </select>
                 <script>
@@ -133,7 +349,7 @@ ob_start();
                     combo5.enableOptionAutoHeight(true);
                     combo5.enableOptionAutoPositioning();
                 </script>
-                                <label><?php echo(_("Objetivo"));?></label>
+                <label><?php echo(_("Objetivo"));?></label>
                 <select style='width:200px;'  id="combo_objetivo" name="alfa1">
                     <option value="0"><?php echo(_("% palabras acertadas"));?></option>
                     <option value="1"><?php echo(_("Nº máximo de fallos"));?></option>
@@ -148,32 +364,102 @@ ob_start();
                 <input type="text" id="objetivo" size="4" />
                 </div>
                 <div class="buttonformulario">
-                <input  type="submit" name="newTeacher" value="<?php echo(_("Añadir"));?>" id="newExercise" />
+                <input  type="submit" name="newExercise" value="<?php echo(_("Añadir"));?>" id="newExercise" />
                 </div>
                 </fieldset>
             </form>
         </div>
+        
         <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:500px !important;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Código ejercicio"));?>, <?php echo(_("Ejercicio"));?>, <?php echo(_("Documento"));?>, <?php echo(_("Grupos"));?>, <?php echo(_("Pistas"));?>, <?php echo(_("Objetivo"));?>,<?php echo(_("Modo corrección"));?>,<?php echo(_("Eliminar"));?>");
-            mygrid.setInitWidths("130,*,*,130,*,*,*,100");
-            mygrid.setColAlign("left,left,left,left,left,left,left,center");
-            mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img");
+            mygrid.setHeader("<?php echo(_("Código ejercicio"));?>, <?php echo(_("Ejercicio"));?>, <?php echo(_("Documento"));?>,  <?php echo(_("Dificultad realización"));?>, <?php echo(_("Objetivo"));?>,<?php echo(_("Modo corrección"));?>, <?php echo(_("Colección"));?>,<?php echo(_("Grupos"));?>,<?php echo(_("Eliminar"));?>");
+            mygrid.setInitWidths("90,*,*,90,210,170,*,90,90");
+            mygrid.setColAlign("center,left,left,center,center,center,left,center,center");
+            mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img,img");
             mygrid.enableSmartRendering(true);
-            mygrid.enableAutoHeight(true,200);
+            mygrid.enableAutoHeight(true,400);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,true,false,false,false,false,false");
+            mygrid.enableTooltips("false,true,true,false,false,false,true,false,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-         //   mygrid.loadXML("../controller/gridControllers/gridGroups.php",addEventsToImages);  
+            mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+            mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
+                if (stage == 2){
+                    var row = new Array();
+                    var cont = 0;
+                    var flag;
+                    mygrid.forEachCell(rId,function(c){
+                        row[cont]=c.getValue();
+                        cont++;
+                    });
+                    //row[1]=nValue;
+                    
+                    if(nValue == ""){
+                        set_tooltip($('.cellSelected'),"<?php echo(_("No puede estar vacío."));?>");
+                        return false;
+                    }
+                    else{
+                        var request = $.ajax({
+                          type: "POST",
+                          url: "../controller/exercisesController.php",
+                          async: false,
+                          data: {
+                            method:"checkUpdateGrid", row:JSON.stringify(row),
+                          }  
+                        });
+                        request.success(function(request){
+                                if($.trim(request) == "1"){
+                                    mygrid.cellById(rId, cInd).setValue(nValue); 
+                                    mygrid.editStop();
+                                    flag= true;
+                                }
+                                else{ 
+                                    set_tooltip($('.cellSelected'),"<?php echo(_("Ya existe un ejercicio con el mismo nombre. Por favor, introduzca un nombre de ejercicio diferente."));?>");
+                                    mygrid.cells(rId,cInd).setValue(oValue);
+                                    mygrid.editStop(true);
+                                    flag= false;
+                                }
+                        });
+                    }
+                    return flag;
+                }
+            });  
         </script>
-
+        
+       <a href="#openModal" id="anchorOpenModal"></a>
+        <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                    <h3><?php echo(_("Acceso a grupos:"));?></h3>
+                    <label><?php echo(_("Ejercicio:"));?></label>
+                    <label id="ejName"></label>
+                    <input type="hidden" id="idEj" name="idEj"> 
+                    <input type="hidden" id="idCol" name="idCol">                  
+                    <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
+                    <script>
+                        var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
+                        mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+                        mygrid2.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Incluir ejercicio"));?>");
+                        mygrid2.setInitWidths("*,*");
+                        mygrid2.setColAlign("center,center");
+                        mygrid2.setColTypes("ro,ch");
+                        mygrid2.enableSmartRendering(true);
+                        mygrid2.enableAutoHeight(true,200);
+                        mygrid2.enableAutoWidth(true);
+                        mygrid2.enableTooltips("true,false");
+                        mygrid2.setSizes();
+                        mygrid2.setSkin("dhx_skyblue");
+                        mygrid2.init();
+                    </script>
+                    
+                    <input  type="button" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+            </div>
+        </div> 
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
 ?>
-
-

@@ -13,6 +13,9 @@
     if($_REQUEST['method']=="admin"){
         $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo");
     }
+    if($_REQUEST['method']=="adminExercises"){
+        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo,grupo_coleccion WHERE grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion='".$_REQUEST['idCollection']."'");
+    }
     else{
         $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
     }

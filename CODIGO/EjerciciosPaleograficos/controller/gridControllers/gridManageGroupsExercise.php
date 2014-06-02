@@ -15,7 +15,7 @@
     $gridConn->dynamic_loading(20);
     
 
-   $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
+   $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,grupo_coleccion WHERE grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion='".$_REQUEST['idCollection']."'");
    $result2 = mysql_query("SELECT grupo_ejercicio_coleccion.idGrupo FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio='".$_REQUEST['idSearched']."'");
 
     
