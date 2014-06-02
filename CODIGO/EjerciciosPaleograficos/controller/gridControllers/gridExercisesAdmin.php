@@ -14,7 +14,8 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
 
-    $result = mysql_query("SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion FROM grupo,usuario,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador AND grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo AND ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio");
+    $result = mysql_query("SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion FROM ejercicio");
+    
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;

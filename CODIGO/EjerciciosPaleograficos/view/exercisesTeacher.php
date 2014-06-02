@@ -216,7 +216,7 @@ ob_start();
         $("#idCol").val(idCol);
         $("#ejName").html(mygrid.cellById(rowId, 1).getValue());
         mygrid2.clearAll();
-        mygrid2.loadXML("../controller/gridControllers/gridManageGroupsExercise.php?idSearched="+idEj);
+        mygrid2.loadXML("../controller/gridControllers/gridManageGroupsExercise.php?idSearched="+idEj+"&idCollection="+idCol);
         window.location = $('#anchorOpenModal').attr('href'); 
     }
     
@@ -275,7 +275,7 @@ include ('/menu/menu3.php');
 ob_start();
 ?>
 <div class="formulario"  >
-            <form action="exercisesAdmin.php" method="post" onsubmit="return validateForm()">
+            <form action="exercisesTeacher.php" method="post" onsubmit="return validateForm()">
                 <fieldset>
                 <legend><h3><?php echo(_("Añadir nuevo ejercicio"));?></h3></legend>
                 <p><?php echo(_("Seleccione un documento a partir del que crear un ejercicio:"));?></p>
@@ -289,11 +289,13 @@ ob_start();
                     combo.enableOptionAutoWidth(true);
                     combo.setOptionHeight(250);
                     combo.enableOptionAutoPositioning();
-                    combo.loadXML("../controller/comboControllers/comboCollectionsAdmin.php");
+                    combo.loadXML("../controller/comboControllers/comboCollections.php");
                     combo.attachEvent("onChange", function(){
                         var selectedCollection = combo.getSelectedValue();
                         combo2.clearAll(true);
-                        combo2.loadXML("../controller/comboControllers/comboDocuments.php?idCollection="+selectedCollection); 
+                        combo2.loadXML("../controller/comboControllers/comboDocuments.php?idCollection="+selectedCollection);
+                        combo6.clearAll(true);
+                        combo6.loadXML("../controller/comboControllers/comboGroups.php?method=adminExercises&idCollection="+selectedCollection);  
                     });  
                 </script>
                 <label><?php echo(_("Nombre"));?></label>
@@ -318,9 +320,8 @@ ob_start();
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
                     dhtmlx.skin = 'dhx_skyblue';
                     combo6.enableOptionAutoWidth(true);
-                    combo6.setOptionHeight(250);
-                    combo6.enableOptionAutoPositioning();
-                    combo6.loadXML("../controller/comboControllers/comboGroups.php?method=admin"); 
+                    combo2.enableOptionAutoHeight(true);
+                    combo6.enableOptionAutoPositioning();                    
                 </script>
                 </div>
                 <div class="blockformulario">

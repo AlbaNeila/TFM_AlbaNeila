@@ -119,7 +119,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
                     }
                     else{
                         alert("error");
@@ -144,7 +144,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
                     }
                     else{
                         alert("error");
@@ -160,7 +160,7 @@ ob_start();
        var numTarget = $('input#' + idTarget).val();
        if(numTarget==""){
            mygrid.clearAll();
-           mygrid.loadXML("../controller/gridControllers/gridExercises.php",set_tooltip($('input#' + idTarget),"<?php echo(_("Debe introducir un valor"));?>"));
+           mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php",set_tooltip($('input#' + idTarget),"<?php echo(_("Debe introducir un valor"));?>"));
            return false;
        }else{
            var request = $.ajax({
@@ -175,7 +175,7 @@ ob_start();
                 request.success(function(request){
                         if($.trim(request) == "1"){
                             mygrid.clearAll();
-                            mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
                         }
                         else{
                             alert("error");
@@ -200,7 +200,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
                     }
                     else{
                         alert("error");
@@ -386,7 +386,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridExercises.php");
+            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();
