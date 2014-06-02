@@ -753,7 +753,7 @@ _dhtmlxError.prototype.throwError=function(type, name, params){
 	if (this.catches["ALL"])
 		return this.catches["ALL"](type, name, params);
 
-	alert("Error type: "+arguments[0]+"\nDescription: "+arguments[1]);
+	//alert("Error type: "+arguments[0]+"\nDescription: "+arguments[1]);
 	return null;
 }
 

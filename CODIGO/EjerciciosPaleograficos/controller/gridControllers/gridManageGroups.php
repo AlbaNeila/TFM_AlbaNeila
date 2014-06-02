@@ -17,7 +17,7 @@
     $idSearched = $_REQUEST['idSearched'];
     if($_REQUEST['method'] == 'student'){
         $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
-        $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."'");
+        $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."' AND usuario_grupo.solicitud=0");
     }
     if($_REQUEST['method'] == 'collectionAdmin'){
         $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");

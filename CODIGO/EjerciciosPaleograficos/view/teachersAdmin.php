@@ -39,10 +39,22 @@ ob_start();
                 set_tooltip($("#apellidosprofesor"),"<?php echo(_("Formato no válido"));?>");
                 flag = false;
             }
-            if(!check_password("#passwordprofesor")){
-                set_tooltip($("#passwordprofesor"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+            if(!check_password("#password")){
+                set_tooltip($("#password"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
                 flag = false;
-            }
+            }else{
+                    if(!check_password("#password2")){
+                        set_tooltip($("#password2"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+                        flag = false;
+                    }
+                    else{
+                        if(!check_passwords()){
+                            set_tooltip($("#password2"),"<?php echo(_("Las contraseñas no coinciden"));?>");
+                            flag = false;
+                        }
+                    }
+                }
+            
         }
         
         if(flag){
@@ -173,11 +185,13 @@ ob_start();
                 <label><?php echo(_("Apellidos"));?></label>
                 <input type="text" id="apellidosprofesor" />
                 <label><?php echo(_("Contraseña"));?></label>
-                <input type="text" id="passwordprofesor" />
+                <input type="text" id="password" />
+                <label><?php echo(_("Repita contraseña"));?></label>
+                <input type="password" id="password2" />
             </div>
             <div class="blockformulario">
                 <label><?php echo(_("Email"));?></label>
-                <input type="text" id="emailprofesor"/>
+                <input type="text" id="emailprofesor"/>                
             </div>
             
             <div class="buttonformulario">

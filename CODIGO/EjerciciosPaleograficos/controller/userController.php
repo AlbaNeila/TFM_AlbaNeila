@@ -23,7 +23,7 @@
     
     function newStudent(){    	
         $usuario_nombre = mysql_real_escape_string($_POST['dnialumno']);
-        $usuario_clave = mysql_real_escape_string($_POST['passwordalumno']);
+        $usuario_clave = mysql_real_escape_string($_POST['password']);
         $nombre = mysql_real_escape_string($_POST['nombrealumno']);
     	$usuario_apellidos = mysql_real_escape_string($_POST['apellidosalumno']);
         $usuario_email = mysql_real_escape_string($_POST['emailalumno']);
@@ -63,7 +63,7 @@
 
     function newTeacher(){      
         $usuario_nombre = mysql_real_escape_string($_POST['dniprofesor']);
-        $usuario_clave = mysql_real_escape_string($_POST['passwordprofesor']);
+        $usuario_clave = mysql_real_escape_string($_POST['password']);
         $nombre = mysql_real_escape_string($_POST['nombreprofesor']);
         $usuario_apellidos = mysql_real_escape_string($_POST['apellidosprofesor']);
         $usuario_email = mysql_real_escape_string($_POST['emailprofesor']);
