@@ -198,7 +198,6 @@ ob_start();
         var colecciones = new Array();
         var cont = 0;
         var idDoc=$("#idHidden").val();
-        debugger;
             
         mygrid2.forEachRow(function(id){
             mygrid2.forEachCell(id,function(c){

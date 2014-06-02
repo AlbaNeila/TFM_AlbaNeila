@@ -26,9 +26,26 @@ ob_start();
         var p = check_empty($("#descripciondoc"));
         var t = check_empty($("#tipoesc"));
         var f = check_empty($("#fechadoc"));
-        var i = check_empty($("#imagen"));
+        var img = check_empty($("#imagen"));
         var tr = check_empty($("#transcripcion"));
         
+        var checked_array = combo.getChecked();
+        if(checked_array.length == 0){
+            set_tooltip($("#combo_collection"),"<?php echo(_("Debe seleccionar al menos una colección"));?>");
+            flag=false;
+        }
+        else{
+            var collections='';
+            for(i=0;i<checked_array.length;i++){
+                collections+=checked_array[i]+';';
+            }
+            var input = document.createElement("input");
+            input.setAttribute("type", "hidden");                           
+            input.setAttribute("name", "idHidden");                            
+            input.setAttribute("value", collections);
+            document.getElementById("formDoc").appendChild(input);
+        }
+
         if($("#transcripcion").val()!=""){
             var file = $("#transcripcion").val();
             var ext = file.split('.').pop().toLowerCase();
@@ -37,8 +54,8 @@ ob_start();
                 flag = false;
             } 
         }
-        
-        if(u || p || t ||f || i || tr || !flag){
+        debugger;
+        if(u || p || t ||f || img || tr || !flag){
             flag= false;
         }
         else{
@@ -237,6 +254,17 @@ ob_start();
                 <input type="text" id="fechadoc" name="date"/>
                 </div>
                 <div class="blockformulario">
+                <label><?php echo(_("Colección"));?></label>               
+                <div id="combo_collection" style="width:200px; height:20px;"></div>
+                <script>
+                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
+                    var combo = new dhtmlXCombo("combo_collection","comboCollection",200,'checkbox');
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo.enableOptionAutoWidth(true);
+                    combo.setOptionHeight(true);
+                    combo.enableOptionAutoPositioning();
+                    combo.loadXML("../controller/comboControllers/comboCollections.php");  
+                </script>
                 <label><?php echo(_("Imagen"));?></label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
                 <input type="file" id="imagen" name="imagen"/>
