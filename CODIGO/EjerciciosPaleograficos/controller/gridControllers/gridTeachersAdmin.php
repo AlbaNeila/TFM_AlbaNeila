@@ -63,7 +63,18 @@
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>              
                 $cell->appendChild($dom->createCDATASection(utf8_encode($numgrupos)));
             }
-            if($i!=6 && $i!=7 && $i!=8){
+            if($i==5){ //columna cambiar contraseña
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('idTeacher');
+                $domAtribute->value=$fila[0];
+                $cell->appendChild($domAtribute);
+                $contenido = (" ../public/img/changepassword.png^^javascript:changePassword()^' id='".$fila[0]."");
+                $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
+            }
+            if($i!=5 && $i!=6 && $i!=7 && $i!=8){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));

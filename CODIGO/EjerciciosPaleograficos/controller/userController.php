@@ -19,6 +19,9 @@
         case 'checkUpdateGridUser':
             checkUpdateGridUser();
             break;
+        case 'updatePassword':
+            updatePassword();
+            break;
     }
     
     function newStudent(){    	
@@ -151,6 +154,22 @@
             }
         }
         else{
+            echo 0;
+        }
+    }
+
+    function updatePassword(){
+        $newPass = mysqli_real_escape_string($GLOBALS['link'],$_POST['newPass']);
+        $idUser = mysqli_real_escape_string($GLOBALS['link'],$_POST['idUser']);
+        
+        if($newPass!=""){
+            $update = mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.password='".md5($newPass)."' WHERE usuario.idUsuario='".$idUser."'");
+            if($update){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }else{
             echo 0;
         }
     }

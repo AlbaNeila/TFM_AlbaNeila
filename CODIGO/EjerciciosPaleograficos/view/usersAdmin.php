@@ -206,6 +206,52 @@ ob_start();
             });
     }
     
+    function changePassword(){
+        var rowId = mygrid.getSelectedId();
+        var idUser = mygrid.cellById(rowId, 5).getAttribute('idStudent');
+        
+        $("#idStudent2").val(idUser);
+        $("#studentName2").html(mygrid.cellById(rowId, 1).getValue());
+        
+        window.location = $('#anchorOpenModal2').attr('href'); 
+    }
+    
+    function saveNewPassword(){
+        debugger;
+        if(!check_password("#changepassword")){
+            set_tooltip($("#changepassword"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+            return false;
+        }else{
+            if(!check_password("#changepassword2")){
+                set_tooltip($("#changepassword2"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+                return false;
+            }else{
+                if(($("#changepassword").val() != $("#changepassword2").val())){
+                     set_tooltip($("#changepassword2"),"<?php echo(_("Las contraseñas no coinciden"));?>");
+                    return false;
+                }else{ //Todo bien
+                    var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/userController.php",
+                      async: false,
+                      data: {
+                        method:"updatePassword", newPass:$("#changepassword").val(), idUser:   $("#idStudent2").val()
+                      },
+                      dataType: "script",   
+                    });
+                    request.success(function(request){
+                            if($.trim(request) == "1"){
+                                window.location = $('#closeModal2').attr('href');
+                            }
+                            else{
+                                alert("error");
+                            }
+                    });
+                }
+            }
+        }
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -264,14 +310,14 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridStudents');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Código usuario"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("DNI"));?>, <?php echo(_("Contraseña"));?>,<?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>,<?php echo(_("Eliminar"));?>");
-            mygrid.setInitWidths("70,*,*,*,*,*,90,90,80");
-            mygrid.setColAlign("center,left,left,left,left,left,center,center,center");
-            mygrid.setColTypes("ro,ed,ed,ed,ed,ed,ro,img,img");
+            mygrid.setHeader("<?php echo(_("Código usuario"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("DNI"));?>, <?php echo(_("Modificar contraseña"));?>,<?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>,<?php echo(_("Eliminar"));?>");
+            mygrid.setInitWidths("70,*,*,*,*,90,90,90,80");
+            mygrid.setColAlign("center,left,left,left,left,center,center,center,center");
+            mygrid.setColTypes("ro,ed,ed,ed,ed,img,ro,img,img");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,400);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,true,true,true,true,false,false,false");
+            mygrid.enableTooltips("false,true,true,true,true,false,false,false,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
@@ -361,6 +407,25 @@ ob_start();
                     <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
             </div>
         </div>   
+        
+        <a href="#openModal2" id="anchorOpenModal2"></a>
+        <div id="openModal2" class="modalDialog2">
+            <div>
+                <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
+                    <h3><?php echo(_("Modificar contraseña:"));?></h3>
+                    <label><?php echo(_("Alumno:"));?></label>
+                    <label id="studentName2"></label>
+                    <input type="hidden" id="idStudent2" name="idStudent2">     
+
+                        <label><?php echo(_("Contraseña"));?></label>
+                        <input type="password" id="changepassword" />
+                        <label><?php echo(_("Repita contraseña"));?></label>
+                        <input type="password" id="changepassword2" />
+                    
+                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal2').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    <input  type="submit" name="enviar" onclick="saveNewPassword()" value="<?php echo(_("Guardar"));?>" id="saveNewPassword" />
+            </div>
+        </div>
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
