@@ -44,7 +44,7 @@
             header("Location: ../view/usersAdmin.php");
         }
         if($_SESSION['usuario_tipo']== "ALUMNO"){
-            header("Location: ../view/groupTeacher.php");
+            header("Location: ../view/collectionsStudent.php");
         }
     }
 ?> 

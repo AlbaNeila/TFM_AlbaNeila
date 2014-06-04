@@ -16,6 +16,7 @@
         case 'saveDocumentAccess':
             saveDocumentAccess();
             break;
+
     }
 
     function newCollection(){
@@ -166,4 +167,5 @@
          }
          echo $return;
      }
+
 ?> 
