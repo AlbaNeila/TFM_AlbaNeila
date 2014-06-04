@@ -64,7 +64,7 @@
                     if($superado = mysql_fetch_assoc($result3)){
                         $contenido = ("../public/img/enter.png' ");
                     }else{
-                        $contenido = ("../public/img/exerciseforbidden.png' ");
+                        $contenido = ("../public/img/lock.png' ");
                     }                  
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));

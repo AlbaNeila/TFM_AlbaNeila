@@ -234,7 +234,7 @@ ob_start();
                 </fieldset>
             </form>
         </div>
-        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%"></div>
+        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

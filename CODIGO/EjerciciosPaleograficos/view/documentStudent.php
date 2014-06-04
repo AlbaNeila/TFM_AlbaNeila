@@ -3,20 +3,29 @@ session_start();
 include('../model/acceso_db.php');
 $coleccion="";
 $idColeccion="";
-if($coleccion==""){
+$accessGroup="";
+if(isset( $_POST['coleccion'])){
     $coleccion = $_POST['coleccion'];
 }
-if($idColeccion==""){
+if(isset($_POST['idColeccion'])){
     $idColeccion = $_POST['idColeccion'];
 }
+
+
+if(isset($_POST['accessGroup'])){
+    $accessGroup = $_POST['accessGroup'];
+}
+$grupo="";
+$idGrupo="";
+if(isset($_POST['grupo'])){
+    $grupo = $_POST['grupo'];
+}
+if(isset($_POST['idGrupo'])){
+    $idGrupo = $_POST['idGrupo'];
+}
+
 ob_start();
 ?>
-<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
-
-<script src="../lib/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -31,6 +40,16 @@ ob_start();
         <label style="margin-left: 145px"><?php echo $coleccion;?></label>
         <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
         
+        <?php if($accessGroup!=""){?>
+        <a href="#" onclick="$('form#goGroups').submit();"><?php echo(_("Volver"));?></a>
+        <form action="accessGroupStudent.php" name="goGroups" id="goGroups" method="post" style="display:none;">
+            <input type="hidden" name="grupo" id="grupo" value="<?php echo $grupo;?>"/>
+            <input type="hidden" name="idGrupo"  id="idGrupo" value="<?php echo $idGrupo;?>"/>            
+        </form>
+        <?php }else{ ?>
+        <a href="collectionsStudent.php"><?php echo(_("Volver"));?></a>
+        <?php } ?>
+            
         <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:185px">
             
         </div>

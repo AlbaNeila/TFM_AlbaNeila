@@ -3,16 +3,9 @@ session_start();
 ob_start();
 include('../init.php');
 ?>
-<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
-<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlx_custom.css">  
-<script src="../lib/dhtmlxCombo/codebase/dhtmlxcommon.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/dhtmlxcombo.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
-<script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 
 <script>
     function accessCollection(){
-        debugger;
         var rowId = mygrid.getSelectedId();
         var idColeccion = mygrid.cellById(rowId, 0).getValue();
         var coleccion = mygrid.cellById(rowId, 1).getValue();

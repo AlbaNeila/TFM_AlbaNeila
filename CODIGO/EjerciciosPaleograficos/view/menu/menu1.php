@@ -7,8 +7,8 @@
         <ul class="menu">
             <li><a href="collectionsStudent.php" style="text-decoration:underline"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="groupStudent.php"><?php echo(_("Grupos"));?></a></li>
-            <li><a href="statisticsStudent"><?php echo(_("Estadísticas"));?></a></li>
-            <li><a href="helpStudent"><?php echo(_("Ayuda"));?></a></li>
+            <li><a href="statisticsStudent.php"><?php echo(_("Estadísticas"));?></a></li>
+            <li><a href="helpStudent.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">
             <li><a href="../controller/logout.php">Salir</a></li>
