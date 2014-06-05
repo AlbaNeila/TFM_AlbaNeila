@@ -16,6 +16,9 @@
         case 'updateTarget':
             updateTarget();
             break;
+        case 'updateValueTarget':
+            updateTarget();
+            break;
         case 'updateCorrectionMode':
             updateCorrectionMode();
             break;
@@ -90,7 +93,7 @@
         
         $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.idDificultad='".$value."' WHERE ejercicio.idEjercicio='".$idEj."'");
         if($result!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1; 
         }
         else{
             echo 0; //Error
@@ -100,14 +103,26 @@
     function updateTarget(){
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
-        $numTarget= mysqli_real_escape_string($GLOBALS['link'],$_POST['numTarget']);
+        
+        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.valor_objetivo='".utf8_decode($value)."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        if($result!=FALSE){
+                    echo 1; 
+        }
+        else{
+            echo 0; //Error
+        }
+    }
+    
+    function updateValueTarget(){
+        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
+        $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
         if($value==0){
             $value='% palabras acertadas';
         }else{
             $value=('nº máximo de fallos');
         }
         
-        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.tipo_objetivo='".utf8_decode($value)."',ejercicio.valor_objetivo='".$numTarget."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.tipo_objetivo='".utf8_decode($value)."' WHERE ejercicio.idEjercicio='".$idEj."'");
         if($result!=FALSE){
                     echo 1; //Delete grupo OK
         }

@@ -32,11 +32,13 @@ ob_start();
 ?>
     <div class="submenu">
         <div class="submenuitem"><a  ><?php echo(_("Grupos"));?></a></div>
-        <div class="submenuitem"><a style="font-weight: bold"><?php echo(_("Colección"));?></a></div>
+        <div class="submenuitem"><a style="font-weight: bold"><?php echo(_("Colecciones"));?></a></div>
     </div>
-    
-        <label style="margin-left: 145px"><?php echo $grupo;?></label>
+        
+        <label style="margin-left: 145px"><?php echo(_("Grupo:"));?></label>
+        <label ><?php echo $grupo;?></label>
         <input type="hidden" id="idGrupo" value="<?php echo $idGrupo;?>" />
+        <a href="groupStudent.php"><?php echo(_("Volver"));?></a>
               
         <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:185px";></div>
         <script>

@@ -14,7 +14,10 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
 
-    $result = mysql_query("SELECT documento.idDocumento,documento.nombre, documento.descripcion,documento.tipoEscritura, documento.fecha FROM documento,coleccion_documento WHERE coleccion_documento.idColeccion = '".$_REQUEST['idCollection']."' AND documento.idDocumento = coleccion_documento.idDocumento");
+    $result = mysql_query("SELECT distinct  documento.idDocumento,documento.nombre, documento.descripcion,documento.tipoEscritura, documento.fecha 
+                            FROM usuario,usuario_grupo,grupo,grupo_coleccion,coleccion,coleccion_documento,documento
+                            WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo
+                            and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and coleccion.idColeccion=coleccion_documento.idColeccion and coleccion_documento.idDocumento=documento.idDocumento and coleccion.idColeccion='".$_REQUEST['idCollection']."'");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -36,17 +39,23 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $result2 = mysql_query("SELECT ejercicio.idEjercicio FROM ejercicio WHERE ejercicio.idDocumento = '$fila[0]'");
+                $result2 = mysql_query("SELECT ejercicio.idEjercicio FROM usuario,usuario_grupo,grupo,grupo_coleccion,coleccion,coleccion_documento,documento,ejercicio,grupo_ejercicio_coleccion
+                                        WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo IN (SELECT grupo.idGrupo FROM grupo, usuario, usuario_grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo) and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and coleccion.idColeccion=coleccion_documento.idColeccion and coleccion_documento.idDocumento=documento.idDocumento and documento.idDocumento='".$fila[0]."' and documento.idDocumento=ejercicio.idDocumento and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo");
                 if(!$ejercicios = mysql_fetch_assoc($result2)){
                      $contenido = ("../public/img/minus.png' ");
                 }
                 else{
-                    $result3 = mysql_query("SELECT usuario_ejercicio.idEjercicio FROM usuario_ejercicio WHERE usuario_ejercicio.superado = '1' AND usuario_ejercicio.idEjercicio=$fila[0] AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
-                    if($superado = mysql_fetch_assoc($result3)){
-                        $contenido = ("../public/img/yes.png' ");
+                    if($ejercicio = mysql_fetch_assoc($result2)){
+                        $idEjercicio=$ejercicio['idEjercicio'];
+                        $result3 = mysql_query("SELECT usuario_ejercicio.idEjercicio FROM usuario_ejercicio WHERE usuario_ejercicio.superado = '1' AND usuario_ejercicio.idEjercicio='".$idEjercicio."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+                        if($superado = mysql_fetch_assoc($result3)){
+                            $contenido = ("../public/img/yes.png' ");
+                        }else{
+                            $contenido = ("../public/img/no.png' ");
+                        }  
                     }else{
                         $contenido = ("../public/img/no.png' ");
-                    }                  
+                    }               
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }

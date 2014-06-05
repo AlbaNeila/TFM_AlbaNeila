@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update-policy>
+	<url-map pattern="com.aptana.ide.feature" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+	<url-map pattern="com.aptana.ide.feature.rcp" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site_rcp.xml"/>
+	<url-map pattern="com.aptana.ide.feature.editors" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+	<url-map pattern="com.aptana.ide.feature.editor.js" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+	<url-map pattern="com.aptana.ide.feature.editor.css" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+	<url-map pattern="com.aptana.ide.feature.editor.html" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+	<url-map pattern="com.aptana.ide.feature.editor.php" url="file:///C:/Users/Alba/Desktop/aptana_update_024747/site.xml"/>
+</update-policy>

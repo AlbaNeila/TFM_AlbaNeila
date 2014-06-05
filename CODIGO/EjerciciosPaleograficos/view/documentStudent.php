@@ -37,7 +37,8 @@ ob_start();
         <div class="submenuitem"><a ><?php echo(_("Colecciones"));?></a></div>
         <div class="submenuitem"><a style="font-weight: bold"><?php echo(_("Documentos"));?></a></div>
     </div>
-        <label style="margin-left: 145px"><?php echo $coleccion;?></label>
+        <label style="margin-left: 145px"><?php echo(_("Colección:"));?></label>
+        <label><?php echo $coleccion;?></label>
         <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
         
         <?php if($accessGroup!=""){?>
