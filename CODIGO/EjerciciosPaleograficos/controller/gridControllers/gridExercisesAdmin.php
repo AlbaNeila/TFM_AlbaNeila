@@ -14,7 +14,7 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
 
-    $result = mysql_query("SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion FROM ejercicio,coleccion,coleccion_documento,documento WHERE coleccion.idColeccion='".$_REQUEST['idCollection']."' and coleccion.idColeccion=coleccion_documento.idDocumento and coleccion_documento.idDocumento=documento.idDocumento and documento.idDocumento=ejercicio.idDocumento");
+    $result = mysql_query("SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion WHERE coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -30,7 +30,7 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=8;$i++){
+      for($i=0;$i<=10;$i++){
           if($i==2){ //Columna Documento
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $contenido="";
@@ -89,7 +89,7 @@
                 $contenido="<select id='correction' name='correction' onchange='updateCorrectionMode(this)'>$options</select>";
                 $cell->appendChild($dom->createCDATASection($contenido));
             } 
-           if($i==8){ //Columna de la imagen eliminar
+           if($i==10){ //Columna de la imagen eliminar
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -104,6 +104,22 @@
                 $cell->appendChild($domAtribute);
                 $contenido = (" ../public/img/groups.png^^javascript:consultGroups()^' id='".$fila[0]."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
+            }
+           if($i==8){ //Columna de la imagen ordenar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = (" ../public/img/up.png^^javascript:upEj()^' ");
+                $cell->appendChild($dom->createCDATASection(($contenido)));
+            }
+             if($i==9){ //Columna de la imagen ordenar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = (" ../public/img/down.png^^javascript:downEj()^' ");
+                $cell->appendChild($dom->createCDATASection(($contenido)));
             }
             if($i==0 || $i==1 ){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>

@@ -59,7 +59,10 @@
                       $result2 = mysqli_fetch_assoc($result2);
                       $idEjercicio = $result2['idEjercicio'];
                       foreach($groups as $idGroup){
-                        $insert2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_ejercicio_coleccion (grupo_ejercicio_coleccion.idGrupo, grupo_ejercicio_coleccion.idEjercicio,grupo_ejercicio_coleccion.idColeccion) VALUES ('".$idGroup."','".$idEjercicio."','".$idCollection."')");
+                        $max = mysqli_query($GLOBALS['link'],"select max(grupo_ejercicio_coleccion.orden) as max from ejercicio,grupo_ejercicio_coleccion where grupo_ejercicio_coleccion.idColeccion='".$idCollection."'");
+                        $max = mysqli_fetch_assoc($max);
+                        $order = $max['max']+1;
+                        $insert2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_ejercicio_coleccion (grupo_ejercicio_coleccion.idGrupo, grupo_ejercicio_coleccion.idEjercicio,grupo_ejercicio_coleccion.idColeccion,grupo_ejercicio_coleccion.orden) VALUES ('".$idGroup."','".$idEjercicio."','".$idCollection."','".$order."')");
                         if(!$insert2){
                             $flag = 0;
                         }else{

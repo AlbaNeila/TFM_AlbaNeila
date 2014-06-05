@@ -407,14 +407,14 @@ ob_start();
         
         
         
-        <label><?php echo(_("Colección"));?></label>               
+        <label><?php echo(_("Seleccione una colección:"));?></label>               
         <div id="combo_selectcollection" style="width:200px; height:20px;"></div>
         <script>
             window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
             var comboColeccion = new dhtmlXCombo("combo_selectcollection","comboCollection",200);
             //dhtmlx.skin = 'dhx_skyblue';
             comboColeccion.enableOptionAutoWidth(true);
-            comboColeccion.setOptionHeight(250);
+            comboColeccion.setOptionHeight(400);
             comboColeccion.enableOptionAutoPositioning();
             comboColeccion.loadXML("../controller/comboControllers/comboCollectionsAdmin.php");
             comboColeccion.attachEvent("onChange", function(){
@@ -428,14 +428,14 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Código ejercicio"));?>, <?php echo(_("Ejercicio"));?>, <?php echo(_("Documento"));?>,  <?php echo(_("Dificultad realización"));?>, <?php echo(_("Objetivo"));?>,<?php echo(_("Modo corrección"));?>,<?php echo(_("Grupos"));?>,<?php echo(_("Eliminar"));?>");
-            mygrid.setInitWidths("90,*,*,90,210,170,90,90");
-            mygrid.setColAlign("center,left,left,center,center,center,center,center");
-            mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img,img");
+            mygrid.setHeader("<?php echo(_("Código ejercicio"));?>, <?php echo(_("Ejercicio"));?>, <?php echo(_("Documento"));?>,  <?php echo(_("Dificultad realización"));?>, <?php echo(_("Objetivo"));?>,<?php echo(_("Modo corrección"));?>,<?php echo(_("Grupos"));?>,<?php echo(_("Ordenar"));?>,#cspan,<?php echo(_("Eliminar"));?>");
+            mygrid.setInitWidths("90,*,*,90,210,170,90,40,40,90");
+            mygrid.setColAlign("center,left,left,center,center,center,center,center,center,center");
+            mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img,img,img,img");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,400);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,true,false,false,false,false,false");
+            mygrid.enableTooltips("false,true,true,false,false,false,false,false,false,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
