@@ -28,6 +28,9 @@
         case 'updatePermissionsGroup':
             updatePermissionsGroup();
             break;
+        case 'updateOrder':
+            updateOrder();
+            break;
     }
     
     function newExercise(){
@@ -200,6 +203,23 @@
             $cont++;
         }
         echo $flag;
+    }
+
+    function updateOrder(){
+        $idEjUp = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEjUp']);
+        $orderUp= mysqli_real_escape_string($GLOBALS['link'],$_POST['orderUp']);
+
+        $idEjDown = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEjDown']);
+        $orderDown= mysqli_real_escape_string($GLOBALS['link'],$_POST['orderDown']);
+
+        
+        $result1 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderDown."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjUp."'");
+        $result2 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderUp."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjDown."'");
+        if($result1 && $result2){
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
     
 ?> 

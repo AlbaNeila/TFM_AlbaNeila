@@ -126,6 +126,9 @@
                 $domAtribute = $dom->createAttribute('idEj');
                 $domAtribute->value=$fila[0];
                 $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('orden');
+                $domAtribute->value=$fila[7];
+                $cell->appendChild($domAtribute);
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }

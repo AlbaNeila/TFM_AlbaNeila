@@ -13,8 +13,10 @@
 
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
-
-    $result = mysql_query("SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion FROM grupo,usuario,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador AND grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo AND ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio");
+    
+    $result = mysql_query("SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador and coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden");
+    
+    
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
@@ -29,8 +31,8 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=9;$i++){
-          if($i==2){ //Columna Documento
+      for($i=0;$i<=10;$i++){
+                    if($i==2){ //Columna Documento
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $contenido="";
                 $result2 = mysql_query("SELECT documento.nombre FROM documento WHERE documento.idDocumento = '$fila[2]'");
@@ -72,7 +74,7 @@
                    $options = "<option value='0'>% palabras acertadas</option>
                                <option value='1' selected>Nº máximo de fallos</option>";
                 }
-                $contenido = "<select id='target$cont' name='target' onchange='updateTarget(this)'>$options</select> <input id='target$cont' size='1' type='text' value='$fila[5]'/>";
+                $contenido = "<select id='target$cont' name='target' onchange='updateTarget(this)'>$options</select> <input id='target$cont' size='1' type='text' value='$fila[5]' onblur='updateValueTarget(this)'/>";
                 $cell->appendChild($dom->createCDATASection($contenido));
            } 
             if($i==6){
@@ -87,20 +89,8 @@
                 }
                 $contenido="<select id='correction' name='correction' onchange='updateCorrectionMode(this)'>$options</select>";
                 $cell->appendChild($dom->createCDATASection($contenido));
-            }
-           if($i==7){
-                $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                $contenido="";
-                $result3 = mysql_query("SELECT coleccion.nombre,coleccion.idColeccion FROM coleccion,grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio = '$fila[0]' AND grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion");
-                if($collection=mysql_fetch_assoc($result3)) {
-                    $contenido=utf8_encode($collection['nombre']);
-                } 
-                $domAtribute = $dom->createAttribute('idCol');
-                $domAtribute->value=$collection['idColeccion'];
-                $cell->appendChild($domAtribute); 
-                $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
-           } 
-           if($i==9){ //Columna de la imagen eliminar
+            } 
+           if($i==10){ //Columna de la imagen eliminar
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -108,7 +98,7 @@
                 $contenido = ("../public/img/delete.png^^javascript:deleteEj()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-           if($i==8){ 
+           if($i==7){ 
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -116,10 +106,29 @@
                 $contenido = (" ../public/img/groups.png^^javascript:consultGroups()^' id='".$fila[0]."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
+           if($i==8){ //Columna de la imagen ordenar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = (" ../public/img/up.png^^javascript:upEj()^' ");
+                $cell->appendChild($dom->createCDATASection(($contenido)));
+            }
+             if($i==9){ //Columna de la imagen ordenar
+                $cell= $row->appendChild($dom->createElement("cell"));
+                $domAtribute = $dom->createAttribute('type');
+                $domAtribute->value='img';
+                $cell->appendChild($domAtribute);
+                $contenido = (" ../public/img/down.png^^javascript:downEj()^' ");
+                $cell->appendChild($dom->createCDATASection(($contenido)));
+            }
             if($i==0 || $i==1 ){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $domAtribute = $dom->createAttribute('idEj');
                 $domAtribute->value=$fila[0];
+                $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('orden');
+                $domAtribute->value=$fila[7];
                 $cell->appendChild($domAtribute);
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
