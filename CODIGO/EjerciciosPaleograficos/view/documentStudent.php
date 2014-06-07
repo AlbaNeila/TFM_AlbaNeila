@@ -51,25 +51,43 @@ ob_start();
         <a href="collectionsStudent.php"><?php echo(_("Volver"));?></a>
         <?php } ?>
             
-        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:185px">
-            
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:185px">            
         </div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Tipo escritura"));?>, <?php echo(_("Fecha"));?>, <?php echo(_("Transcrito"));?>,<?php echo(_("Ejercicio"));?>");
-            mygrid.setInitWidths("*,*,*,*,100,*");
-            mygrid.setColAlign("left,left,left,left,center,center");
-            mygrid.setColTypes("ro,ro,ro,ro,img,img");
+            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Tipo escritura"));?>, <?php echo(_("Fecha"));?>, <?php echo(_("Acceder"));?>");
+            mygrid.setInitWidths("*,*,170,180,90");
+            mygrid.setColAlign("left,left,left,left,center");
+            mygrid.setColTypes("ro,ro,ro,ro,img");
             mygrid.enableSmartRendering(true);
-            mygrid.enableAutoHeight(true,400);
+            mygrid.enableAutoHeight(true,300);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("true,true,true,true,false,false");
+            mygrid.enableTooltips("true,true,true,true,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridDocumentsStudent.php?idCollection="+<?php echo $idColeccion;?>);
-            
+            mygrid.loadXML("../controller/gridControllers/gridDocumentsStudent.php?idCollection="+<?php echo $idColeccion;?>);            
+         </script>
+         </div>
+         
+        <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:285px">            
+        </div>
+        <script>
+            var mygrid = new dhtmlXGridObject('gridEj');
+            mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Documento"));?>, <?php echo(_("Puntuación"));?>, <?php echo(_("Superado"));?>, <?php echo(_("Ejercicio"));?>");
+            mygrid.setInitWidths("*,*,90,90,90");
+            mygrid.setColAlign("left,left,center,center,center");
+            mygrid.setColTypes("ro,ro,ro,img,img");
+            mygrid.enableSmartRendering(true);
+            mygrid.enableAutoHeight(true,300);
+            mygrid.enableAutoWidth(true);
+            mygrid.enableTooltips("true,true,false,false,false");
+            mygrid.setSizes();
+            mygrid.setSkin("dhx_skyblue");
+            mygrid.init();                  
+            mygrid.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>);            
          </script>
          </div> 
          

@@ -221,14 +221,14 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Código colección"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº documentos"));?>, <?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>, <?php echo(_("Ordenada"));?>, <?php echo(_("Eliminar"));?>");
-            mygrid.setInitWidths("100,*,*,100,100,100,100,100");
-            mygrid.setColAlign("center,left,left,center,center,center,center,center");
+            mygrid.setHeader("<?php echo(_("Código colección"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Nº documentos"));?>, <?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>, <?php echo(_("Eliminar"));?>");
+            mygrid.setInitWidths("100,*,*,100,100,100,100");
+            mygrid.setColAlign("center,left,left,center,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ro,ro,co,img,img");
             mygrid.enableSmartRendering(true);
             mygrid.enableAutoHeight(true,400);
             mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("false,true,true,false,false,false,false,false");
+            mygrid.enableTooltips("false,true,true,false,false,false,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  

@@ -205,7 +205,7 @@ ob_start();
     function consultGroups(){
         var rowId = mygrid.getSelectedId();
         var idEj = mygrid.cellById(rowId, 0).getValue();
-        var idCol = mygrid.cellById(rowId, 6).getAttribute("idCol");
+        var idCol = mygrid.cellById(rowId, 0).getAttribute("idCol");
         $("#idEj").val(idEj);
         $("#idCol").val(idCol);
         $("#ejName").html(mygrid.cellById(rowId, 1).getValue());

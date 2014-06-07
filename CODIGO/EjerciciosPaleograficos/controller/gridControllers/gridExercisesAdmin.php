@@ -13,8 +13,9 @@
 
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
-
-    $result = mysql_query("SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion WHERE coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden");
+    
+    $idCollection=$_REQUEST['idCollection'];
+    $result = mysql_query("SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion WHERE coleccion.idColeccion='".$idCollection."' and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -128,6 +129,9 @@
                 $cell->appendChild($domAtribute);
                 $domAtribute = $dom->createAttribute('orden');
                 $domAtribute->value=$fila[7];
+                $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('idCol');
+                $domAtribute->value=$idCollection;
                 $cell->appendChild($domAtribute);
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
