@@ -28,7 +28,7 @@ body{
 }
 
 .divHeader table{
-	font-family: 'Exo 2', sans-serif;
+	font-family: 'Exo 2',"Lucida Sans", sans-serif;
 	color: #edf5ff;
 	text-align: center
 }
@@ -79,7 +79,8 @@ body{
 }
 
 .menu li a{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	/*font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;*/
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	font-size:100%;
 	color:#304369;
 	text-decoration:none;
@@ -114,7 +115,7 @@ body{
 }
 
 .menu2 li a,#en_US,#es_ES{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -123,7 +124,7 @@ body{
 
 }
 .menu2 label{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -158,96 +159,83 @@ body{
 }
 
 .formulario{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	font-size:70%;
-	color:#304369;
+	color:#AC233E;
 	display:inline-block;
 	position:absolute;
-	left: 215px;
+	left: 155px;
 	bottom:185px;
-	top:118px;
+	top:120px;
 	min-width: 75%;
 }
 
-.formulario label{
-	background-color: #304369;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 14px;
-    color: #E3EDFA;
-    display: block;
-    font-weight: bold;
-    margin: 1em 0 0.3em;
-    padding: 3px 0px 5px 5px;
-    width: 195px;
+.formulario td{
+	min-width:100px;
+	padding:0 0.3em;
+	font-size:90%;
+	min-height: 26px;
+	border-radius: 2px;
 }
 
-.formulario input,select{
-	display: block;
-	padding: .4em;
+.td_label{
+	background-color:#AC233E;
+	color:#FFFFFF;
 }
 
-.formulario input[type='text']{
-	width: 200px;
+.formulario input[type='text'],input[type='password']{
+	width:200px;
+	padding:0.3em;
 }
 
-.formulario input[type='button']{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+.formulario input[type='submit'],input[type='button']{
+	color:#AC233E;
+	background-color: white;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	border: 2px solid #AC233E;
+	-webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+	font-weight: bold;
+	border-radius: 5px;
+	padding:0.2em 0.6em;
+	margin:10px 0px 0px -3px;
+	
+}
+.formulario input[type='submit']:hover,input[type='button']:hover{
+	cursor: pointer;
+	color:white;
+	background-color: #AC233E;
+	border: 2px solid #white;
 }
 
-.formulario input[type='file']{
-	margin:-3px -5px;
-}
+.formulario input[type='submit']:active,input[type='button']:active{
+	position:relative;
+	top:1px;
 
-.formulario h3{
-	font-variant: small-caps;
-	font-size: 1.40em;
-}
-
-.blockformulario{
-	float:left;
-	width:25%;
-	min-width:25%;
-	margin: -1% 0 1%;
-}
-
-.formulario fieldset{
-	border:2px solid rgba(48, 67, 105, 0.7);
-	border-radius: 8px;
-	background-color: rgba(237, 245, 255, 0.3);
 }
 
 .formulario input:focus,select:focus{
 	box-shadow: 0 0 7px #bfdaff;
 }
 
-.buttonformulario{
-	clear: both;
-}
 /* SUBMENU*/
 .submenu{
-	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
-	background: #fff2b5; /* Old browsers */
-	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZjJiNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmVlNjkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,  #fff2b5 0%, #ffee69 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff2b5), color-stop(100%,#ffee69)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #fff2b5 0%,#ffee69 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #fff2b5 0%,#ffee69 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #fff2b5 0%,#ffee69 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #fff2b5 0%,#ffee69 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff2b5', endColorstr='#ffee69',GradientType=0 ); /* IE6-8 */
-	width: 130px;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	margin-left:5px;
 	display: inline-block;
 	position: absolute;
-	top:124px;
+	top:132px;
 }
 
 .submenuitem{
-	padding:3% 0%;
-	border: 2px solid white;
 	font-size: 80%;
-	text-align: center;
-	
+	text-align: left;	
+	margin-top: 5px;
+}
+
+.submenuitem img{
+	margin:-5px auto;
 }
 
 .submenuitem a:hover{
@@ -257,12 +245,34 @@ body{
 .submenuitem a{
 	color:#304369;
 	text-decoration: none;
+	margin-left:5px;
+}
+
+/* MENU SIN ENLACE*/
+.submenuitem2{
+	font-size: 80%;
+	text-align: left;	
+	margin-top: 5px;
+}
+
+.submenuitem2 img{
+	margin:-5px auto;
+}
+
+.submenuitem2 a:hover{
+	cursor: default;
+}
+
+.submenuitem2 a{
+	color:#304369;
+	text-decoration: none;
+	margin-left:5px;
 }
 
 /* MODAL WINDOW */
 .modalDialog {
 	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -318,7 +328,7 @@ body{
 
 .modalDialog2 {
 	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	top: 0;
 	right: 0;
 	bottom: 0;

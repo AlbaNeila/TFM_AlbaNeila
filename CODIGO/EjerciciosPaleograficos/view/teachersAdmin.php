@@ -210,43 +210,33 @@ include ('/menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a href="usersAdmin.php" ><?php echo(_("Alumnos"));?></a></div>
-        <div class="submenuitem"><a href="teachersAdmin.php"  style="font-weight: bold"><?php echo(_("Profesores"));?></a></div>
-        <div class="submenuitem"><a href="groupsAdmin.php"><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="usersAdmin.php" ><?php echo(_("Alumnos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="teachersAdmin.php"  style="font-weight: bold"><?php echo(_("Profesores"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupsAdmin.php"><?php echo(_("Grupos"));?></a></div>
     </div>
 
     <div class="formulario"  >
         <form id="formTeachers" action="teachersAdmin.php" method="post" onsubmit="return validateForm()">
-            <fieldset>
-                
-            <legend><h3><?php echo(_("Nuevo profesor"));?></h3></legend>
-            <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombreprofesor">              
-                <label><?php echo(_("DNI"));?></label>
-                <input type="text" id="dniprofesor" />
-            </div>
-            <div class="blockformulario">
-                <label><?php echo(_("Apellidos"));?></label>
-                <input type="text" id="apellidosprofesor" />
-                <label><?php echo(_("Contraseña"));?></label>
-                <input type="text" id="password" />
-                <label><?php echo(_("Repita contraseña"));?></label>
-                <input type="password" id="password2" />
-            </div>
-            <div class="blockformulario">
-                <label><?php echo(_("Email"));?></label>
-                <input type="text" id="emailprofesor"/>                
-            </div>
-            
-            <div class="buttonformulario">
-            <input  type="submit" name="newTeacher" value="<?php echo(_("Crear"));?>" id="newTeacher" />
-            </div>
-            </fieldset>        
+            <h2><?php echo(_("Nuevo profesor"));?></h2>
+            <table>
+                <tr>
+                     <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombreprofesor"></td>
+                     <td class="td_label"><label><?php echo(_("Apellidos"));?></label></td><td><input type="text" id="apellidosprofesor" /></td>
+                     <td class="td_label"><label><?php echo(_("Email"));?></label></td><td><input type="text" id="emailprofesor"/></td>
+                </tr>
+                 <tr>
+                     <td class="td_label"><label><?php echo(_("DNI"));?></label></td><td><input type="text" id="dniprofesor" /></td>
+                     <td class="td_label"><label><?php echo(_("Contraseña"));?></label></td><td><input type="text" id="password" /></td>
+                     <td class="td_label"><label><?php echo(_("Repita contraseña"));?></label></td><td><input type="password" id="password2" /></td>
+                </tr>
+                <tr>
+                    <td><input  type="submit" name="newTeacher" value="<?php echo(_("Crear"));?>" id="newTeacher" /></td>
+                </tr>
+            </table>      
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridTeachers" style="width: 85%; height: 85%"></div>
+    <div class="gridAfterForm" id="gridTeachers" style="width: 85%; height: 85%;top:350px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridTeachers');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

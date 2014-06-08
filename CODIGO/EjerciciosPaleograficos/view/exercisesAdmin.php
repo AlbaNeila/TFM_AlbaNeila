@@ -377,14 +377,41 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu3.php');
 ob_start();
 ?>
-<div class="formulario"  >
+    <div class="formulario"  style="left:35px;">
             <form action="exercisesAdmin.php" method="post" onsubmit="return validateForm()">
-                <fieldset>
-                <legend><h3><?php echo(_("Añadir nuevo ejercicio"));?></h3></legend>
-                <p><?php echo(_("Seleccione un documento a partir del que crear un ejercicio:"));?></p>
-                <div class="blockformulario">
-                <label><?php echo(_("Colección"));?></label>               
-                <div id="combo_collection" style="width:200px; height:20px;"></div>
+                <h2><?php echo(_("Añadir nuevo ejercicio"));?></h2>
+                <table>
+                    <tr>
+                        <td colspan="6"><p style="margin-bottom: 5px;"><?php echo(_("Seleccione un documento a partir del que crear un ejercicio:"));?></p></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Colección"));?></label></td><td><div id="combo_collection" style="width:200px; height:20px;"></div></td>
+                        <td class="td_label"><label><?php echo(_("Documento"));?></label></td><td colspan="2"><div id="combo_document" style="width:200px; height:20px;"></div></td>
+                        <td class="td_label"><label><?php echo(_("Grupo"));?></label></td><td><div id="combo_grupo" style="width:200px; height:20px;"></div></td>
+                    </tr>
+                    <tr><td><input type="text" value="" style="height: 15px;visibility:hidden;"></td></tr>
+                    <tr>
+                         <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombreejercicio" /></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Dificultad realización"));?></label></td><td><select style='width:200px;'  id="combo_pistas" name="alfa1">
+                                                                                                                    <option value="0"><?php echo(_("Fácil"));?></option>
+                                                                                                                    <option value="1"><?php echo(_("Medio"));?></option>
+                                                                                                                    <option value="2"><?php echo(_("Difícil"));?></option>
+                                                                                                                </select></td>
+                        <td class="td_label"><label><?php echo(_("Objetivo"));?></label></td><td nowrap><select style='width:200px;'  id="combo_objetivo" name="alfa1">
+                                                                                                    <option value="0"><?php echo(_("% palabras acertadas"));?></option>
+                                                                                                    <option value="1"><?php echo(_("Nº máximo de fallos"));?></option></select></td>
+                                                                                                    <td style="min-width:50px;"><input type="text" id="objetivo" size="4" style="width:40px;"/></td>
+                        <td class="td_label"><label><?php echo(_("Modo corrección"));?></label></td><td><select style='width:200px;'  id="combo_modo" name="alfa1">
+                                                                                                            <option value="0"><?php echo(_("Corregir al final"));?></option>
+                                                                                                            <option value="1"><?php echo(_("Corregir paso a paso"));?></option>
+                                                                                                        </select></td>
+                    </tr>
+                    <tr>
+                        <td><input  type="submit" name="newExercise" value="<?php echo(_("Añadir"));?>" id="newExercise" /></td>
+                    </tr>
+                </table>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200);
@@ -401,14 +428,7 @@ ob_start();
                         combo6.loadXML("../controller/comboControllers/comboGroups.php?method=adminExercises&idCollection="+selectedCollection);  
                     });  
                 </script>
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombreejercicio" />
-               
-                </div>
-                <div class="blockformulario">
-                <label><?php echo(_("Documento"));?></label>               
-                <div id="combo_document" style="width:200px; height:20px;"></div>
-                <script>
+                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo2 = new dhtmlXCombo("combo_document","comboDocument",200);
                    // dhtmlx.skin = 'dhx_skyblue';
@@ -416,8 +436,6 @@ ob_start();
                     combo2.enableOptionAutoHeight(true);
                     combo2.enableOptionAutoPositioning();
                 </script>
-                <label><?php echo(_("Grupo"));?></label>               
-                <div id="combo_grupo" style="width:200px; height:20px;"></div>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
@@ -426,14 +444,6 @@ ob_start();
                     combo2.enableOptionAutoHeight(true);
                     combo6.enableOptionAutoPositioning();                    
                 </script>
-                </div>
-                <div class="blockformulario">
-                <label><?php echo(_("Dificultad realización"));?></label>
-                <select style='width:200px;'  id="combo_pistas" name="alfa1">
-                    <option value="0"><?php echo(_("Fácil"));?></option>
-                    <option value="1"><?php echo(_("Medio"));?></option>
-                    <option value="2"><?php echo(_("Difícil"));?></option>
-                </select>
                 <script>
                     var combo3=dhtmlXComboFromSelect("combo_pistas");
                     //dhtmlx.skin = 'dhx_skyblue';
@@ -441,23 +451,6 @@ ob_start();
                     combo3.enableOptionAutoHeight(true);
                     combo3.enableOptionAutoPositioning();
                 </script>
-                <label><?php echo(_("Modo corrección"));?></label>
-                <select style='width:200px;'  id="combo_modo" name="alfa1">
-                    <option value="0"><?php echo(_("Corregir al final"));?></option>
-                    <option value="1"><?php echo(_("Corregir paso a paso"));?></option>
-                </select>
-                <script>
-                    var combo5=dhtmlXComboFromSelect("combo_modo");
-                    //dhtmlx.skin = 'dhx_skyblue';
-                    combo5.enableOptionAutoWidth(true);
-                    combo5.enableOptionAutoHeight(true);
-                    combo5.enableOptionAutoPositioning();
-                </script>
-                <label><?php echo(_("Objetivo"));?></label>
-                <select style='width:200px;'  id="combo_objetivo" name="alfa1">
-                    <option value="0"><?php echo(_("% palabras acertadas"));?></option>
-                    <option value="1"><?php echo(_("Nº máximo de fallos"));?></option>
-                </select>
                 <script>
                     var combo4=dhtmlXComboFromSelect("combo_objetivo");
                     //dhtmlx.skin = 'dhx_skyblue';
@@ -465,19 +458,22 @@ ob_start();
                     combo4.enableOptionAutoHeight(true);
                     combo4.enableOptionAutoPositioning();
                 </script>
-                <input type="text" id="objetivo" size="4" />
-                </div>
-                <div class="buttonformulario">
-                <input  type="submit" name="newExercise" value="<?php echo(_("Añadir"));?>" id="newExercise" />
-                </div>
-                </fieldset>
+                <script>
+                    var combo5=dhtmlXComboFromSelect("combo_modo");
+                    //dhtmlx.skin = 'dhx_skyblue';
+                    combo5.enableOptionAutoWidth(true);
+                    combo5.enableOptionAutoHeight(true);
+                    combo5.enableOptionAutoPositioning();
+                </script>
             </form>
         </div>
         
         
-        
-        <label><?php echo(_("Seleccione una colección:"));?></label>               
-        <div id="combo_selectcollection" style="width:200px; height:20px;"></div>
+        <div class="formulario" style="top:372px;left:32px;" >
+        <table>
+            <tr><td><label><?php echo(_("Seleccione una colección:"));?></label></td></tr>
+             <tr><td><div id="combo_selectcollection" style="width:200px; height:20px;"></div></td></tr>                 
+        </table>
         <script>
             window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
             var comboColeccion = new dhtmlXCombo("combo_selectcollection","comboCollection",200);
@@ -492,8 +488,9 @@ ob_start();
                mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
             });
         </script>
+        </div>
         
-        <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:550px !important;"></div>
+        <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:440px;left:36px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

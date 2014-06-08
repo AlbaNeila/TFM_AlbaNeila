@@ -76,15 +76,22 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu2.php');
 ob_start();
 ?>
-        <h3><?php echo(_("Grupo: ")); echo $grupo;?></h3>
-        <h3><?php echo(_("Alumnos"));?></h3>
+    <div class="submenu">
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupTeacher.php" ><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>
+    </div>
+    
+    <div class="formulario">
+        <h2><?php echo $grupo;?></h2>
+    </div>
         
-        <div id="gridGroups" style="width: 60%; height: 90%"></div>
+        
+        <div class="gridAfterForm" id="gridGroups" style="width: 70%; height: 90%;top:180px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Eliminar"));?>");
-            mygrid.setInitWidths("*,*,*,100");
+            mygrid.setInitWidths("*,*,*,90");
             mygrid.setColAlign("left,left,left,center");
             mygrid.setColTypes("ro,ro,ro,img");
             mygrid.enableSmartRendering(true);

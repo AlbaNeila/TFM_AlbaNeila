@@ -5,12 +5,16 @@ include('../init.php');
   <head>
   	<meta content="text/html; charset=utf-8"/>
 	<title>UBUPal</title>	
+	
+	<link href='http://fonts.googleapis.com/css?family=ABeeZee|Exo+2:700' rel='stylesheet' type='text/css'>
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlx_custom.css">   	
-	<link href='http://fonts.googleapis.com/css?family=Exo+2:800italic' rel='stylesheet' type='text/css'>
+	
 	<link rel="stylesheet" href="../public/css/ubupaleo_styles.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_gridstyles.css" />
 	<link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
+	
+	
 	<script src="../lib/jquery.qtip/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="../lib/jquery.qtip/jquery.qtip.js"></script>
     <script type="text/javascript" src="../public/js/check_inputfields.js"></script>

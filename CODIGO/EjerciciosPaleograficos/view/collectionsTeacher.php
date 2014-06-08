@@ -131,25 +131,27 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu1.php');
 ob_start();
 ?>
+    <div class="submenu">
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="collectionsTeacher.php" style="font-weight: bold"><?php echo(_("Colecciones"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a><?php echo(_("Documentos"));?></a></div>
+    </div>
+
+
         <div  class="formulario"   >
             <form action="collectionsTeacher.php" method="post" onsubmit="return validateForm()">
-                 <fieldset>
-                
-                <legend><h3><?php echo(_("Añadir nueva colección"));?></h3></legend>
-                <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombrecoleccion">
-                <label><?php echo(_("Ordenada"));?></label>
-                <select id="ordenadacoleccion" >
-                  <option value="no"><?php echo(_("No"));?></option>
-                  <option value="yes"><?php echo(_("Sí"));?></option>
-                </select>
-                </div>
-                <div class="blockformulario">
-                <label><?php echo(_("Descripción"));?></label>
-                <input type="text" id="descripcioncoleccion" />
-                <label><?php echo(_("Grupo"));?></label>               
-                <div id="combo_zone" style="width:200px; height:20px;"></div>
+                <h2><?php echo(_("Añadir nueva colección"));?></h2>
+                <table>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombrecoleccion"></td>
+                        <td class="td_label"><label><?php echo(_("Descripción"));?></label></td><td><input type="text" id="descripcioncoleccion" /></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Grupo"));?></label></td><td><div id="combo_zone" style="width:200px; height:20px;"></div></td>
+                    </tr>
+                    <tr>
+                        <td><input  type="submit" name="newCollection" value="<?php echo(_("Añadir"));?>" id="newCollection" /></td>
+                    </tr>
+                </table>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_zone","comboGroups",200,'checkbox');
@@ -158,16 +160,11 @@ ob_start();
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
                     combo.loadXML("../controller/comboControllers/comboGroups.php?method=teacher"); 
-                </script>                                 
-                </div>
-                <div style="clear: both">
-                <input  type="submit" name="newCollection" value="<?php echo(_("Añadir"));?>" id="newCollection" />
-                </div>
+                </script>  
             </form>
-            </fieldset>
         </div>
         
-        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%"></div>
+        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top: 300px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -185,7 +182,6 @@ ob_start();
             mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
-                    debugger;
                     var row = new Array();
                     var cont = 0;
                     var flag;

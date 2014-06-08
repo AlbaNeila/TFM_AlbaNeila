@@ -259,36 +259,34 @@ include ('/menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a href="usersAdmin.php" style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>
-        <div class="submenuitem"><a href="teachersAdmin.php"><?php echo(_("Profesores"));?></a></div>
-        <div class="submenuitem"><a href="groupsAdmin.php"><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="usersAdmin.php" style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="teachersAdmin.php"><?php echo(_("Profesores"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupsAdmin.php"><?php echo(_("Grupos"));?></a></div>
     </div>
 
     <div class="formulario"  >
         <form id="formStudents" action="usersAdmin.php" method="post" onsubmit="return validateForm()">
-            <fieldset>
-                
-            <legend><h3><?php echo(_("Nuevo alumno"));?></h3></legend>
-            <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombrealumno">              
-                <label><?php echo(_("DNI"));?></label>
-                <input type="text" id="dnialumno" />
-            </div>
-            <div class="blockformulario">
-                <label><?php echo(_("Apellidos"));?></label>
-                <input type="text" id="apellidosalumno" />
-                <label><?php echo(_("Contraseña"));?></label>
-                <input type="password" id="password" />
-                <label><?php echo(_("Repita contraseña"));?></label>
-                <input type="password" id="password2" />
-            </div>
-            <div class="blockformulario">
-                <label><?php echo(_("Email"));?></label>
-                <input type="text" id="emailalumno"/>
-                <label><?php echo(_("Grupos"));?></label>
-                <div id="combo_zone" style="width:200px; height:20px;"></div>
-                <script>
+           <h2><?php echo(_("Nuevo alumno"));?></h2>
+           <table>
+               <tr>
+                   <td class="td_label"><label><?php echo(_("Nombre"));?></label></td> <td><input type="text" id="nombrealumno">  </td>
+                   <td class="td_label"><label><?php echo(_("Apellidos"));?></label></td> <td><input type="text" id="apellidosalumno" /></td>
+                   <td class="td_label"><label><?php echo(_("Email"));?></label></td> <td><input type="text" id="emailalumno"/></td>
+               </tr>
+               <tr>
+                   <td class="td_label"><label><?php echo(_("DNI"));?></label></td> <td><input type="text" id="dnialumno" /></td>
+                   <td class="td_label"><label><?php echo(_("Contraseña"));?></label></td> <td><input type="password" id="password" /></td>
+                   <td class="td_label"><label><?php echo(_("Repita contraseña"));?></label></td> <td><input type="password" id="password2" /></td>
+               </tr>
+               <tr>
+                   <td class="td_label"><label><?php echo(_("Grupos"));?></label></td>
+                   <td><div id="combo_zone" style="width:200px; height:20px;"></div></td>
+               </tr>
+               <tr>
+                   <td><input  type="submit" name="newStudent" value="<?php echo(_("Crear"));?>" id="newStudent" /></td>
+               </tr>
+           </table>
+            <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_zone","comboGroups",200,'checkbox');
                     dhtmlx.skin = 'dhx_skyblue';
@@ -296,17 +294,11 @@ ob_start();
                     combo.enableOptionAutoHeight(true);
                     combo.enableOptionAutoPositioning();
                     combo.loadXML("../controller/comboControllers/comboGroups.php?method=admin"); 
-                </script>
-            </div>
-            
-            <div class="buttonformulario">
-            <input  type="submit" name="newStudent" value="<?php echo(_("Crear"));?>" id="newStudent" />
-            </div>
-            </fieldset>        
+            </script>  
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%"></div>
+    <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%;top:350px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridStudents');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

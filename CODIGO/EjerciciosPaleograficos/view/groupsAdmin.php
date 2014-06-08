@@ -228,43 +228,39 @@ include ('/menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a href="usersAdmin.php" ><?php echo(_("Alumnos"));?></a></div>
-        <div class="submenuitem"><a href="teachersAdmin.php" ><?php echo(_("Profesores"));?></a></div>
-        <div class="submenuitem"><a href="groupsAdmin.php"  style="font-weight: bold"><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="usersAdmin.php" ><?php echo(_("Alumnos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="teachersAdmin.php" ><?php echo(_("Profesores"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupsAdmin.php"  style="font-weight: bold"><?php echo(_("Grupos"));?></a></div>
     </div>
 
     <div class="formulario"  >
         <form id="formGroups" action="groupsAdmin.php" method="post" onsubmit="return validateForm()">
-            <fieldset>
-                
-            <legend><h3><?php echo(_("Nuevo grupo"));?></h3></legend>
-            <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombregrupo">              
-                <label><?php echo(_("Descripción"));?></label>
-                <input type="text" id="descripciongrupo" />
-            </div>
-            <div class="blockformulario">
-                <label><?php echo(_("Profesor"));?></label>
-                <div id="combo_zone" style="width:200px; height:20px;"></div>
-                <script>
-                    window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
-                    var combo = new dhtmlXCombo("combo_zone","comboGroups",200);
-                    dhtmlx.skin = 'dhx_skyblue';
-                    combo.enableOptionAutoWidth(true);
-                    combo.enableOptionAutoHeight(true);
-                    combo.enableOptionAutoPositioning();
-                    combo.loadXML("../controller/comboControllers/comboTeachers.php?method=admin"); 
-                </script>
-            </div>
-            <div class="buttonformulario">
-            <input  type="submit" name="newGroup" value="<?php echo(_("Crear"));?>" id="newGroup" />
-            </div>
-            </fieldset>        
+          <h2><?php echo(_("Nuevo grupo"));?></h2>
+          <table>
+              <tr>
+                  <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombregrupo"></td>
+                  <td class="td_label"><label><?php echo(_("Descripción"));?></label></td><td><input type="text" id="descripciongrupo" /></td>
+              </tr>
+              <tr>
+                  <td class="td_label"><label><?php echo(_("Profesor"));?></label></td><td><div id="combo_zone" style="width:200px; height:20px;"></div></td>
+              </tr>
+              <tr>
+                  <td><input  type="submit" name="newGroup" value="<?php echo(_("Crear"));?>" id="newGroup" /></td>
+              </tr>
+          </table>
+          <script>
+                window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
+                var combo = new dhtmlXCombo("combo_zone","comboGroups",200);
+                dhtmlx.skin = 'dhx_skyblue';
+                combo.enableOptionAutoWidth(true);
+                combo.enableOptionAutoHeight(true);
+                combo.enableOptionAutoPositioning();
+                combo.loadXML("../controller/comboControllers/comboTeachers.php?method=admin"); 
+           </script>
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%"></div>
+    <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:350px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

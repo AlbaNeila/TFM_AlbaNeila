@@ -119,7 +119,6 @@ ob_start();
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();       
         var grupo = mygrid.cellById(rowId, 1).getValue();
-        debugger;
         window.location.href = 'groupTeacherStudents.php?grupo='+grupo+'&idGrupo='+idGroup;
     }
     
@@ -218,23 +217,27 @@ $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu2.php');
 ob_start();
 ?>
+    <div class="submenu">
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupTeacher.php" style="font-weight: bold"><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a><?php echo(_("Alumnos"));?></a></div>
+    </div>
+
         <div class="formulario" >
             <form  action="groupTeacher.php" method="post" onsubmit="return validateForm()">
-                <fieldset>
-                <legend><h3><?php echo(_("Añadir nuevo grupo"));?></h3></legend>
-                <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombregrupo">
-                <label><?php echo(_("Descripción"));?></label>
-                <input type="text" id="descripciongrupo" />
-                </div>
-                <div style="clear: both">
-                <input  type="submit" name="newTeacher" value="<?php echo(_("Añadir"));?>" id="newTeacher" />
-                </div>
-                </fieldset>
+                <h2><?php echo(_("Nuevo grupo"));?></h2>
+                <table>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombregrupo"></td>
+                        <td class="td_label"><label><?php echo(_("Descripción"));?></label></td><td><input type="text" id="descripciongrupo" /></td>
+                    </tr>
+                    <tr>
+                        <td><input  type="submit" name="newTeacher" value="<?php echo(_("Añadir"));?>" id="newTeacher" /></td>
+                    </tr>
+                </table>
             </form>
         </div>
-        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;"></div>
+        
+        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:300px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

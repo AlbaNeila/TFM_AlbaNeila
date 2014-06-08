@@ -232,30 +232,38 @@ include ('/menu/menu1.php');
 include('../init.php');
 ob_start();
 ?>
-       
-        <h3><?php echo(_("Colección: ")).$coleccion;?></h3>
+   <div class="submenu">
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="collectionsTeacher.php"><?php echo(_("Colecciones"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a style="font-weight: bold"><?php echo(_("Documentos"));?></a></div>
+    </div>
+    
+        
         
         <div class="formulario"  >
             <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocs" onsubmit="return validateForm()" >
-                <fieldset>
                 <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                 <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
-                <legend><h3><?php echo(_("Añadir nuevo documento"));?></h3></legend>
-                <div class="blockformulario">
-                <label><?php echo(_("Nombre"));?></label>
-                <input type="text" id="nombredoc" name="name">
-                <label><?php echo(_("Descripción"));?></label>
-                <input type="text" id="descripciondoc" name="description"/>
-                </div>
-                <div class="blockformulario">
-                <label><?php echo(_("Tipo escritura"));?></label>
-                <input type="text" id="tipoesc" name="type"/>
-                <label><?php echo(_("Fecha"));?></label>
-                <input type="text" id="fechadoc" name="date"/>
-                </div>
-                <div class="blockformulario">
-                <label><?php echo(_("Colección"));?></label>               
-                <div id="combo_collection" style="width:200px; height:20px;"></div>
+                <h2><?php echo(_("Añadir nuevo documento"));?></h2>
+                <table>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombredoc" name="name"></td>
+                        <td class="td_label"><label><?php echo(_("Descripción"));?></label></td><td><input type="text" id="descripciondoc" name="description"/></td>
+                        <td class="td_label"><label><?php echo(_("Colección"));?></label></td><td><div id="combo_collection" style="width:200px; height:20px;"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Tipo escritura"));?></label></td><td><input type="text" id="tipoesc" name="type"/></td>
+                        <td class="td_label"><label><?php echo(_("Fecha"));?></label></td><td><input type="text" id="fechadoc" name="date"/></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                <input type="file" id="imagen" name="imagen"/></td>
+                        <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                <input type="file" id="transcripcion" name="transcripcion"/></td>
+                    </tr>
+                    <tr>
+                        <td><input  type="submit" name="newDoc" value="<?php echo(_("Añadir"));?>" id="newDoc" /></td>
+                    </tr>
+                </table>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200,'checkbox');
@@ -265,22 +273,17 @@ ob_start();
                     combo.enableOptionAutoPositioning();
                     combo.loadXML("../controller/comboControllers/comboCollections.php");  
                 </script>
-                <label><?php echo(_("Imagen"));?></label>
-                <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                <input type="file" id="imagen" name="imagen"/>
-                <label><?php echo(_("Transcripción"));?></label>
-                <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                <input type="file" id="transcripcion" name="transcripcion"/>
-                </div>
-                <div class="buttonformulario">
-                <input  type="submit" name="newDoc" value="<?php echo(_("Añadir"));?>" id="newDoc" />
-                </div>
-                </fieldset>
             </form>
-
+        </div>
+        
+        <div class="formulario" style="top:320px;" >
+            <h2><?php echo $coleccion;?></h2>           
+        </div>
+        <div class="formulario" style="top:320px; text-align: right;width: 85%;" >
+            <h3><a href="#gestionarGrupos"><?php echo(_("Gestionar grupos"));?></a></h3>
         </div>
 
-        <a href="#gestionarGrupos"><?php echo(_("Gestionar grupos"));?></a>
+        
         <div id="gestionarGrupos" class="modalDialog2">
             <div>
                 <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
@@ -312,7 +315,7 @@ ob_start();
             </div>
         </div>
         
-        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%"></div>
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:380px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
