@@ -34,24 +34,30 @@ include('../init.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a ><?php echo(_("Colecciones"));?></a></div>
-        <div class="submenuitem"><a style="font-weight: bold"><?php echo(_("Documentos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="collectionsStudent.php" ><?php echo(_("Colecciones"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a style="font-weight: bold"><?php echo(_("Documentos"));?></a></div>
     </div>
-        <label style="margin-left: 145px"><?php echo(_("Colección:"));?></label>
-        <label><?php echo $coleccion;?></label>
-        <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
-        
+    
+        <div class="formulario">
+            <h2><?php echo $coleccion;?></h2>
+            <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
+        </div>
+        <div class="formulario" style="text-align: right;width:85%;">
         <?php if($accessGroup!=""){?>
-        <a href="#" onclick="$('form#goGroups').submit();"><?php echo(_("Volver"));?></a>
+        <h3><a href="#" onclick="$('form#goGroups').submit();"><?php echo(_("Volver"));?></a></h3>
         <form action="accessGroupStudent.php" name="goGroups" id="goGroups" method="post" style="display:none;">
             <input type="hidden" name="grupo" id="grupo" value="<?php echo $grupo;?>"/>
             <input type="hidden" name="idGrupo"  id="idGrupo" value="<?php echo $idGrupo;?>"/>            
         </form>
         <?php }else{ ?>
-        <a href="collectionsStudent.php"><?php echo(_("Volver"));?></a>
+        <h3><a href="collectionsStudent.php"><?php echo(_("Volver"));?></a></h3>
         <?php } ?>
-            
-        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:185px">            
+        </div>
+        
+        <div class="formulario" style="top:170px;">
+            <h3><?php echo(_("Documentos disponibles:"));?></h3>
+        </div>
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:215px">            
         </div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
@@ -69,9 +75,12 @@ ob_start();
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridDocumentsStudent.php?idCollection="+<?php echo $idColeccion;?>);            
          </script>
-         </div>
-         
-        <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:285px">            
+
+        
+        <div class="formulario" style="top:410px;">
+            <h3><?php echo(_("Ejercicios disponibles:"));?></h3>
+        </div> 
+        <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:455px">            
         </div>
         <script>
             var mygrid = new dhtmlXGridObject('gridEj');
@@ -89,7 +98,7 @@ ob_start();
             mygrid.init();                  
             mygrid.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>);            
          </script>
-         </div> 
+
          
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();

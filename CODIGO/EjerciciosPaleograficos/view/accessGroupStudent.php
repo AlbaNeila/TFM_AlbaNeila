@@ -31,16 +31,24 @@ include ('/menu/menu2.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a  ><?php echo(_("Grupos"));?></a></div>
-        <div class="submenuitem"><a style="font-weight: bold"><?php echo(_("Colecciones"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupStudent.php" ><?php echo(_("Grupos"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a style="font-weight: bold"><?php echo(_("Colección"));?></a></div>
     </div>
         
-        <label style="margin-left: 145px"><?php echo(_("Grupo:"));?></label>
-        <label ><?php echo $grupo;?></label>
+        <div class="formulario">
+            <h2><?php echo $grupo;?></h2>
+        </div>
+        
         <input type="hidden" id="idGrupo" value="<?php echo $idGrupo;?>" />
-        <a href="groupStudent.php"><?php echo(_("Volver"));?></a>
+        <div class="formulario" style="width:85%;text-align: right;">
+            <h3><a href="groupStudent.php"><?php echo(_("Volver"));?></a></h3>
+        </div>
+         
+         <div class="formulario" style="top:170px;">
+            <h3><?php echo(_("Colecciones disponibles:"));?></h3>
+        </div>
               
-        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:185px";></div>
+        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:215px";></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

@@ -22,12 +22,15 @@ include ('/menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">
-        <div class="submenuitem"><a  style="font-weight: bold"><?php echo(_("Colecciones"));?></a></div>
-        <div class="submenuitem"><a><?php echo(_("Documentos"));?></a></div>
+        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="collectionsStudent.php" style="font-weight: bold"><?php echo(_("Colecciones"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a><?php echo(_("Documentos"));?></a></div>
     </div>
-    
+        
+        <div class="formulario">
+            <h2><?php echo(_("Colecciones disponibles"));?></h2>
+        </div>
               
-        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:127px";></div>
+        <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:180px";></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
