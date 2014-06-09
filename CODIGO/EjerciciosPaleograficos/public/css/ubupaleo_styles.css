@@ -219,6 +219,19 @@ body{
 	box-shadow: 0 0 7px #bfdaff;
 }
 
+.info{
+	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	color:#AC233E;
+	font-size:70%;
+}
+
+.td_label_info{
+	color:#AC233E;
+	font-weight: bold;
+	text-align:center;
+}
+
+
 /* SUBMENU*/
 .submenu{
 	font-family: 'ABeeZee', "Lucida Sans",sans-serif;

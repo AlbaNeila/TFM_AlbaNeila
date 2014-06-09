@@ -26,7 +26,15 @@ if(isset($_POST['idGrupo'])){
 
 ob_start();
 ?>
-
+<script>
+    function accessDoc(){
+        var rowId = mygrid.getSelectedId();
+        var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
+        
+        $('#idDocument').val(doc);
+        $('form#access').submit();
+    }
+</script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu1.php');
@@ -83,22 +91,25 @@ ob_start();
         <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:455px">            
         </div>
         <script>
-            var mygrid = new dhtmlXGridObject('gridEj');
-            mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Documento"));?>, <?php echo(_("Puntuación"));?>, <?php echo(_("Superado"));?>, <?php echo(_("Ejercicio"));?>");
-            mygrid.setInitWidths("*,*,90,90,90");
-            mygrid.setColAlign("left,left,center,center,center");
-            mygrid.setColTypes("ro,ro,ro,img,img");
-            mygrid.enableSmartRendering(true);
-            mygrid.enableAutoHeight(true,300);
-            mygrid.enableAutoWidth(true);
-            mygrid.enableTooltips("true,true,false,false,false");
-            mygrid.setSizes();
-            mygrid.setSkin("dhx_skyblue");
-            mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>);            
+            var mygrid2 = new dhtmlXGridObject('gridEj');
+            mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
+            mygrid2.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Documento"));?>, <?php echo(_("Puntuación"));?>, <?php echo(_("Superado"));?>, <?php echo(_("Ejercicio"));?>");
+            mygrid2.setInitWidths("*,*,90,90,90");
+            mygrid2.setColAlign("left,left,center,center,center");
+            mygrid2.setColTypes("ro,ro,ro,img,img");
+            mygrid2.enableSmartRendering(true);
+            mygrid2.enableAutoHeight(true,300);
+            mygrid2.enableAutoWidth(true);
+            mygrid2.enableTooltips("true,true,false,false,false");
+            mygrid2.setSizes();
+            mygrid2.setSkin("dhx_skyblue");
+            mygrid2.init();                  
+            mygrid2.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>);            
          </script>
-
+        
+        <form action="accessDocument.php" name="access" id="access" method="post" style="display:none;">
+            <input type="hidden" name="idDocument"  id="idDocument" value=""/>            
+        </form>
          
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();

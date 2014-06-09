@@ -17,6 +17,9 @@
         case 'changeDocsAdmin':
             changeDocsAdmin();
             break;
+        case 'accessDoc':
+            accessDoc();
+            break;
     }
     
     function addNewDocs(){
@@ -183,5 +186,34 @@
                 
             }
         }
+    }
+
+    function accessDoc(){
+        $idDocument = $_POST['idDocument'];
+        
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDocument."'");
+        if($result!=FALSE){
+                $row=mysqli_fetch_assoc($result);
+                $imagen = $row['imagen'];
+                $nombre = $row['nombre'];
+                $descripcion = $row['descripcion'];
+                $fecha = $row['fecha'];
+                $tipoEscritura = $row['tipoEscritura'];
+                
+                $res= 1;
+        }else{
+            $res= 0;
+        }
+        
+        $data = array(
+            "result"=>$res,
+            "image"=>$imagen,
+            "nombre"=> $nombre,
+            "descripcion"=> $descripcion,
+            "fecha"=> $fecha,
+            "tipoEscritura" => $tipoEscritura
+        );
+        $outputdata = json_encode($data);
+        print($outputdata);  
     }
 ?> 

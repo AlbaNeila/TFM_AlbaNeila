@@ -54,7 +54,7 @@ ob_start();
                 flag = false;
             } 
         }
-        debugger;
+
         if(u || p || t ||f || img || tr || !flag){
             flag= false;
         }
