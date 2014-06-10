@@ -255,9 +255,9 @@ ob_start();
                         <td class="td_label"><label><?php echo(_("Fecha"));?></label></td><td><input type="text" id="fechadoc" name="date"/></td>
                     </tr>
                     <tr>
-                        <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                        <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
                 <input type="file" id="imagen" name="imagen"/></td>
-                        <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                        <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
                 <input type="file" id="transcripcion" name="transcripcion"/></td>
                     </tr>
                     <tr>

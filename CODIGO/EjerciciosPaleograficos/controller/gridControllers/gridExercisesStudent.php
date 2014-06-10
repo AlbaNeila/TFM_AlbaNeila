@@ -76,11 +76,12 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
+                $doc=$fila[2];
                 if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
                     $contenido = (" ../public/img/lock.png^^javascript:lockEj()^'");
                 }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
                     if($superado['superado']==0){
-                        $contenido = (" ../public/img/enter.png^^javascript:doEj()^'");
+                        $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^'");
                     }else{
                         $contenido = (" ../public/img/enter.png^^javascript:accessEj()^'");
                     }

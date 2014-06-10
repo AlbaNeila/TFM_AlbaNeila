@@ -31,6 +31,9 @@
         case 'updateOrder':
             updateOrder();
             break;
+        case 'accessEj':
+            accessEj();
+            break;
     }
     
     function newExercise(){
@@ -220,6 +223,53 @@
         }else{
             echo 0;
         }
+    }
+    
+    function accessEj(){
+        $idDocument = $_POST['idDocument'];
+        $idExercise = $_POST['idExercise'];
+        
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDocument."'");
+        $result2 = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre,ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDificultad FROM ejercicio WHERE ejercicio.idEjercicio= '".$idExercise."'");
+        if($result!=FALSE){
+                $row=mysqli_fetch_assoc($result);
+                $imagen = $row['imagen'];
+                $nombre = $row['nombre'];
+                $descripcion = $row['descripcion'];
+                $fecha = $row['fecha'];
+                $tipoEscritura = $row['tipoEscritura'];
+                
+                if($result2!=FALSE){
+                    $row2=mysqli_fetch_assoc($result2);
+                    $nombreej = $row2['nombre'];
+                    $comprobarTranscripcion = $row2['comprobarTranscripcion'];
+                    $tipoObjetivo = $row2['tipo_objetivo'];
+                    $valorObjetivo = $row2['valor_objetivo'];
+                    $idDificultad = $row2['idDificultad'];
+                    
+                    $res= 1;
+                }else{
+                    $res= 0;
+                }
+        }else{
+            $res= 0;
+        }
+        
+        $data = array(
+            "result"=>$res,
+            "image"=>$imagen,
+            "nombre"=> $nombre,
+            "descripcion"=> $descripcion,
+            "fecha"=> $fecha,
+            "tipoEscritura" => $tipoEscritura,
+            "nombreej" => $nombreej,
+            "comprobarTranscripcion" => $comprobarTranscripcion,
+            "tipoObjetivo" => $tipoObjetivo,
+            "valorObjetivo" => $valorObjetivo,
+            "idDificultad" => $idDificultad
+        );
+        $outputdata = json_encode($data);
+        print($outputdata);  
     }
     
 ?> 

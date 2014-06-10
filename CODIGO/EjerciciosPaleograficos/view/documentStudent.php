@@ -31,10 +31,25 @@ ob_start();
         var rowId = mygrid.getSelectedId();
         var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
         var nameCol = $('#nameCol').html();
-        debugger;
+        var idCol = $('#idColeccion').val();
+
         $('#idDocument').val(doc);
+        $('#idColeccion').val(idCol);
         $('#nameCollection').val(nameCol);
         $('form#access').submit();
+    }
+    
+    function doEj(doc){
+        var rowId = mygrid2.getSelectedId();
+        var ej = mygrid2.cellById(rowId, 0).getAttribute('idEj');
+        var nameCol = $('#nameCol').html();
+        var idCol = $('#idColeccion').val();
+        debugger;
+        $('#idDocument2').val(doc);
+        $('#idExercise').val(ej);
+        $('#idColeccion2').val(idCol);
+        $('#nameCollection2').val(nameCol);
+        $('form#accessEj').submit();
     }
 </script>
 <?php
@@ -50,7 +65,6 @@ ob_start();
     
         <div class="formulario">
             <h2 id="nameCol"><?php echo $coleccion;?></h2>
-            <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
         </div>
         <div class="formulario" style="text-align: right;width:85%;">
         <?php if($accessGroup!=""){?>
@@ -111,7 +125,15 @@ ob_start();
         
         <form action="accessDocument.php" name="access" id="access" method="post" style="display:none;">
             <input type="hidden" name="idDocument"  id="idDocument" value=""/>
+            <input type="hidden" name="idColeccion"  id="idColeccion" value="<?php echo $idColeccion;?>"/> 
             <input type="hidden" name="nameCollection"  id="nameCollection" value=""/>            
+        </form>
+        
+        <form action="accessExercise.php" name="accessEj" id="accessEj" method="post" style="display:none;">
+            <input type="hidden" name="idDocument"  id="idDocument2" value=""/>
+            <input type="hidden" name="idExercise"  id="idExercise" value=""/>
+            <input type="hidden" name="idColeccion"  id="idColeccion2" value="<?php echo $idColeccion;?>"/> 
+            <input type="hidden" name="nameCollection"  id="nameCollection2" value=""/>            
         </form>
          
 <?php       

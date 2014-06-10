@@ -1,6 +1,10 @@
 <?php
 session_start();
 include('../model/acceso_db.php');
+$idExercise="";
+if(isset( $_POST['idExercise'])){
+    $idExercise = $_POST['idExercise'];
+}
 $idDocument="";
 if(isset( $_POST['idDocument'])){
     $idDocument = $_POST['idDocument'];
@@ -20,28 +24,39 @@ ob_start();
 
 <script>
     var img="";
+    var comprobarTranscripcion="";
+    var tipoObjetivo="";
+    var valorObjetivo="";
+    var idDificultad="";
     
     $(document).ready(function(){
         var idDocument=$('#idDocument').val();
-        
+        var idExercise=$('#idExercise').val();
+        debugger;
         if(idDocument!=""){
             var request = $.ajax({
                   type: "POST",
-                  url: "../controller/addDocumentController.php",
+                  url: "../controller/exercisesController.php",
                   async: false,
                   data: {
-                    method:"accessDoc", idDocument: idDocument
+                    method:"accessEj", idDocument: idDocument,idExercise:idExercise
                   },
                   dataType:"json",  
                 });
                 request.success(function(json){
+                    debugger;
                         if($.trim(json.result) == "1"){
                             img=json.image;
+                            document.getElementById('nombreej').textContent =json.nombreej;
                             document.getElementById('nombre').textContent =json.nombre;
                             document.getElementById('descripcion').textContent=json.descripcion;
                             document.getElementById('fecha').textContent=json.fecha;
                             document.getElementById('tipoEscritura').textContent=json.tipoEscritura;
-                            $('#doc').attr('src',img);
+                            comprobarTranscripcion=json.comprobarTranscripcion;
+                            tipoObjetivo=json.tipoObjetivo;
+                            valorObjetivo=json.valorObjetivo;
+                            idDificultad=json.idDificultad;
+                            $('#ej').attr('src',img);
                         }
                         else{
                             alert("error");
@@ -66,10 +81,15 @@ include('../init.php');
 ob_start();
 ?>
    <input type="hidden" name="idDocument" id="idDocument" value="<?php echo $idDocument;?>"/>
+   <input type="hidden" name="idExercise" id="idExercise" value="<?php echo $idExercise;?>"/>
    <div id="accordion" class="accordionStyle">
-        <h3><?php echo(_("Documento: "));?><label id="nombre"><label ></h3>
+        <h3><?php echo(_("Ejercicio: "));?><label id="nombreej"><label ></h3>
         <div style="overflow: auto;">
             <table style="float:left;margin-top:-4px;margin-left:5px;font-size:100%;table-layout: fixed;"  cellspacing="10">
+                   <tr>
+                       <td class="td_label_info"><label ><?php echo(_("Documento:"));?></label></td>
+                       <td style="word-break:break-all;"><label id="nombre"></label></td>   
+                   </tr>
                    <tr>
                        <td class="td_label_info"><label ><?php echo(_("Descripción:"));?></label></td>
                        <td style="word-break:break-all;"><label id="descripcion"></label></td>   
@@ -96,7 +116,7 @@ ob_start();
     </div>
        
    <div id="contentImage" style="text-align: center;margin-top:5%;">
-        <img  id="doc">
+        <img  id="ej">
    </div>
    
    <form action="documentStudent.php" name="access" id="access" method="post" style="display:none;">
