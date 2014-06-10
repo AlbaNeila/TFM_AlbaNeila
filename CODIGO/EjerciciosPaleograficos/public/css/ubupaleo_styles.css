@@ -151,7 +151,7 @@ body{
 	cursor:pointer;
 }
 
-/* CONTENT */
+/* CONTENT FORUMLARIO */
 
 .divContent {
 	margin:1% 1%;
@@ -219,18 +219,62 @@ body{
 	box-shadow: 0 0 7px #bfdaff;
 }
 
-.info{
+/*CONTENT ACCORDION*/
+
+.accordionStyle{
 	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
 	color:#AC233E;
 	font-size:70%;
 }
 
+#accordion .ui-accordion-content {  
+    width: 100%;  
+    background-color: #FFFFE0 ; 
+    color: black;  
+  
+}
+
+#accordion .ui-accordion-content > * {  
+    margin: 0;  
+    padding: 20px 0px 0px 7px;  
+} 
+
+#accordion .ui-accordion-header {  
+    background-color: white;  
+    margin: 0px;  
+    padding:8px 0 8px 20px;
+} 
+
+#accordion .ui-accordion-header:hover {  
+    background-color: #AC233E;
+    color:white;
+    cursor:pointer;  
+}
+
+#accordion .ui-accordion-header.ui-state-active{
+	background-color: #AC233E;
+    color:white;
+    cursor:pointer;  
+} 
+
 .td_label_info{
 	color:#AC233E;
 	font-weight: bold;
-	text-align:center;
+	text-align:right;
 }
 
+.iconOpen {
+    background:url('../img/accordion.png') no-repeat !important;
+    background-size:20px !important;
+    width:20px;
+    height:20px;
+}
+.iconClosed {
+    background:url('../img/accordion.png') no-repeat -5px!important;
+    background-size:30px !important;
+    width:20px;
+    height:20px;
+}
 
 /* SUBMENU*/
 .submenu{

@@ -30,8 +30,10 @@ ob_start();
     function accessDoc(){
         var rowId = mygrid.getSelectedId();
         var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
-        
+        var nameCol = $('#nameCol').html();
+        debugger;
         $('#idDocument').val(doc);
+        $('#nameCollection').val(nameCol);
         $('form#access').submit();
     }
 </script>
@@ -47,7 +49,7 @@ ob_start();
     </div>
     
         <div class="formulario">
-            <h2><?php echo $coleccion;?></h2>
+            <h2 id="nameCol"><?php echo $coleccion;?></h2>
             <input type="hidden" id="idColeccion" value="<?php echo $idColeccion;?>" />
         </div>
         <div class="formulario" style="text-align: right;width:85%;">
@@ -108,7 +110,8 @@ ob_start();
          </script>
         
         <form action="accessDocument.php" name="access" id="access" method="post" style="display:none;">
-            <input type="hidden" name="idDocument"  id="idDocument" value=""/>            
+            <input type="hidden" name="idDocument"  id="idDocument" value=""/>
+            <input type="hidden" name="nameCollection"  id="nameCollection" value=""/>            
         </form>
          
 <?php       
