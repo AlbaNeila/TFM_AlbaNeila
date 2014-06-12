@@ -95,7 +95,7 @@ ob_start();
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
        
-   <div id="contentImage" style="text-align: center;margin-top:5%;">
+   <div id="contentImage" style="text-align: center;margin-top:2%;overflow-x:auto;">
         <img  id="doc">
    </div>
    

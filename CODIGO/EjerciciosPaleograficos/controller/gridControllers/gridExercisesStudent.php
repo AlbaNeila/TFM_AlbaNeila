@@ -96,6 +96,14 @@
             $domAtribute = $dom->createAttribute('orden');
             $domAtribute->value=$fila[7];
             $cell->appendChild($domAtribute);
+            
+            $result3 = mysql_query("SELECT documento.transcripcion FROM documento WHERE documento.idDocumento = '$fila[2]'");
+            if($transc=mysql_fetch_assoc($result3)) {
+                $transcripcion=utf8_encode($transc['transcripcion']);
+            }  
+            $domAtribute = $dom->createAttribute('transc');
+            $domAtribute->value=$transcripcion;
+            $cell->appendChild($domAtribute);
             $contenido = ("$fila[$i]");
             $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
         }

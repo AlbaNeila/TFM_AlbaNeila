@@ -229,7 +229,7 @@
         $idDocument = $_POST['idDocument'];
         $idExercise = $_POST['idExercise'];
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDocument."'");
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura,documento.transcripcion FROM documento WHERE documento.idDocumento= '".$idDocument."'");
         $result2 = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre,ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDificultad FROM ejercicio WHERE ejercicio.idEjercicio= '".$idExercise."'");
         if($result!=FALSE){
                 $row=mysqli_fetch_assoc($result);
@@ -238,6 +238,7 @@
                 $descripcion = $row['descripcion'];
                 $fecha = $row['fecha'];
                 $tipoEscritura = $row['tipoEscritura'];
+                $transcriptionFile = $row['transcripcion'];
                 
                 if($result2!=FALSE){
                     $row2=mysqli_fetch_assoc($result2);
@@ -269,7 +270,10 @@
             "idDificultad" => $idDificultad
         );
         $outputdata = json_encode($data);
+        
         print($outputdata);  
     }
+
+
     
 ?> 

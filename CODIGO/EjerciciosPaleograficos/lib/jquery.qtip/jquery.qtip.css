@@ -218,13 +218,13 @@
 
 /*! Blue tooltip style */
 .qtip-blue{
-	background-color: #426fd9;
-	border-color: #426fd9;
-	color: white;
+	background-color: #FBF7AA;
+	border-color: #F9E98E;
+	color: #A27D35;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	font-family: 'Lucida Grande', sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	z-index: 10000000 !important;
 }
 

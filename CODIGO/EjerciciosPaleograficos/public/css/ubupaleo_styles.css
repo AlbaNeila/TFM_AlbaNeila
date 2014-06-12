@@ -80,7 +80,7 @@ body{
 
 .menu li a{
 	/*font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;*/
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	font-size:100%;
 	color:#304369;
 	text-decoration:none;
@@ -115,7 +115,7 @@ body{
 }
 
 .menu2 li a,#en_US,#es_ES{
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -124,7 +124,7 @@ body{
 
 }
 .menu2 label{
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -159,7 +159,7 @@ body{
 }
 
 .formulario{
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	font-size:70%;
 	color:#AC233E;
 	display:inline-block;
@@ -191,7 +191,7 @@ body{
 .formulario input[type='submit'],input[type='button']{
 	color:#AC233E;
 	background-color: white;
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	border: 2px solid #AC233E;
 	-webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.75);
@@ -222,7 +222,7 @@ body{
 /*CONTENT ACCORDION*/
 
 .accordionStyle{
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	color:#AC233E;
 	font-size:70%;
 }
@@ -279,7 +279,7 @@ body{
 
 /* SUBMENU*/
 .submenu{
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	margin-left:5px;
 	display: inline-block;
 	position: absolute;
@@ -330,7 +330,7 @@ body{
 /* MODAL WINDOW */
 .modalDialog {
 	position: fixed;
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -356,9 +356,7 @@ body{
 	padding: 5px 20px 13px 20px;
 	border-radius: 10px;
 	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
+
 }
 
 .close {
@@ -386,7 +384,7 @@ body{
 
 .modalDialog2 {
 	position: fixed;
-	font-family: 'ABeeZee', "Lucida Sans",sans-serif;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -438,3 +436,10 @@ body{
 
 .close2:hover { background: #00d9ff; }
 
+
+/*TRANSCRIPTIONS*/
+.transc{
+	background-color: transparent;
+	border:2px solid black;
+	position:absolute;
+}

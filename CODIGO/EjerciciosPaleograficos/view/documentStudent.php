@@ -44,11 +44,13 @@ ob_start();
         var ej = mygrid2.cellById(rowId, 0).getAttribute('idEj');
         var nameCol = $('#nameCol').html();
         var idCol = $('#idColeccion').val();
+        var transc = mygrid2.cellById(rowId, 0).getAttribute('transc');
         debugger;
         $('#idDocument2').val(doc);
         $('#idExercise').val(ej);
         $('#idColeccion2').val(idCol);
         $('#nameCollection2').val(nameCol);
+        $('#transcription').val(transc)
         $('form#accessEj').submit();
     }
 </script>
@@ -133,7 +135,8 @@ ob_start();
             <input type="hidden" name="idDocument"  id="idDocument2" value=""/>
             <input type="hidden" name="idExercise"  id="idExercise" value=""/>
             <input type="hidden" name="idColeccion"  id="idColeccion2" value="<?php echo $idColeccion;?>"/> 
-            <input type="hidden" name="nameCollection"  id="nameCollection2" value=""/>            
+            <input type="hidden" name="nameCollection"  id="nameCollection2" value=""/> 
+            <input type="hidden" name="transcription"  id="transcription" value=""/>            
         </form>
          
 <?php       
