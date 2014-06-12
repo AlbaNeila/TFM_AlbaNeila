@@ -149,11 +149,20 @@ ob_start();
         <img  id="ej">
         <?php 
         //Zona div rectangles
+        $lineBefore = $rectangles[0]->getLineRectangle();
+        $lineBefore = $rectangles[0]->getLineRectangle();
         foreach($rectangles as $rectangle){
+            if($rectangle->getLineRectangle() == $lineBefore){
             ?>
-            <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
+            <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;float:left;">        
             </div>
             <?php
+            }else{
+                ?>
+                <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
+                </div>
+                <?php
+            }
         }  
         ?>
    </div>
