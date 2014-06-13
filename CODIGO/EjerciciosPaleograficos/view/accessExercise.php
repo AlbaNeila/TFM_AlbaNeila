@@ -42,7 +42,7 @@ ob_start();
     $(document).ready(function(){
         var idDocument=$('#idDocument').val();
         var idExercise=$('#idExercise').val();
-        debugger;
+
         if(idDocument!=""){
             var request = $.ajax({
                   type: "POST",
@@ -98,6 +98,32 @@ ob_start();
             div2.scrollTop(control.scrollTop());
         }
     }
+    
+    var Areas = new Array();
+    var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
+    $(document).ready(function(){
+        debugger;
+        HeightOffset = parseInt(document.getElementById('ej').offsetTop);
+        ImgLeft = parseInt(document.getElementById('ej').offsetLeft);
+        ImgWidth = parseInt(document.getElementById('ej').offsetWidth);
+        ImgRight = ImgLeft + ImgWidth;
+        ImgHeight = parseInt(document.getElementById('ej').offsetHeight);
+        ImgBottom = HeightOffset + ImgHeight;
+        
+        var L = document.getElementById('contentImage');
+        ViewWidth = parseInt(L.parentNode.offsetWidth);
+        
+        var NList = document.getElementsByClassName('transc');
+        for (var i=0; i<NList.length; i++){
+                NList[i].style.left = (parseInt(NList[i].style.left) + ImgLeft) + 'px';
+                NList[i].style.top = (parseInt(NList[i].style.top) + HeightOffset) + 'px';
+    //Remove non-breaking spaces which were only added for the accursed IE.
+                if (isIE == false){
+                    NList[i].innerHTML = '';
+                }
+                Areas.push(NList[i]);
+            }
+    });
      
 </script>
 <?php
@@ -145,24 +171,15 @@ ob_start();
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
        
-   <div id="contentImage" style="text-align: left;margin-top:2%;overflow:auto;height:55%;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 1)">
+   <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 1)">
         <img  id="ej">
         <?php 
         //Zona div rectangles
-        $lineBefore = $rectangles[0]->getLineRectangle();
-        $lineBefore = $rectangles[0]->getLineRectangle();
         foreach($rectangles as $rectangle){
-            if($rectangle->getLineRectangle() == $lineBefore){
             ?>
-            <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;float:left;">        
+            <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
             </div>
-            <?php
-            }else{
-                ?>
-                <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
-                </div>
-                <?php
-            }
+        <?php          
         }  
         ?>
    </div>

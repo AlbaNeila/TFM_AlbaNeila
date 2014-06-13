@@ -11,7 +11,7 @@ class  Transcription{
             $width= $zone['lrx'] - $zone['ulx'];
             $heigth=$zone['lry'] - $zone['uly'];
             $line=(string)$zone['rendition'];
-            $top=$zone['uly'] - $heigthImage;
+            $top=$zone['uly'];
             $left=$zone['ulx'];
             
             $rectangle= new Rectangle('rect'.$i,'transc',$left,$top,$width,$heigth,$line);

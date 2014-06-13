@@ -441,5 +441,5 @@ body{
 .transc{
 	background-color: transparent;
 	border:2px solid black;
-	position:relative;
+	position:absolute;
 }

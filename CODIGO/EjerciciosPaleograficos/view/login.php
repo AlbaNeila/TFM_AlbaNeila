@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include('../model/acceso_db.php');
+	//include('../model/acceso_db.php');
 	include('../init.php');
 ?>
 <html>
@@ -44,6 +44,22 @@
 	    }
 	    return flag;
 	}
+	
+       function changeLanguage(language){
+           debugger;
+            var request = $.ajax({
+              type: "POST",
+              url: "../controller/languageController.php",
+              async: false,
+              data: {
+                lang: language
+              },
+              dataType: "script",   
+              success:function(){
+                  location.reload();
+              }
+            });
+        }
 </script>
 	
 </head>
@@ -52,6 +68,8 @@
 	    if(empty($_SESSION['usuario_nombre'])) { // comprobamos que las variables de sesión estén vacías        
 	?>			
 	<div class="formsInicio" style="width:22%;min-width:278px;">
+	    <input type="button" onclick="changeLanguage('en_US')" value="<?php echo(_("Inglés"));?>"></input>
+        <input type="button" onclick="changeLanguage('es_ES')" value="<?php echo(_("Español"));?>"></input>
         <form action="../controller/loginController.php?method=login" method="post" onsubmit="return validateForm()">
         	<h2><?php echo(_("Acceso UBUPal"));?></h2>
         	<label><?php echo(_("DNI:"));?></label>
