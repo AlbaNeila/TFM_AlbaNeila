@@ -440,6 +440,19 @@ body{
 /*TRANSCRIPTIONS*/
 .transc{
 	background-color: transparent;
-	border:2px solid black;
 	position:absolute;
+}
+
+.transc:hover{
+	background-color: transparent;
+	border:3px dashed #AC233E;
+	position:absolute;
+	cursor: pointer;
+}
+
+/*TEXT*/
+.textUbupal{
+	color:#AC233E;
+	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	margin:0 2%;
 }

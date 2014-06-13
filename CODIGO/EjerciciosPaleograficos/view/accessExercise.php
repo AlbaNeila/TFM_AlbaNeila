@@ -38,6 +38,8 @@ ob_start();
     var tipoObjetivo="";
     var valorObjetivo="";
     var idDificultad="";
+    var Areas = new Array();
+    var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
     
     $(document).ready(function(){
         var idDocument=$('#idDocument').val();
@@ -54,7 +56,6 @@ ob_start();
                   dataType:"json",  
                 });
                 request.success(function(json){
-                    debugger;
                         if($.trim(json.result) == "1"){
                             img=json.image;
                             document.getElementById('nombreej').textContent =json.nombreej;
@@ -73,6 +74,7 @@ ob_start();
                         }
                 });
         }
+        initialize();
     });
     
      $(function() {
@@ -99,11 +101,9 @@ ob_start();
         }
     }
     
-    var Areas = new Array();
-    var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
-    $(document).ready(function(){
-        debugger;
-        HeightOffset = parseInt(document.getElementById('ej').offsetTop);
+    function initialize(){
+        //HeightOffset = parseInt(document.getElementById('ej').offsetTop);
+        HeightOffset=0;
         ImgLeft = parseInt(document.getElementById('ej').offsetLeft);
         ImgWidth = parseInt(document.getElementById('ej').offsetWidth);
         ImgRight = ImgLeft + ImgWidth;
@@ -123,8 +123,8 @@ ob_start();
                 }
                 Areas.push(NList[i]);
             }
-    });
-     
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -133,11 +133,9 @@ include('../init.php');
 ob_start();
 ?>
 
-
-
-
    <input type="hidden" name="idDocument" id="idDocument" value="<?php echo $idDocument;?>"/>
    <input type="hidden" name="idExercise" id="idExercise" value="<?php echo $idExercise;?>"/>
+   
    <div id="accordion" class="accordionStyle">
         <h3><?php echo(_("Ejercicio: "));?><label id="nombreej"><label ></h3>
         <div style="overflow: auto;">
@@ -171,7 +169,7 @@ ob_start();
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
        
-   <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 1)">
+   <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;overflow: auto;position: relative"  onscroll="scrollDiv('contentImage', 'contentTranscription', 1)">
         <img  id="ej">
         <?php 
         //Zona div rectangles
@@ -184,14 +182,32 @@ ob_start();
         ?>
    </div>
    
-   <div id="contentTranscription" style="text-align: left;margin-top:2%;overflow:auto;border: 1px solid Black;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 2)">
-        
+   <div id="contentTranscription" class="textUbupal" style="text-align: left;overflow:auto;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 2)">
+        <h4><?php echo(_("Transcripción:"));?></h4>
    </div>
    
    <form action="documentStudent.php" name="access" id="access" method="post" style="display:none;">
         <input type="hidden" name="coleccion" id="coleccion" value="<?php echo $nameCollection;?>"/>
         <input type="hidden" name="idColeccion"  id="idColeccion" value="<?php echo $idCollection;?>"/>            
     </form>
+    
+    <?php
+        $line=$rectangles[0]->getLineRectangle();
+        //Zona transcription
+        foreach($rectangles as $rectangle){
+            if($line!=$rectangle->getLineRectangle()){
+            ?>
+            <br>
+            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input"/>
+            <?php
+            }else{
+            ?>
+            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input"/>
+        <?php
+            }
+            $line=$rectangle->getLineRectangle();          
+        }  
+        ?>
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');
