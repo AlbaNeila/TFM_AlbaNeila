@@ -8,6 +8,7 @@ class Rectangle{
     private $width;
     private $heigth;
     private $line;
+    private $transcription;
 
     
     public function Rectangle($idRectangle,$class,$left,$top,$width,$heigth,$line){
@@ -47,6 +48,14 @@ class Rectangle{
     
     public function getLineRectangle(){
         return $this->line;
+    }
+    
+    public function getTranscriptionRectangle(){
+        return $this->transcription;
+    }
+    
+    public function setTranscriptionRectangle($transcription){
+        $this->transcription=$transcription;
     }
 }
 ?>

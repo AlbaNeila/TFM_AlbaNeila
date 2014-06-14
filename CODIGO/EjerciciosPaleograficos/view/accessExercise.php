@@ -75,7 +75,17 @@ ob_start();
                 });
         }
         initialize();
-    });
+        $('#contentImage').scrollTop(0);
+        var $divs = $('#contentImage, #contentTranscription');
+        var sync = function(e){
+            var $other = $divs.not(this).off('scroll'), other = $other.get(0);
+            var percentage = this.scrollTop / (this.scrollHeight - this.offsetHeight);
+            other.scrollTop = percentage * (other.scrollHeight - other.offsetHeight);
+            // Firefox workaround. Rebinding without delay isn't enough.
+            setTimeout( function(){ $other.on('scroll', sync ); },10);
+        }
+        $divs.on( 'scroll', sync);
+        });
     
      $(function() {
          var icons = {
@@ -125,6 +135,8 @@ ob_start();
             }
     }
     
+    
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -169,7 +181,7 @@ ob_start();
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
        
-   <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;overflow: auto;position: relative"  onscroll="scrollDiv('contentImage', 'contentTranscription', 1)">
+   <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;overflow: auto;position: relative" >
         <img  id="ej">
         <?php 
         //Zona div rectangles
@@ -182,8 +194,28 @@ ob_start();
         ?>
    </div>
    
-   <div id="contentTranscription" class="textUbupal" style="text-align: left;overflow:auto;"  onscroll="scrollDiv('contentImage', 'contentTranscription', 2)">
-        <h4><?php echo(_("Transcripción:"));?></h4>
+   <div id="contentTranscription" class="textUbupal" style="text-align: left;overflow:auto;height:45%;position:relative;width:98%;"  >
+        <h3><?php echo(_("Transcripción:"));?></h3>
+        <?php
+        $line=$rectangles[0]->getLineRectangle();
+        //Zona transcription
+        foreach($rectangles as $rectangle){
+            $width=strlen($rectangle->getTranscriptionRectangle())*10;
+            if($line!=$rectangle->getLineRectangle()){
+            ?>
+            <br>
+            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
+            <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
+            <?php
+            }else{
+            ?>
+            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
+            <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
+        <?php
+            }
+            $line=$rectangle->getLineRectangle();          
+        }  
+        ?>
    </div>
    
    <form action="documentStudent.php" name="access" id="access" method="post" style="display:none;">
@@ -191,23 +223,7 @@ ob_start();
         <input type="hidden" name="idColeccion"  id="idColeccion" value="<?php echo $idCollection;?>"/>            
     </form>
     
-    <?php
-        $line=$rectangles[0]->getLineRectangle();
-        //Zona transcription
-        foreach($rectangles as $rectangle){
-            if($line!=$rectangle->getLineRectangle()){
-            ?>
-            <br>
-            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input"/>
-            <?php
-            }else{
-            ?>
-            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input"/>
-        <?php
-            }
-            $line=$rectangle->getLineRectangle();          
-        }  
-        ?>
+    
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();
 include_once('template.php');

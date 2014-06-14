@@ -450,9 +450,16 @@ body{
 	cursor: pointer;
 }
 
+.inputTransc{
+	margin:5px;
+	padding:5px;
+}
+
 /*TEXT*/
 .textUbupal{
 	color:#AC233E;
 	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	margin:0 2%;
+	font-size:70%;
 }
+

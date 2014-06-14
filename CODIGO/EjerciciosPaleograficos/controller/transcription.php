@@ -7,6 +7,7 @@ class  Transcription{
         $heigthImage = $file->facsimile->surface->graphic['height'];
         $rectangleList = Array();
         $i=0;
+        $j=0;
         foreach($file->facsimile->surface->zone as $zone){
             $width= $zone['lrx'] - $zone['ulx'];
             $heigth=$zone['lry'] - $zone['uly'];
@@ -18,6 +19,13 @@ class  Transcription{
             $rectangleList[] = $rectangle;
             $i++;
         }
+        
+        foreach($file->text->body->div->div as $div){
+            $transc=(string)$div->head;
+
+            $rectangleList[$j]->setTranscriptionRectangle($transc);
+            $j++;
+        }      
         return $rectangleList;
     }
 }
