@@ -34,6 +34,9 @@
         case 'accessEj':
             accessEj();
             break;
+        case 'finishEj':
+            finishEj();
+            break;
     }
     
     function newExercise(){
@@ -274,6 +277,28 @@
         print($outputdata);  
     }
 
-
+    function finishEj(){
+        $superado = $_POST['superado'];
+        $idExercise = $_POST['idExercise'];
+        $idCollection = $_POST['idCollection'];
+        
+        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.superado='".$superado."',usuario_ejercicio.fecha=CURRENT_DATE,usuario_ejercicio.intentos=usuario_ejercicio.intentos+1 WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+        if($result1){
+            if($superado==1){
+                $result2 = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCollection."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo_ejercicio_coleccion.idEjercicio = '".$idExercise."' order by grupo_ejercicio_coleccion.orden");
+                if($orden=mysqli_fetch_assoc($result2)){
+                    $orden = $orden['orden'];
+                    $result3 = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.idEjercicio FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCollection."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo_ejercicio_coleccion.orden>'".$orden."' order by grupo_ejercicio_coleccion.orden");
+                    if($nextEj=mysqli_fetch_assoc($result3)){
+                        $nextEj = $nextEj['idEjercicio'];
+                        $insert = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_ejercicio (usuario_ejercicio.idUsuario, usuario_ejercicio.idEjercicio) VALUES ('".$_SESSION['usuario_id']."','".$nextEj."')");
+                        echo 1;
+                    }
+                }
+            }else{
+                echo 1;
+            }
+        }
+    }
     
 ?> 

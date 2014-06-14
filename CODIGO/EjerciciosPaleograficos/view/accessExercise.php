@@ -32,6 +32,8 @@ ob_start();
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
+    var cont=0;
+    var total=0;
     var numRec=<?php echo $numRec;?>;
     var img="";
     var comprobarTranscripcion="";
@@ -86,7 +88,6 @@ ob_start();
             var $other = $divs.not(this).off('scroll'), other = $other.get(0);
             var percentage = this.scrollTop / (this.scrollHeight - this.offsetHeight);
             other.scrollTop = percentage * (other.scrollHeight - other.offsetHeight);
-            // Firefox workaround. Rebinding without delay isn't enough.
             setTimeout( function(){ $other.on('scroll', sync ); },10);
         }
         $divs.on( 'scroll', sync);
@@ -111,6 +112,7 @@ ob_start();
                     $(idInput).attr('disabled','true');
                 }
            }
+           total=inputsVisibles.length;
         }
         
         //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
@@ -133,11 +135,14 @@ ob_start();
                 var valor= $(this).val();
                 if($(this).val()!=$(idTransc).val()){
                   $(this).css({ "background-color": "#f2dede", "border-color": "#ebccd1", "color": "#a94442" });
+                  $(this).addClass('nok');
                 }else{
                   $(this).css({ "background-color": "#dff0d8", "border-color": "#d6e9c6", "color": "#3c763d" });
+                  $(this).addClass('ok');
                 }
             }
         });
+        finishExercise();
     }
     
     function checkInputTranscription(input){
@@ -150,6 +155,49 @@ ob_start();
         }else{
             $(input).css({ "background-color": "#dff0d8", "border-color": "#d6e9c6", "color": "#3c763d" });
         }
+        cont++;
+        if(cont==(numRec-total)){
+            finishExercise();
+        }
+    }
+    
+    function finishExercise(){
+        debugger;
+        var correctos=0;
+        var superado=0;
+        $('#contentTranscription input:text').each(function(index) {
+            if($(this).attr("class") == "inputTransc ok"){ //Verde -> correcto
+                correctos++;
+            } 
+        });
+        if(tipoObjetivo == '% palabras acertadas'){
+            var porcentaje = (100*correctos)/(numRec-total);
+            if(porcentaje>=valorObjetivo){
+               superado=1; 
+            }
+        }else{ //nº máximo de fallos
+            if(((numRec-total)-correctos)>=valorObjetivo){
+                superado=1;
+            }
+        }
+        
+        var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"finishEj", idExercise: $('#idExercise').val(), superado:superado, idCollection:$('#idColeccion').val()
+                  },
+                  dataType:"script",  
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            $('form#access').submit();
+                        }
+                        else{
+                            alert("error");
+                        }
+                });
     }
     
      $(function() {
@@ -186,7 +234,28 @@ ob_start();
             }
     }
     
+    function iluminateTransc(div){
+        var idInput= '#' +$(div).attr('id') + 'input';
+        if(!$(idInput).attr('disabled')){
+            $(idInput).css({ "box-shadow": "0 0 7px yellow ","border-color": "#ebccd1", "outline": "none"});
+            $(idInput).focus();
+        }
+    }
     
+    function desIluminateTransc(input){
+        var idInput = $(input).attr('id');
+        var idTransc ='#';
+        var idTransc = idTransc + idInput.replace('input','');
+        $(idTransc).css({ "border": ""});
+        $(input).css({ "box-shadow": "","border-color": "","outline": ""});
+    }
+    
+    function iluminateDiv(input){
+        var idInput = $(input).attr('id');
+        var idTransc ='#';
+        var idTransc = idTransc + idInput.replace('input','');
+        $(idTransc).css({ "border":"3px dashed #AC233E","outline": "0px" });
+    }
     
 </script>
 <?php
@@ -238,7 +307,7 @@ ob_start();
         //Zona div rectangles
         foreach($rectangles as $rectangle){
             ?>
-            <div id="<?php echo $rectangle->getIdRectangle();?>" class="<?php echo $rectangle->getClassRectangle();?>" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
+            <div  tabindex="3" id="<?php echo $rectangle->getIdRectangle();?>"  class="<?php echo $rectangle->getClassRectangle();?>" onclick="iluminateTransc(this);" style="width:<?php echo $rectangle->getWidthRectangle();?> ;height:<?php echo $rectangle->getHeightRectangle();?>;top: <?php echo $rectangle->getTopRectangle();?>;left: <?php echo $rectangle->getLeftRectangle();?>;">        
             </div>
         <?php          
         }  
@@ -256,12 +325,12 @@ ob_start();
             if($line!=$rectangle->getLineRectangle()){
             ?>
             <br>
-            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?>" />
+            <input type="text" onclick="iluminateDiv(this);" onblur="desIluminateTransc(this);" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?>" />
             <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
             <?php
             }else{
             ?>
-            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
+            <input type="text" onclick="iluminateDiv(this);" onblur="desIluminateTransc(this);"  id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
             <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
         <?php
             }

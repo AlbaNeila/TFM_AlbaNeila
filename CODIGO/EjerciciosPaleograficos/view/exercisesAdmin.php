@@ -224,7 +224,7 @@ ob_start();
              cont++;
         });
 
-         
+         debugger;
          mygrid2.forEachRow(function(id){
                if(mygrid2.cellById(id,1).isChecked()){
                  permissions[cont2] = true;
@@ -499,7 +499,7 @@ ob_start();
             mygrid.setColAlign("center,left,left,center,center,center,center,center,center,center");
             mygrid.setColTypes("ro,ed,ro,ro,ro,ro,ro,img,img,img,img");
             mygrid.enableSmartRendering(true);
-            mygrid.enableAutoHeight(true,400);
+            mygrid.enableAutoHeight(true,800);
             mygrid.enableAutoWidth(true);
             mygrid.enableTooltips("false,true,true,false,false,false,false,false,false,false");
             mygrid.setSizes();

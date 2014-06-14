@@ -45,7 +45,7 @@ ob_start();
         var nameCol = $('#nameCol').html();
         var idCol = $('#idColeccion').val();
         var transc = mygrid2.cellById(rowId, 0).getAttribute('transc');
-        debugger;
+
         $('#idDocument2').val(doc);
         $('#idExercise').val(ej);
         $('#idColeccion2').val(idCol);

@@ -448,6 +448,7 @@ body{
 	border:3px dashed #AC233E;
 	position:absolute;
 	cursor: pointer;
+	outline:0px;
 }
 
 .inputTransc{
