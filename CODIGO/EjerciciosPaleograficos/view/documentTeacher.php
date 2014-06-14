@@ -20,6 +20,10 @@ ob_start();
 
 
 <script>
+    $(document).ready(function(){
+       window.location = $('#closeModal').attr('href');  
+    });
+
     function validateForm() {
         var flag = true;
         var u = check_empty($("#nombredoc"));

@@ -25,19 +25,20 @@ if(isset( $_POST['transcription'])){
 }
 
 $rectangles = Transcription::getTranscription($transcription);
-$recPrueba= $rectangles[0]->getIdRectangle();
-$recPrueba2= $rectangles[1]->getIdRectangle();
+$numRec = count($rectangles);
 ob_start();
 ?>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
+    var numRec=<?php echo $numRec;?>;
     var img="";
     var comprobarTranscripcion="";
     var tipoObjetivo="";
     var valorObjetivo="";
     var idDificultad="";
+    var inputsVisibles = new Array();
     var Areas = new Array();
     var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
     
@@ -74,7 +75,11 @@ ob_start();
                         }
                 });
         }
+        
+        //Coloca los div de encima de la imagen
         initialize();
+        
+        //Controla el scroll de los dos divs
         $('#contentImage').scrollTop(0);
         var $divs = $('#contentImage, #contentTranscription');
         var sync = function(e){
@@ -85,7 +90,28 @@ ob_start();
             setTimeout( function(){ $other.on('scroll', sync ); },10);
         }
         $divs.on( 'scroll', sync);
-        });
+        
+        
+        //En función de la dificultad del ejercicio, coloca las pistas aleatoriamente
+        if(idDificultad==0 || idDificultad==1){ //30% inputs
+            if(idDificultad==0){
+                var numInptusVisibles=Math.round(numRec*0.3);
+            }
+            if(idDificultad==1){
+                var numInptusVisibles=Math.round(numRec*0.15);
+            }
+           
+           for(var i=0;inputsVisibles.length<numInptusVisibles ;i++){
+                var num = Math.floor(Math.random() * ((numRec-1) - 0 + 1)) + 0;
+                if($.inArray(num, inputsVisibles)==-1){
+                    inputsVisibles.push(num);
+                    var idInput='#rect'+num+'input';
+                    var idInputHidden = '#rect'+num+'transc';
+                    $(idInput).val($(idInputHidden).val());
+                }
+           }
+        }
+    });
     
      $(function() {
          var icons = {
@@ -94,22 +120,8 @@ ob_start();
          };
          $( "#accordion" ).accordion({ icons: icons,collapsible: true, active: false});
      });
-     
-     function scrollDiv(divA, divB, divNo) {
-        var div1 = $('#' + divA);
-        var div2 = $('#' + divB);
-        if (!div1 || !div2) return;
-        var control = null;
-        if (divNo == 1) control = div1;
-        else if (divNo == 2) control = div2;
-        if (control == null) return;
-        else {
-            div1.scrollLeft(control.scrollLeft());
-            div2.scrollLeft(control.scrollLeft());
-            div1.scrollTop(control.scrollTop());
-            div2.scrollTop(control.scrollTop());
-        }
-    }
+
+
     
     function initialize(){
         //HeightOffset = parseInt(document.getElementById('ej').offsetTop);
