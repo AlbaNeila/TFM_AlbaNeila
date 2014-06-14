@@ -108,10 +108,49 @@ ob_start();
                     var idInput='#rect'+num+'input';
                     var idInputHidden = '#rect'+num+'transc';
                     $(idInput).val($(idInputHidden).val());
+                    $(idInput).attr('disabled','true');
                 }
            }
         }
+        
+        //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
+        if(comprobarTranscripcion==1){
+            $('#contentTranscription input').change(function(e){
+                checkInputTranscription(this);
+            });
+        }else{
+            $('#contentTranscription').append('<br><input id="checkEj" type="button" onclick="checkExercise()" value="<?php echo(_("Corregir"));?>" style="float:right;margin:1%;"></input>')
+        }
     });
+    
+    function checkExercise(){
+        $('#contentTranscription input:text').each(function(index) {
+            if(!$(this).attr('disabled')){
+                $(this).attr('readonly','true');
+                var idInput = $(this).attr('id');
+                var idTransc ='#';
+                var idTransc = idTransc + idInput.replace('input','transc');
+                var valor= $(this).val();
+                if($(this).val()!=$(idTransc).val()){
+                  $(this).css({ "background-color": "#f2dede", "border-color": "#ebccd1", "color": "#a94442" });
+                }else{
+                  $(this).css({ "background-color": "#dff0d8", "border-color": "#d6e9c6", "color": "#3c763d" });
+                }
+            }
+        });
+    }
+    
+    function checkInputTranscription(input){
+        var idInput = $(input).attr('id');
+        var idTransc ='#';
+        var idTransc = idTransc + idInput.replace('input','transc');
+        $(input).attr('readonly','true');
+        if($(input).val()!=$(idTransc).val()){
+            $(input).css({ "background-color": "#f2dede", "border-color": "#ebccd1", "color": "#a94442" });
+        }else{
+            $(input).css({ "background-color": "#dff0d8", "border-color": "#d6e9c6", "color": "#3c763d" });
+        }
+    }
     
      $(function() {
          var icons = {
@@ -210,13 +249,14 @@ ob_start();
         <h3><?php echo(_("Transcripción:"));?></h3>
         <?php
         $line=$rectangles[0]->getLineRectangle();
+        
         //Zona transcription
         foreach($rectangles as $rectangle){
             $width=strlen($rectangle->getTranscriptionRectangle())*10;
             if($line!=$rectangle->getLineRectangle()){
             ?>
             <br>
-            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
+            <input type="text" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?>" />
             <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
             <?php
             }else{
