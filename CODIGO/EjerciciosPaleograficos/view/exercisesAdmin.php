@@ -438,7 +438,7 @@ ob_start();
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
-                    dhtmlx.skin = 'dhx_skyblue';
+                    //dhtmlx.skin = 'dhx_skyblue';
                     combo6.enableOptionAutoWidth(true);
                     combo2.enableOptionAutoHeight(true);
                     combo6.enableOptionAutoPositioning();                    
@@ -476,7 +476,7 @@ ob_start();
         <script>
             window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
             var comboColeccion = new dhtmlXCombo("combo_selectcollection","comboCollection",200);
-            //dhtmlx.skin = 'dhx_skyblue';
+            dhtmlx.skin = 'dhx_skyblue';
             comboColeccion.enableOptionAutoWidth(true);
             comboColeccion.setOptionHeight(400);
             comboColeccion.enableOptionAutoPositioning();

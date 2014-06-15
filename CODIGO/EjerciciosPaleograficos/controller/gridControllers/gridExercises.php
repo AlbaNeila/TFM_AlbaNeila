@@ -14,7 +14,7 @@
     $gridConn = new GridConnector($connection,"MySQL");
     $gridConn->dynamic_loading(20);
     
-    $result = mysql_query("SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador and coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden");
+    $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador and coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
     
     
     header("Content-type: text/xml");

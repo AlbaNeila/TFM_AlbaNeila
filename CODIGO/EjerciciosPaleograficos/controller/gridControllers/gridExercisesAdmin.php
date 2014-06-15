@@ -16,7 +16,7 @@
     
     $idCollection=$_REQUEST['idCollection'];
     $result = mysql_query("select * from(SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion WHERE coleccion.idColeccion='".$idCollection."' and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)
-AS tmp_table GROUP BY tmp_table.idEjercicio");
+AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

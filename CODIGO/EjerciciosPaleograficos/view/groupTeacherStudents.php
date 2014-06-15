@@ -86,7 +86,7 @@ ob_start();
     </div>
         
         
-        <div class="gridAfterForm" id="gridGroups" style="width: 70%; height: 90%;top:180px;"></div>
+        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 90%;top:180px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

@@ -407,7 +407,7 @@ ob_start();
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
-                    dhtmlx.skin = 'dhx_skyblue';
+                    //dhtmlx.skin = 'dhx_skyblue';
                     combo6.enableOptionAutoWidth(true);
                     combo2.enableOptionAutoHeight(true);
                     combo6.enableOptionAutoPositioning();                    
@@ -438,7 +438,7 @@ ob_start();
         
         <div class="formulario" style="top:372px;left:32px;" >
         <table>
-            <tr><td><label><?php echo(_("Seleccione una colección:"));?></label></td></tr>
+            <tr><td><label class="labelModal"><?php echo(_("Seleccione una colección:"));?></label></td></tr>
              <tr><td><div id="combo_selectcollection" style="width:200px; height:20px;"></div></td></tr>         
         
         </table>
@@ -446,7 +446,7 @@ ob_start();
         <script>
             window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
             var comboColeccion = new dhtmlXCombo("combo_selectcollection","comboCollection",200);
-            //dhtmlx.skin = 'dhx_skyblue';
+            dhtmlx.skin = 'dhx_skyblue';
             comboColeccion.enableOptionAutoWidth(true);
             comboColeccion.enableOptionAutoHeight(true);
             comboColeccion.enableOptionAutoPositioning();
@@ -459,7 +459,7 @@ ob_start();
         </script>
         
         
-        <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:440px;left:36px;"></div>
+        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
         <script>
            var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

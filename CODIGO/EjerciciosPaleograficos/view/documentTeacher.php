@@ -271,7 +271,7 @@ ob_start();
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200,'checkbox');
-                    //dhtmlx.skin = 'dhx_skyblue';
+                    dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
                     combo.setOptionHeight(true);
                     combo.enableOptionAutoPositioning();
@@ -291,8 +291,9 @@ ob_start();
         <div id="gestionarGrupos" class="modalDialog2">
             <div>
                 <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
-                    <h3><?php echo(_("Gestionar grupos"));?></h3>
-                    <label><?php echo $coleccion;?></label>
+                    <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
+                    <label class="labelModal2"><?php echo $coleccion;?></label>
+                    <p></p>
                     <input type="hidden" id="coleccion" name="coleccion" value="<?php echo $coleccion;?>">
                     <input type="hidden" id="idColeccion" name="idColeccion" value="<?php echo $idColeccion;?>">
                     
@@ -314,8 +315,8 @@ ob_start();
                         mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+<?php echo $idColeccion;?>+"&method=collection");
                     </script>
                     
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
             </div>
         </div>
         
@@ -389,14 +390,15 @@ ob_start();
                     <h3><?php echo(_("Modificar ficheros"));?></h3>
                     <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                     <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
-                    <label><?php echo(_("Imagen"));?></label>
+                    <label class="labelModal"><?php echo(_("Imagen"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" id="changeimagen" name="changeimagen"/>
-                    <label><?php echo(_("Transcripción"));?></label>
+                    <input type="file" id="changeimagen" name="changeimagen"/><br>
+                    <label class="labelModal"><?php echo(_("Transcripción"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" id="changetranscripcion" name="changetranscripcion"/>
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
+                    <input type="file" id="changetranscripcion" name="changetranscripcion"/><br><br>
+                    
+                    <input  type="submit" class="buttonModal" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
                 </form>
             </div>
         </div>
