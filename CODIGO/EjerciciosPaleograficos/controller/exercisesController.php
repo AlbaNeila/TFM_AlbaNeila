@@ -236,20 +236,20 @@
         $result2 = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre,ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDificultad FROM ejercicio WHERE ejercicio.idEjercicio= '".$idExercise."'");
         if($result!=FALSE){
                 $row=mysqli_fetch_assoc($result);
-                $imagen = $row['imagen'];
-                $nombre = $row['nombre'];
-                $descripcion = $row['descripcion'];
-                $fecha = $row['fecha'];
-                $tipoEscritura = $row['tipoEscritura'];
-                $transcriptionFile = $row['transcripcion'];
+                $imagen = utf8_encode($row['imagen']);
+                $nombre = utf8_encode($row['nombre']);
+                $descripcion = utf8_encode($row['descripcion']);
+                $fecha = utf8_encode($row['fecha']);
+                $tipoEscritura = utf8_encode($row['tipoEscritura']);
+                $transcriptionFile = utf8_encode($row['transcripcion']);
                 
                 if($result2!=FALSE){
                     $row2=mysqli_fetch_assoc($result2);
-                    $nombreej = $row2['nombre'];
-                    $comprobarTranscripcion = $row2['comprobarTranscripcion'];
-                    $tipoObjetivo = $row2['tipo_objetivo'];
-                    $valorObjetivo = $row2['valor_objetivo'];
-                    $idDificultad = $row2['idDificultad'];
+                    $nombreej = utf8_encode($row2['nombre']);
+                    $comprobarTranscripcion = utf8_encode($row2['comprobarTranscripcion']);
+                    $tipoObjetivo = utf8_encode($row2['tipo_objetivo']);
+                    $valorObjetivo = utf8_encode($row2['valor_objetivo']);
+                    $idDificultad = utf8_encode($row2['idDificultad']);
                     
                     $res= 1;
                 }else{

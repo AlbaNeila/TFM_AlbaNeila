@@ -60,6 +60,7 @@ ob_start();
                 });
                 request.success(function(json){
                         if($.trim(json.result) == "1"){
+                            debugger;
                             img=json.image;
                             document.getElementById('nombreej').textContent =json.nombreej;
                             document.getElementById('nombre').textContent =json.nombre;
@@ -162,7 +163,6 @@ ob_start();
     }
     
     function finishExercise(){
-        debugger;
         var correctos=0;
         var superado=0;
         $('#contentTranscription input:text').each(function(index) {

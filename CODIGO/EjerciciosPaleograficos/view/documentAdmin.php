@@ -97,7 +97,7 @@ ob_start();
                 }
             },
             hide: false,
-            style: {classes: 'qtip-blue'
+            style: {classes: 'qtip-ubupaleodialog'
             },
             events: {
                 render: function(event, api) {
@@ -355,14 +355,14 @@ ob_start();
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                 <form method="post" enctype="multipart/form-data" id="formChangeDoc" action="../controller/addDocumentController.php?method=changeDocsAdmin" onsubmit="return validateChange()" >
                     <h3><?php echo(_("Modificar ficheros"));?></h3>
-                    <label><?php echo(_("Imagen"));?></label>
+                    <label class="labelModal"><?php echo(_("Imagen:"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" id="changeimagen" name="changeimagen"/>
-                    <label><?php echo(_("Transcripción"));?></label>
+                    <input type="file" id="changeimagen" name="changeimagen"/><br>
+                    <label class="labelModal"><?php echo(_("Transcripción:"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" id="changetranscripcion" name="changetranscripcion"/>
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
+                    <input type="file" id="changetranscripcion" name="changetranscripcion"/><br><br />
+                    <input  type="submit" class="buttonModal" name="enviar"  value="<?php echo(_("Aceptar"));?>" id="changeFiles" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal').attr('href');  " value="<?php echo(_("Cancelar"));?>" id="cancelar" />
                 </form>
             </div>
         </div>
@@ -390,9 +390,8 @@ ob_start();
                         mygrid2.init();
                         
                     </script>
-                    
-                    <input  type="button" name="cancelar" onclick="cancelCollectionsAcces()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveCollectionsAccess()" value="<?php echo(_("Guardar"));?>" id="aceptarAccesoColecciones" />
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveCollectionsAccess()" value="<?php echo(_("Guardar"));?>" id="aceptarAccesoColecciones" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="cancelCollectionsAcces()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
             </div>
         </div>
          

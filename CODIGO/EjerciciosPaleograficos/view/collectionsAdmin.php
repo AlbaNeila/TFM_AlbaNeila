@@ -113,7 +113,7 @@ ob_start();
                 }
             },
             hide: false,
-            style: {classes: 'qtip-blue'
+            style: {classes: 'qtip-ubupaleodialog'
             },
             events: {
                 render: function(event, api) {
@@ -272,8 +272,9 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
-                    <label><?php echo(_("Colección:"));?></label>
+                    <label class="labelModal"><?php echo(_("Colección:"));?></label>
                     <label id="collectionName"></label>
+                    <p></p>
                     <input type="hidden" id="idCollection" name="idCollection">                    
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
                     <script>
@@ -292,8 +293,8 @@ ob_start();
                         mygrid2.init();
                     </script>
                     
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
             </div>
         </div>   
 <?php       

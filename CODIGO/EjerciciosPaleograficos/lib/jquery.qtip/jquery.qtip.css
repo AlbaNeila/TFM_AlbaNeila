@@ -55,7 +55,7 @@
 
 		cursor: pointer;
 		outline: medium none;
-
+		background-color:white;
 		border-width: 1px;
 		border-style: solid;
 		border-color: transparent;
@@ -214,13 +214,64 @@
 	.qtip-green .qtip-close .qtip-icon{
 		background-position: -42px 0;
 	}
+/*ubupaleo dialog*/
+	.qtip-ubupaleodialog{
+	background-color: white;
+	border-color: #006DB3;
+	color: #AC233E;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-family: 'open_sanslight';
+	z-index: 10000000 !important;
+	font-size: 80%;
+	line-height: normal;
+
+}
+
+	.qtip-ubupaleodialog .qtip-titlebar{
+		background-color: #006DB3;
+		color: white;
+	}
+
+	.qtip-ubupaleodialog .qtip-close .qtip-icon{
+		background-position: -2px 0;
+	}
+	
+	.qtip-ubupaleodialog button{
+		cursor: pointer;
+		color:white;
+		background-color: #006DB3;
+		font-family: 'open_sanslight';
+		border:1px solid #006DB3;
+		font-variant: small-caps;
+		padding: 5px 10px;
+		font-weight: bold;
+		float: left;
+	}
+	
+	.qtip-ubupaleodialog button:active{
+	position:relative;
+	top:1px;
+	}
+	
+	.qtip-ubupaleodialog button:hover{	
+		cursor: pointer;
+		color:#006DB3;
+		background-color: white;
+		font-family: 'open_sanslight';
+		border: 1px solid #006DB3;
+		font-variant: small-caps;
+		padding: 5px 10px;
+		font-weight: bold;
+	}
 
 
-/*! Blue tooltip style */
+/*! Blue tooltip style background-color: #FBF7AA;*/
 .qtip-blue{
-	background-color: #FBF7AA;
-	border-color: #F9E98E;
-	color: #304369;
+	background-color:white;
+	border-color: #AC233E;
+	color: #AC233E;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;

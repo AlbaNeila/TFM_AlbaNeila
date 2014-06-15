@@ -1,6 +1,7 @@
 <?php
+    session_start();
 	include('../model/acceso_db.php'); // incluimos el archivo de conexión a la Base de Datos
-	session_start();
+	include('../init.php');	
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,9 +10,11 @@
 	<title><?php echo(_("Registro UBUPal"));?></title>
 	
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
-	<link rel="stylesheet" href="../public/css/ubupaleo_formstyles.css" />
+	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlx_custom.css">  
+	<link rel="stylesheet" href="../public/css/ubupaleo_formregister.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_gridstyles.css" />
 	<link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
+	<link rel="stylesheet" href="../public/css/webfonts/opensans_light/stylesheet.css" type="text/css" charset="utf-8" />
 	<script src="../lib/jquery.qtip/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="../public/js/check_inputfields.js"></script>
 	<script type="text/javascript" src="../lib/jquery.qtip/jquery.qtip.js"></script>	
@@ -60,8 +63,7 @@
 	    	var cont = 0;
 	    	var empty=false;
 	    	var flag = true;
-	    	
-	    	
+
 	    	$("#formRegister").find(':input').each(function() {	        	
 	        	if(!empty){
 	        		empty = check_empty(this);
@@ -158,7 +160,7 @@
 			mygrid.setColAlign("left,left,center,center");
 			mygrid.setColTypes("ro,ro,img,ch");
 			mygrid.enableSmartRendering(true);
-			mygrid.enableAutoHeight(true,100);
+			mygrid.enableAutoHeight(true,250);
 			mygrid.enableAutoWidth(true);
 			mygrid.enableTooltips("true,true,false,false");
 			mygrid.setSizes();
@@ -171,23 +173,25 @@
     
 </head>
 <body onload="doInitGrid()">
-	<div class="formsInicio" style="width: 50%;min-width: 632px;margin-top: 1%">
+	<div class="formsInicio" style="width: 45%;min-width: 569px;margin-top: 1%">
 		<form action="registerOk.php" method="post" onsubmit="return validateForm()" id="formRegister">
-			<h2><?php echo(_("Registro UBUPal"));?></h2>
+			<img src="../public/img/ubu.png" style="float:left;height: 50px;margin-top: -1%;">
+            <h1><?php echo(_("Registro UBUPal"));?></h1>
 			<p><?php echo(_("Todos los campos del formulario son obligatorios."));?></p>
 			<div class="divForm">
 				<label><?php echo(_("Apellidos"));?></label></td> <td><input type="text" name="usuario_apellidos" id="apellidos"/>
 				<label><?php echo(_("Contraseña"));?></label></td> <td><input type="password" name="usuario_clave"  id="password"/>
-				<label><?php echo(_("Repita la contraseña"));?></label></td> <td><input type="password" name="usuario_clave_conf" id="password2"/>
+				<label><?php echo(_("Confirme contraseña"));?></label></td> <td><input type="password" name="usuario_clave_conf" id="password2"/>
 			</div>	
 			<div class="divForm">
+				<label><?php echo(_("Nombre"));?></label></td> <td><input type="text" name="usuario_nombre" id="usuario"/>
 				<label><?php echo(_("DNI"));?></label></td> <td><input type="text" name="nombre"  id="nombre"/>
-				<label><?php echo(_("Usuario"));?></label></td> <td><input type="text" name="usuario_nombre" id="usuario"/>
-				<label><?php echo(_("Email"));?></label></td> <td><input type="text" name="usuario_email" placeholder="<?php echo(_("email@ejemplo.com"));?>" id="email"/>
-			</div>			   
-			<div id="gridRegistro" style="width: 90%; height: 90%"></div>
+				<label><?php echo(_("Email"));?></label></td> <td><input type="text" name="usuario_email" id="email"/>
+			</div>	
+			<label><?php echo(_("Grupo"));?></label>		   
+			<div id="gridRegistro" style="width: 96%; height: 100%"></div>
 
-			<label><?php echo(_("Introduzca el texto de la imagen:"));?></label>
+			<p><?php echo(_("Introduzca el texto de la imagen:"));?></p>
 			<table>
 				<tr><td><img src="../public/img/captcha.php" id="captcha" alt="img_captcha"/></td>
 					<td><input type="text" name="captcha" id="textcaptcha" autocomplete="off"/>
@@ -195,8 +199,8 @@
 					</td>
 				</tr>
 			</table>
-			<input type="submit" name="enviar" value="Enviar" style="display: inline;margin-left: 36%;"/>
-			<input type="reset" value="Borrar" style="display:inline;margin-left: 2%;" />			
+			<input type="submit" class="buttonInicio" name="enviar" value="Enviar" style="display: inline;margin-left: 36%;"/>
+			<input type="reset" class="buttonInicio" value="Borrar" style="display:inline;margin-left: 2%;" />			
 			<a href="login.php"><?php echo(_("Volver"));?></a>
 		</form>
 	</div>

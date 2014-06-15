@@ -12,7 +12,7 @@ body:nth-of-type(1) div.gridbox_dhx_skyblue table.hdr tr{
 }
 
 div.gridbox_dhx_skyblue table.obj tr td{
-	font-family:Tahoma;
+	font-family: 'open_sanslight';
 	font-size:11px;
 	border-width:0px 0px 0px 0px;
 	padding-right:4px;
@@ -30,7 +30,7 @@ div.gridbox_dhx_skyblue table.hdr td {
 	border-color : #FDFDFD #A4BED4 #A4BED4 #FDFDFD;
 	background-color:transparent;
 	
-	font-family:Tahoma;
+	font-family: 'open_sanslight';
 	font-size:11px;
 	color:black;
 	vertical-align:top;
@@ -83,7 +83,7 @@ div.gridbox_dhx_skyblue .odd_dhx_skyblue{
 	background-color:#E2E2FF;
 }
 .dhx_combo_select, .gridbox_dhx_skyblue .dhx_combo_edit, .gridbox_dhx_skyblue .dhx_textarea{
-    font-family:Tahoma;
+    font-family: 'open_sanslight';
     font-size:11px;
 }
 .gridbox_dhx_skyblue .dhx_combo_edit{

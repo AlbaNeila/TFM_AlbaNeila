@@ -84,7 +84,7 @@ ob_start();
                 }
             },
             hide: false,
-            style: {classes: 'qtip-blue'
+            style: {classes: 'qtip-ubupaleodialog'
             },
             events: {
                 render: function(event, api) {
@@ -224,7 +224,6 @@ ob_start();
              cont++;
         });
 
-         debugger;
          mygrid2.forEachRow(function(id){
                if(mygrid2.cellById(id,1).isChecked()){
                  permissions[cont2] = true;
@@ -471,7 +470,7 @@ ob_start();
         
         <div class="formulario" style="top:372px;left:32px;" >
         <table>
-            <tr><td><label><?php echo(_("Seleccione una colección:"));?></label></td></tr>
+            <tr><td><label class="labelModal"><?php echo(_("Seleccione una colección:"));?></label></td></tr>
              <tr><td><div id="combo_selectcollection" style="width:200px; height:20px;"></div></td></tr>                 
         </table>
         <script>
@@ -490,7 +489,7 @@ ob_start();
         </script>
         </div>
         
-        <div class="gridAfterForm" id="gridExercises" style="width: 85%; height: 85%;top:440px;left:36px;"></div>
+        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -554,8 +553,9 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                     <h3><?php echo(_("Acceso a grupos:"));?></h3>
-                    <label><?php echo(_("Ejercicio:"));?></label>
+                    <label class="labelModal"><?php echo(_("Ejercicio:"));?></label>
                     <label id="ejName"></label>
+                    <p></p>
                     <input type="hidden" id="idEj" name="idEj"> 
                     <input type="hidden" id="idCol" name="idCol">                  
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
@@ -575,8 +575,8 @@ ob_start();
                         mygrid2.init();
                     </script>
                     
-                    <input  type="button" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
             </div>
         </div> 
 <?php       

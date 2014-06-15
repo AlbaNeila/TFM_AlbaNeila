@@ -18,7 +18,7 @@
 }
 .dhx_combo_input{
 	color:#333333;
-	font-family: Arial;
+	font-family: 'open_sanslight';
 	font-size: 9pt;
 	border:0px;
 	padding:2px 2px 2px 2px;
@@ -45,7 +45,7 @@
    overflow-x:hidden;
    border:1px solid black;
    height:100px;
-   font-family: Arial;
+   font-family: 'open_sanslight';
    font-size: 9pt;
    background-color: white;
 	z-index: 12000;
@@ -84,7 +84,7 @@
    overflow-x:hidden;
    border:1px solid black;
    height:100px;
-   font-family: Arial;
+   font-family: 'open_sanslight';
    font-size: 9pt;
    background-color: white;
 }

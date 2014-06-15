@@ -150,7 +150,7 @@ ob_start();
                 }
             },
             hide: false,
-            style: {classes: 'qtip-blue'
+            style: {classes: 'qtip-ubupaleodialog'
             },
             events: {
                 render: function(event, api) {
@@ -375,8 +375,9 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso a grupos:"));?></h3>
-                    <label><?php echo(_("Alumno:"));?></label>
+                    <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName"></label>
+                    <p></p>
                     <input type="hidden" id="idStudent" name="idStudent">                    
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
                     <script>
@@ -394,9 +395,9 @@ ob_start();
                         mygrid2.setSkin("dhx_skyblue");
                         mygrid2.init();
                     </script>
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
                     
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
             </div>
         </div>   
         
@@ -405,17 +406,19 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
                     <h3><?php echo(_("Modificar contraseña:"));?></h3>
-                    <label><?php echo(_("Alumno:"));?></label>
+                    <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName2"></label>
+                    <p></p>
                     <input type="hidden" id="idStudent2" name="idStudent2">     
-
-                        <label><?php echo(_("Contraseña"));?></label>
-                        <input type="password" id="changepassword" />
-                        <label><?php echo(_("Repita contraseña"));?></label>
-                        <input type="password" id="changepassword2" />
+    
+                    <label class="labelModal" style="color:#006DB3;"><?php echo(_("Contraseña:"));?></label><br>
+                    <input type="password" id="changepassword" style="width: 350px;"/><br />
+                    <label class="labelModal" style="color:#006DB3;"><?php echo(_("Confirme contraseña:"));?></label><br />
+                    <input type="password" id="changepassword2" style="width: 350px;"/><br><br>
+                            
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveNewPassword()" value="<?php echo(_("Guardar"));?>" id="saveNewPassword" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="window.location = $('#closeModal2').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
                     
-                    <input  type="button" name="cancelar" onclick="window.location = $('#closeModal2').attr('href');" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveNewPassword()" value="<?php echo(_("Guardar"));?>" id="saveNewPassword" />
             </div>
         </div>
 <?php       

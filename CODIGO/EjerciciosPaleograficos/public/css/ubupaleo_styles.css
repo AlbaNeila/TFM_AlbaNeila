@@ -80,14 +80,15 @@ body{
 
 .menu li a{
 	/*font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;*/
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	font-size:100%;
 	color:#304369;
 	text-decoration:none;
 	float:left;
 	padding:0.3% 1% 0 2%;
 	vertical-align:center;
-
+	font-variant: small-caps;
+	font-weight: bold;
 }
 
 .menu li a:hover{
@@ -115,7 +116,7 @@ body{
 }
 
 .menu2 li a,#en_US,#es_ES{
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -124,7 +125,7 @@ body{
 
 }
 .menu2 label{
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	font-size:75%;
 	color:#304369;
 	float:right;
@@ -152,6 +153,9 @@ body{
 }
 
 /* CONTENT FORUMLARIO */
+input{
+	font-family: 'open_sanslight';
+}
 
 .divContent {
 	margin:1% 1%;
@@ -159,7 +163,7 @@ body{
 }
 
 .formulario{
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	font-size:70%;
 	color:#AC233E;
 	display:inline-block;
@@ -183,6 +187,10 @@ body{
 	color:#FFFFFF;
 }
 
+.formulario h2{
+	font-variant: small-caps;
+}
+
 .formulario input[type='text'],input[type='password']{
 	width:200px;
 	padding:0.3em;
@@ -191,13 +199,11 @@ body{
 .formulario input[type='submit'],input[type='button']{
 	color:#AC233E;
 	background-color: white;
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	border: 2px solid #AC233E;
-	-webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.75);
-	box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.75);
+	font-variant:small-caps;
 	font-weight: bold;
-	border-radius: 5px;
+
 	padding:0.2em 0.6em;
 	margin:10px 0px 0px -3px;
 	
@@ -212,7 +218,10 @@ body{
 .formulario input[type='submit']:active,input[type='button']:active{
 	position:relative;
 	top:1px;
+}
 
+p{
+	color:#AC233E;
 }
 
 .formulario input:focus,select:focus{
@@ -222,7 +231,7 @@ body{
 /*CONTENT ACCORDION*/
 
 .accordionStyle{
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	color:#AC233E;
 	font-size:70%;
 }
@@ -279,7 +288,7 @@ body{
 
 /* SUBMENU*/
 .submenu{
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	margin-left:5px;
 	display: inline-block;
 	position: absolute;
@@ -330,7 +339,7 @@ body{
 /* MODAL WINDOW */
 .modalDialog {
 	position: fixed;
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -342,6 +351,17 @@ body{
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: none;
+	color: #AC233E;
+}
+
+.modalDialog h3{
+	font-variant: small-caps;
+}
+
+.labelModal{
+	font-variant: small-caps;
+	color:#AC233E;
+	font-weight: bold;
 }
 
 .modalDialog:target {
@@ -354,15 +374,16 @@ body{
 	position: relative;
 	margin: 10% auto;
 	padding: 5px 20px 13px 20px;
-	border-radius: 10px;
+	border-radius: 5px;
+	border: 2px solid #006DB3;
 	background: #fff;
 
 }
 
 .close {
-	background: #606061;
-	color: #FFFFFF;
-	line-height: 25px;
+	background: #AC233E;
+	color: white;
+	line-height: 20px;
 	position: absolute;
 	right: -12px;
 	text-align: center;
@@ -370,21 +391,76 @@ body{
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 	-moz-box-shadow: 1px 1px 3px #000;
 	-webkit-box-shadow: 1px 1px 3px #000;
 	box-shadow: 1px 1px 3px #000;
+	border:2px solid white;
 }
 
-.close:hover { background: #00d9ff; }
+.close:hover { background: white;color:#AC233E;border:2px solid #AC233E; }
+
+.buttonModal:hover{	
+	cursor: pointer;
+	color:#006DB3;
+	background-color: white;
+	font-family: 'open_sanslight';
+	border: 1px solid #006DB3;
+	font-variant: small-caps;
+	padding: 5px 10px;
+	font-weight: bold;
+}
+
+.buttonModal{
+	cursor: pointer;
+	color:white;
+	background-color: #006DB3;
+	font-family: 'open_sanslight';
+	border:1px solid #006DB3;
+	font-variant: small-caps;
+	padding: 5px 10px;
+	font-weight: bold;
+}
+
+.buttonModal:active{
+	position:relative;
+	top:1px;
+}
+
+#cancelar.buttonModal:hover{	
+	cursor: pointer;
+	color:#006DB3;
+	background-color: white;
+	font-family: 'open_sanslight';
+	border: 1px solid #006DB3;
+	font-variant: small-caps;
+	padding: 5px 10px;
+	font-weight: bold;
+}
+
+#cancelar.buttonModal{
+	cursor: pointer;
+	color:white;
+	background-color: #006DB3;
+	font-family: 'open_sanslight';
+	border:1px solid #006DB3;
+	font-variant: small-caps;
+	padding: 5px 10px;
+	font-weight: bold;
+}
+
+#cancelar.buttonModal:active{
+	position:relative;
+	top:1px;
+}
 
 /*MODAL WINDOW 2*/
 
 .modalDialog2 {
 	position: fixed;
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -396,6 +472,16 @@ body{
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: none;
+	color: #AC233E;
+}
+
+.modalDialog2 h3{
+	font-variant: small-caps;
+}
+
+.labelModal2{
+	font-variant: small-caps;
+	color:#AC233E;
 }
 
 .modalDialog2:target {
@@ -408,17 +494,16 @@ body{
 	position: relative;
 	margin: 10% auto;
 	padding: 5px 20px 13px 20px;
-	border-radius: 10px;
+	border-radius: 5px;
+	border: 2px solid #006DB3;
 	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
+
 }
 
 .close2 {
-	background: #606061;
-	color: #FFFFFF;
-	line-height: 25px;
+	background: #AC233E;
+	color: white;
+	line-height: 20px;
 	position: absolute;
 	right: -12px;
 	text-align: center;
@@ -426,15 +511,16 @@ body{
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 	-moz-box-shadow: 1px 1px 3px #000;
 	-webkit-box-shadow: 1px 1px 3px #000;
 	box-shadow: 1px 1px 3px #000;
+	border:2px solid white;
 }
 
-.close2:hover { background: #00d9ff; }
+.close2:hover { background: white;color:#AC233E;border:2px solid #AC233E; }
 
 
 /*TRANSCRIPTIONS*/
@@ -454,12 +540,13 @@ body{
 .inputTransc{
 	margin:5px;
 	padding:5px;
+	font-family: 'open_sanslight';
 }
 
 /*TEXT*/
 .textUbupal{
 	color:#AC233E;
-	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
+	font-family: 'open_sanslight';
 	margin:0 2%;
 	font-size:70%;
 }

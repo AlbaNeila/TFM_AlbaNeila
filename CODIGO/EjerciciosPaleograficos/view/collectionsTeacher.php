@@ -72,7 +72,7 @@ include('../init.php');
                 }
             },
             hide: false,
-            style: {classes: 'qtip-blue'
+            style: {classes: 'qtip-ubupaleodialog'
             },
             events: {
                 render: function(event, api) {

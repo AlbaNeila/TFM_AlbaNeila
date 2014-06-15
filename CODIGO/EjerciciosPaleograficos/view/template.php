@@ -13,6 +13,7 @@ include('../init.php');
 	<link rel="stylesheet" href="../public/css/ubupaleo_styles.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_gridstyles.css" />
 	<link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
+	<link rel="stylesheet" href="../public/css/webfonts/opensans_light/stylesheet.css" type="text/css" charset="utf-8" />
 	
 	
 	<script src="../lib/jquery.qtip/jquery-1.10.2.min.js"></script>
