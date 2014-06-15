@@ -551,3 +551,17 @@ p{
 	font-size:70%;
 }
 
+/*NO SESSION PAGE*/
+.noSession{
+	font-family: 'open_sanslight';
+	font-size:100%;
+	color:#2e2d2d;
+	background-color: white;
+	color:#AC233E;
+	margin: 5% auto;	
+	padding:0% 2% 2% 2%;
+	border: 2px solid #006DB3;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}

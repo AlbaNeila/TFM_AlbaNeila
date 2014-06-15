@@ -10,6 +10,7 @@ include('../init.php');
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlx_custom.css">   	
 	
+	
 	<link rel="stylesheet" href="../public/css/ubupaleo_styles.css" />
 	<link rel="stylesheet" href="../public/css/ubupaleo_gridstyles.css" />
 	<link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
@@ -79,11 +80,11 @@ include('../init.php');
 <?php
     }else {
 ?>
-        <div class="formsInicio" style="width: 30%;min-width: 385px;">
-        	<form action="#">
-	        	<p><?php echo(_("Estás accediendo a una página restringida, para ver su contenido debes estar registrado."));?></p>
-	        	<a href="login.php"><?php echo(_("Ir a la página de inicio"));?></a>
-        	</form>
+        <div class="noSession" style="width: 40%;min-width: 510px;">
+            <img src="../public/img/ubu.png" style="float:left;height: 50px;margin-top: 4%;">
+            <h1><?php echo(_("UBUPal Acceso denegado"));?></h1>
+        	<p><?php echo(_("Estás accediendo a una página restringida, para ver su contenido debes estar registrado."));?></p>
+        	<a href="login.php"><?php echo(_("Ir a la página de inicio"));?></a>
         </div>
 <?php
     }
