@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	//include('../model/acceso_db.php');
+	include('../model/acceso_db.php');
 	include('../init.php');
     $defaultLang="es_ES";
     $flag=0;
@@ -50,7 +50,6 @@
 			  dataType: "script",	
 			});
 			request.success(function(request){
-			    debugger;
 					if($.trim(request) == "1"){
 						flag= true;
 					}
@@ -58,7 +57,7 @@
                         flag= false;
                         set_tooltipBD($("#login"),"<?php echo(_("LA APLICACIÓN NO SE ENCUENTRA DISPONIBLE EN ESTOS MOMENTOS, POR FAVOR CONTACTE CON SU ADMINISTRADOR. DISCULPEN LAS MOLESTIAS."));?>");
                     }
-					else{
+					if($.trim(request) != "2" && $.trim(request) != "1"){
 						flag= false;
 						set_tooltip($("#login"),"<?php echo(_("Usuario o contraseña incorrectos"));?>");
 					}

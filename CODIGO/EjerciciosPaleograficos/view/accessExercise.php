@@ -25,6 +25,9 @@ if(isset( $_POST['transcription'])){
 }
 
 $rectangles = Transcription::getTranscription($transcription);
+if(!$rectangles){
+    header('Location: errorAccessExercise.php');
+}
 $numRec = count($rectangles);
 ob_start();
 ?>

@@ -3,7 +3,10 @@ include('../model/Rectangle.php');
 class  Transcription{
     
     public static function getTranscription($transcriptionFile){
-        $file=simplexml_load_file($transcriptionFile);
+        $file=@simplexml_load_file($transcriptionFile);
+        if(!$file){
+            return false;
+        }
         $heigthImage = $file->facsimile->surface->graphic['height'];
         $rectangleList = Array();
         $i=0;

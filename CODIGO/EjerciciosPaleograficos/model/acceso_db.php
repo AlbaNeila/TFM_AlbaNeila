@@ -1,9 +1,9 @@
  <?php
     //Configuración Base de Datos
-	define("BD", "ejpaleo_prueba");
-	define("HOST", "localhost1");
-	define("USER", "root");
-	define("PASSWORD", "root");
+    define("BD", "ejpaleo");
+    define("HOST", "localhost");
+    define("USER", "root");
+    define("PASSWORD", "root");
     
     $flag=true;
     //conectamos y seleccionamos db	
