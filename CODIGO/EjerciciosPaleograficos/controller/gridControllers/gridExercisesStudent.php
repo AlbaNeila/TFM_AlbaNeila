@@ -18,6 +18,7 @@
 AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
     
     
+    
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
@@ -31,7 +32,22 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
         $domAtribute->value=$cont++;
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
-
+        $sup="";
+        if($cont==1){
+            $resultPrimeraVuelta = mysql_query("SELECT usuario_ejercicio.superado FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
+            if($superado=mysql_fetch_assoc($resultPrimeraVuelta)){
+                $superado=$superado['superado'];
+                if($superado==0){
+                    $sup=true;
+                }else{
+                    $sup=false;
+                }
+            }else{
+                $primero = mysql_query("INSERT INTO usuario_ejercicio (usuario_ejercicio.idUsuario, usuario_ejercicio.idEjercicio,usuario_ejercicio.superado) VALUES ('".$_SESSION['usuario_id']."','".$fila[0]."','0')");
+                $sup=true;
+            }
+        }
+        
       for($i=0;$i<=5;$i++){
         $result2 = mysql_query("SELECT usuario_ejercicio.superado,usuario_ejercicio.puntuacion FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario = '".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
         if($i==2){ //Columna Documento
@@ -61,13 +77,21 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
-                    $contenido = (" ../public/img/no.png'");
-                }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
-                    if($superado['superado']==0){
+                if($cont==1){
+                    if($sup){
                         $contenido = (" ../public/img/no.png'");
                     }else{
-                       $contenido = (" ../public/img/yes.png'"); 
+                        $contenido = (" ../public/img/yes.png'");
+                    }
+                }else{
+                    if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
+                        $contenido = (" ../public/img/no.png'");
+                    }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
+                        if($superado['superado']==0){
+                            $contenido = (" ../public/img/no.png'");
+                        }else{
+                           $contenido = (" ../public/img/yes.png'"); 
+                        }
                     }
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
@@ -78,13 +102,21 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
                 $doc=$fila[2];
-                if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
-                    $contenido = (" ../public/img/lock.png^^javascript:lockEj()^'");
-                }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
-                    if($superado['superado']==0){
+                if($cont==1){
+                    if($sup){
                         $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^'");
                     }else{
-                        $contenido = (" ../public/img/enter.png^^javascript:accessEj()^'");
+                        $contenido = (" ../public/img/enter.png^^javascript:accessEj($doc)^'");
+                    }
+                }else{
+                    if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
+                        $contenido = (" ../public/img/lock.png^^javascript:lockEj()^'");
+                    }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
+                        if($superado['superado']==0){
+                            $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^'");
+                        }else{
+                            $contenido = (" ../public/img/enter.png^^javascript:accessEj($doc)^'");
+                        }
                     }
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));

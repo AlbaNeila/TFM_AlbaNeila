@@ -11,7 +11,6 @@ if(isset($_POST['idColeccion'])){
     $idColeccion = $_POST['idColeccion'];
 }
 
-
 if(isset($_POST['accessGroup'])){
     $accessGroup = $_POST['accessGroup'];
 }
