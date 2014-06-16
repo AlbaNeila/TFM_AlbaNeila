@@ -1,6 +1,6 @@
 <?php    
     session_start();  
-    require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+
     //Configuración Base de Datos
     define("BD", "EJPALEO");
     define("HOST", "localhost");
@@ -11,9 +11,6 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $gridConn = new GridConnector($connection,"MySQL");
-    $gridConn->dynamic_loading(20);
-    
     $idGrupo = $_REQUEST['idGrupo'];
 
     $result = mysql_query("SELECT usuario.idUsuario,usuario.nombre,usuario.apellidos,usuario.email FROM usuario,usuario_grupo WHERE usuario.idUsuario = usuario_grupo.idUsuario AND usuario_grupo.solicitud = 1 AND usuario_grupo.idGrupo = '".$idGrupo."'");

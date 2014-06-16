@@ -1,6 +1,6 @@
 <?php    
     session_start();  
-    require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+
     //Configuración Base de Datos
     define("BD", "EJPALEO");
     define("HOST", "localhost");
@@ -11,8 +11,6 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $gridConn = new GridConnector($connection,"MySQL");
-    $gridConn->dynamic_loading(20);
     
     $idCollection=$_REQUEST['idCollection'];
     $result = mysql_query("select * from(SELECT ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion WHERE coleccion.idColeccion='".$idCollection."' and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)

@@ -37,6 +37,9 @@
         case 'finishEj':
             finishEj();
             break;
+        case 'checkUpdateOrder':
+            checkUpdateOrder();
+            break;
     }
     
     function newExercise(){
@@ -217,7 +220,6 @@
 
         $idEjDown = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEjDown']);
         $orderDown= mysqli_real_escape_string($GLOBALS['link'],$_POST['orderDown']);
-
         
         $result1 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderDown."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjUp."'");
         $result2 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderUp."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjDown."'");
@@ -226,6 +228,22 @@
         }else{
             echo 0;
         }
+    }
+    
+    function checkUpdateOrder(){
+        $idCollection=$_POST['idCollection'];
+        $noUpdate=0;
+        
+        $result = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.idEjercicio FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idColeccion='".$idCollection."'");
+        while($fila=mysqli_fetch_assoc($result)){
+            $result2 = mysqli_query($GLOBALS['link'],"SELECT usuario_ejercicio.idEjercicio FROM usuario_ejercicio WHERE usuario_ejercicio.idEjercicio='".$fila['idEjercicio']."'");
+            if($result2){
+                if($row=mysqli_fetch_assoc($result2)){
+                    $noUpdate=1;
+                }
+            }
+        }
+        echo $noUpdate;
     }
     
     function accessEj(){

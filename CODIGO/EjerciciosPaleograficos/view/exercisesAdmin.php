@@ -11,6 +11,7 @@ ob_start();
 
 <script>
     var selectedCollection="";
+    var updateOrder = true;
     
     function validateForm() {
         var u = check_empty($("#nombreejercicio"));
@@ -24,7 +25,7 @@ ob_start();
         
         var idDocumento = combo2.getSelectedValue();
         if(idDocumento==null){
-            set_tooltip($("#combo_grupo"),"<?php echo(_("Debe seleccionar un documento a partir del que crear un ejercicio"));?>");
+            set_tooltip($("#combo_document"),"<?php echo(_("Debe seleccionar un documento a partir del que crear un ejercicio"));?>");
             flag=false;
         }
         
@@ -269,6 +270,24 @@ ob_start();
                auxValue=$(this).val(); 
             });  
         });
+        checkUpdateOrder();
+    }
+    
+    function checkUpdateOrder(){
+        var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"checkUpdateOrder", idCollection:selectedCollection
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){  //No update order
+                            updateOrder=false;
+                        }
+                });
     }
     
     function updateValueTarget(newValue){
@@ -304,69 +323,77 @@ ob_start();
     }
     
     function upEj(){
-        var numrows = mygrid.getRowsNum();
-        var rowId = parseInt(mygrid.getSelectedId());
-        var idEjUp = mygrid.cellById(rowId, 0).getValue();
-        var orderUp = mygrid.cellById(rowId, 0).getAttribute("orden");
-        sel=combo.getSelectedValue();
-        
-        if(numrows>0){ //Una fila
-            if(rowId!=0){ //Primera fila
-               var idEjDown = mygrid.cellById(rowId-1, 0).getValue();
-               var orderDown = mygrid.cellById(rowId-1, 0).getAttribute("orden");
-                
-               var request = $.ajax({
-                  type: "POST",
-                  url: "../controller/exercisesController.php",
-                  async: false,
-                  data: {
-                    method:"updateOrder", idEjUp: idEjUp,orderUp:orderUp, idEjDown:idEjDown, orderDown:orderDown
-                  },
-                  dataType: "script",   
-                });
-                request.success(function(request){
-                    if($.trim(request) == "1"){                        
-                        mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
-                    }
-                    else{
-                        alert("error");
-                    }
-                }); 
+        if(updateOrder){
+            var numrows = mygrid.getRowsNum();
+            var rowId = parseInt(mygrid.getSelectedId());
+            var idEjUp = mygrid.cellById(rowId, 0).getValue();
+            var orderUp = mygrid.cellById(rowId, 0).getAttribute("orden");
+            sel=combo.getSelectedValue();
+            
+            if(numrows>0){ //Una fila
+                if(rowId!=0 && rowId!=1){ //Primera fila
+                   var idEjDown = mygrid.cellById(rowId-1, 0).getValue();
+                   var orderDown = mygrid.cellById(rowId-1, 0).getAttribute("orden");
+                    
+                   var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/exercisesController.php",
+                      async: false,
+                      data: {
+                        method:"updateOrder", idEjUp: idEjUp,orderUp:orderUp, idEjDown:idEjDown, orderDown:orderDown
+                      },
+                      dataType: "script",   
+                    });
+                    request.success(function(request){
+                        if($.trim(request) == "1"){               como         
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+                        }
+                        else{
+                            alert("error");
+                        }
+                    }); 
+                }
             }
+        }else{
+            set_tooltip($("#combo_selectcollection"),"El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
         }
     }
     
     function downEj(){
-        var numrows = mygrid.getRowsNum();
-        var rowId = parseInt(mygrid.getSelectedId());
-        var idEjUp = mygrid.cellById(rowId, 0).getValue();
-        var orderU = mygrid.cellById(rowId, 0).getAttribute("orden");
-
-        if(numrows>0){ //Una fila
-            if(numrows != (rowId+1)){ //Es la última fila
-               var idEjDown = mygrid.cellById(rowId+1, 0).getValue();
-               var orderD = mygrid.cellById(rowId+1, 0).getAttribute("orden");
-                
-               var request = $.ajax({
-                  type: "POST",
-                  url: "../controller/exercisesController.php",
-                  async: false,
-                  data: {
-                    method:"updateOrder", idEjUp: idEjUp,orderUp:orderU, idEjDown:idEjDown, orderDown:orderD
-                  },
-                  dataType: "script",   
-                });
-                request.success(function(request){
-                    if($.trim(request) == "1"){                        
-                        mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
-                    }
-                    else{
-                        alert("error");
-                    }
-                }); 
+        if(updateOrder){
+            var numrows = mygrid.getRowsNum();
+            var rowId = parseInt(mygrid.getSelectedId());
+            var idEjUp = mygrid.cellById(rowId, 0).getValue();
+            var orderU = mygrid.cellById(rowId, 0).getAttribute("orden");
+    
+            if(numrows>0){ //Una fila
+                if(numrows != (rowId+1)){ //Es la última fila
+                   var idEjDown = mygrid.cellById(rowId+1, 0).getValue();
+                   var orderD = mygrid.cellById(rowId+1, 0).getAttribute("orden");
+                    
+                   var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/exercisesController.php",
+                      async: false,
+                      data: {
+                        method:"updateOrder", idEjUp: idEjUp,orderUp:orderU, idEjDown:idEjDown, orderDown:orderD
+                      },
+                      dataType: "script",   
+                    });
+                    request.success(function(request){
+                        if($.trim(request) == "1"){                        
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+                        }
+                        else{
+                            alert("error");
+                        }
+                    }); 
+                }
             }
+        }else{
+            set_tooltip($("#combo_selectcollection"),"El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
         }
     }
     

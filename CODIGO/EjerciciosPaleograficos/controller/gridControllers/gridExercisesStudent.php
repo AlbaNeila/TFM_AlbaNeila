@@ -1,6 +1,6 @@
 <?php    
     session_start();  
-    require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+
     //Configuración Base de Datos
     define("BD", "EJPALEO");
     define("HOST", "localhost");
@@ -11,9 +11,6 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $gridConn = new GridConnector($connection,"MySQL");
-    $gridConn->dynamic_loading(20);
-    
     $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$_REQUEST['idCollection']."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)
 AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
     
@@ -48,8 +45,8 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
             }
         }
         
-      for($i=0;$i<=5;$i++){
-        $result2 = mysql_query("SELECT usuario_ejercicio.superado,usuario_ejercicio.puntuacion FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario = '".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
+      for($i=0;$i<=4;$i++){
+        $result2 = mysql_query("SELECT usuario_ejercicio.superado FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario = '".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
         if($i==2){ //Columna Documento
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $contenido="";
@@ -59,20 +56,7 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
-        if($i==3){ //Columna Puntuación
-                $cell= $row->appendChild($dom->createElement("cell"));
-                if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
-                    $contenido = ("-");
-                }else{//Si hay filas, puede estar superado(superado=0) o no superado(superado=1)
-                    if($superado['superado']==0){
-                        $contenido =("-");
-                    }else{
-                       $contenido = $superado['puntuacion']; 
-                    }
-                }  
-                $cell->appendChild($dom->createCDATASection($contenido));
-            }
-        if($i==4){ //Columna Superado
+        if($i==3){ //Columna Superado
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -96,7 +80,7 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
-            if($i==5){ //Columna Ejercicio
+            if($i==4){ //Columna Ejercicio
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';

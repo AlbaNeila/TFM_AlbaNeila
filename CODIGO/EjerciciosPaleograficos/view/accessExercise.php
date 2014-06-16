@@ -33,6 +33,7 @@ ob_start();
 ?>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="../lib/jquery.qtip/jquery.qtip.js"></script>
 
 <script>
     var cont=0;
@@ -47,7 +48,9 @@ ob_start();
     var Areas = new Array();
     var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
     
-    $(document).ready(function(){
+    
+    
+    $(document).ready(function(){       
         var idDocument=$('#idDocument').val();
         var idExercise=$('#idExercise').val();
 
@@ -63,7 +66,6 @@ ob_start();
                 });
                 request.success(function(json){
                         if($.trim(json.result) == "1"){
-                            debugger;
                             img=json.image;
                             document.getElementById('nombreej').textContent =json.nombreej;
                             document.getElementById('nombre').textContent =json.nombre;
@@ -120,14 +122,58 @@ ob_start();
         }
         
         //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
-        if(comprobarTranscripcion==1){
+        if(comprobarTranscripcion==0){
+            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: Paso a paso. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?>'}),
+                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>'}),
+                          cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                
+            dialogue( message.add(ok).add(cancel), '<?php echo(_("INICIAR EJERCICIO"))?>');
             $('#contentTranscription input').change(function(e){
                 checkInputTranscription(this);
             });
         }else{
             $('#contentTranscription').append('<br><input id="checkEj" type="button" onclick="checkExercise()" value="<?php echo(_("Corregir"));?>" style="float:right;margin:1%;"></input>')
         }
+ 
     });
+    
+    function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
+            },
+            position: {
+                my: 'center', at: 'center',
+                target: $(window)
+            },
+            show: {
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
+            },
+            hide: false,
+            style: {classes: 'qtip-ubupaleodialog'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
+            }
+        });
+    }
+    
+    
+    function exit(){
+        $('form#access').submit();
+    }
+    
+    
     
     function checkExercise(){
         $('#contentTranscription input:text').each(function(index) {
@@ -195,7 +241,16 @@ ob_start();
                 });
                 request.success(function(request){
                         if($.trim(request) == "1"){
-                            $('form#access').submit();
+                            if(superado==1){}
+                                  var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
+                                  ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
+                                  cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                          }else{
+                                  var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
+                                  cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                          }
+                
+            dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
                         }
                         else{
                             alert("error");

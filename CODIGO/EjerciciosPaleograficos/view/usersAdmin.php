@@ -217,7 +217,6 @@ ob_start();
     }
     
     function saveNewPassword(){
-        debugger;
         if(!check_password("#changepassword")){
             set_tooltip($("#changepassword"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
             return false;

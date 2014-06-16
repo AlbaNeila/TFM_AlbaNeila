@@ -1,6 +1,6 @@
 <?php    
     session_start();  
-    require_once("../../lib/dhtmlxConnector_php/codebase/grid_connector.php");
+
     //Configuración Base de Datos
     define("BD", "EJPALEO");
     define("HOST", "localhost");
@@ -11,8 +11,6 @@
     $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
     mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
 
-    $gridConn = new GridConnector($connection,"MySQL");
-    $gridConn->dynamic_loading(20);
 
     $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
     
@@ -51,12 +49,16 @@
                             $domAtribute = $dom->createAttribute('type');
                             $domAtribute->value='img';
                             $cell->appendChild($domAtribute);
-                            $contenido = ("../public/img/alert.png^^javascript:showRequest()^' id='".$cont." ");
+                            $contenido = ("../public/img/alert.png^^javascript:showAlert()^' id='".$cont." ");
                             $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
                     }
                     else{
                         $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
-                        $cell->appendChild($dom->createCDATASection(utf8_encode("NO")));
+                        $domAtribute = $dom->createAttribute('type');
+                        $domAtribute->value='img';
+                        $cell->appendChild($domAtribute);
+                        $contenido = ("../public/img/yes.png' id='".$cont." ");
+                        $cell->appendChild($dom->createCDATASection($contenido));
                     }
                 }
             }
