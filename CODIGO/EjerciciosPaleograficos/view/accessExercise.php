@@ -121,9 +121,18 @@ ob_start();
            total=inputsVisibles.length;
         }
         
+        //Objetivo
+        if(tipoObjetivo == '% palabras acertadas'){
+            $('#objetivo').text(valorObjetivo+'<?php echo(_(" % de palabras acertadas"))?>');
+        }else{
+            $('#objetivo').text(valorObjetivo+'<?php echo(_(" fallos máximos"))?>');
+        }
+
+        
         //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
-        if(comprobarTranscripcion==0){
-            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: Paso a paso. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?>'}),
+        if(comprobarTranscripcion==1){
+            $('#correccion').text('Paso a paso');
+            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>'}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
                 
@@ -132,7 +141,11 @@ ob_start();
                 checkInputTranscription(this);
             });
         }else{
+            $('#correccion').text('Al final');
             $('#contentTranscription').append('<br><input id="checkEj" type="button" onclick="checkExercise()" value="<?php echo(_("Corregir"));?>" style="float:right;margin:1%;"></input>')
+            $('#contentTranscription').click(function(){
+                
+            });
         }
  
     });
@@ -176,6 +189,14 @@ ob_start();
     
     
     function checkExercise(){
+         var message = $('<p />', { text: '<?php echo(_("Si selecciona la opción Continuar se realizará la corrección del ejercicio y contabilizará un intento de realización."));?>'}),
+                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {okCheckExercise();}}),
+                          cancel = $('<button />', {text: '<?php echo(_("Volver"))?>'});
+                
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("CORREGIR EJERCICIO"))?>');
+    }
+    
+    function okCheckExercise(){
         $('#contentTranscription input:text').each(function(index) {
             if(!$(this).attr('disabled')){
                 $(this).attr('readonly','true');
@@ -214,6 +235,7 @@ ob_start();
     function finishExercise(){
         var correctos=0;
         var superado=0;
+        debugger;
         $('#contentTranscription input:text').each(function(index) {
             if($(this).attr("class") == "inputTransc ok"){ //Verde -> correcto
                 correctos++;
@@ -225,7 +247,7 @@ ob_start();
                superado=1; 
             }
         }else{ //nº máximo de fallos
-            if(((numRec-total)-correctos)>=valorObjetivo){
+            if(((numRec-total)-correctos)<valorObjetivo){
                 superado=1;
             }
         }
@@ -241,7 +263,7 @@ ob_start();
                 });
                 request.success(function(request){
                         if($.trim(request) == "1"){
-                            if(superado==1){}
+                          if(superado==1){
                                   var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
                                   ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
                                   cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
@@ -327,7 +349,7 @@ ob_start();
    <input type="hidden" name="idExercise" id="idExercise" value="<?php echo $idExercise;?>"/>
    
    <div id="accordion" class="accordionStyle">
-        <h3><?php echo(_("Ejercicio: "));?><label id="nombreej"><label ></h3>
+        <h3><?php echo(_("Información Documento "));?></h3>
         <div style="overflow: auto;">
             <table style="float:left;margin-top:-4px;margin-left:5px;font-size:100%;table-layout: fixed;"  cellspacing="10">
                    <tr>
@@ -347,10 +369,27 @@ ob_start();
                        <td class="td_label_info"><label ><?php echo(_("Tipo escritura:"));?></label></td>
                        <td style="word-break:break-all;"><label id="tipoEscritura"></label></td>
                    </tr>
-             <tr>
+                    <tr>
                        <td class="td_label_info"><label ><?php echo(_("Colección:"));?></label></td>
                        <td style="word-break:break-all;"><label><?php echo $nameCollection;?></label></td>
                    </tr>
+               </table>
+           </div>
+           <h3><?php echo(_("Información Ejercicio"));?></h3>
+           <div style="overflow: auto;">
+               <table style="float:left;margin-top:-4px;margin-left:5px;font-size:100%;table-layout: fixed;"  cellspacing="10">
+                    <tr>
+                        <td class="td_label_info"><?php echo(_("Ejercicio:"));?></td>
+                        <td style="word-break:break-all;"><label id="nombreej"><label ></td>
+                    </tr>
+                    <tr>
+                        <td class="td_label_info"><label ><?php echo(_("Objetivo:"));?></label></td>
+                        <td style="word-break:break-all;"><label id="objetivo"></label></td> 
+                    </tr>
+                    <tr>
+                        <td class="td_label_info"><label ><?php echo(_("Modo corrección:"));?></label></td>
+                        <td style="word-break:break-all;"><label id="correccion"></label></td> 
+                    </tr>
                </table>
            </div>
     </div>
@@ -376,16 +415,20 @@ ob_start();
         <h3><?php echo(_("Transcripción:"));?></h3>
         <?php
         $line=$rectangles[0]->getLineRectangle();
-        
+        $i=1;
+        ?><label><?php echo(_("Linea: ")); echo $i;?></label><?php
         //Zona transcription
+        $i++;
         foreach($rectangles as $rectangle){
-            $width=strlen($rectangle->getTranscriptionRectangle())*10;
+            $width=strlen($rectangle->getTranscriptionRectangle())*6.5;
             if($line!=$rectangle->getLineRectangle()){
             ?>
             <br>
+            <label><?php echo(_("Linea: ")); echo $i;?></label>
             <input type="text" onclick="iluminateDiv(this);" onblur="desIluminateTransc(this);" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?>" />
             <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
             <?php
+            $i++;
             }else{
             ?>
             <input type="text" onclick="iluminateDiv(this);" onblur="desIluminateTransc(this);"  id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?> "/>
