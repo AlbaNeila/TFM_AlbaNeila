@@ -1,15 +1,7 @@
 <?php    
     session_start();  
 
-    //Configuración Base de Datos
-    define("BD", "EJPALEO");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db 
-    $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-    mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
+   include('../../model/grid_acceso_db.php');
 
     
     $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador and coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
@@ -127,6 +119,9 @@
                 $cell->appendChild($domAtribute);
                 $domAtribute = $dom->createAttribute('orden');
                 $domAtribute->value=$fila[7];
+                $cell->appendChild($domAtribute);
+                $domAtribute = $dom->createAttribute('idCol');
+                $domAtribute->value=$_REQUEST['idCollection'];
                 $cell->appendChild($domAtribute);
                 $contenido = ("$fila[$i]");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));

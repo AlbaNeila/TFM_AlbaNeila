@@ -1,14 +1,6 @@
 <?php    
     session_start();  
-    //Configuración Base de Datos
-    define("BD", "EJPALEO");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db 
-    $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-    mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
+    include('../../model/grid_acceso_db.php');
 
     $result = mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$_SESSION['usuario_id']."' and grupo.idGrupo='".$_REQUEST['idGroup']."'");
     

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "PROFESOR"){
+    header('Location: ../view/login.php');
+}
 include('../model/acceso_db.php');
 $coleccion="";
 $idColeccion="";
@@ -123,12 +126,14 @@ ob_start();
     function editFiles(){
         var rowId = mygrid.getSelectedId();
         var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
+        var nameDoc = mygrid.cellById(rowId, 0).getValue(); 
         //Agregamos un hidden con el id del doc seleccionado
         var input = document.createElement("input");
         input.setAttribute("type", "hidden");                           
         input.setAttribute("id", "idHidden");                            
         input.setAttribute("value", doc);
         input.setAttribute("name","idDoc");
+        $('#documentName').text(nameDoc);
         var modal = document.getElementById("openModal");
         document.getElementById("formChangeDoc").appendChild(input);
         window.location = $('#anchorOpenModal').attr('href');
@@ -228,6 +233,13 @@ ob_start();
                     }
             });
     }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
 
 </script>
 <?php
@@ -248,7 +260,8 @@ ob_start();
                 <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                 <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
                 <h2><?php echo(_("Añadir nuevo documento"));?></h2>
-                <table>
+                <div style="overflow: auto;">
+                <table style="table-layout: fixed;">
                     <tr>
                         <td class="td_label"><label><?php echo(_("Nombre"));?></label></td><td><input type="text" id="nombredoc" name="name"></td>
                         <td class="td_label"><label><?php echo(_("Descripción"));?></label></td><td><input type="text" id="descripciondoc" name="description"/></td>
@@ -259,15 +272,16 @@ ob_start();
                         <td class="td_label"><label><?php echo(_("Fecha"));?></label></td><td><input type="text" id="fechadoc" name="date"/></td>
                     </tr>
                     <tr>
-                        <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
-                <input type="file" id="imagen" name="imagen"/></td>
-                        <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
-                <input type="file" id="transcripcion" name="transcripcion"/></td>
+                        <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td ><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
+                        <input type="file" id="imagen" name="imagen"/></td>
+                        <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td ><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
+                        <input type="file" id="transcripcion" name="transcripcion"/></td>
                     </tr>
                     <tr>
                         <td><input  type="submit" name="newDoc" value="<?php echo(_("Añadir"));?>" id="newDoc" /></td>
                     </tr>
                 </table>
+                </div>
                 <script>
                     window.dhx_globalImgPath="../lib/dhtmlxCombo/codebase/imgs/";
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200,'checkbox');
@@ -321,6 +335,7 @@ ob_start();
         </div>
         
         <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:380px;"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -335,7 +350,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>);
+            mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>,onLoadFunction);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();
@@ -388,6 +403,9 @@ ob_start();
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                 <form method="post" enctype="multipart/form-data" id="formChangeDoc" action="../controller/addDocumentController.php?method=changeDocs" onsubmit="return validateChange()" >
                     <h3><?php echo(_("Modificar ficheros"));?></h3>
+                    <label class="labelModal"><?php echo(_("Documento:"));?></label>
+                    <label id="documentName"></label>
+                    <p></p>
                     <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                     <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
                     <label class="labelModal"><?php echo(_("Imagen"));?></label><br>

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
+    header('Location: ../view/login.php');
+}
 include('../model/acceso_db.php');
 $coleccion="";
 $idColeccion="";
@@ -52,6 +55,20 @@ ob_start();
         $('#transcription').val(transc)
         $('form#accessEj').submit();
     }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
+    
+    onLoadFunction2 = function onLoadFunction2(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -82,7 +99,8 @@ ob_start();
         <div class="formulario" style="top:170px;">
             <h3><?php echo(_("Documentos disponibles:"));?></h3>
         </div>
-        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:215px">            
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:215px">
+            <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>            
         </div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
@@ -98,14 +116,15 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridDocumentsStudent.php?idCollection="+<?php echo $idColeccion;?>);            
+            mygrid.loadXML("../controller/gridControllers/gridDocumentsStudent.php?idCollection="+<?php echo $idColeccion;?>,onLoadFunction);            
          </script>
 
         
         <div class="formulario" style="top:410px;">
             <h3><?php echo(_("Ejercicios disponibles:"));?></h3>
         </div> 
-        <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:455px">            
+        <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:455px">   
+         <label id="noRecords2" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>         
         </div>
         <script>
             var mygrid2 = new dhtmlXGridObject('gridEj');
@@ -121,7 +140,7 @@ ob_start();
             mygrid2.setSizes();
             mygrid2.setSkin("dhx_skyblue");
             mygrid2.init();                  
-            mygrid2.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>);            
+            mygrid2.loadXML("../controller/gridControllers/gridExercisesStudent.php?idCollection="+<?php echo $idColeccion;?>,onLoadFunction2);            
          </script>
         
         <form action="accessDocument.php" name="access" id="access" method="post" style="display:none;">

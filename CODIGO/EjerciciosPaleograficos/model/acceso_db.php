@@ -1,6 +1,6 @@
  <?php
     //Configuración Base de Datos
-    define("BD", "ejpaleo");
+    define("BD", "ubupal");
     define("HOST", "localhost");
     define("USER", "root");
     define("PASSWORD", "root");

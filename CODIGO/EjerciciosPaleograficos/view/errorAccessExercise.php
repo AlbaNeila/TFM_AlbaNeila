@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
+    header('Location: ../view/login.php');
+}
 include('../model/acceso_db.php');
 
 ob_start();

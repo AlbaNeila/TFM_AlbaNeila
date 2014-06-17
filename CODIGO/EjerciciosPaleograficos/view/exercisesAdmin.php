@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ADMIN"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
@@ -12,6 +15,11 @@ ob_start();
 <script>
     var selectedCollection="";
     var updateOrder = true;
+    
+    $(document).ready(function(){
+       window.location = $('#closeModal').attr('href'); 
+        $("#noRecords2").text("<?php echo(_("- No se encontraron resultados -"));?>");
+    });
     
     function validateForm() {
         var u = check_empty($("#nombreejercicio"));
@@ -270,7 +278,16 @@ ob_start();
                auxValue=$(this).val(); 
             });  
         });
+        debugger;
+        
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords2").remove();
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
         checkUpdateOrder();
+        
+        
     }
     
     function checkUpdateOrder(){
@@ -512,11 +529,14 @@ ob_start();
                selectedCollection = comboColeccion.getSelectedValue(); 
                mygrid.clearAll()
                mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+               
             });
         </script>
         </div>
         
         <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:500px;text-align: center;"></label>
+        <label id="noRecords2" class="gridAfterForm" style="width: 85%; height: 90%;top:500px;text-align: center;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -602,8 +622,9 @@ ob_start();
                         mygrid2.init();
                     </script>
                     
-                    <input  type="button" class="buttonModal" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    
                     <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
             </div>
         </div> 
 <?php       

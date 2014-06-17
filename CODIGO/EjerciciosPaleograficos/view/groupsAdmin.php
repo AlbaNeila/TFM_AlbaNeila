@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ADMIN"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
@@ -9,6 +12,9 @@ ob_start();
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 <script>
+    $(document).ready(function(){
+        window.location = $('#closeModal').attr('href'); 
+    });
 
     function validateForm() {
         var u = check_empty($("#nombregrupo"));
@@ -221,6 +227,17 @@ ob_start();
         window.location = $('#closeModal').attr('href'); 
     }
     
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#divContent").appendTo(" <label id='noRecords' class='gridAfterForm' style='width: 85%; height: 90%;top:400px;text-align: center;'></label>");
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }else{
+            debugger;
+           $("#noRecords").remove();
+        }
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -261,6 +278,7 @@ ob_start();
     </div> 
     
     <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:350px;"></div>
+    <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:400px;text-align: center;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -275,7 +293,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridGroupsAdmin.php");
+            mygrid.loadXML("../controller/gridControllers/gridGroupsAdmin.php",onLoadFunction);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();

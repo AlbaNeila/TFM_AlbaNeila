@@ -551,6 +551,10 @@ p{
 	font-size:70%;
 }
 
+select{
+	font-family: 'open_sanslight';
+}
+
 /*NO SESSION PAGE*/
 .noSession{
 	font-family: 'open_sanslight';

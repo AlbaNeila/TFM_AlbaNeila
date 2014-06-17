@@ -2,6 +2,9 @@
 session_start();
 include('../model/acceso_db.php');
 include('../controller/transcription.php');
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
+    header('Location: ../view/login.php');
+}
 
 $idExercise="";
 if(isset( $_POST['idExercise'])){

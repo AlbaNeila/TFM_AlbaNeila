@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "PROFESOR"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
@@ -10,8 +13,12 @@ ob_start();
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 
 <script>
-    var selCollection="";
+    var selectedCollection="";
     var updateOrder = true;
+    
+    $(document).ready(function(){
+       window.location = $('#closeModal').attr('href');  
+    });
 
     function validateForm() {
         var u = check_empty($("#nombreejercicio"));
@@ -122,7 +129,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                     }
                     else{
                         alert("error");
@@ -147,7 +154,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                     }
                     else{
                         alert("error");
@@ -171,7 +178,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                     }
                     else{
                         alert("error");
@@ -195,7 +202,7 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                        mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                     }
                     else{
                         alert("error");
@@ -206,7 +213,8 @@ ob_start();
     function consultGroups(){
         var rowId = mygrid.getSelectedId();
         var idEj = mygrid.cellById(rowId, 0).getValue();
-        var idCol = mygrid.cellById(rowId, 6).getAttribute("idCol");
+        var idCol = mygrid.cellById(rowId, 0).getAttribute("idCol");
+        debugger;
         $("#idEj").val(idEj);
         $("#idCol").val(idCol);
         $("#ejName").html(mygrid.cellById(rowId, 1).getValue());
@@ -270,6 +278,10 @@ ob_start();
                auxValue=$(this).val(); 
             });  
         });
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
     }
     
     function upEj(){
@@ -297,7 +309,7 @@ ob_start();
                     request.success(function(request){
                         if($.trim(request) == "1"){                        
                             mygrid.clearAll();
-                            mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                            mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                         }
                         else{
                             alert("error");
@@ -334,7 +346,7 @@ ob_start();
                     request.success(function(request){
                         if($.trim(request) == "1"){                        
                             mygrid.clearAll();
-                            mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+                            mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
                         }
                         else{
                             alert("error");
@@ -347,6 +359,7 @@ ob_start();
         }
     }
     
+
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -461,14 +474,15 @@ ob_start();
             comboColeccion.enableOptionAutoPositioning();
             comboColeccion.loadXML("../controller/comboControllers/comboCollections.php");
             comboColeccion.attachEvent("onChange", function(){
-               selCollection = comboColeccion.getSelectedValue(); 
+               selectedCollection = comboColeccion.getSelectedValue(); 
                mygrid.clearAll()
-               mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selCollection,onLoadFunction);
+               mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
             });
         </script>
         
         
         <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
         <script>
            var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -532,8 +546,9 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                     <h3><?php echo(_("Acceso a grupos:"));?></h3>
-                    <label><?php echo(_("Ejercicio:"));?></label>
+                    <label class="labelModal"><?php echo(_("Ejercicio:"));?></label>
                     <label id="ejName"></label>
+                    <p></p>
                     <input type="hidden" id="idEj" name="idEj"> 
                     <input type="hidden" id="idCol" name="idCol">                  
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
@@ -553,8 +568,9 @@ ob_start();
                         mygrid2.init();
                     </script>
                     
-                    <input  type="button" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
-                    <input  type="submit" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="submit" class="buttonModal" name="enviar" onclick="saveGroupPermissions()" value="<?php echo(_("Guardar"));?>" id="aceptarGestionGrupos" />
+                    <input  type="button" class="buttonModal" name="cancelar" onclick="cancelGroupPermissions()" value="<?php echo(_("Cancelar"));?>" id="cancelar" />
+                    
             </div>
         </div> 
 <?php       

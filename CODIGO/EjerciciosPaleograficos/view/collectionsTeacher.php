@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "PROFESOR"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 include('../init.php');
 ?>
@@ -125,6 +128,13 @@ include('../init.php');
             });
         }
     }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -165,6 +175,7 @@ ob_start();
         </div>
         
         <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top: 300px;"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -179,7 +190,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
+            mygrid.loadXML("../controller/gridControllers/gridCollections.php",onLoadFunction);  
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();

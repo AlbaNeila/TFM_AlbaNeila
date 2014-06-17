@@ -119,7 +119,7 @@
 	<?php
 	    }else {
     		if($_SESSION['usuario_tipo'] == "ADMIN"){
-                header("Location: ../view/groupTeacher.php");
+                header("Location: ../view/usersAdmin.php");
             }
             if($_SESSION['usuario_tipo'] == "PROFESOR"){
                 header("Location: ../view/usersAdmin.php");

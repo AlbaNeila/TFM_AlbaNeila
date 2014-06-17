@@ -1,14 +1,6 @@
 <?php      
 
-	//Configuración Base de Datos
-	define("BD", "EJPALEO");
-	define("HOST", "localhost");
-	define("USER", "root");
-	define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db	
-	$connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-	mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
+	include('../../model/grid_acceso_db.php');
 
 
 	$result = mysql_query("SELECT grupo.nombre,usuario.nombre,usuario.idUsuario,grupo.idGrupo FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.tipo='PROFESOR'");

@@ -1,15 +1,7 @@
 <?php    
     session_start();  
 
-    //Configuración Base de Datos
-    define("BD", "EJPALEO");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db 
-    $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-    mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
+    include('../../model/grid_acceso_db.php');
 
 
     $result = mysql_query("SELECT usuario.nombre,usuario.apellidos,usuario.email,usuario.idUsuario FROM usuario,usuario_grupo WHERE usuario.idUsuario=usuario_grupo.idUsuario AND usuario_grupo.idGrupo='".$_REQUEST['idGrupo']."' AND usuario_grupo.solicitud=0");
@@ -20,8 +12,9 @@
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
     
+
     
-    while($fila = @mysql_fetch_array($result)){
+    while($fila = mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");
         $domAtribute = $dom->createAttribute('id');
         $domAtribute->value=$cont++;

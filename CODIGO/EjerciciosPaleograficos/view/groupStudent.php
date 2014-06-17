@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 ?>
 <script>
@@ -11,6 +14,13 @@ ob_start();
         $('#idGrupo').val(idGroup);
         $('#grupo').val(group);
         $('form#access').submit();       
+    }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
     }
 </script>
 <?php
@@ -27,6 +37,7 @@ ob_start();
             <h2><?php echo(_("Grupos disponibles"));?></h2>
         </div>
         <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:180px"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -41,7 +52,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridGroupsStudent.php");              
+            mygrid.loadXML("../controller/gridControllers/gridGroupsStudent.php",onLoadFunction);              
         </script>
         <form action="accessGroupStudent.php" name="access" id="access" method="post" style="display:none;">
             <input type="hidden" name="grupo" id="grupo" value=""/>

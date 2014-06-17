@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ADMIN"){
+    header('Location: ../view/login.php');
+}
 include('../model/acceso_db.php');
 
 ob_start();
@@ -11,8 +14,12 @@ ob_start();
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 
-
 <script>
+    $(document).ready(function(){
+       window.location = $('#closeModal').attr('href');
+       window.location = $('#closeModal2').attr('href'); 
+    });
+
     function validateForm() {
         var flag = true;
         var u = check_empty($("#nombredoc"));
@@ -44,6 +51,15 @@ ob_start();
             var ext = file.split('.').pop().toLowerCase();
            if ($.inArray(ext, ['xml']) == -1) {
                 set_tooltip($("#transcripcion"),"<?php echo(_("La transcripción debe ser un archivo con extensión .xml"));?>");
+                flag = false;
+            } 
+        }
+        
+        if($("#imagen").val()!=""){
+            var file = $("#imagen").val();
+            var ext = file.split('.').pop().toLowerCase();
+           if ($.inArray(ext, ['jpg','jpeg','png']) == -1) {
+                set_tooltip($("#imagen"),"<?php echo(_("El formato de la imagen no es válido."));?>");
                 flag = false;
             } 
         }
@@ -147,12 +163,14 @@ ob_start();
     function editFiles(){
         var rowId = mygrid.getSelectedId();
         var idDoc = mygrid.cellById(rowId, 0).getAttribute("idDoc");
-        //Agregamos un hidden con el id del doc seleccionado
+        var nameDoc = mygrid.cellById(rowId, 0).getValue(); 
+        //Agregamos un hidden con el id y el name del doc seleccionado
         var input = document.createElement("input");
         input.setAttribute("type", "hidden");                           
         input.setAttribute("id", "idHidden");                            
         input.setAttribute("value", idDoc);
         input.setAttribute("name","idDoc");
+        $('#documentName').text(nameDoc);
         var modal = document.getElementById("openModal");
         document.getElementById("formChangeDoc").appendChild(input);
         window.location = $('#anchorOpenModal').attr('href');
@@ -172,6 +190,15 @@ ob_start();
             } 
         }
         
+        if($("#changeimagen").val()!=""){
+            var file = $("#changeimagen").val();
+            var ext = file.split('.').pop().toLowerCase();
+           if ($.inArray(ext, ['jpg','jpeg','png']) == -1) {
+                set_tooltip($("#changeimagen"),"<?php echo(_("El formato de la imagen no es válido."));?>");
+                flag = false;
+            } 
+        }
+        
         if(i || tr || !flag){
             flag= false;
         }
@@ -181,6 +208,7 @@ ob_start();
     function showCollections(){
         var rowId = mygrid.getSelectedId();
         var idDoc = mygrid.cellById(rowId, 0).getAttribute("idDoc");
+        var nameDoc = mygrid.cellById(rowId, 0).getValue(); 
         //Agregamos un hidden con el id del doc seleccionado
         var input = document.createElement("input");
         input.setAttribute("type", "hidden");                           
@@ -188,6 +216,7 @@ ob_start();
         input.setAttribute("value", idDoc);
         input.setAttribute("name","idDoc");
 
+        $('#documentName2').text(nameDoc);
         document.getElementById("gridGestionColecciones").appendChild(input);
         window.location = $('#anchorGestionarColecciones').attr('href');
         mygrid2.clearAll();
@@ -239,6 +268,13 @@ ob_start();
         window.location = $('#closeModal2').attr('href');
     }
     
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -266,7 +302,7 @@ ob_start();
                     </tr>
                     <tr>
                         <td class="td_label"><label><?php echo(_("Imagen"));?></label></td><td><input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
-                <input type="file" id="imagen" name="imagen"/></td>
+                <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg"/></td>
                         <td class="td_label"><label><?php echo(_("Transcripción"));?></label></td><td> <input type="hidden" name="MAX_FILE_SIZE" value="40000000" />
                 <input type="file" id="transcripcion" name="transcripcion"/></td>
                     </tr>
@@ -288,6 +324,7 @@ ob_start();
 
         
         <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:350px;"></div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:410px;text-align: center;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -302,7 +339,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridDocumentsAdmin.php");
+            mygrid.loadXML("../controller/gridControllers/gridDocumentsAdmin.php",onLoadFunction);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();
@@ -355,9 +392,12 @@ ob_start();
                 <a href="#close" id="closeModal" title="Close" class="close">X</a>
                 <form method="post" enctype="multipart/form-data" id="formChangeDoc" action="../controller/addDocumentController.php?method=changeDocsAdmin" onsubmit="return validateChange()" >
                     <h3><?php echo(_("Modificar ficheros"));?></h3>
+                    <label class="labelModal"><?php echo(_("Documento:"));?></label>
+                    <label id="documentName"></label>
+                    <p></p>
                     <label class="labelModal"><?php echo(_("Imagen:"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-                    <input type="file" id="changeimagen" name="changeimagen"/><br>
+                    <input type="file" id="changeimagen" name="changeimagen" /><br>
                     <label class="labelModal"><?php echo(_("Transcripción:"));?></label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
                     <input type="file" id="changetranscripcion" name="changetranscripcion"/><br><br />
@@ -372,7 +412,9 @@ ob_start();
             <div>
                 <a href="#close" id="closeModal2" onclick="$('#idHidden').remove();"  title="Close" class="close">X</a>
                     <h3><?php echo(_("Gestionar colecciones"));?></h3>
-                    
+                    <label class="labelModal"><?php echo(_("Documento:"));?></label>
+                    <label id="documentName2"></label>
+                    <p></p>
                     <div id="gridGestionColecciones" style="width: 100%; height: 100%"></div>
                     <script>
                         var mygrid2 = new dhtmlXGridObject('gridGestionColecciones');

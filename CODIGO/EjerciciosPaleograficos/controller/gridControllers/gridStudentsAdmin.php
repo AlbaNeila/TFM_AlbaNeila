@@ -1,19 +1,10 @@
-<?php    
-    session_start();  
+<?php
+header("Content-type: text/xml");
+session_start();
+include('../../model/grid_acceso_db.php');
 
-    //Configuración Base de Datos
-    define("BD", "EJPALEO");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db 
-    $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-    mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
-
-    
     $result = mysql_query("SELECT usuario.idUsuario,usuario.nombre,usuario.apellidos,usuario.email,usuario.usuario,usuario.password FROM usuario WHERE usuario.tipo='ALUMNO'");
-    header("Content-type: text/xml");
+    
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));

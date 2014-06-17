@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "PROFESOR"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 $grupo=$_REQUEST['grupo'];
 $idGrupo=$_REQUEST['idGrupo'];
@@ -70,6 +73,13 @@ $idGrupo=$_REQUEST['idGrupo'];
             });
         }
     }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -86,7 +96,9 @@ ob_start();
     </div>
         
         
-        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 90%;top:180px;"></div>
+        <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 90%;top:180px;">           
+        </div>
+        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -101,8 +113,11 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>);  
+            mygrid.loadXML("../controller/gridControllers/gridStudents.php?idGrupo="+<?php echo $idGrupo;?>,onLoadFunction);
+
+
         </script>
+        
         
 <?php       
 $GLOBALS['TEMPLATE']['content']= ob_get_clean();

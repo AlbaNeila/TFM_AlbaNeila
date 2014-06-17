@@ -20,3 +20,13 @@
 .gridAfterForm input{
 	padding:0;
 }
+
+#noRecords{
+	font-family: 'open_sanslight';
+	color:#AC233E;
+}
+
+#noRecords2{
+	font-family: 'open_sanslight';
+	color:#AC233E;
+}

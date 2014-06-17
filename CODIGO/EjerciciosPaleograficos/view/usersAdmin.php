@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ADMIN"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 ?>
 <link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxCombo/codebase/dhtmlxcombo.css">
@@ -9,7 +12,11 @@ ob_start();
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_whp.js"></script>
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 <script>
-
+    $(document).ready(function(){
+       window.location = $('#closeModal2').attr('href');
+       window.location = $('#closeModal').attr('href'); 
+    });
+    
     function validateForm() {
        var empty=false;
        var flag = true;
@@ -251,6 +258,13 @@ ob_start();
         }
     }
     
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -298,6 +312,7 @@ ob_start();
     </div> 
     
     <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%;top:350px;"></div>
+    <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:410px;text-align: center;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridStudents');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -312,7 +327,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridStudentsAdmin.php");
+            mygrid.loadXML("../controller/gridControllers/gridStudentsAdmin.php",onLoadFunction);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
                     var row = new Array();

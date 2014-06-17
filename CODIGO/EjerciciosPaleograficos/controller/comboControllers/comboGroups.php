@@ -1,14 +1,6 @@
 <?php    
     session_start();  
-    //Configuración Base de Datos
-    define("BD", "EJPALEO");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
-    
-    //conectamos y seleccionamos db 
-    $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');
-    mysql_select_db(BD) or die('Error: Imposible seleccionar la base de datos.');
+    include('../../model/grid_acceso_db.php');
 
     if($_REQUEST['method']=="admin"){
         $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo");

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
+    header('Location: ../view/login.php');
+}
 ob_start();
 include('../init.php');
 ?>
@@ -13,6 +16,13 @@ include('../init.php');
         $('#idColeccion').val(idColeccion);
         $('#coleccion').val(coleccion);
         $('form#access').submit();       
+    }
+    
+    onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
+            $("#noRecords").val();
+        }
     }
 </script>
 
@@ -31,6 +41,7 @@ ob_start();
         </div>
               
         <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:180px";></div>
+         <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:240px;left:40%;"></label>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -45,7 +56,7 @@ ob_start();
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");
             mygrid.init();                  
-            mygrid.loadXML("../controller/gridControllers/gridCollectionsStudent.php");          
+            mygrid.loadXML("../controller/gridControllers/gridCollectionsStudent.php",onLoadFunction);          
         </script>
         <form action="documentStudent.php" name="access" id="access" method="post" style="display:none;">
             <input type="hidden" name="coleccion" id="coleccion" value=""/>
