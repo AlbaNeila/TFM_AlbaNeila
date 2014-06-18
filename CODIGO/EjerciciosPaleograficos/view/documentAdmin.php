@@ -270,8 +270,14 @@ ob_start();
     
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
+        }else{
+           $("#noRecords").remove();
         }
     }
     
@@ -324,7 +330,7 @@ ob_start();
 
         
         <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:350px;"></div>
-        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:410px;text-align: center;"></label>
+<div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

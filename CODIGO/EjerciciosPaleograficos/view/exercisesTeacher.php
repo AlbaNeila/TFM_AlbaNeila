@@ -273,14 +273,15 @@ ob_start();
     
     var auxValue="";
     onLoadFunction = function onLoadFunction(){
-        $('#gridExercises input').each(function (index){
-            $(this).bind('focus',function(event){
-               auxValue=$(this).val(); 
-            });  
-        });
         if(mygrid.getRowsNum()==0){
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
+        }else{
+           $("#noRecords").remove();
         }
     }
     
@@ -482,7 +483,7 @@ ob_start();
         
         
         <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
-        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:215px;left:40%;"></label>
+<div id="labelAux"></div>
         <script>
            var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

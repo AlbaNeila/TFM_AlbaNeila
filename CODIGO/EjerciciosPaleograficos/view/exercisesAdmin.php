@@ -18,7 +18,11 @@ ob_start();
     
     $(document).ready(function(){
        window.location = $('#closeModal').attr('href'); 
-        $("#noRecords2").text("<?php echo(_("- No se encontraron resultados -"));?>");
+        var label = document.createElement("label");
+        label.setAttribute("class", "gridAfterForm");                           
+        label.setAttribute("id", "noRecords");
+        label.setAttribute("style", "width: 70%; height: 90%;top:500px;text-align: center;");                            
+        $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
     });
     
     function validateForm() {
@@ -273,21 +277,22 @@ ob_start();
     
     var auxValue="";
     onLoadFunction = function onLoadFunction(){
+        if(mygrid.getRowsNum()==0){
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 70%; height: 90%;top:500px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
+        }else{
+           $("#noRecords").remove();
+        }
         $('#gridExercises input').each(function (index){
             $(this).bind('focus',function(event){
                auxValue=$(this).val(); 
             });  
         });
-        debugger;
-        
-        if(mygrid.getRowsNum()==0){
-            $("#noRecords2").remove();
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
-        }
-        checkUpdateOrder();
-        
-        
+        checkUpdateOrder(); 
     }
     
     function checkUpdateOrder(){
@@ -346,9 +351,9 @@ ob_start();
             var idEjUp = mygrid.cellById(rowId, 0).getValue();
             var orderUp = mygrid.cellById(rowId, 0).getAttribute("orden");
             sel=combo.getSelectedValue();
-            
+
             if(numrows>0){ //Una fila
-                if(rowId!=0 && rowId!=1){ //Primera fila
+                if(rowId!=0){ //Primera fila
                    var idEjDown = mygrid.cellById(rowId-1, 0).getValue();
                    var orderDown = mygrid.cellById(rowId-1, 0).getAttribute("orden");
                     
@@ -362,7 +367,7 @@ ob_start();
                       dataType: "script",   
                     });
                     request.success(function(request){
-                        if($.trim(request) == "1"){               como         
+                        if($.trim(request) == "1"){                
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
                         }
@@ -535,8 +540,7 @@ ob_start();
         </div>
         
         <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
-        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:500px;text-align: center;"></label>
-        <label id="noRecords2" class="gridAfterForm" style="width: 85%; height: 90%;top:500px;text-align: center;"></label>
+<div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

@@ -23,7 +23,6 @@
         $flag = 1;
         $collection = mysqli_real_escape_string($GLOBALS['link'],$_POST['collection']);
         $description = mysqli_real_escape_string($GLOBALS['link'],$_POST['description']);
-        $ordered = mysqli_real_escape_string($GLOBALS['link'],$_POST['ordered']);
         $groups = $_POST["groups"];
         $groups = json_decode("$groups",true);
         
@@ -31,7 +30,7 @@
         
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección
-                $reg = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion (coleccion.nombre, coleccion.descripcion, coleccion.ordenada) VALUES ('".utf8_decode($collection)."','".utf8_decode($description)."','".utf8_decode($ordered)."')");
+                $reg = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion (coleccion.nombre, coleccion.descripcion) VALUES ('".utf8_decode($collection)."','".utf8_decode($description)."')");
                 if($reg) {
                     $result4 = mysqli_query($GLOBALS['link'],"SELECT coleccion.idColeccion FROM coleccion WHERE coleccion.nombre='".utf8_decode($collection)."'");
                     $idCollection=mysqli_fetch_assoc($result4);
@@ -61,7 +60,7 @@
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe atra colección con el mismo nombre, por lo que actualizamos la fila
-                $result2 = mysqli_query($GLOBALS['link'],"UPDATE coleccion SET coleccion.nombre='".utf8_decode($row[1])."', coleccion.descripcion='".utf8_decode($row[2])."',coleccion.ordenada='".utf8_decode($row[5])."' WHERE coleccion.idColeccion='".$row[0]."'");
+                $result2 = mysqli_query($GLOBALS['link'],"UPDATE coleccion SET coleccion.nombre='".utf8_decode($row[1])."', coleccion.descripcion='".utf8_decode($row[2])."' WHERE coleccion.idColeccion='".$row[0]."'");
                 if($result2!=FALSE)
                     echo 1;
             }

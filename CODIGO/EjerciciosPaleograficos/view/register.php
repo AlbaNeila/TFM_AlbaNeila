@@ -151,7 +151,18 @@
 		    return flag;
 		}
 	
-
+         onLoadFunction = function onLoadFunction(){
+                if(mygrid.getRowsNum()==0){
+                    var label = document.createElement("label");
+                label.setAttribute("class", "gridAfterForm");                           
+                label.setAttribute("id", "noRecords");
+                label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+                $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+                document.getElementById("labelAux").appendChild(label);
+            }else{
+               $("#noRecords").remove();
+            }
+        }
 					 
 		function doInitGrid(){
 			mygrid = new dhtmlXGridObject('gridRegistro');
@@ -167,7 +178,7 @@
 			mygrid.setSizes();
 			mygrid.setSkin("dhx_skyblue");
 			mygrid.init();					
-			mygrid.loadXML("../controller/gridControllers/gridRegistro.php");			
+			mygrid.loadXML("../controller/gridControllers/gridRegistro.php",onLoadFunction);			
 		}
 		
 	
@@ -193,7 +204,7 @@
 			</div>	
 			<label><?php echo(_("Grupo"));?></label>		   
 			<div id="gridRegistro" style="width: 96%; height: 100%"></div>
-
+<div id="labelAux"></div>
 
 			<p><?php echo(_("Introduzca el texto de la imagen:"));?></p>
 			<table>

@@ -36,7 +36,7 @@ ob_start();
               url: "../controller/collectionController.php",
               async: false,
               data: {
-                method:"newCollection", collection: $("#nombrecoleccion").val(), description: $("#descripcioncoleccion").val(), groups: JSON.stringify(checked_array),ordered: $("#ordenadacoleccion")[0].selectedIndex
+                method:"newCollection", collection: $("#nombrecoleccion").val(), description: $("#descripcioncoleccion").val(), groups: JSON.stringify(checked_array)
               },
               dataType: "script",   
             });
@@ -177,8 +177,14 @@ ob_start();
     
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
+        }else{
+           $("#noRecords").remove();
         }
     }
     
@@ -221,7 +227,7 @@ ob_start();
         </div>
         
         <div class="gridAfterForm" id="gridCollections" style="width: 85%; height: 85%;top:350px;"></div>
-        <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:410px;text-align: center;"></label>
+        <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridCollections');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -294,7 +300,7 @@ ob_start();
                         var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
                         mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
                         mygrid2.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
-                        mygrid2.setInitWidths("*,*,*");
+                        mygrid2.setInitWidths("*,90,90");
                         mygrid2.setColAlign("center,center,center");
                         mygrid2.setColTypes("ro,ro,ro");
                         mygrid2.enableSmartRendering(true);

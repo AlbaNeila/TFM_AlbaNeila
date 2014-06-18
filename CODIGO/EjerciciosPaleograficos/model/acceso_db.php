@@ -14,8 +14,8 @@
         $flag = false;
 	}
     if(!$flag){
-        echo 2;
-        exit();
+        header('Location: ../view/error.php',FALSE);
+        exit;
     }
 
 ?> 

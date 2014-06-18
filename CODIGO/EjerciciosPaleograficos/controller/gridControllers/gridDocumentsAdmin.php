@@ -34,7 +34,7 @@
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
-           if($i==6){ //Colecciones select
+           if($i==6){ //Colecciones 
                 $result3 = mysql_query("SELECT coleccion.nombre FROM coleccion,coleccion_documento WHERE coleccion_documento.idDocumento = '$fila[0]' AND coleccion_documento.idColeccion = coleccion.idColeccion");
                 if(!$colecciones = mysql_fetch_assoc($result3)){
                      $contenido2 = ("../public/img/no.png' id='no");

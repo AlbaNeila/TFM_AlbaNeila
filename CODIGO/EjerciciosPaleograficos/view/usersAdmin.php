@@ -75,7 +75,7 @@ ob_start();
               url: "../controller/userController.php",
               async: false,
               data: {
-                method:"newStudent", dnialumno: $("#dnialumno").val(), emailalumno: $("#emailalumno").val(),nombrealumno:$("#nombrealumno").val(),apellidosalumno:$('#apellidosalumno').val(),passwordalumno:$('#passwordalumno').val(),grupos: JSON.stringify(checked_array),
+                method:"newStudent", dnialumno: $("#dnialumno").val(), emailalumno: $("#emailalumno").val(),nombrealumno:$("#nombrealumno").val(),apellidosalumno:$('#apellidosalumno').val(),passwordalumno:$('#password').val(),grupos: JSON.stringify(checked_array),
               },
               dataType: "script",   
             });
@@ -260,8 +260,14 @@ ob_start();
     
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
+        }else{
+           $("#noRecords").remove();
         }
     }
     
@@ -312,7 +318,7 @@ ob_start();
     </div> 
     
     <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%;top:350px;"></div>
-    <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:410px;text-align: center;"></label>
+<div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridStudents');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

@@ -82,7 +82,8 @@ ob_start();
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
-                        mygrid.updateFromXML("../controller/gridControllers/gridGroupsAdmin.php",false,true); 
+                        mygrid.clearAll();
+                        mygrid.loadXML("../controller/gridControllers/gridGroupsAdmin.php",onLoadFunction);
                     }
                     else{
                         alert("error");
@@ -229,11 +230,13 @@ ob_start();
     
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
-            $("#divContent").appendTo(" <label id='noRecords' class='gridAfterForm' style='width: 85%; height: 90%;top:400px;text-align: center;'></label>");
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
+            var label = document.createElement("label");
+            label.setAttribute("class", "gridAfterForm");                           
+            label.setAttribute("id", "noRecords");
+            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux").appendChild(label);
         }else{
-            debugger;
            $("#noRecords").remove();
         }
     }
@@ -278,7 +281,7 @@ ob_start();
     </div> 
     
     <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:350px;"></div>
-    <label id="noRecords" class="gridAfterForm" style="width: 85%; height: 90%;top:400px;text-align: center;"></label>
+    <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

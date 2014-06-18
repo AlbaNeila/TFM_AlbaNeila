@@ -26,7 +26,7 @@
     
     function newStudent(){    	
         $usuario_nombre = mysql_real_escape_string($_POST['dnialumno']);
-        $usuario_clave = mysql_real_escape_string($_POST['password']);
+        $usuario_clave = mysql_real_escape_string($_POST['passwordalumno']);
         $nombre = mysql_real_escape_string($_POST['nombrealumno']);
     	$usuario_apellidos = mysql_real_escape_string($_POST['apellidosalumno']);
         $usuario_email = mysql_real_escape_string($_POST['emailalumno']);

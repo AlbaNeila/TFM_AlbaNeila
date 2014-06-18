@@ -50,14 +50,11 @@
 			  dataType: "script",	
 			});
 			request.success(function(request){
+
 					if($.trim(request) == "1"){
 						flag= true;
 					}
-					if($.trim(request) == "2"){
-                        flag= false;
-                        set_tooltipBD($("#login"),"<?php echo(_("LA APLICACIÓN NO SE ENCUENTRA DISPONIBLE EN ESTOS MOMENTOS, POR FAVOR CONTACTE CON SU ADMINISTRADOR. DISCULPEN LAS MOLESTIAS."));?>");
-                    }
-					if($.trim(request) != "2" && $.trim(request) != "1"){
+					if($.trim(request) == "0"){
 						flag= false;
 						set_tooltip($("#login"),"<?php echo(_("Usuario o contraseña incorrectos"));?>");
 					}

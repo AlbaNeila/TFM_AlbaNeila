@@ -65,7 +65,7 @@
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre, por lo que actualizamos la fila
-                $result2 = mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.nombre='".utf8_decode($row[0])."', documento.descripcion='".utf8_decode($row[1])."',documento.fecha='".utf8_decode($row[2])."' ,documento.tipoEscritura='".utf8_decode($row[3])."' WHERE documento.idDocumento='".$idDocument."'");
+                $result2 = mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.nombre='".utf8_decode($row[0])."', documento.descripcion='".utf8_decode($row[1])."',documento.fecha='".utf8_decode($row[3])."' ,documento.tipoEscritura='".utf8_decode($row[2])."' WHERE documento.idDocumento='".$idDocument."'");
                 if($result2!=FALSE)
                     echo 1;
             }
