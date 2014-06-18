@@ -3,7 +3,8 @@
 
     include('../../model/grid_acceso_db.php');
     
-    
+    $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$_REQUEST['idCollection']."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)
+AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

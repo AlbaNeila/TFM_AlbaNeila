@@ -7,6 +7,7 @@ ob_start();
 ?>
 <script>
     function accessGroup(){
+        debugger;
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
         var group = mygrid.cellById(rowId, 1).getValue();

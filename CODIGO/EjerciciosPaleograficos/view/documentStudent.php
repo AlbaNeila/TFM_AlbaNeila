@@ -58,13 +58,6 @@ ob_start();
     
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
-            $("#noRecords").text("<?php echo(_("- No se encontraron resultados -"));?>");
-            $("#noRecords").val();
-        }
-    }
-    
-    onLoadFunction2 = function onLoadFunction2(){
-       if(mygrid.getRowsNum()==0){
             var label = document.createElement("label");
             label.setAttribute("class", "gridAfterForm");                           
             label.setAttribute("id", "noRecords");
@@ -73,6 +66,19 @@ ob_start();
             document.getElementById("labelAux").appendChild(label);
         }else{
            $("#noRecords").remove();
+        }
+    }
+    
+    onLoadFunction2 = function onLoadFunction2(){
+       if(mygrid2.getRowsNum()==0){
+            var label2 = document.createElement("label");
+            label2.setAttribute("class", "gridAfterForm");                           
+            label2.setAttribute("id", "noRecords2");
+            label2.setAttribute("style", "width: 85%; height: 90%;top:500px;text-align: center;");                            
+            $(label2).text("<?php echo(_("- No se encontraron resultados -"));?>");
+            document.getElementById("labelAux2").appendChild(label2);
+        }else{
+           $("#noRecords2").remove();
         }
     }
 </script>
@@ -130,8 +136,8 @@ ob_start();
             <h3><?php echo(_("Ejercicios disponibles:"));?></h3>
         </div> 
         <div class="gridAfterForm" id="gridEj" style="width: 85%; height: 85%;top:455px">   
-     
         </div>
+        <div id="labelAux2"></div> 
         <script>
             var mygrid2 = new dhtmlXGridObject('gridEj');
             mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

@@ -1,5 +1,5 @@
  <?php
-
+    session_start();
     include('../model/acceso_db.php');
 	
     $method = $_REQUEST['method'];

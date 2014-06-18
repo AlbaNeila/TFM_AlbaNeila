@@ -34,7 +34,7 @@
             if($i==4){ //Columna ejercicios
                $numdocumentos = "";
                 $idColeccion = $fila[0];
-                $result2 = mysql_query("SELECT count(ejercicio.idEjercicio) as total FROM ejercicio,coleccion_documento,documento WHERE coleccion_documento.idColeccion ='".$idColeccion."' and coleccion_documento.idDocumento=documento.idDocumento and documento.idDocumento=ejercicio.idDocumento");
+                $result2 = mysql_query("SELECT distinct count(ejercicio.idEjercicio) as total FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idColeccion."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio ");
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numdocumentos=$count['total'];

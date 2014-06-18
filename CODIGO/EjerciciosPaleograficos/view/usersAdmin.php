@@ -246,6 +246,7 @@ ob_start();
                       dataType: "script",   
                     });
                     request.success(function(request){
+                        debugger;
                             if($.trim(request) == "1"){
                                 window.location = $('#closeModal2').attr('href');
                             }

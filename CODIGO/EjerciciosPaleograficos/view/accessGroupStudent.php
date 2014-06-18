@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['usuario_tipo'] != "PROFESOR"){
+if($_SESSION['usuario_tipo'] != "ALUMNO"){
     header('Location: ../view/login.php');
 }
 ob_start();
@@ -26,21 +26,21 @@ if(isset($_POST['idGrupo'])){
             
             $('form#access').submit();       
         }
-    </script>
+    
     
     onLoadFunction = function onLoadFunction(){
        if(mygrid.getRowsNum()==0){
             var label = document.createElement("label");
             label.setAttribute("class", "gridAfterForm");                           
             label.setAttribute("id", "noRecords");
-            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            label.setAttribute("style", "width: 85%; height: 90%;top:270px;text-align: center;");                            
             $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
             document.getElementById("labelAux").appendChild(label);
         }else{
            $("#noRecords").remove();
         }
     }
-
+</script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('/menu/menu2.php');
