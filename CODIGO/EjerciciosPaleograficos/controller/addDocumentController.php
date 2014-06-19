@@ -194,11 +194,11 @@
         $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDocument."'");
         if($result!=FALSE){
                 $row=mysqli_fetch_assoc($result);
-                $imagen = $row['imagen'];
-                $nombre = $row['nombre'];
-                $descripcion = $row['descripcion'];
-                $fecha = $row['fecha'];
-                $tipoEscritura = $row['tipoEscritura'];
+                $imagen = utf8_encode($row['imagen']);
+                $nombre = utf8_encode($row['nombre']);
+                $descripcion = utf8_encode($row['descripcion']);
+                $fecha = utf8_encode($row['fecha']);
+                $tipoEscritura = utf8_encode($row['tipoEscritura']);
                 
                 $res= 1;
         }else{

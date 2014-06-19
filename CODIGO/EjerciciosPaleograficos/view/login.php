@@ -1,4 +1,5 @@
 <?php
+ob_start();
 	session_start();
 	include('../model/acceso_db.php');
 	include('../init.php');

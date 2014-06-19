@@ -94,6 +94,28 @@
         });
 	}
 	
+	function set_tooltip_left(campo,mensaje){
+		$(campo).qtip({ 
+			content: mensaje,
+            style: {
+                classes: 'qtip-blue'
+            },
+            position: {
+                my: 'right center',  // Position my top left...
+                at: 'left center', // at the bottom right of...
+                target: $(campo) // my target
+            },
+            show: {
+                event: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready                        
+            },
+            hide: {
+                event: false,
+                inactive:2500
+            }
+        });
+	}
+	
 	function set_tooltipBD(campo,mensaje){
 		$(campo).qtip({ 
 			content: mensaje,

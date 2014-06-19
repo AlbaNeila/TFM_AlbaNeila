@@ -78,13 +78,13 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                 $doc=$fila[2];
                 if($cont==1){
                     if($sup){
-                        $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^'");
+                        $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^' ");
                     }else{
-                        $contenido = (" ../public/img/enter.png^^javascript:accessEj($doc)^'");
+                        $contenido = (" ../public/img/enter.png^^javascript:accessEj($doc)^' ");
                     }
                 }else{
                     if(!$superado=mysql_fetch_assoc($result2)) { //Si no hay filas, es que el ejercicio todavía esta bloqueado        
-                        $contenido = (" ../public/img/lock.png^^javascript:lockEj()^'");
+                        $contenido = (" ../public/img/lock.png^^javascript:lockEj($doc)^' ");
                     }else{//Si hay filas, puede estar superado(superado=1) o no superado(superado=0)
                         if($superado['superado']==0){
                             $contenido = (" ../public/img/enter.png^^javascript:doEj($doc)^'");

@@ -1,4 +1,5 @@
  <?php
+ ob_start();
     //Configuración Base de Datos
     define("BD", "ubupal");
     define("HOST", "localhost");

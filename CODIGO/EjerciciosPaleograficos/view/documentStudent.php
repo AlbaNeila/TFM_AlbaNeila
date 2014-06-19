@@ -48,6 +48,28 @@ ob_start();
         var idCol = $('#idColeccion').val();
         var transc = mygrid2.cellById(rowId, 0).getAttribute('transc');
 
+        $('#type').val("do");
+        $('#idDocument2').val(doc);
+        $('#idExercise').val(ej);
+        $('#idColeccion2').val(idCol);
+        $('#nameCollection2').val(nameCol);
+        $('#transcription').val(transc)
+        $('form#accessEj').submit();
+    }
+    
+    function lockEj(){
+        var prueba = $('td.cellselected');
+        set_tooltip_left(prueba,"<?php echo(_("No puede acceder a este ejercicio hasta que no haya superado el anterior."));?>")
+    }
+    
+    function accessEj(doc){
+        var rowId = mygrid2.getSelectedId();
+        var ej = mygrid2.cellById(rowId, 0).getAttribute('idEj');
+        var nameCol = $('#nameCol').html();
+        var idCol = $('#idColeccion').val();
+        var transc = mygrid2.cellById(rowId, 0).getAttribute('transc');
+
+        $('#type').val("access");
         $('#idDocument2').val(doc);
         $('#idExercise').val(ej);
         $('#idColeccion2').val(idCol);
@@ -162,6 +184,7 @@ ob_start();
         </form>
         
         <form action="accessExercise.php" name="accessEj" id="accessEj" method="post" style="display:none;">
+            <input type="hidden" name="type"  id="type" value=""/>
             <input type="hidden" name="idDocument"  id="idDocument2" value=""/>
             <input type="hidden" name="idExercise"  id="idExercise" value=""/>
             <input type="hidden" name="idColeccion"  id="idColeccion2" value="<?php echo $idColeccion;?>"/> 

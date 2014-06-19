@@ -6,6 +6,10 @@ if($_SESSION['usuario_tipo'] != "ALUMNO"){
     header('Location: ../view/login.php');
 }
 
+$type="";
+if(isset( $_POST['type'])){
+    $type = $_POST['type'];
+}
 $idExercise="";
 if(isset( $_POST['idExercise'])){
     $idExercise = $_POST['idExercise'];
@@ -135,9 +139,15 @@ ob_start();
         //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
         if(comprobarTranscripcion==1){
             $('#correccion').text('Paso a paso');
+            if($('#type').val()=="do"){
             var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?>'}),
-                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>'}),
+                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+            }else{
+                var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Recuerde que este ejercicio ya ha sido superado, por lo que no se sumará un intento de realización. Si selecciona la opción Continuar comenzará el ejercicio. "));?>'}),
+                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
+                          cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+            }
                 
             dialogue( message.add(ok).add(cancel), '<?php echo(_("INICIAR EJERCICIO"))?>');
             $('#contentTranscription input').change(function(e){
@@ -152,6 +162,25 @@ ob_start();
         }
  
     });
+    
+    function initExercise(){
+        if($('#type').val() == "do"){
+           var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/exercisesController.php",
+                      async: false,
+                      data: {
+                        method:"initExercise", idExercise: $('#idExercise').val()
+                      },
+                      dataType:"script",  
+                    });
+                    request.success(function(request){
+                            if($.trim(request) != "1"){
+                                alert("error");
+                            }
+                    }); 
+            }
+    }
     
     function dialogue(content, title) {
         $('<div />').qtip({
@@ -187,12 +216,11 @@ ob_start();
     
     function exit(){
         $('form#access').submit();
-    }
-    
+    } 
     
     
     function checkExercise(){
-         var message = $('<p />', { text: '<?php echo(_("Si selecciona la opción Continuar se realizará la corrección del ejercicio y contabilizará un intento de realización."));?>'}),
+         var message = $('<p />', { text: '<?php echo(_("Si selecciona la opción Continuar se realizará la corrección del ejercicio."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {okCheckExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Volver"))?>'});
                 
@@ -226,8 +254,10 @@ ob_start();
         $(input).attr('readonly','true');
         if($(input).val()!=$(idTransc).val()){
             $(input).css({ "background-color": "#f2dede", "border-color": "#ebccd1", "color": "#a94442" });
+            $(input).addClass('nok');
         }else{
             $(input).css({ "background-color": "#dff0d8", "border-color": "#d6e9c6", "color": "#3c763d" });
+            $(input).addClass('ok');
         }
         cont++;
         if(cont==(numRec-total)){
@@ -238,7 +268,7 @@ ob_start();
     function finishExercise(){
         var correctos=0;
         var superado=0;
-        debugger;
+
         $('#contentTranscription input:text').each(function(index) {
             if($(this).attr("class") == "inputTransc ok"){ //Verde -> correcto
                 correctos++;
@@ -254,33 +284,46 @@ ob_start();
                 superado=1;
             }
         }
-        
-        var request = $.ajax({
-                  type: "POST",
-                  url: "../controller/exercisesController.php",
-                  async: false,
-                  data: {
-                    method:"finishEj", idExercise: $('#idExercise').val(), superado:superado, idCollection:$('#idColeccion').val()
-                  },
-                  dataType:"script",  
-                });
-                request.success(function(request){
-                        if($.trim(request) == "1"){
-                          if(superado==1){
-                                  var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
-                                  ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
-                                  cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
-                          }else{
-                                  var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
-                                  cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
-                          }
-                
-            dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
-                        }
-                        else{
-                            alert("error");
-                        }
-                });
+
+        if($('#type').val( )== "do"){
+            var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/exercisesController.php",
+                      async: false,
+                      data: {
+                        method:"finishEj", idExercise: $('#idExercise').val(), superado:superado, idCollection:$('#idColeccion').val()
+                      },
+                      dataType:"script",  
+                    });
+                    request.success(function(request){
+                        debugger;
+                            if($.trim(request) == "1"){
+                              if(superado==1){
+                                      var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
+                                      ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
+                                      cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                              }else{
+                                      var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
+                                      cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                              }
+                    
+                dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
+                            }
+                            else{
+                                alert("error");
+                            }
+                    });
+        }else{
+            if(superado==1){
+               var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas."));?>'}),
+              ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
+              cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}}); 
+            }else{
+              var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
+                                      cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+          }
+          dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
+        }
     }
     
      $(function() {
@@ -350,6 +393,7 @@ ob_start();
 
    <input type="hidden" name="idDocument" id="idDocument" value="<?php echo $idDocument;?>"/>
    <input type="hidden" name="idExercise" id="idExercise" value="<?php echo $idExercise;?>"/>
+   <input type="hidden" name="type" id="type" value="<?php echo $type;?>"/>
    
    <div id="accordion" class="accordionStyle">
         <h3><?php echo(_("Información Documento "));?></h3>

@@ -40,6 +40,9 @@
         case 'checkUpdateOrder':
             checkUpdateOrder();
             break;
+        case 'initExercise':
+            initExercise();
+            break;
     }
     
     function newExercise(){
@@ -300,7 +303,7 @@
         $idExercise = $_POST['idExercise'];
         $idCollection = $_POST['idCollection'];
         
-        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.superado='".$superado."',usuario_ejercicio.fecha=CURRENT_DATE,usuario_ejercicio.intentos=usuario_ejercicio.intentos+1 WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.superado='".$superado."',usuario_ejercicio.fecha=CURRENT_DATE WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
         if($result1){
             if($superado==1){
                 $result2 = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCollection."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo_ejercicio_coleccion.idEjercicio = '".$idExercise."' order by grupo_ejercicio_coleccion.orden");
@@ -317,6 +320,18 @@
                 echo 1;
             }
         }
+    }
+    
+    function initExercise(){
+        $idExercise = $_POST['idExercise'];
+        
+        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.fecha=CURRENT_DATE,usuario_ejercicio.intentos=usuario_ejercicio.intentos+1 WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+        if($result1){
+            echo 1;
+        }else{
+            echo 0;
+        }
+        
     }
     
 ?> 
