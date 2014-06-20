@@ -60,22 +60,30 @@ ob_start();
     function consultGroups(){
         var rowId = mygrid.getSelectedId();
         var idCollection = mygrid.cellById(rowId, 0).getValue();
-        $("#idCollection").val(idCollection);
-        $("#collectionName").html(mygrid.cellById(rowId, 1).getValue());
-        mygrid2.clearAll();
-        mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+idCollection+"&method=collectionAdmin");
-        window.location = $('#anchorOpenModal').attr('href'); 
+        if(idCollection != 1){
+            $("#idCollection").val(idCollection);
+            $("#collectionName").html(mygrid.cellById(rowId, 1).getValue());
+            mygrid2.clearAll();
+            mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+idCollection+"&method=collectionAdmin");
+            window.location = $('#anchorOpenModal').attr('href');
+        }else{
+            var cell = $('td.cellselected');
+            set_tooltip_left(cell,"A la colección Pública tienen acceso todos los grupos de la aplicación. Esto no se puede modificar.")
+        } 
     }
     
     function deleteCollection(){
         var rowId = mygrid.getSelectedId();
         var idCollection = mygrid.cellById(rowId, 0).getValue();
-
-
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección?"));?>'}),
-                      ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionAdmin(idCollection);}}),
-                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
-        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 
+        if(idCollection != 1){
+            var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección?"));?>'}),
+                          ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionAdmin(idCollection);}}),
+                          cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
+            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 
+        }else{
+            var cell = $('td.cellselected');
+            set_tooltip_left(cell,"La colección Pública no puede eliminarse.")
+        }
     }
     
     function deleteCollectionAdmin(idCollection){

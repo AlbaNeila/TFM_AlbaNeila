@@ -14,7 +14,7 @@ ob_start();
 
 <script>
     var selectedCollection="";
-    var updateOrder = true;
+    var canUpdate = true;
     
     $(document).ready(function(){
        window.location = $('#closeModal').attr('href'); 
@@ -144,75 +144,87 @@ ob_start();
     }
     
     function updateTips(select){
-       var rowId = mygrid.getSelectedId();
-       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
-       var value = select.options[select.selectedIndex].value;
-       var request = $.ajax({
-              type: "POST",
-              url: "../controller/exercisesController.php",
-              async: false,
-              data: {
-                method:"updateTips", idEj: idEj, value:value
-              },
-              dataType: "script",   
-            });
-            request.success(function(request){
-                    if($.trim(request) == "1"){
-                        mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
-                    }
-                    else{
-                        alert("error");
-                    }
-            }); 
+        if(canUpdate){
+           var rowId = mygrid.getSelectedId();
+           var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+           var value = select.options[select.selectedIndex].value;
+           var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"updateTips", idEj: idEj, value:value
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
+                        }
+                        else{
+                            alert("error");
+                        }
+                }); 
+        }else{
+            set_tooltip($("#combo_selectcollection"),"La dificultad de los ejercicios no puede ser modificada porque estos se encuentran actualmente en uso.");
+        }
     }
     
     function updateTarget(select){
-       var rowId = mygrid.getSelectedId();
-       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
-       var value = select.options[select.selectedIndex].value;
-       var request = $.ajax({
-              type: "POST",
-              url: "../controller/exercisesController.php",
-              async: false,
-              data: {
-                method:"updateTarget", idEj: idEj, value:valu
-              },
-              dataType: "script",   
-            });
-            request.success(function(request){
-                    if($.trim(request) == "1"){
-                        mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
-                    }
-                    else{
-                        alert("error");
-                    }
-            }); 
+         if(canUpdate){
+           var rowId = mygrid.getSelectedId();
+           var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+           var value = select.options[select.selectedIndex].value;
+           var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"updateTarget", idEj: idEj, value:value
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php");
+                        }
+                        else{
+                            alert("error");
+                        }
+                }); 
+            }else{
+            set_tooltip($("#combo_selectcollection"),"El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+        }
     }
     
     function updateCorrectionMode(select){
-       var rowId = mygrid.getSelectedId();
-       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
-       var value = select.options[select.selectedIndex].value;
-       var request = $.ajax({
-              type: "POST",
-              url: "../controller/exercisesController.php",
-              async: false,
-              data: {
-                method:"updateCorrectionMode", idEj: idEj, value:value
-              },
-              dataType: "script",   
-            });
-            request.success(function(request){
-                    if($.trim(request) == "1"){
-                        mygrid.clearAll();
-                        mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
-                    }
-                    else{
-                        alert("error");
-                    }
-            }); 
+        if(canUpdate){
+           var rowId = mygrid.getSelectedId();
+           var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+           var value = select.options[select.selectedIndex].value;
+           var request = $.ajax({
+                  type: "POST",
+                  url: "../controller/exercisesController.php",
+                  async: false,
+                  data: {
+                    method:"updateCorrectionMode", idEj: idEj, value:value
+                  },
+                  dataType: "script",   
+                });
+                request.success(function(request){
+                        if($.trim(request) == "1"){
+                            mygrid.clearAll();
+                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+                        }
+                        else{
+                            alert("error");
+                        }
+                }); 
+        }else{
+            set_tooltip($("#combo_selectcollection"),"El modo de corrección de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+        }
     }
     
     function consultGroups(){
@@ -292,10 +304,11 @@ ob_start();
                auxValue=$(this).val(); 
             });  
         });
-        checkUpdateOrder(); 
+        checkUpdate(); 
     }
     
-    function checkUpdateOrder(){
+    function checkUpdate(){
+        canUpdate=true;
         var request = $.ajax({
                   type: "POST",
                   url: "../controller/exercisesController.php",
@@ -307,45 +320,55 @@ ob_start();
                 });
                 request.success(function(request){
                         if($.trim(request) == "1"){  //No update order
-                            updateOrder=false;
+                            canUpdate=false;
                         }
                 });
     }
     
     function updateValueTarget(newValue){
-       var rowId = mygrid.getSelectedId();
-       var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
-       
-       var idTarget = newValue.getAttribute("id");
-       var newVal= $('input#' + idTarget).val();
-       
-       if(newVal==""){
+        if(canUpdate){
+           var idTarget = newValue.getAttribute("id");
+           rowId=idTarget.split('target');
+           var idEj = mygrid.cellById(rowId[1]-1, 0).getAttribute("idEj");
+           
+           
+           var newVal= $('input#' + idTarget).val();
+           
+           if(newVal==""){
+                $('input#' + idTarget).val(auxValue);
+               set_tooltip($('input#' + idTarget),"<?php echo(_("Debe introducir un valor"));?>");
+           }else{
+               var request = $.ajax({
+                      type: "POST",
+                      url: "../controller/exercisesController.php",
+                      async: false,
+                      data: {
+                        method:"updateValueTarget", idEj: idEj, value:newVal
+                      },
+                      dataType: "script",   
+                    });
+                    request.success(function(request){
+                            if($.trim(request) == "1"){
+                                mygrid.clearAll();
+                                mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+                            }
+                            else{
+                                alert("error");
+                            }
+                    }); 
+            }
+        }else{
+            var rowId = mygrid.getSelectedId();
+            var idEj = mygrid.cellById(rowId, 0).getAttribute("idEj");
+            var idTarget = newValue.getAttribute("id");
             $('input#' + idTarget).val(auxValue);
-           set_tooltip($('input#' + idTarget),"<?php echo(_("Debe introducir un valor"));?>");
-       }else{
-           var request = $.ajax({
-                  type: "POST",
-                  url: "../controller/exercisesController.php",
-                  async: false,
-                  data: {
-                    method:"updateValueTarget", idEj: idEj, value:newVal
-                  },
-                  dataType: "script",   
-                });
-                request.success(function(request){
-                        if($.trim(request) == "1"){
-                            mygrid.clearAll();
-                            mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
-                        }
-                        else{
-                            alert("error");
-                        }
-                }); 
+
+            set_tooltip($("#combo_selectcollection"),"El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
         }
     }
     
     function upEj(){
-        if(updateOrder){
+        if(canUpdate){
             var numrows = mygrid.getRowsNum();
             var rowId = parseInt(mygrid.getSelectedId());
             var idEjUp = mygrid.cellById(rowId, 0).getValue();
@@ -383,7 +406,7 @@ ob_start();
     }
     
     function downEj(){
-        if(updateOrder){
+        if(canUpdate){
             var numrows = mygrid.getRowsNum();
             var rowId = parseInt(mygrid.getSelectedId());
             var idEjUp = mygrid.cellById(rowId, 0).getValue();
@@ -450,7 +473,7 @@ ob_start();
                         <td class="td_label"><label><?php echo(_("Objetivo"));?></label></td><td nowrap><select style='width:200px;'  id="combo_objetivo" name="alfa1">
                                                                                                     <option value="0"><?php echo(_("% palabras acertadas"));?></option>
                                                                                                     <option value="1"><?php echo(_("Nº máximo de fallos"));?></option></select></td>
-                                                                                                    <td style="min-width:50px;"><input type="text" id="objetivo" size="4" style="width:40px;"/></td>
+                                                                                                    <td style="min-width:60px;"><input type="text" id="objetivo" size="4" style="width:40px;"/></td>
                         <td class="td_label"><label><?php echo(_("Modo corrección"));?></label></td><td><select style='width:200px;'  id="combo_modo" name="alfa1">
                                                                                                             <option value="0"><?php echo(_("Corregir al final"));?></option>
                                                                                                             <option value="1"><?php echo(_("Corregir paso a paso"));?></option>

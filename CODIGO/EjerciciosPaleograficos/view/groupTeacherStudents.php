@@ -79,7 +79,7 @@ $idGrupo=$_REQUEST['idGrupo'];
             var label = document.createElement("label");
             label.setAttribute("class", "gridAfterForm");                           
             label.setAttribute("id", "noRecords");
-            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            label.setAttribute("style", "width: 85%; height: 90%;top:220px;text-align: center;");                            
             $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
             document.getElementById("labelAux").appendChild(label);
         }else{

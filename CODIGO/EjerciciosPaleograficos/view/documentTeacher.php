@@ -303,9 +303,15 @@ ob_start();
         <div class="formulario" style="top:320px;" >
             <h2><?php echo $coleccion;?></h2>           
         </div>
+        <?php
+            if($idColeccion != 1){
+        ?>
         <div class="formulario" style="top:320px; text-align: right;width: 85%;" >
             <h3><a href="#gestionarGrupos"><?php echo(_("Gestionar grupos"));?></a></h3>
         </div>
+        <?php
+            }
+        ?>
 
         
         <div id="gestionarGrupos" class="modalDialog2">

@@ -36,8 +36,14 @@
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
                 $reg = mysqli_query($GLOBALS['link'],"INSERT INTO grupo (grupo.nombre, grupo.descripcion, grupo.idUsuarioCreador) VALUES ('".utf8_decode($grupo)."','".utf8_decode($descripcion)."','".$_SESSION['usuario_id']."')");
-                if($reg) {
-                    echo 1; //Nuevo grupo OK
+                $row = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre='".$grupo."'");
+                if($idGrupo = mysqli_fetch_assoc($row)){
+                    $idGrupo = $idGrupo['idGrupo'];
+                    //Insertamos en la colección pública
+                    $reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".$idGrupo."','1')");
+                    if($reg && $reg2) {
+                        echo 1; //Nuevo grupo OK
+                    }
                 }
             }
             else{
@@ -56,8 +62,14 @@
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
                 $reg = mysqli_query($GLOBALS['link'],"INSERT INTO grupo (grupo.nombre, grupo.descripcion, grupo.idUsuarioCreador) VALUES ('".utf8_decode($grupo)."','".utf8_decode($descripcion)."','".$profesor."')");
-                if($reg) {
-                    echo 1; //Nuevo grupo OK
+                $row = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre='".$grupo."'");
+                if($idGrupo = mysqli_fetch_assoc($row)){
+                    $idGrupo = $idGrupo['idGrupo'];
+                    //Insertamos en la colección pública
+                    $reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".$idGrupo."','1')");
+                    if($reg && $reg2) {
+                        echo 1; //Nuevo grupo OK
+                    }
                 }
             }
             else{

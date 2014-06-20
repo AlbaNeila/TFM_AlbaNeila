@@ -65,7 +65,7 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                    $options = "<option value='0'>% palabras acertadas</option>
                                <option value='1' selected>Nº máximo de fallos</option>";
                 }
-                $contenido = "<select id='target$cont' name='target' onchange='updateTarget(this)'>$options</select> <input id='target$cont' size='1' type='text' value='$fila[5]' onblur='updateValueTarget(this)'/>";
+                $contenido = "<select id='target$cont' name='target' onchange='updateTarget(this)'>$options</select> <input id='target$cont' size='2' type='text' value='$fila[5]' onblur='updateValueTarget(this)'/>";
                 $cell->appendChild($dom->createCDATASection($contenido));
            } 
             if($i==6){

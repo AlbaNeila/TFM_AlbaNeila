@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['usuario_tipo'] != "ALUMNO"){
     header('Location: ../view/login.php');
 }
-include('../model/acceso_db.php');
+
 $coleccion="";
 $idColeccion="";
 $accessGroup="";
@@ -58,8 +58,8 @@ ob_start();
     }
     
     function lockEj(){
-        var prueba = $('td.cellselected');
-        set_tooltip_left(prueba,"<?php echo(_("No puede acceder a este ejercicio hasta que no haya superado el anterior."));?>")
+        var cell = $('td.cellselected');
+        set_tooltip_left(cell,"<?php echo(_("No puede acceder a este ejercicio hasta que no haya superado el anterior."));?>")
     }
     
     function accessEj(doc){

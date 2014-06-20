@@ -99,11 +99,16 @@ include('../init.php');
     function deleteCollection(){
        var rowId = mygrid.getSelectedId();
        var idColeccion = mygrid.cellById(rowId, 0).getValue();
-       var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
-                      ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionTeacher(idColeccion);}}),
-                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
-    
-        dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>');
+       if(idColeccion != 1){
+           var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
+                          ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionTeacher(idColeccion);}}),
+                          cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+        
+            dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>');
+        }else{
+            var cell = $('td.cellselected');
+            set_tooltip_left(cell,"La colección Pública no puede eliminarse.")
+        }
     }
 
     function deleteCollectionTeacher(idColeccion){
