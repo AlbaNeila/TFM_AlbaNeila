@@ -1,8 +1,8 @@
 <?php    
     session_start();  
-    include('../../model/grid_acceso_db.php');
-
-    $result = mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$_SESSION['usuario_id']."' and grupo.idGrupo='".$_REQUEST['idGroup']."'");
+    include('../../model/persistence/gridService.php');
+    
+    $result = gridService::getCollectionsByUserAndGroup($_SESSION['usuario_id'], $_REQUEST['idGroup']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -22,7 +22,7 @@
           if($i==3){ //columna documentos
            $numdocumentos = "";
             $idColeccion = $fila[0];
-                $result2 = mysql_query("SELECT count(*) as total FROM coleccion_documento WHERE coleccion_documento.idColeccion ='".$idColeccion."' ");
+                $result2 = gridService::getCountCollections($idColeccion);
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numdocumentos=$count['total'];
@@ -34,7 +34,7 @@
             if($i==4){ //Columna ejercicios
                $numdocumentos = "";
                 $idColeccion = $fila[0];
-                $result2 = mysql_query("SELECT distinct count(ejercicio.idEjercicio) as total FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idColeccion."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio ");
+                $result2 = gridService::getCountExercises($_SESSION['usuario_id'], $idColeccion);
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numdocumentos=$count['total'];

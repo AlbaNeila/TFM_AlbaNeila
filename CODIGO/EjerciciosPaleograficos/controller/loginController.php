@@ -1,6 +1,6 @@
  <?php
     session_start();
-    include('../model/acceso_db.php');
+    include('../model/persistence/loginService.php');
 	
     $method = $_REQUEST['method'];
     
@@ -18,7 +18,7 @@
     	$usuario_nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario']);
         $usuario_clave = mysqli_real_escape_string($GLOBALS['link'],$_POST['password']);
         $usuario_clave=md5($usuario_clave);
-    	$result = mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario, usuario.usuario, usuario.tipo FROM usuario WHERE usuario.usuario= '".$usuario_nombre."'   AND usuario.password= '".$usuario_clave."' ");
+    	$result = loginService::checkLogin($usuario_nombre, $usuario_clave);
     	
     	if($result==FALSE){
     		echo 0;

@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+   include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT documento.idDocumento,documento.nombre, documento.descripcion,documento.tipoEscritura, documento.fecha FROM documento,coleccion_documento WHERE coleccion_documento.idColeccion = '".$_REQUEST['idColeccion']."' AND documento.idDocumento = coleccion_documento.idDocumento");
+    $result = gridService::getDocumentsOfCollection($_REQUEST['idColeccion']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -20,13 +20,13 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=8;$i++){
+      for($i=0;$i<=7;$i++){
             if($i==5){ //Columna ejercicios
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $result2 = mysql_query("SELECT ejercicio.idEjercicio FROM ejercicio WHERE ejercicio.idDocumento = '$fila[0]'");
+                $result2 = gridService::getExercisesOfDocument($fila[0]);
                 if(!$ejercicios = mysql_fetch_assoc($result2)){
                      $contenido = ("../public/img/no.png' id='no");
                 }
@@ -35,12 +35,7 @@
                 }  
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
-           if($i==6){ //Ordenar
-                $cell= $row->appendChild($dom->createElement("cell"));
-              $contenido = ("Ordenar");
-                $cell->appendChild($dom->createCDATASection($contenido));
-            }
-           if($i==7){ //Columna de la imagen eliminar
+           if($i==6){ //Columna de la imagen eliminar
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -48,7 +43,7 @@
                 $contenido = ("../public/img/delete.png^^javascript:deleteDocument()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-           if($i==8){ //Columna de la imagen modificar ficheros
+           if($i==7){ //Columna de la imagen modificar ficheros
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
@@ -56,7 +51,7 @@
                 $contenido = ("../public/img/editfiles.png^^javascript:editFiles()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=0 && $i!=6 && $i!=5 && $i!=7 && $i!=8){
+            if($i!=0 && $i!=6 && $i!=5 && $i!=7){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $domAtribute = $dom->createAttribute('idDoc');
                 $domAtribute->value=$fila[0];

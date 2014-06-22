@@ -1,20 +1,20 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
     $idSearched = $_REQUEST['idSearched'];
     if($_REQUEST['method'] == 'student'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
-        $result2 = mysql_query("SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idUsuario='".$idSearched."' AND usuario_grupo.solicitud=0");
+        $result = gridService::getGroupsAdmin();
+        $result2 = gridService::getGroupIdByUser($idSearched);
     }
     if($_REQUEST['method'] == 'collectionAdmin'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo");
-        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
+        $result =  gridService::getGroupsAdmin();
+        $result2 = gridService::getGroupByCollectionId($idSearched);
     }
    if($_REQUEST['method'] == 'collection'){
-        $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
-        $result2 = mysql_query("SELECT grupo_coleccion.idGrupo FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idSearched."'");
+        $result = gridService::getGroupsTeacher($_SESSION['usuario_id']);
+        $result2 =gridService::getGroupByCollectionId($idSearched);
     }
 
     

@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.idUsuario='".$_SESSION['usuario_id']."'");
+    $result = gridService::getGroupsTeacher($_SESSION['usuario_id']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -24,7 +24,7 @@
             if($i==3){ //columna nº alumnos
             $numalumnos = "";
             $idGrupo = $fila[0];
-                $result2 = mysql_query("SELECT count(*) as total FROM usuario_grupo WHERE usuario_grupo.idGrupo='".$idGrupo."' AND usuario_grupo.solicitud=0");
+                $result2 = gridService::getStudentsNumber($idGrupo);
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numalumnos=$count['total'];
@@ -34,7 +34,7 @@
                 $cell->appendChild($dom->createCDATASection(utf8_encode($numalumnos)));
             }
             if($i==4){ //Columna de la imagen solicitud
-                $result3 = mysql_query("SELECT usuario_grupo.solicitud FROM usuario_grupo WHERE usuario_grupo.idGrupo='".$fila[0]."' AND usuario_grupo.solicitud='1'");
+                $result3 = gridService::getGroupsRequest($fila[0]);
                 if($result3!=FALSE){
                      if($solicitud=mysql_fetch_assoc($result3)){
                             $cell= $row->appendChild($dom->createElement("cell"));

@@ -1,12 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+   include('../../model/persistence/gridService.php');
 
-    
-
-   $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo,grupo_coleccion WHERE grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion='".$_REQUEST['idCollection']."'");
-   $result2 = mysql_query("SELECT grupo_ejercicio_coleccion.idGrupo FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idEjercicio='".$_REQUEST['idSearched']."'");
+   $result = gridService::getGroupIdAndNameByCollectionId($_REQUEST['idCollection']);
+   $result2 = gridService::getGroupIdFromGroupExerciseCollection($_REQUEST['idSearched']);
 
     
     $groups = array();

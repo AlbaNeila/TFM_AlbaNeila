@@ -1,9 +1,9 @@
 <?php    
     session_start();  
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT documento.idDocumento,documento.nombre, documento.descripcion,documento.tipoEscritura, documento.fecha FROM documento");
+    $result = gridService::getDocumentsOfCollectionAdmin();
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -25,7 +25,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $result2 = mysql_query("SELECT ejercicio.idEjercicio FROM ejercicio WHERE ejercicio.idDocumento = '$fila[0]'");
+                $result2 = gridService::getExercisesOfDocument($fila[0]);
                 if(!$ejercicios = mysql_fetch_assoc($result2)){
                      $contenido = ("../public/img/no.png' id='no");
                 }
@@ -35,7 +35,7 @@
                 $cell->appendChild($dom->createCDATASection($contenido));
             }
            if($i==6){ //Colecciones 
-                $result3 = mysql_query("SELECT coleccion.nombre FROM coleccion,coleccion_documento WHERE coleccion_documento.idDocumento = '$fila[0]' AND coleccion_documento.idColeccion = coleccion.idColeccion");
+                $result3 = gridService::getCollectionsByDoc($fila[0]);
                 if(!$colecciones = mysql_fetch_assoc($result3)){
                      $contenido2 = ("../public/img/no.png' id='no");
                 }

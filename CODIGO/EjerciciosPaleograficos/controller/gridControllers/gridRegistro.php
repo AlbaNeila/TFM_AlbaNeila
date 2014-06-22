@@ -1,9 +1,9 @@
 <?php      
 
-	include('../../model/grid_acceso_db.php');
+	include('../../model/persistence/gridService.php');
 
 
-	$result = mysql_query("SELECT grupo.nombre,usuario.nombre,usuario.idUsuario,grupo.idGrupo FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.tipo='PROFESOR'");
+	$result = gridService::getGroupsToRegister();
 	
 	header("Content-type: text/xml");
 	$dom = new DOMDocument("1.0","UTF-8");
@@ -24,7 +24,10 @@
 			$domAtribute = $dom->createAttribute('type');
 			$domAtribute->value='img';
 			$cell->appendChild($domAtribute);
-			$contenido = ("../public/img/info.png' id='".$cont."");
+            $domAtribute = $dom->createAttribute('idGroup');
+            $domAtribute->value=$fila[3];
+            $cell->appendChild($domAtribute);
+			$contenido = ("../public/img/info.png^^javascript:consultInfoGroup()^' id='".$cont."");
 			$cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
 	  	}
 	  	if($i==3){ //Columna del checkbox

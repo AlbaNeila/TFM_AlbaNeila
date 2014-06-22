@@ -1,11 +1,11 @@
 <?php   
 
-include('../../model/grid_acceso_db.php');   
-      session_start();  
+    session_start();
+    include('../../model/persistence/comboService.php');  
     
     header("Content-type: text/xml");
 
-    $result = mysql_query("SELECT DISTINCT coleccion.nombre,coleccion.idColeccion FROM coleccion");
+    $result = comboService::getCollectionsOfAdmin();
     
     
     $dom = new DOMDocument("1.0","UTF-8");

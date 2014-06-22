@@ -28,7 +28,6 @@ ob_start();
         var idDocument=$('#idDocument').val();
         
         if(idDocument!=""){
-            debugger;
             var request = $.ajax({
                   type: "POST",
                   url: "../controller/addDocumentController.php",
@@ -39,7 +38,6 @@ ob_start();
                   dataType:"json",  
                 });
                 request.success(function(json){
-                    debugger;
                         if($.trim(json.result) == "1"){
                             img=json.image;
                             document.getElementById('nombre').textContent =json.nombre;

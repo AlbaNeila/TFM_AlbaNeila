@@ -1,9 +1,9 @@
 <?php    
     session_start();  
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/comboService.php');
 
     if($_REQUEST['method']=="admin"){
-        $result = mysql_query("SELECT usuario.nombre,usuario.apellidos,usuario.idUsuario FROM usuario WHERE usuario.tipo='PROFESOR'");
+        $result = comboService::getTeachers();
     }
     
     

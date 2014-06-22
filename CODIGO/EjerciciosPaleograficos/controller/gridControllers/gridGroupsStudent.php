@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo,usuario,usuario_grupo WHERE usuario.idUsuario=usuario_grupo.idUsuario AND usuario_grupo.idGrupo=grupo.idGrupo AND usuario_grupo.solicitud=0 and usuario.idUsuario='".$_SESSION['usuario_id']."'");
+    $result = gridService::getGroupsStudent($_SESSION['usuario_id']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -24,7 +24,7 @@
             if($i==3){ //columna profesor responsable
             $contenido = "";
             $idGroup = $fila[0];
-                $teacher = mysql_query("SELECT distinct usuario.nombre,usuario.apellidos FROM usuario,grupo WHERE usuario.idUsuario=grupo.idUsuarioCreador AND grupo.idGrupo='".$idGroup."'");
+                $teacher = gridService::getNameSurnameGroupTeacher($idGroup);
                 if($teacher!=FALSE){
                     if($profesor=mysql_fetch_assoc($teacher)){
                         $contenido=$profesor['nombre'];

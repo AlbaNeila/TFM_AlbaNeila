@@ -25,38 +25,24 @@
     
 	<script>
 	var mygrid;
-	$(document).ready(function(){
-		setTimeout(function() {
-        var td;
-	    	var img;
-	    	var grupo;
-			var filas =$('.objbox tr').each(function (index){
-	    		 $(this).children("td").each(function (index2) {
-	    		 	if(index2 == 2){
-	    		 		$(this).children("img").bind('click',function($this){
-	    		 			img = this;
-	    		 			var idfila = $(this).attr("id");
-	    		 			grupo = mygrid.cellById(idfila-1, 0).getValue();
-	    		 			$.ajax({
-							  type: "POST",
-							  url: "../controller/tooltipInfo_helper.php",
-							  async: false,
-							  data: {
-								  grupo:grupo			  	
-							  },
-							  dataType:"text",	
-							  success: function(request){
-							  	set_tooltipInfo(img,request);
-							  }				  
-							});
-	    		 			  		 		
-	    				});
-
-	    			}
-	    		});
-	    	});
-    }, 6000);				
-	}); 
+	
+	function consultInfoGroup(){
+	    var rowId = mygrid.getSelectedId();
+        var idGroup = mygrid.cellById(rowId, 2).getAttribute("idGroup");
+        var cell=$('td.cellselected');
+	    $.ajax({
+          type: "POST",
+          url: "../controller/tooltipInfoController.php",
+          async: false,
+          data: {
+              grupo:idGroup               
+          },
+          dataType:"text",  
+          success: function(request){
+            set_tooltipInfo(cell,request);
+          }               
+        });
+	}
 		    
 	    function validateForm() {
 	    	var grupos = new Array();
@@ -156,7 +142,7 @@
                     var label = document.createElement("label");
                 label.setAttribute("class", "gridAfterForm");                           
                 label.setAttribute("id", "noRecords");
-                label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+                label.setAttribute("style", "width: 75%; height: 90%;top:420px;text-align: center;");                            
                 $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
                 document.getElementById("labelAux").appendChild(label);
             }else{

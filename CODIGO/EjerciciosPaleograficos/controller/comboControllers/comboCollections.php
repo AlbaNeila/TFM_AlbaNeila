@@ -1,9 +1,9 @@
 <?php      
-      session_start();  
-    include('../../model/grid_acceso_db.php');
+    session_start();  
+    include('../../model/persistence/comboService.php');
 
 
-    $result = mysql_query("SELECT DISTINCT coleccion.nombre,coleccion.idColeccion FROM grupo,grupo_coleccion,coleccion WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."' AND grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion = coleccion.idColeccion");
+    $result = comboService::getCollectionsOfTeacher($_SESSION['usuario_id']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

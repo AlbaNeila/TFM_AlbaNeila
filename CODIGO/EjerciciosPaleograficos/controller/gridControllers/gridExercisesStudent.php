@@ -1,10 +1,9 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
     
-    $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$_REQUEST['idCollection']."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)
-AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
+    $result = gridService::getExercisesOfStudent($_SESSION['usuario_id'], $_REQUEST['idCollection']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -21,7 +20,7 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
         $row = $rows->appendChild($domElement); //añadimos <row>
         $sup="";
         if($cont==1){
-            $resultPrimeraVuelta = mysql_query("SELECT usuario_ejercicio.superado FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
+            $resultPrimeraVuelta = gridService::getSuperado($_SESSION['usuario_id'], $fila[0]);
             if($superado=mysql_fetch_assoc($resultPrimeraVuelta)){
                 $superado=$superado['superado'];
                 if($superado==0){
@@ -30,17 +29,17 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
                     $sup=false;
                 }
             }else{
-                $primero = mysql_query("INSERT INTO usuario_ejercicio (usuario_ejercicio.idUsuario, usuario_ejercicio.idEjercicio,usuario_ejercicio.superado) VALUES ('".$_SESSION['usuario_id']."','".$fila[0]."','0')");
-                $sup=true;
+                $primero = gridService::insertUsuarioEjercicioSuperado($_SESSION['usuario_id'], $fila[0]);
+                $sup=true; 
             }
         }
         
       for($i=0;$i<=4;$i++){
-        $result2 = mysql_query("SELECT usuario_ejercicio.superado FROM usuario_ejercicio WHERE usuario_ejercicio.idUsuario = '".$_SESSION['usuario_id']."' and usuario_ejercicio.idEjercicio='".$fila[0]."'");
+        $result2 = gridService::getSuperado($_SESSION['usuario_id'], $fila[0]);
         if($i==2){ //Columna Documento
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $contenido="";
-                $result2 = mysql_query("SELECT documento.nombre FROM documento WHERE documento.idDocumento = '$fila[2]'");
+                $result2 = gridService::getDocumentsNameById($fila[2]);
                 if($document=mysql_fetch_assoc($result2)) {
                     $contenido=utf8_encode($document['nombre']);
                 }  
@@ -104,7 +103,7 @@ AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
             $domAtribute->value=$fila[7];
             $cell->appendChild($domAtribute);
             
-            $result3 = mysql_query("SELECT documento.transcripcion FROM documento WHERE documento.idDocumento = '$fila[2]'");
+            $result3 = gridService::getDocumentTranscriptionById($fila[2]);
             if($transc=mysql_fetch_assoc($result3)) {
                 $transcripcion=utf8_encode($transc['transcripcion']);
             }  

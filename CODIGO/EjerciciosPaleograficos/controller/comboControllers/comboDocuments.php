@@ -1,9 +1,9 @@
 <?php      
-      session_start();  
-    include('../../model/grid_acceso_db.php');
+     session_start();  
+    include('../../model/persistence/comboService.php');
 
     $idColeccion =$_REQUEST['idCollection'];
-   $result = mysql_query("SELECT documento.nombre,documento.idDocumento FROM documento,coleccion_documento WHERE coleccion_documento.idColeccion = '".$idColeccion."' AND documento.idDocumento = coleccion_documento.idDocumento");
+   $result = comboService::getDocumentsOfCollection($idColeccion);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

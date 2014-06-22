@@ -1,6 +1,9 @@
  <?php
     session_start();
-    include('../model/acceso_db.php');
+    include('../model/persistence/exerciseService.php');
+    include('../model/persistence/documentService.php');
+    
+    
     $method = $_POST['method'];
     
     switch($method){
@@ -62,22 +65,22 @@
         $groups = $_POST["groups"];
         $groups = json_decode("$groups",true);
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre FROM ejercicio WHERE ejercicio.nombre= '".utf8_decode($name)."'");
+        $result = exerciseService::getByName(utf8_decode($name));
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre
-                 $insert = mysqli_query($GLOBALS['link'],"INSERT INTO ejercicio (ejercicio.nombre, ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDocumento,ejercicio.idDificultad) VALUES ('".$name."','".$correction."','".utf8_decode($target)."','".$targetnum."','".$idDocument."','".$dificult."')");
+                 $insert = exerciseService::insertExercise(utf8_decode($name), $correction, utf8_decode($target), $targetnum, $idDocument, $dificult);
                  if(!$insert){
                      $flag = 0;
                  }else{
                      //Insertar en la ternaria
-                      $result2 = mysqli_query($GLOBALS['link'],"SELECT ejercicio.idEjercicio FROM ejercicio WHERE ejercicio.nombre= '".utf8_decode($name)."'");
+                      $result2 = exerciseService::getByName(utf8_decode($name));
                       $result2 = mysqli_fetch_assoc($result2);
                       $idEjercicio = $result2['idEjercicio'];
                       foreach($groups as $idGroup){
-                        $max = mysqli_query($GLOBALS['link'],"select max(grupo_ejercicio_coleccion.orden) as max from ejercicio,grupo_ejercicio_coleccion where grupo_ejercicio_coleccion.idColeccion='".$idCollection."'");
+                        $max = exerciseService::getMaxOrder($idCollection);
                         $max = mysqli_fetch_assoc($max);
                         $order = $max['max']+1;
-                        $insert2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_ejercicio_coleccion (grupo_ejercicio_coleccion.idGrupo, grupo_ejercicio_coleccion.idEjercicio,grupo_ejercicio_coleccion.idColeccion,grupo_ejercicio_coleccion.orden) VALUES ('".$idGroup."','".$idEjercicio."','".$idCollection."','".$order."')");
+                        $insert2 = exerciseService::insertGrupoEjercicioColeccion($idGroup, $idEjercicio, $idCollection, $order);
                         if(!$insert2){
                             $flag = 0;
                         }else{
@@ -95,7 +98,7 @@
     function deleteExercise(){
        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         
-       $result = mysqli_query($GLOBALS['link'],"DELETE FROM ejercicio WHERE ejercicio.idEjercicio= '".$idEj."'");
+       $result = exerciseService::deleteById($idEj);
         
         if($result!=FALSE){
                     echo 1; //Delete grupo OK
@@ -109,7 +112,7 @@
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
         
-        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.idDificultad='".$value."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        $result = exerciseService::updateTipsById($value, $idEj);
         if($result!=FALSE){
                     echo 1; 
         }
@@ -122,7 +125,7 @@
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
         
-        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.valor_objetivo='".utf8_decode($value)."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        $result = exerciseService::updateTargetById(utf8_decode($value), $idEj);
         if($result!=FALSE){
                     echo 1; 
         }
@@ -140,7 +143,7 @@
             $value=('nº máximo de fallos');
         }
         
-        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.tipo_objetivo='".utf8_decode($value)."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        $result = exerciseService::updateValueTargetById(utf8_decode($value), $idEj);
         if($result!=FALSE){
                     echo 1; //Delete grupo OK
         }
@@ -153,7 +156,7 @@
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
         
-        $result = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.comprobarTranscripcion='".$value."' WHERE ejercicio.idEjercicio='".$idEj."'");
+        $result = exerciseService::updateCorrectionModeById($value, $idEj);
         if($result!=FALSE){
                     echo 1; //Delete grupo OK
         }
@@ -166,11 +169,11 @@
         $row = $_POST["row"];
         $row = json_decode("$row",true);
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre FROM ejercicio WHERE ejercicio.nombre= '".utf8_decode($row[1])."' and ejercicio.idEjercicio<>'".$row[0]."'");
+        $result = exerciseService::checkNameNotRepeat(utf8_decode($row[1]), $row[0]);
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro ejercicio con el mismo nombre, por lo que actualizamos la fila
-                $result2 = mysqli_query($GLOBALS['link'],"UPDATE ejercicio SET ejercicio.nombre='".utf8_decode($row[1])."' WHERE ejercicio.idEjercicio='".$row[0]."'");
+                $result2 = exerciseService::updateNameById(utf8_decode($row[1]), $row[0]);
                 if($result2!=FALSE)
                     echo 1;
             }
@@ -195,10 +198,13 @@
         $flag=1;
         
         foreach($groups as $group){
-            $result = mysqli_query($GLOBALS['link'],"SELECT grupo_ejercicio_coleccion.idGrupo FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idGrupo= '".$group."' and grupo_ejercicio_coleccion.idEjercicio='".$idEj."' and grupo_ejercicio_coleccion.idColeccion='".$idCol."'");
+            $result = exerciseService::getGrupoEjercicioColeccionByIds($group, $idEj, $idCol);
             if($permissions[$cont]==true){
                 if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
-                     $insert = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_ejercicio_coleccion (grupo_ejercicio_coleccion.idGrupo, grupo_ejercicio_coleccion.idColeccion,grupo_ejercicio_coleccion.idEjercicio) VALUES ('".$group."','".$idCol."','".$idEj."')");
+                     $max = exerciseService::getMaxOrder($idCol);
+                     $max = mysqli_fetch_assoc($max);
+                     $order = $max['max']+1;
+                     $insert = exerciseService::insertGrupoEjercicioColeccion($group, $idEj, $idCol, $order);
                      if(!$insert){
                          $flag = 0;
                      }
@@ -206,7 +212,7 @@
             }
             else{
                 if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
-                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idGrupo= '".$group."' AND grupo_ejercicio_coleccion.idColeccion='".$idCol."' AND grupo_ejercicio_coleccion.idEjercicio='".$idEj."'");
+                    $delete = exerciseService::deleteGrupoEjercicioColeccionByIds($group, $idCol, $idEj);
                     if(!$delete){
                          $flag = 0;
                      }
@@ -224,8 +230,8 @@
         $idEjDown = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEjDown']);
         $orderDown= mysqli_real_escape_string($GLOBALS['link'],$_POST['orderDown']);
         
-        $result1 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderDown."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjUp."'");
-        $result2 = mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$orderUp."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEjDown."'");
+        $result1 = exerciseService::updateOrderByIdEj($orderDown, $idEjUp);
+        $result2 = exerciseService::updateOrderByIdEj($orderUp, $idEjDown);
         if($result1 && $result2){
             echo 1;
         }else{
@@ -237,9 +243,9 @@
         $idCollection=$_POST['idCollection'];
         $noUpdate=0;
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.idEjercicio FROM grupo_ejercicio_coleccion WHERE grupo_ejercicio_coleccion.idColeccion='".$idCollection."'");
+        $result = exerciseService::getGrupoEjercicioColeccionByIdCol($idCollection);
         while($fila=mysqli_fetch_assoc($result)){
-            $result2 = mysqli_query($GLOBALS['link'],"SELECT usuario_ejercicio.idEjercicio FROM usuario_ejercicio WHERE usuario_ejercicio.idEjercicio='".$fila['idEjercicio']."'");
+            $result2 = exerciseService::getUsuarioEjercicioByIdEj($fila['idEjercicio']);
             if($result2){
                 if($row=mysqli_fetch_assoc($result2)){
                     $noUpdate=1;
@@ -253,8 +259,8 @@
         $idDocument = $_POST['idDocument'];
         $idExercise = $_POST['idExercise'];
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura,documento.transcripcion FROM documento WHERE documento.idDocumento= '".$idDocument."'");
-        $result2 = mysqli_query($GLOBALS['link'],"SELECT ejercicio.nombre,ejercicio.comprobarTranscripcion,ejercicio.tipo_objetivo,ejercicio.valor_objetivo,ejercicio.idDificultad FROM ejercicio WHERE ejercicio.idEjercicio= '".$idExercise."'");
+        $result = documentService::getById($idDocument);
+        $result2 = exerciseService::getById($idExercise);
         if($result!=FALSE){
                 $row=mysqli_fetch_assoc($result);
                 $imagen = utf8_encode($row['imagen']);
@@ -303,16 +309,16 @@
         $idExercise = $_POST['idExercise'];
         $idCollection = $_POST['idCollection'];
         
-        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.superado='".$superado."',usuario_ejercicio.fecha=CURRENT_DATE WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+        $result1 = exerciseService::updateUsuarioEjercicioSuperadoByIds($superado, $idExercise, $_SESSION['usuario_id']);
         if($result1){
             if($superado==1){
-                $result2 = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.orden FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCollection."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo_ejercicio_coleccion.idEjercicio = '".$idExercise."' order by grupo_ejercicio_coleccion.orden");
+                $result2 = exerciseService::getNextOrderExercise($_SESSION['usuario_id'], $idCollection, $idExercise);
                 if($orden=mysqli_fetch_assoc($result2)){
                     $orden = $orden['orden'];
-                    $result3 = mysqli_query($GLOBALS['link'],"SELECT distinct grupo_ejercicio_coleccion.idEjercicio FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCollection."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio and grupo_ejercicio_coleccion.orden>'".$orden."' order by grupo_ejercicio_coleccion.orden");
+                    $result3 = exerciseService::getNextExerciseToDo($_SESSION['usuario_id'], $idCollection, $orden);
                     if($nextEj=mysqli_fetch_assoc($result3)){
                         $nextEj = $nextEj['idEjercicio'];
-                        $insert = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_ejercicio (usuario_ejercicio.idUsuario, usuario_ejercicio.idEjercicio) VALUES ('".$_SESSION['usuario_id']."','".$nextEj."')");
+                        $insert = exerciseService::insertNextExerciseToDo($_SESSION['usuario_id'], $nextEj);
                         echo 1;
                     }
                 }
@@ -325,7 +331,7 @@
     function initExercise(){
         $idExercise = $_POST['idExercise'];
         
-        $result1 = mysqli_query($GLOBALS['link'],"UPDATE usuario_ejercicio SET usuario_ejercicio.fecha=CURRENT_DATE,usuario_ejercicio.intentos=usuario_ejercicio.intentos+1 WHERE usuario_ejercicio.idEjercicio='".$idExercise."' AND usuario_ejercicio.idUsuario='".$_SESSION['usuario_id']."'");
+        $result1 = exerciseService::updateNumberTries($idExercise, $_SESSION['usuario_id']);
         if($result1){
             echo 1;
         }else{

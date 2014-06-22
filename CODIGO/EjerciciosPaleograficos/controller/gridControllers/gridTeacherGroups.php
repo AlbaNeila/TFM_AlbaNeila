@@ -1,11 +1,11 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
     
     $idSearched=$_REQUEST['idSearched'];
-    $result = mysql_query("SELECT grupo.idGrupo,grupo.nombre FROM grupo WHERE grupo.idUsuarioCreador='".$idSearched."'");
+    $result = gridService::getGroupsTeacher($idSearched);
   
     
     

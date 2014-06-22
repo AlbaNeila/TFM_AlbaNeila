@@ -1,15 +1,15 @@
 <?php    
     session_start();  
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/comboService.php');
 
     if($_REQUEST['method']=="admin"){
-        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo");
+        $result = comboService::getGroupsOfAdmin();
     }
     if($_REQUEST['method']=="adminExercises"){
-        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo,grupo_coleccion WHERE grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion='".$_REQUEST['idCollection']."'");
+        $result = comboService::getGroupsOfCollection($_REQUEST['idCollection']);
     }
     if($_REQUEST['method']=="otro"){
-        $result = mysql_query("SELECT grupo.nombre,grupo.idGrupo FROM grupo WHERE grupo.idUsuarioCreador = '".$_SESSION['usuario_id']."'");
+        $result = comboService::getGroupsOfTeacher($_SESSION['usuario_id']);
     }
     
     

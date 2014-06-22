@@ -1,10 +1,9 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
-
-    $result = mysql_query("SELECT coleccion.idColeccion, coleccion.nombre,coleccion.descripcion,coleccion.ordenada FROM coleccion");
+    $result = gridService::getCollectionsAdmin();
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
@@ -25,7 +24,7 @@
           if($i==3){ //columna nº de documentos
             $numdocumentos = "";
             $idColeccion = $fila[0];
-                $result2 = mysql_query("SELECT count(*) as total FROM coleccion_documento WHERE coleccion_documento.idColeccion ='".$idColeccion."' ");
+                $result2 = gridService::getCountCollections($idColeccion);
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numdocumentos=$count['total'];
@@ -37,7 +36,7 @@
             if($i==4){ //columna nº de grupos
             $numgrupos = "";
             $idColeccion = $fila[0];
-                $result3 = mysql_query("SELECT count(*) as total FROM grupo_coleccion WHERE grupo_coleccion.idColeccion='".$idColeccion."' ");
+                $result3 =gridService::getGroupsNumberAdmin($idColeccion);
                 if($result3!=FALSE){
                     if($count=mysql_fetch_assoc($result3)){
                         $numgrupos=$count['total'];

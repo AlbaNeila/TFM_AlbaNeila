@@ -1,6 +1,9 @@
 <?php
     session_start();
-    include('../model/acceso_db.php');
+    include('../model/persistence/collectionService.php');
+    include('../model/persistence/groupService.php');
+    include('../model/persistence/documentService.php');
+    
     $method = $_POST['method'];
     
     switch($method){
@@ -26,17 +29,17 @@
         $groups = $_POST["groups"];
         $groups = json_decode("$groups",true);
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion.nombre FROM coleccion WHERE coleccion.nombre= '".utf8_decode($collection)."'");
+        $result = collectionService::getByName(utf8_decode($collection));
         
         if($result!=FALSE){
             if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección
-                $reg = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion (coleccion.nombre, coleccion.descripcion) VALUES ('".utf8_decode($collection)."','".utf8_decode($description)."')");
+                $reg = collectionService::insertCollection(utf8_decode($collection), utf8_decode($description));
+                $result2=collectionService::getByName(utf8_decode($collection));
                 if($reg) {
-                    $result4 = mysqli_query($GLOBALS['link'],"SELECT coleccion.idColeccion FROM coleccion WHERE coleccion.nombre='".utf8_decode($collection)."'");
-                    $idCollection=mysqli_fetch_assoc($result4);
+                    $idCollection=mysqli_fetch_assoc($result2);
                     $idCollection = $idCollection['idColeccion'];
                     foreach($groups as $group){
-                        $reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".utf8_decode($group)."','".utf8_decode($idCollection)."')");
+                        $reg2 = collectionService::insertGroupCollection(utf8_decode($group), utf8_decode($idCollection));
                         if(!$reg2){
                             $flag = 0;
                         }
@@ -56,11 +59,11 @@
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
-        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion.nombre FROM coleccion WHERE coleccion.nombre= '".$row[1]."' and coleccion.idColeccion<>'".$row[0]."'");
+        $result = collectionService::checkNameNotRepeat($row[1], $row[0]);
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe atra colección con el mismo nombre, por lo que actualizamos la fila
-                $result2 = mysqli_query($GLOBALS['link'],"UPDATE coleccion SET coleccion.nombre='".utf8_decode($row[1])."', coleccion.descripcion='".utf8_decode($row[2])."' WHERE coleccion.idColeccion='".$row[0]."'");
+                $result2 = collectionService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), $row[0]);
                 if($result2!=FALSE)
                     echo 1;
             }
@@ -76,7 +79,7 @@
     function deleteCollection(){
         $idColeccion = mysqli_real_escape_string($GLOBALS['link'],$_POST['coleccion']);
     
-        $result = mysqli_query($GLOBALS['link'],"DELETE FROM coleccion WHERE coleccion.idColeccion= '".$idColeccion."'");
+        $result = collectionService::deleteById($idColeccion);
         
         if($result!=FALSE){
                     echo 1; //Delete grupo OK
@@ -95,7 +98,7 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = mysqli_query($GLOBALS['link'],"UPDATE usuario_grupo SET usuario_grupo.solicitud='0' WHERE usuario_grupo.idGrupo='".$idGrupo."' AND usuario_grupo.idUsuario='".$alumnos[$cont]."'");
+            $result = groupService::updateUsuarioGrupoAccess($idGrupo, $alumnos[$cont]);
             if(!$result){
                 $flag = false;
             }
@@ -116,7 +119,7 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = mysqli_query($GLOBALS['link'],"DELETE FROM usuario_grupo WHERE usuario_grupo.idGrupo='".$idGrupo."' AND usuario_grupo.idUsuario='".$alumnos[$cont]."'");
+            $result = groupService::deleteUsuarioGrupoByIds($idGrupo, $alumnos[$cont]);
             if(!$result){
                 $flag = false;
             }
@@ -136,7 +139,7 @@
         $return = 1;
         
         //Para borrar las filas de las colecciones en las que ya no esta el documento
-        $result = mysqli_query($GLOBALS['link'],"SELECT coleccion_documento.idColeccion FROM coleccion_documento WHERE coleccion_documento.idDocumento= '".$idDocument."'");
+        $result = documentService::getColeccionDocumentoByIdDoc($idDocument);
         if($result!=FALSE){
             while($row=mysqli_fetch_assoc($result)) {
                 $flag=false;
@@ -144,7 +147,7 @@
                     $flag = true;
                 }
                 if(!$flag){// si no esta la coleccion en la lista, borramos la fila porque se le ha denegado el acceso
-                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM coleccion_documento WHERE coleccion_documento.idColeccion='".$row['idColeccion']."' AND coleccion_documento.idDocumento='".$idDocument."'");
+                    $delete = documentService::deleteColleccionDocumentoByIds($row['idColeccion'], $idDocument);
                     if(!$delete){
                         $return =0;
                     }
@@ -156,9 +159,9 @@
         
         //Para añadir las filas de las colecciones a las que se le ha proporcionado acceso al documento ahora
          foreach($collections as $idCollection){
-             $result2 = mysqli_query($GLOBALS['link'],"SELECT coleccion_documento.idColeccion FROM coleccion_documento WHERE coleccion_documento.idDocumento= '".$idDocument."' AND coleccion_documento.idColeccion='".$idCollection."'");
+             $result2 = documentService::getColleccionDocumentoByIds($idDocument, $idCollection);
              if(!$fila=mysqli_fetch_assoc($result2)){//Si no hay filas -> Insert
-                $insert = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion_documento (coleccion_documento.idColeccion, coleccion_documento.idDocumento) VALUES ('".$idCollection."','".$idDocument."')");
+                $insert = documentService::insertColeccionDocumento($idCollection, $idDocument);
                 if(!$insert){
                     $return =0;
                 }

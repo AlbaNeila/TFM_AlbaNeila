@@ -1,8 +1,10 @@
 <?php
-define("BD", "ubupal");
-define("HOST", "localhost");
-define("USER", "root");
-define("PASSWORD", "root");
+ob_start();
+//Configuración Base de Datos
+    if (!defined('BD')) define('BD', 'ubupal');
+    if (!defined('HOST')) define('HOST', 'localhost');
+    if (!defined('USER')) define('USER', 'root');
+    if (!defined('PASSWORD')) define('PASSWORD', 'root');
 
 //conectamos y seleccionamos db 
 $connection = mysql_connect(HOST,USER,PASSWORD) or die('Error: Imposible conectar a la base de datos del servidor.');

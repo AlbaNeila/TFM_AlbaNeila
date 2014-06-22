@@ -1,6 +1,8 @@
 <?php
 	session_start();
-	include('../model/acceso_db.php');
+	include('../model/persistence/userService.php');
+    include('../model/persistence/groupService.php');
+    
     $method = $_POST['method'];
     
     switch($method){
@@ -31,7 +33,7 @@
     	$usuario_apellidos = mysql_real_escape_string($_POST['apellidosalumno']);
         $usuario_email = mysql_real_escape_string($_POST['emailalumno']);
         // comprobamos que el usuario ingresado no haya sido registrado antes
-        $result = mysqli_query($GLOBALS['link'],"SELECT usuario.usuario FROM usuario WHERE usuario.usuario='".$usuario_nombre."'");
+        $result = userService::getUserByName(utf8_decode($usuario_nombre));
         if($result==FALSE){ 
     				echo 0;
     	}
@@ -39,16 +41,16 @@
     		if(!$row=mysqli_fetch_assoc($result)) {
     				$usuario_clave = md5($usuario_clave); // encriptamos la contraseña ingresada con md5
     	            // ingresamos los datos a la BD
-    	            $reg = mysqli_query($GLOBALS['link'],"INSERT INTO usuario (usuario.usuario, usuario.password, usuario.nombre, usuario.apellidos, usuario.email, usuario.tipo) VALUES ('".utf8_decode($usuario_nombre)."', '".utf8_decode($usuario_clave)."', '".utf8_decode($nombre)."','".utf8_decode($usuario_apellidos)."','".utf8_decode($usuario_email)."', 'ALUMNO')");
+    	            $reg = userService::insertUser(utf8_decode($usuario_nombre), $usuario_clave, utf8_decode($nombre), utf8_decode($usuario_apellidos), utf8_decode($usuario_email));
     	            if($reg) {
-    					$result2 = mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario FROM usuario WHERE usuario.usuario='".$usuario_nombre."'");
+    					$result2 = userService::getUserByName(utf8_decode($usuario_nombre));
     					if($result2!=FALSE){ //Tenemos el idUsuario del nuevo usuario registrado
     						if($row=mysqli_fetch_assoc($result2)) {
     							$idUsuario = $row['idUsuario'];
     							$grupos   =   $_POST["grupos"];
     						    $grupos   =    json_decode("$grupos",true);
     						    foreach($grupos as $grupo){
-									$reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_grupo (usuario_grupo.idUsuario,usuario_grupo.idGrupo,usuario_grupo.solicitud) VALUES ('".$idUsuario."', '".$grupo."', '1')");
+									$reg2 = groupService::insertUsuarioGrupoSolicitud($idUsuario,$grupo);
                                     if($reg2)
                                     {
                                         echo 1;
@@ -71,7 +73,7 @@
         $usuario_apellidos = mysql_real_escape_string($_POST['apellidosprofesor']);
         $usuario_email = mysql_real_escape_string($_POST['emailprofesor']);
         // comprobamos que el usuario ingresado no haya sido registrado antes
-        $result = mysqli_query($GLOBALS['link'],"SELECT usuario.usuario FROM usuario WHERE usuario.usuario='".$usuario_nombre."'");
+        $result = userService::getUserByName(utf8_decode($usuario_nombre));
         if($result==FALSE){ 
                     echo 0;
         }
@@ -79,7 +81,7 @@
             if(!$row=mysqli_fetch_assoc($result)) {
                     $usuario_clave = md5($usuario_clave); // encriptamos la contraseña ingresada con md5
                     // ingresamos los datos a la BD
-                    $reg = mysqli_query($GLOBALS['link'],"INSERT INTO usuario (usuario.usuario, usuario.password, usuario.nombre, usuario.apellidos, usuario.email, usuario.tipo) VALUES ('".utf8_decode($usuario_nombre)."', '".utf8_decode($usuario_clave)."', '".utf8_decode($nombre)."','".utf8_decode($usuario_apellidos)."','".utf8_decode($usuario_email)."', 'PROFESOR')");
+                    $reg = userService::insertTeacher(utf8_decode($usuario_nombre), $usuario_clave, utf8_decode($nombre), utf8_decode($usuario_apellidos), utf8_decode($usuario_email));
                     if($reg) {
                         echo 1;
                     }   
@@ -101,10 +103,10 @@
         $flag=1;
         
         foreach($groups as $group){
-            $result = mysqli_query($GLOBALS['link'],"SELECT usuario_grupo.idGrupo FROM usuario_grupo WHERE usuario_grupo.idGrupo= '".$group."' and usuario_grupo.idUsuario='".$idStudent."'");
+            $result = groupService::getUsuarioGrupoByIds($group, $idStudent);
             if($permissions[$cont]==true){
                 if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
-                     $insert = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_grupo (usuario_grupo.idGrupo, usuario_grupo.idUsuario) VALUES ('".$group."','".$idStudent."')");
+                     $insert = groupService::insertUsuarioGrupo($idStudent, $group);
                      if(!$insert){
                          $flag = 0;
                      }
@@ -112,7 +114,7 @@
             }
             else{
                 if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
-                    $delete = mysqli_query($GLOBALS['link'],"DELETE FROM usuario_grupo WHERE usuario_grupo.idGrupo= '".$group."' AND usuario_grupo.idUsuario='".$idStudent."'");
+                    $delete = groupService::deleteUsuarioGrupoByIds($group, $idStudent);
                     if(!$delete){
                          $flag = 0;
                      }
@@ -126,7 +128,7 @@
     function deleteUser(){
         $idUser = mysqli_real_escape_string($GLOBALS['link'],$_POST['idUser']);
         
-       $result = mysqli_query($GLOBALS['link'],"DELETE FROM usuario WHERE usuario.idUsuario= '".$idUser."'");
+       $result = userService::deleteById($idUser);
         
         if($result!=FALSE){
                     echo 1; //Delete usuario OK
@@ -141,11 +143,11 @@
         $row = json_decode("$row",true);
         $idUser = $_POST['idUser'];
         
-        $result = mysqli_query($GLOBALS['link'],"SELECT usuario.nombre FROM usuario WHERE usuario.usuario= '".$row[4]."' and usuario.idUsuario<>'".$idUser."'");
+        $result = userService::checkNameNotRepeat(utf8_decode($row[4]), $idUser);
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro usuario con el mismo dni, por lo que actualizamos la fila
-                $result2 = mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.nombre='".utf8_decode($row[1])."', usuario.apellidos='".utf8_decode($row[2])."',usuario.email='".utf8_decode($row[3])."' ,usuario.usuario='".utf8_decode($row[4])."',usuario.password='".md5($row[5])."' WHERE usuario.idUsuario='".$idUser."'");
+                $result2 = userService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), utf8_decode($row[3]), utf8_decode($row[4]), utf8_decode($row[5]), $idUser);
                 if($result2!=FALSE)
                     echo 1;
             }
@@ -163,7 +165,7 @@
         $idUser = mysqli_real_escape_string($GLOBALS['link'],$_POST['idUser']);
         
         if($newPass!=""){
-            $update = mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.password='".md5($newPass)."' WHERE usuario.idUsuario='".$idUser."'");
+            $update = userService::updatePasswordById($newPass, $idUser);
             if($update){
                 echo 1;
             }else{

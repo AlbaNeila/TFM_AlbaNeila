@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+   include('../../model/persistence/gridService.php');
 
     
-    $result = mysql_query("SELECT usuario.idUsuario,usuario.nombre,usuario.apellidos,usuario.email,usuario.usuario,usuario.password FROM usuario WHERE usuario.tipo='PROFESOR'");
+    $result = gridService::getTeachers();
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
@@ -43,7 +43,7 @@
             }
             if($i==6){ //columna nº de grupos
             $idUsuario = $fila[0];
-                $result2 = mysql_query("SELECT count(*) as total FROM grupo WHERE grupo.idUsuarioCreador ='".$idUsuario."'");
+                $result2 = gridService::getGroupsNumberOfTeacher($idUsuario);
                 if($result2!=FALSE){
                     if($count=mysql_fetch_assoc($result2)){
                         $numgrupos=$count['total'];

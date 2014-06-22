@@ -1,10 +1,10 @@
  <?php
  ob_start();
     //Configuración Base de Datos
-    define("BD", "ubupal");
-    define("HOST", "localhost");
-    define("USER", "root");
-    define("PASSWORD", "root");
+    if (!defined('BD')) define('BD', 'ubupal');
+    if (!defined('HOST')) define('HOST', 'localhost');
+    if (!defined('USER')) define('USER', 'root');
+    if (!defined('PASSWORD')) define('PASSWORD', 'root');
     
     $flag=true;
     //conectamos y seleccionamos db	

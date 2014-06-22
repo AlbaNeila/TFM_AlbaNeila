@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+   include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT usuario.nombre,usuario.apellidos,usuario.email,usuario.idUsuario FROM usuario,usuario_grupo WHERE usuario.idUsuario=usuario_grupo.idUsuario AND usuario_grupo.idGrupo='".$_REQUEST['idGrupo']."' AND usuario_grupo.solicitud=0");
+    $result = gridService::getStudents($_REQUEST['idGrupo']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

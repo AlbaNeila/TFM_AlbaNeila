@@ -1,5 +1,7 @@
 <?php
 
+
+
 if(!isset($_SESSION['lang'])){
     $_SESSION['lang']='es_ES';
 }

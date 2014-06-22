@@ -1,11 +1,11 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
     $idGrupo = $_REQUEST['idGrupo'];
 
-    $result = mysql_query("SELECT usuario.idUsuario,usuario.nombre,usuario.apellidos,usuario.email FROM usuario,usuario_grupo WHERE usuario.idUsuario = usuario_grupo.idUsuario AND usuario_grupo.solicitud = 1 AND usuario_grupo.idGrupo = '".$idGrupo."'");
+    $result = gridService::getAlertsStudents($idGrupo);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

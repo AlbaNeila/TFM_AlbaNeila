@@ -106,7 +106,7 @@ ob_start();
         }
     }
     
-    function showRequest(){
+    function showAlert(){
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
         
@@ -337,9 +337,9 @@ ob_start();
             mygrid2.setSkin("dhx_skyblue");
             mygrid2.init();
         </script>
-            <input  type="submit" name="enviar" onclick="aceptarSolicitud()" value="<?php echo(_("Aceptar"));?>" id="aceptarSol"  />
-            <input  type="submit" name="enviar" onclick="rechazarSolicitud()" value="<?php echo(_("Rechazar"));?>" id="rechazarSol" />
-            <input  type="submit" name="enviar" onclick="posponerSolicitud()" value="<?php echo(_("Posponer"));?>" id="posponerSol" />
+            <input  type="submit" class="buttonModal" name="enviar" onclick="aceptarSolicitud()" value="<?php echo(_("Aceptar"));?>" id="aceptarSol"  />
+            <input  type="submit" class="buttonModal" name="enviar" onclick="rechazarSolicitud()" value="<?php echo(_("Rechazar"));?>" id="rechazarSol" />
+            <input  type="submit" class="buttonModal" name="enviar" onclick="posponerSolicitud()" value="<?php echo(_("Posponer"));?>" id="posponerSol" />
             </div>
         </div>
 <?php       

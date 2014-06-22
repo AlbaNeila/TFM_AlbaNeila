@@ -1,6 +1,8 @@
 <?php
 	session_start();
-	include('../model/acceso_db.php');
+	include('../model/persistence/userService.php');
+    include('../model/persistence/groupService.php');
+    
     // Procedemos a comprobar que los campos del formulario no estén vacíos
 	$captcha="";
     $insertUser="";
@@ -18,29 +20,29 @@
 	$usuario_apellidos = mysql_real_escape_string($_POST['usuario_apellidos']);
     $usuario_email = mysql_real_escape_string($_POST['usuario_email']);
     // comprobamos que el usuario ingresado no haya sido registrado antes
-    $result = mysqli_query($GLOBALS['link'],"SELECT usuario.usuario FROM usuario WHERE usuario.usuario='".$usuario_nombre."'");
+    $result = userService::getUserByName($usuario_nombre);
     if($result==FALSE){ 
-				$insertUser = 'false';
+		$insertUser = 'false';
 	}
 	else{
 		if(!$row=mysqli_fetch_assoc($result)) {
 			if($captcha!='captcha'){	//si el captcha y el usuario están OK insertamos en la bd
 				$usuario_clave = md5($usuario_clave); // encriptamos la contraseña ingresada con md5
 	            // ingresamos los datos a la BD
-	            $reg = mysqli_query($GLOBALS['link'],"INSERT INTO usuario (usuario.usuario, usuario.password, usuario.nombre, usuario.apellidos, usuario.email, usuario.tipo) VALUES ('".$usuario_nombre."', '".$usuario_clave."', '".$nombre."','".$usuario_apellidos."','".$usuario_email."', 'ALUMNO')");
+	            $reg = userService::insertUser($usuario_nombre, $usuario_clave, $nombre, $usuario_apellidos, $usuario_email);
 	            if($reg) {
-					$result2 = mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario FROM usuario WHERE usuario.usuario='".$usuario_nombre."'");
+					$result2 = userService::getUserByName($usuario_nombre);
 					if($result2!=FALSE){ //Tenemos el idUsuario del nuevo usuario registrado
 						if($row=mysqli_fetch_assoc($result2)) {
 							$idUsuario = $row['idUsuario'];
 							$grupos   =   $_POST["grupos"];
 						    $grupos   =    json_decode("$grupos",true);
 						    foreach($grupos as $grupo){
-						    	$result3 = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre='".$grupo."'");
+						    	$result3 = groupService::getByName(utf8_decode($grupo));
 								if($result3!=FALSE){ //Tenemos el idGrupo del grupo al que se ha solicitado acceso
 									if($row=mysqli_fetch_assoc($result3)) {
 										$idGrupo = $row['idGrupo'];
-										$reg2 = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_grupo (usuario_grupo.idUsuario,usuario_grupo.idGrupo,usuario_grupo.solicitud) VALUES ('".$idUsuario."', '".$idGrupo."', '1')");
+										$reg2 = groupService::insertUsuarioGrupoSolicitud($idUsuario, $idGrupo);
 									}
 								}
 						    }

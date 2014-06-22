@@ -1,11 +1,11 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
 
-    $result = mysql_query("SELECT coleccion.idColeccion,coleccion.nombre FROM coleccion");
-    $result2 = mysql_query("SELECT coleccion_documento.idColeccion FROM coleccion_documento WHERE coleccion_documento.idDocumento='".$_REQUEST['idSearched']."'");
+    $result = gridService::getCollections();
+    $result2 = gridService::getCollectionIdByDoc($_REQUEST['idSearched']);
 
     
     $colecciones = array();

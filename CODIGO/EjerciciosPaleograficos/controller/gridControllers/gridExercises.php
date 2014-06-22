@@ -1,10 +1,10 @@
 <?php    
     session_start();  
 
-   include('../../model/grid_acceso_db.php');
+   include('../../model/persistence/gridService.php');
 
     
-    $result = mysql_query("select * from(SELECT distinct ejercicio.idEjercicio,ejercicio.nombre,ejercicio.idDocumento,ejercicio.idDificultad, ejercicio.tipo_objetivo, ejercicio.valor_objetivo,ejercicio.comprobarTranscripcion,grupo_ejercicio_coleccion.orden FROM ejercicio,grupo_ejercicio_coleccion,coleccion,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario.idUsuario=grupo.idUsuarioCreador and coleccion.idColeccion='".$_REQUEST['idCollection']."' and grupo_ejercicio_coleccion.idGrupo=grupo.idGrupo and grupo_ejercicio_coleccion.idColeccion=coleccion.idColeccion and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio order by grupo_ejercicio_coleccion.orden)AS tmp_table GROUP BY tmp_table.idEjercicio order by tmp_table.orden");
+    $result = gridService::getExercisesOfTeacher($_SESSION['usuario_id'], $_REQUEST['idCollection']);
     
     
     header("Content-type: text/xml");
@@ -25,7 +25,7 @@
                     if($i==2){ //Columna Documento
                 $cell= $row->appendChild($dom->createElement("cell"));
                 $contenido="";
-                $result2 = mysql_query("SELECT documento.nombre FROM documento WHERE documento.idDocumento = '$fila[2]'");
+                $result2 = gridService::getDocumentsNameById($fila[2]);
                 if($document=mysql_fetch_assoc($result2)) {
                     $contenido=utf8_encode($document['nombre']);
                 }  

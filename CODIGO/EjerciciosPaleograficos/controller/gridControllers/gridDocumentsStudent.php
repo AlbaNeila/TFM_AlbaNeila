@@ -1,9 +1,9 @@
 <?php    
     session_start();  
 
-    include('../../model/grid_acceso_db.php');
+    include('../../model/persistence/gridService.php');
 
-    $result = mysql_query("SELECT distinct documento.idDocumento,documento.nombre, documento.descripcion,documento.tipoEscritura, documento.fecha FROM usuario,usuario_grupo,grupo,grupo_coleccion,coleccion,coleccion_documento,documento WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo IN (SELECT grupo.idGrupo FROM usuario_grupo,usuario,grupo WHERE usuario.idUsuario='".$_SESSION['usuario_id']."' AND usuario_grupo.idUsuario=usuario.idUsuario AND usuario_grupo.idGrupo=grupo.idGrupo) and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and coleccion.idColeccion=coleccion_documento.idColeccion and coleccion_documento.idDocumento=documento.idDocumento and coleccion.idColeccion='".$_REQUEST['idCollection']."'");
+    $result = gridService::getDocumentsOfStudent($_SESSION['usuario_id'], $_REQUEST['idCollection']);
     
     header("Content-type: text/xml");
     $dom = new DOMDocument("1.0","UTF-8");

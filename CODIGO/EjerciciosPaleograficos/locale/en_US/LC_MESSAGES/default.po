@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EjerciciosPaleograficos\n"
 "POT-Creation-Date: 2014-06-20 12:33+0100\n"
-"PO-Revision-Date: 2014-06-20 12:36+0100\n"
+"PO-Revision-Date: 2014-06-21 19:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -70,11 +70,15 @@ msgid ""
 "Continuar comenzará el ejercicio y contabilizará como un intento de "
 "realización."
 msgstr ""
+"The correction mode of this exercise is: STEP BY STEP. This means that each "
+"fragment of transcription will be evaluated once it has been entered in the "
+"corresponding text box. If you select Continue option it will count as an "
+"one attempt."
 
 #: ..\..\../view/accessExercise.php:144 ..\..\../view/accessExercise.php:148
 #: ..\..\../view/accessExercise.php:224
 msgid "Coninuar"
-msgstr ""
+msgstr "Continue"
 
 #: ..\..\../view/accessExercise.php:145 ..\..\../view/accessExercise.php:149
 #: ..\..\../view/teachersAdmin.php:356
@@ -89,10 +93,15 @@ msgid ""
 "ya ha sido superado, por lo que no se sumará un intento de realización. Si "
 "selecciona la opción Continuar comenzará el ejercicio. "
 msgstr ""
+"The correction mode of this exercise is: STEP BY STEP. This means that each "
+"fragment of transcription will be evaluated once it has been entered in the "
+"corresponding text box. Remember that this exercise has already been passed, "
+"so an attempt to realize will not add. If you select Continue option the "
+"exercise will start."
 
 #: ..\..\../view/accessExercise.php:152
 msgid "INICIAR EJERCICIO"
-msgstr ""
+msgstr "START EXERCISE"
 
 #: ..\..\../view/accessExercise.php:158
 #, fuzzy
@@ -102,7 +111,7 @@ msgstr "Correct at the end"
 #: ..\..\../view/accessExercise.php:223
 msgid ""
 "Si selecciona la opción Continuar se realizará la corrección del ejercicio."
-msgstr ""
+msgstr "If you select Continue option the exercise will be corrected."
 
 #: ..\..\../view/accessExercise.php:227
 msgid "CORREGIR EJERCICIO"
