@@ -1,6 +1,7 @@
- <?php
+<?php
+ob_start();
     session_start();
-    include('../model/persistence/loginService.php');
+    include_once("../model/persistence/loginService.php");
 	
     $method = $_REQUEST['method'];
     

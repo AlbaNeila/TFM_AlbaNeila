@@ -3,7 +3,7 @@ include('../init.php');
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-  	<meta content="text/html; charset=utf-8"/>
+  	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>UBUPal</title>	
 	
 	<link href='http://fonts.googleapis.com/css?family=ABeeZee|Exo+2:700' rel='stylesheet' type='text/css'>

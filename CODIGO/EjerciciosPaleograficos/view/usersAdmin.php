@@ -275,8 +275,8 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menu1.php');
 ob_start();
+include_once("menu/menu1.php");
 ?>
     <div class="submenu">
         <div class="submenuitem"><img src="../public/img/menu2.png"><a href="usersAdmin.php" style="font-weight: bold"><?php echo(_("Alumnos"));?></a></div>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ZIP WEB_wv.xsl"?>
+<?xml-stylesheet type="text/xsl" href="index_wv.xsl"?>
+<?oasis-schema href="imt_1_8.rng" type="application/xml"?>
+<?oxygen RNGSchema="imt_1_8.rng" type="xml"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" version="5.0" xml:id="HI-2909REVISIÓNSONIA2">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>HI-2909</title>
+        <principal>Mª Carmen Alameda Araus</principal>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>[Name of the publisher]</publisher>
+        <availability status="restricted">
+          <p>[your license agreement]</p>
+        </availability>
+      </publicationStmt>
+      <sourceDesc>
+        <p>3018 x 346 1400 x 1353 1400 x 1353 1400 x 1353</p>
+        <p>
+          <msDesc>
+            <msIdentifier>
+              <settlement>[IMPORTANT: City where the document is kept]</settlement>
+              <repository xml:id="XXX">[IMPORTANT: Institution where the document is kept; its unique identifier in @xml:id]</repository>
+              <idno type="">[IMPORTANT: Shelfmark of the document; optional: the series to which it belongs in @type]</idno>
+            </msIdentifier>
+          </msDesc>
+        </p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+
+      <projectDesc>
+        <ab n="introduction">Mandato de Alfonso X por el que ordena no se pague cantidad alguna al canónigo Juan Adán, ya que nunca el cabildo pechaba con el Concejo </ab>
+      </projectDesc>
+      
+      
+    <tagsDecl xml:id="imtAnnotationCategories"><rendition xml:id="marques"><label>Marques</label><code rend="rectangle" lang="text/css">color: #ffffff</code></rendition><rendition xml:id="line01"><label>Line 1</label><code rend="rectangle" lang="text/css">color: #00ff00</code></rendition><rendition xml:id="line02"><label>Line 2</label><code rend="rectangle" lang="text/css">color: #ff00ff</code></rendition><rendition xml:id="line03"><label>Line 3</label><code rend="rectangle" lang="text/css">color: #ffff00</code></rendition><rendition xml:id="line04"><label>Line 4</label><code rend="rectangle" lang="text/css">color: #00ffff</code></rendition><rendition xml:id="line05"><label>Line 5</label><code rend="rectangle" lang="text/css">color: #800000</code></rendition><rendition xml:id="line06"><label>Line 6</label><code rend="rectangle" lang="text/css">color: #00ff00</code></rendition><rendition xml:id="line07"><label>Line 7</label><code rend="rectangle" lang="text/css">color: #ff00ff</code></rendition><rendition xml:id="line08"><label>Line 8</label><code rend="rectangle" lang="text/css">color: #ffff00</code></rendition><rendition xml:id="line09"><label>Line 9</label><code rend="rectangle" lang="text/css">color: #00ffff</code></rendition><rendition xml:id="line10"><label>Line 10</label><code rend="rectangle" lang="text/css">color: #800000</code></rendition><rendition xml:id="line11"><label>Line 11</label><code rend="rectangle" lang="text/css">color: #00ff00</code></rendition><rendition xml:id="line12"><label>Line 12</label><code rend="rectangle" lang="text/css">color: #ff00ff</code></rendition><rendition xml:id="line13"><label>Line 13</label><code rend="rectangle" lang="text/css">color: #ffff00</code></rendition></tagsDecl><appInfo>
+     <application ident="ImageMarkupTool01" version="1.8.2.2" notAfter="2014-05-08T14:58:07">
+     <label>
+     Image Markup Tool</label><desc>
+     Tool for annotating images using TEI</desc><ref type="appURI" target="http://hcmc.uvic.ca/~mholmes/image_markup/">
+     </ref><ptr target="#imtAnnotatedImage"></ptr><ptr target="#imtImageAnnotations"></ptr><ptr target="#imtAnnotationCategories"></ptr></application>
+     
+     
+     </appInfo></encodingDesc>
+  </teiHeader>
+  <facsimile xml:id="imtAnnotatedImage"><surface><graphic url="..\HI-2009 WEB\HI2909WEB_wv_zoom_HI-2909 .jpg.jpg" width="1400px" height="1353px"></graphic><zone xml:id="imtArea_0" rendition="line01" ulx="47" uly="15" lrx="708" lry="160" rend="visible"></zone><zone xml:id="imtArea_1" rendition="line01" ulx="712" uly="7" lrx="1342" lry="158" rend="visible"></zone><zone xml:id="imtArea_2" rendition="line02" ulx="44" uly="111" lrx="824" lry="228" rend="visible"></zone><zone xml:id="imtArea_3" rendition="line02" ulx="816" uly="97" lrx="1364" lry="224" rend="visible"></zone><zone xml:id="imtArea_4" rendition="line03" ulx="51" uly="200" lrx="881" lry="344" rend="visible"></zone><zone xml:id="imtArea_5" rendition="line03" ulx="853" uly="214" lrx="1374" lry="324" rend="visible"></zone><zone xml:id="imtArea_6" rendition="line04" ulx="50" uly="293" lrx="815" lry="441" rend="visible"></zone><zone xml:id="imtArea_7" rendition="line04" ulx="818" uly="296" lrx="1374" lry="437" rend="visible"></zone><zone xml:id="imtArea_8" rendition="line05" ulx="28" uly="387" lrx="922" lry="543" rend="visible"></zone><zone xml:id="imtArea_9" rendition="line05" ulx="931" uly="375" lrx="1368" lry="504" rend="visible"></zone><zone xml:id="imtArea_10" rendition="line06" ulx="39" uly="526" lrx="756" lry="631" rend="visible"></zone><zone xml:id="imtArea_11" rendition="line06" ulx="766" uly="480" lrx="1380" lry="633" rend="visible"></zone><zone xml:id="imtArea_12" rendition="line07" ulx="54" uly="595" lrx="818" lry="755" rend="visible"></zone><zone xml:id="imtArea_13" rendition="line07" ulx="824" uly="584" lrx="1374" lry="751" rend="visible"></zone><zone xml:id="imtArea_14" rendition="line08" ulx="52" uly="711" lrx="817" lry="864" rend="visible"></zone><zone xml:id="imtArea_15" rendition="line08" ulx="800" uly="688" lrx="1390" lry="837" rend="visible"></zone><zone xml:id="imtArea_16" rendition="line09" ulx="51" uly="801" lrx="861" lry="962" rend="visible"></zone><zone xml:id="imtArea_17" rendition="line09" ulx="870" uly="788" lrx="1388" lry="944" rend="visible"></zone><zone xml:id="imtArea_18" rendition="line10" ulx="46" uly="910" lrx="835" lry="1075" rend="visible"></zone><zone xml:id="imtArea_19" rendition="line10" ulx="820" uly="904" lrx="1384" lry="1049" rend="visible"></zone><zone xml:id="imtArea_20" rendition="line11" ulx="47" uly="1012" lrx="723" lry="1164" rend="visible"></zone><zone xml:id="imtArea_21" rendition="line11" ulx="730" uly="1001" lrx="1379" lry="1145" rend="visible"></zone><zone xml:id="imtArea_22" rendition="line12" ulx="48" uly="1125" lrx="684" lry="1245" rend="visible"></zone><zone xml:id="imtArea_23" rendition="line12" ulx="686" uly="1109" lrx="1083" lry="1232" rend="visible"></zone><zone xml:id="imtArea_24" rendition="line12" ulx="1086" uly="1109" lrx="1354" lry="1213" rend="visible"></zone><zone xml:id="imtArea_25" rendition="line13" ulx="64" uly="1214" lrx="486" lry="1333" rend="visible"></zone><zone xml:id="imtArea_26" rendition="line13" ulx="840" uly="1215" lrx="1046" lry="1301" rend="visible"></zone><zone xml:id="imtArea_27" rendition="line13" ulx="1050" uly="1216" lrx="1374" lry="1327" rend="visible"></zone></surface></facsimile>
+  <text>
+    <body>
+      <div xml:id="imtImageAnnotations"><div corresp="#imtArea_0" type="imtAnnotation"><head>Don Alffonsso por la gracia de Dios</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_1" type="imtAnnotation"><head>rrey de Castilla, de Toledo, de</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_2" type="imtAnnotation"><head>León, de Gallizia, de Seuilla, de Córdoua,</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_3" type="imtAnnotation"><head>de Murçia, de Iahén e del</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_4" type="imtAnnotation"><head>Algarbe al conçeio e a los alcaldes de Castilla.</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_5" type="imtAnnotation"><head>Salut e gracia. Ui vuestra carta</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_6" type="imtAnnotation"><head>que me embiastes en rrazón de los mill maravedís</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_7" type="imtAnnotation"><head>que vos yo embié mandar que diése</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_8" type="imtAnnotation"><head>des a Iohan Adám canónigo de Santa María agora</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_9" type="imtAnnotation"><head>los omnes buenos que embia</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_10" type="imtAnnotation"><head>stes a mí con vuestro mandado dixiéronme</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_11" type="imtAnnotation"><head>que el cabildo del eglesia nin sos uassa</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_12" type="imtAnnotation"><head>llos non pechauan convusco en el pleteamiento</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_13" type="imtAnnotation"><head>de los priuilegios nin en otra cosa</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_14" type="imtAnnotation"><head>ninguna e pidiéronme merçed que mandasse</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_15" type="imtAnnotation"><head>lo que touiesse por bien onde</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_16" type="imtAnnotation"><head>vos mando que si ellos non pechan conuusco</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_17" type="imtAnnotation"><head>en esto nin en al que le non dedes</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_18" type="imtAnnotation"><head>ninguna cossa de los mill maravedís que uos embié</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_19" type="imtAnnotation"><head>mandar que le diéssedes. Dada</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_20" type="imtAnnotation"><head>en Valladolit treze días de mayo</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_21" type="imtAnnotation"><head>era de mill trezientos e seeze</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_22" type="imtAnnotation"><head>annos. Agostín Pérez la mandó ffazer</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_23" type="imtAnnotation"><head>por mandado del rrey.</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_24" type="imtAnnotation"><head>Yo Diago</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_25" type="imtAnnotation"><head>González la ffiz escriuir.</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_26" type="imtAnnotation"><head>Agostín Pérez.</head><div><p>[Annotation text]</p></div></div><div corresp="#imtArea_27" type="imtAnnotation"><head>Ramón García</head><div><p>[Annotation text]</p></div></div></div>
+    </body>
+  </text>
+</TEI>

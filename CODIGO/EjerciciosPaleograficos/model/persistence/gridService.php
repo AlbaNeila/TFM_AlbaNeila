@@ -7,7 +7,7 @@ class gridService{
     }
     
     static function getCollectionsAdmin(){
-        return mysql_query("SELECT coleccion.idColeccion, coleccion.nombre,coleccion.descripcion,coleccion.ordenada FROM coleccion");
+        return mysql_query("SELECT coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM coleccion");
     }
     
     static function getCollectionsByStudent($idUser){
@@ -31,7 +31,7 @@ class gridService{
     }
     
     static function getCountExercises($idUser,$idCol){
-        return mysql_query("SELECT distinct count(ejercicio.idEjercicio) as total FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$idUser."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCol."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio ");
+        return mysql_query("SELECT count( distinct ejercicio.idEjercicio) as total FROM usuario,usuario_grupo,grupo,grupo_ejercicio_coleccion,ejercicio WHERE usuario.idUsuario='".$idUser."' and usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_ejercicio_coleccion.idGrupo and grupo_ejercicio_coleccion.idColeccion='".$idCol."' and ejercicio.idEjercicio=grupo_ejercicio_coleccion.idEjercicio");
     }
     
     static function getAlertsStudents($idGroup){
@@ -39,7 +39,7 @@ class gridService{
     }
     
     static function getCollectionsTeacher($idUser){
-        return mysql_query("SELECT DISTINCT coleccion.idColeccion, coleccion.nombre,coleccion.descripcion,coleccion.ordenada FROM grupo,grupo_coleccion,coleccion WHERE grupo.idUsuarioCreador = '".$idUser."' AND grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion = coleccion.idColeccion");
+        return mysql_query("SELECT DISTINCT coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM grupo,grupo_coleccion,coleccion WHERE grupo.idUsuarioCreador = '".$idUser."' AND grupo.idGrupo=grupo_coleccion.idGrupo AND grupo_coleccion.idColeccion = coleccion.idColeccion");
     }
     
     static function getDocumentsNameById($idDoc){

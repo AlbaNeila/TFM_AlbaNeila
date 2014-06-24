@@ -308,7 +308,6 @@ ob_start();
     }
     
     function checkUpdate(){
-        canUpdate=true;
         var request = $.ajax({
                   type: "POST",
                   url: "../controller/exercisesController.php",
@@ -321,6 +320,8 @@ ob_start();
                 request.success(function(request){
                         if($.trim(request) == "1"){  //No update order
                             canUpdate=false;
+                        }else{
+                            canUpdate=true;
                         }
                 });
     }
@@ -369,6 +370,7 @@ ob_start();
     
     function upEj(){
         if(canUpdate){
+            debugger;
             var numrows = mygrid.getRowsNum();
             var rowId = parseInt(mygrid.getSelectedId());
             var idEjUp = mygrid.cellById(rowId, 0).getValue();
@@ -445,7 +447,7 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menu3.php');
+include ('menu/menu3.php');
 ob_start();
 ?>
     <div class="formulario"  style="left:35px;">

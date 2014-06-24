@@ -276,8 +276,8 @@ PROTOTYPE.destroy = function(immediate) {
 
 		// Remove ID from used id objects, and delete object references
 		// for better garbage collection and leak protection
-		this.options = this.elements = this.cache = this.timers = 
-			this.plugins = this.mouse = NULL;
+		//this.options = this.elements = this.cache = this.timers = 
+			//this.plugins = this.mouse = NULL;
 
 		// Delete epoxsed API object
 		delete QTIP.api[this.id];

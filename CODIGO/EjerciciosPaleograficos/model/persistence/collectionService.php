@@ -1,5 +1,5 @@
 <?php
-include("../model/grid_acceso_db.php");
+include("../model/acceso_db.php");
 class collectionService{
     
     

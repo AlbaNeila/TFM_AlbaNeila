@@ -81,7 +81,7 @@ class exerciseService{
     }
     
     //UPDATE QUERIES
-    static function updateOrderByIdEj($ordern,$idEj){
+    static function updateOrderByIdEj($order,$idEj){
         return mysqli_query($GLOBALS['link'],"UPDATE grupo_ejercicio_coleccion SET grupo_ejercicio_coleccion.orden='".$order."' WHERE grupo_ejercicio_coleccion.idEjercicio='".$idEj."'");
     }
     

@@ -4,7 +4,7 @@ if($_SESSION['usuario_tipo'] != "PROFESOR"){
     header('Location: ../view/login.php');
 }
 ob_start();
-include ('/menu/menu5.php');
+include ('menu/menu5.php');
 ob_start();
 ?>
     <div class="submenu">

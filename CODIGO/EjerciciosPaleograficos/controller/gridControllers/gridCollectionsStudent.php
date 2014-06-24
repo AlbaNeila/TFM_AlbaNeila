@@ -26,8 +26,12 @@
                 $teacher = gridService::getTeacherOfCollection($idColeccion);
                 if($teacher!=FALSE){
                     if($profesor=mysql_fetch_assoc($teacher)){
-                        $contenido=$profesor['nombre'];
-                        $contenido.= " " .$profesor['apellidos'];
+                        if($cont==1){
+                            $contenido= "UBUPal";
+                        }else{
+                            $contenido=$profesor['nombre'];
+                            $contenido.= " " .$profesor['apellidos'];
+                        }
                     }
                 }               
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>

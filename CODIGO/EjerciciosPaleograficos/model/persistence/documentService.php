@@ -45,7 +45,7 @@ class documentService{
     
     //INSERT QUERIES
     static function insertColeccionDocumento($idCol,$idDoc){
-        mysqli_query($GLOBALS['link'],"INSERT INTO coleccion_documento (coleccion_documento.idColeccion, coleccion_documento.idDocumento) VALUES ('".$idCol."','".$idDoc."')");
+        return mysqli_query($GLOBALS['link'],"INSERT INTO coleccion_documento (coleccion_documento.idColeccion, coleccion_documento.idDocumento) VALUES ('".$idCol."','".$idDoc."')");
     }
     
     //SELECT QUERIES

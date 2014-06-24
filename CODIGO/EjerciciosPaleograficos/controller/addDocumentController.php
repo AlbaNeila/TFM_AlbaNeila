@@ -104,7 +104,7 @@
                 
                 $result2 = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 for($i = 0;$i<count($coleccionesArray);$i++){
-                    $reg2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
+                    $reg2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDocument);
                 }                
             }
         }

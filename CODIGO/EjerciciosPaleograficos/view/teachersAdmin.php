@@ -226,7 +226,7 @@ ob_start();
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menu1.php');
+include ('menu/menu1.php');
 ob_start();
 ?>
     <div class="submenu">

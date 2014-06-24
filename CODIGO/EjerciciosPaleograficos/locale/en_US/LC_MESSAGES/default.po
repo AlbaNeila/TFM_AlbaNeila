@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EjerciciosPaleograficos\n"
 "POT-Creation-Date: 2014-06-20 12:33+0100\n"
-"PO-Revision-Date: 2014-06-21 19:13+0100\n"
+"PO-Revision-Date: 2014-06-22 13:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -115,7 +115,7 @@ msgstr "If you select Continue option the exercise will be corrected."
 
 #: ..\..\../view/accessExercise.php:227
 msgid "CORREGIR EJERCICIO"
-msgstr ""
+msgstr "CORRECT EXERCISE"
 
 #: ..\..\../view/accessExercise.php:302
 msgid ""
@@ -123,26 +123,32 @@ msgid ""
 "repasar sus respuestas. Posteriormente pordrá acceder a él sin que "
 "contabilicen intentos de realización."
 msgstr ""
+"You have completed the exercise successfully! If you press the option Review "
+"you can review your answers. Then you can access it without attempts "
+"accounted embodiment."
 
 #: ..\..\../view/accessExercise.php:303 ..\..\../view/accessExercise.php:319
 msgid "Revisar"
-msgstr ""
+msgstr "Review"
 
 #: ..\..\../view/accessExercise.php:306 ..\..\../view/accessExercise.php:322
 msgid ""
 "Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de "
 "nuevo."
 msgstr ""
+"Sorry you did not pass the objective of the exercise. Please try again."
 
 #: ..\..\../view/accessExercise.php:310 ..\..\../view/accessExercise.php:325
 msgid "EJERCICIO FINALIZADO"
-msgstr ""
+msgstr "EXERCISE COMPLETED"
 
 #: ..\..\../view/accessExercise.php:318
 msgid ""
 "¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá "
 "repasar sus respuestas."
 msgstr ""
+"You have completed the exercise successfully! If you press the Review you "
+"can check your answers."
 
 #: ..\..\../view/accessExercise.php:399
 #, fuzzy
@@ -183,7 +189,7 @@ msgstr "Transcription"
 
 #: ..\..\../view/accessExercise.php:466 ..\..\../view/accessExercise.php:474
 msgid "Linea: "
-msgstr ""
+msgstr "Line:"
 
 #: ..\..\../view/accessGroupStudent.php:37
 #: ..\..\../view/collectionsAdmin.php:184
@@ -198,7 +204,7 @@ msgstr ""
 #: ..\..\../view/register.php:160 ..\..\../view/teachersAdmin.php:219
 #: ..\..\../view/usersAdmin.php:268
 msgid "- No se encontraron resultados -"
-msgstr ""
+msgstr "- No results found -"
 
 #: ..\..\../view/accessGroupStudent.php:50
 #: ..\..\../view/exercisesAdmin.php:570 ..\..\../view/exercisesTeacher.php:568
@@ -559,6 +565,7 @@ msgstr "Add new document"
 msgid ""
 "No puede acceder a este ejercicio hasta que no haya superado el anterior."
 msgstr ""
+"You can not access this exercise until you have not exceeded the previous."
 
 #: ..\..\../view/documentStudent.php:134
 msgid "Documentos disponibles:"
@@ -622,10 +629,12 @@ msgid ""
 "Lo sentimos, en este momento la aplicación UBUPal no se encuentra "
 "disponible, por favor inténtelo de nuevo más tarde."
 msgstr ""
+"Sorry, at this moment the UBUPal application is not available, please try "
+"again later."
 
 #: ..\..\../view/error.php:16
 msgid "Disculpen las molestias."
-msgstr ""
+msgstr "Sorry to bother you."
 
 #: ..\..\../view/errorAccessExercise.php:25
 #, fuzzy
@@ -637,12 +646,15 @@ msgid ""
 "Ocurrió un error mientras se cargaba el ejercicio. Éste puede encontrarse "
 "erróneo o no contener el formato adecuado."
 msgstr ""
+"An error occurred while the exercise was loading. This may be wrong or may "
+"not contain the proper format."
 
 #: ..\..\../view/errorAccessExercise.php:27
 msgid ""
 "Por favor, contacte con el profesor responsable para solucionarlo. Disculpen "
 "las molestias."
 msgstr ""
+"Please, contact the teacher in charge to fix. Sorry for the inconvenience."
 
 #: ..\..\../view/exercisesAdmin.php:40 ..\..\../view/exercisesTeacher.php:35
 msgid "Debe seleccionar un documento a partir del que crear un ejercicio"
@@ -864,11 +876,11 @@ msgstr "Create"
 
 #: ..\..\../view/helpStudent.php:11 ..\..\../view/helpTeacher.php:11
 msgid "Acerca de"
-msgstr ""
+msgstr "About"
 
 #: ..\..\../view/helpStudent.php:12 ..\..\../view/helpTeacher.php:12
 msgid "Manual de usuario"
-msgstr ""
+msgstr "User manual"
 
 #: ..\..\../view/login.php:18 ..\..\../view/login.php:102
 msgid "Acceso UBUPal"
@@ -880,7 +892,7 @@ msgstr "Incorrect username or password"
 
 #: ..\..\../view/login.php:103
 msgid "Idioma:"
-msgstr ""
+msgstr "Language:"
 
 #: ..\..\../view/login.php:105 ..\..\../view/menu/menu1.php:17
 #: ..\..\../view/menu/menu1.php:33 ..\..\../view/menu/menu1.php:48
@@ -1117,7 +1129,7 @@ msgstr "Paleographic Exercises  Performing "
 
 #: ..\..\../view/template.php:85
 msgid "UBUPal Acceso denegado"
-msgstr ""
+msgstr "UBUPal Access denied"
 
 #: ..\..\../view/template.php:86
 msgid ""

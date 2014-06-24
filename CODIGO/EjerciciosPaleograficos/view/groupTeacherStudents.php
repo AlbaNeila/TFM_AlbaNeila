@@ -89,7 +89,7 @@ $idGrupo=$_REQUEST['idGrupo'];
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
-include ('/menu/menu2.php');
+include ('menu/menu2.php');
 ob_start();
 ?>
     <div class="submenu">

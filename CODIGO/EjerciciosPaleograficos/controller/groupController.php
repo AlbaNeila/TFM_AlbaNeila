@@ -1,7 +1,8 @@
- <?php
+<?php
     session_start();
     include('../model/persistence/groupService.php');
     include('../model/persistence/collectionService.php');
+    include('../model/persistence/userService.php');
     
     
     $method = $_POST['method'];
@@ -145,7 +146,8 @@
         
        for($cont=0; $cont < count($alumnos);$cont++){
             $result = groupService::deleteUsuarioGrupoByIds($idGrupo, $alumnos[$cont]);
-            if(!$result){
+            $result2 = userService::deleteById($alumnos[$cont]);
+            if(!$result || !$result2){
                 $flag = false;
             }
         }

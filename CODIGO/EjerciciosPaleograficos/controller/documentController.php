@@ -1,4 +1,4 @@
- <?php
+<?php
     session_start();
     include('../model/persistence/documentService.php');
     include('../model/persistence/collectionService.php');

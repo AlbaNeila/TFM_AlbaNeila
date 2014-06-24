@@ -1,7 +1,7 @@
 <?php
 session_start();
 ob_start();
-include ('/menu/menu3.php');
+include ('menu/menu3.php');
 ob_start();
 ?>
     <div>

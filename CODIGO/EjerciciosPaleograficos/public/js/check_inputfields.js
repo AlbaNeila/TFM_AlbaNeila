@@ -87,7 +87,7 @@
                 event: false, // Don't specify a show event
                 ready: true // Show the tooltip when ready                        
             },
-            hide: {
+                        hide: {
                 event: false,
                 inactive:2500
             }
