@@ -18,8 +18,8 @@ ob_start();
     
     function validateForm() {
         var flag = true;
-        var u = check_empty($("#nombrecoleccion"));
-        var p = check_empty($("#descripcioncoleccion"));
+        var u = check_empty($("#nombrecoleccion"),"<?php echo(_("Este campo es requerido"));?>");
+        var p = check_empty($("#descripcioncoleccion"),"<?php echo(_("Este campo es requerido"));?>");
 
         var checked_array = combo.getChecked();
         if(checked_array.length == 0){
@@ -297,7 +297,7 @@ ob_start();
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
             <div>
-                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Colección:"));?></label>
                     <label id="collectionName"></label>

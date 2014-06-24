@@ -44,10 +44,10 @@
 		return true;
 	}
 	
-	function check_empty(campo){
+	function check_empty(campo,mensaje){
 		if($(campo).val() == ""){
 			$(campo).qtip({ 
-				content: 'Este campo es requerido',
+				content: mensaje,
 	            style: {
 	                classes: 'qtip-blue'
 	            },

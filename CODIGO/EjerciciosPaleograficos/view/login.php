@@ -33,8 +33,8 @@ ob_start();
 	});
 	
     function validateForm() {
-    	var u = check_empty($("#usuario"));
-    	var p = check_empty($("#password"));
+    	var u = check_empty($("#usuario"),"<?php echo(_("Este campo es requerido"));?>");
+    	var p = check_empty($("#password"),"<?php echo(_("Este campo es requerido"));?>");
 		var flag = false;
 		
 	    if(u || p){

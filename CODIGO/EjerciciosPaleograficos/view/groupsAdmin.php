@@ -17,8 +17,8 @@ ob_start();
     });
 
     function validateForm() {
-        var u = check_empty($("#nombregrupo"));
-        var p = check_empty($("#descripciongrupo"));
+        var u = check_empty($("#nombregrupo"),"<?php echo(_("Este campo es requerido"));?>");
+        var p = check_empty($("#descripciongrupo"),"<?php echo(_("Este campo es requerido"));?>");
         var flag = false;
 
         if(u || p){
@@ -343,7 +343,7 @@ ob_start();
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
             <div>
-            <a href="#close" id="closeModal" onclick="$('#idHidden').remove();" title="Close" class="close">X</a>
+            <a href="#close" id="closeModal" onclick="$('#idHidden').remove();" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
             <h3><?php echo(_("Solicitud de acceso"));?></h3>
             <div id="gridRequests" style="width: 100%; height: 100%"></div>
         <script>

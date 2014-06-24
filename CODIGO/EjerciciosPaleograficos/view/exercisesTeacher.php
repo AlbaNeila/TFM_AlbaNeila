@@ -21,8 +21,8 @@ ob_start();
     });
 
     function validateForm() {
-        var u = check_empty($("#nombreejercicio"));
-        var p = check_empty($("#objetivo"));
+        var u = check_empty($("#nombreejercicio"),"<?php echo(_("Este campo es requerido"));?>");
+        var p = check_empty($("#objetivo"),"<?php echo(_("Este campo es requerido"));?>");
         var flag = true;
         var grupos = combo6.getChecked();
         if(grupos.length == 0){
@@ -623,7 +623,7 @@ ob_start();
        <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
             <div>
-                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Acceso a grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Ejercicio:"));?></label>
                     <label id="ejName"></label>

@@ -17,8 +17,8 @@ include('../init.php');
 
     function validateForm() {
         var flag = true;
-        var u = check_empty($("#nombrecoleccion"));
-        var p = check_empty($("#descripcioncoleccion"));
+        var u = check_empty($("#nombrecoleccion"),"<?php echo(_("Este campo es requerido"));?>");
+        var p = check_empty($("#descripcioncoleccion"),"<?php echo(_("Este campo es requerido"));?>");
 
         var checked_array = combo.getChecked();
         if(checked_array.length == 0){

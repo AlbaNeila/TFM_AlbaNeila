@@ -11,7 +11,7 @@
             <li><a href="helpStudent.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">
-            <li><a href="../controller/logout.php">Salir</a></li>
+            <li><a href="../controller/logout.php"><?php echo(_("Salir"));?></a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
             <li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>              
@@ -27,7 +27,7 @@
             <li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">
-            <li><a href="../controller/logout.php">Salir</a></li>
+            <li><a href="../controller/logout.php"><?php echo(_("Salir"));?></a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
             <li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>              
@@ -42,7 +42,7 @@
             <li><a href="statisticsAdmin.php"><?php echo(_("Estadísticas"));?></a></li>
         </ul>
         <ul class="menu2">
-            <li><a href="../controller/logout.php">Salir</a></li>
+            <li><a href="../controller/logout.php"><?php echo(_("Salir"));?></a></li>
             <li><label><?php echo(_("Bienvenid@:"));?>  <?php echo($_SESSION['usuario_nombre']); ?></label></li>
             <li><img src="../public/img/english.png" style="height: 25px;padding-top: 2px;padding-left: 4px;" title="<?php echo(_("Inglés"));?>" id="en_US" onclick="changeLanguage($(this).attr('id'))" /></li>
             <li><img src="../public/img/spanish.png" style="height: 25px;padding-top: 2px;padding-right: 4px;" title="<?php echo(_("Español"));?>" id="es_ES" onclick="changeLanguage($(this).attr('id'))" /></li>              

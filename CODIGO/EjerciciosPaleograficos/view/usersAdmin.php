@@ -22,9 +22,9 @@ ob_start();
        var flag = true;
        $("#formStudents").find(':input').each(function() {              
             if(!empty){
-                empty = check_empty(this);
+                empty = check_empty(this,"<?php echo(_("Este campo es requerido"));?>");
             }else{
-                check_empty(this);
+                check_empty(this,"<?php echo(_("Este campo es requerido"));?>");
                 flag=false;
             }
         });
@@ -246,7 +246,6 @@ ob_start();
                       dataType: "script",   
                     });
                     request.success(function(request){
-                        debugger;
                             if($.trim(request) == "1"){
                                 window.location = $('#closeModal2').attr('href');
                             }
@@ -394,7 +393,7 @@ include_once("menu/menu1.php");
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
             <div>
-                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso a grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName"></label>
@@ -425,7 +424,7 @@ include_once("menu/menu1.php");
         <a href="#openModal2" id="anchorOpenModal2"></a>
         <div id="openModal2" class="modalDialog2">
             <div>
-                <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
+                <a href="#close" id="closeModal2" title="<?php echo(_("Cerrar"));?>" class="close2">X</a>
                     <h3><?php echo(_("Modificar contraseña:"));?></h3>
                     <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName2"></label>

@@ -296,7 +296,6 @@ ob_start();
                       dataType:"script",  
                     });
                     request.success(function(request){
-                        debugger;
                             if($.trim(request) == "1"){
                               if(superado==1){
                                       var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
@@ -467,7 +466,7 @@ ob_start();
         //Zona transcription
         $i++;
         foreach($rectangles as $rectangle){
-            $width=strlen($rectangle->getTranscriptionRectangle())*6.5;
+            $width=strlen($rectangle->getTranscriptionRectangle())*7;
             if($line!=$rectangle->getLineRectangle()){
             ?>
             <br>

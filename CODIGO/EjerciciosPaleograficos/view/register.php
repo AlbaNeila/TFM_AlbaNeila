@@ -49,12 +49,12 @@
 	    	var cont = 0;
 	    	var empty=false;
 	    	var flag = true;
-
+debugger;
 	    	$("#formRegister").find(':input').each(function() {	        	
 	        	if(!empty){
-	        		empty = check_empty(this);
+	        		empty = check_empty(this,"<?php echo(_("Este campo es requerido"));?>");
 	        	}else{
-	        		check_empty(this);
+	        		check_empty(this,"<?php echo(_("Este campo es requerido"));?>");
 	        		flag=false;
 	        	}
 	        });
@@ -200,8 +200,8 @@
 					</td>
 				</tr>
 			</table>
-			<input type="submit" class="buttonInicio" name="enviar" value="Enviar" style="display: inline;margin-left: 36%;"/>
-			<input type="reset" class="buttonInicio" value="Borrar" style="display:inline;margin-left: 2%;" />			
+			<input type="submit" class="buttonInicio" name="enviar" value="<?php echo(_("Enviar"));?>" style="display: inline;margin-left: 36%;"/>
+			<input type="reset" class="buttonInicio" value="<?php echo(_("Borrar"));?>" style="display:inline;margin-left: 2%;" />			
 			<a href="login.php"><?php echo(_("Volver"));?></a>
 		</form>
 	</div>

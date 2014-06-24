@@ -29,12 +29,12 @@ ob_start();
 
     function validateForm() {
         var flag = true;
-        var u = check_empty($("#nombredoc"));
-        var p = check_empty($("#descripciondoc"));
-        var t = check_empty($("#tipoesc"));
-        var f = check_empty($("#fechadoc"));
-        var img = check_empty($("#imagen"));
-        var tr = check_empty($("#transcripcion"));
+        var u = check_empty($("#nombredoc"),"<?php echo(_("Este campo es requerido"));?>");
+        var p = check_empty($("#descripciondoc"),"<?php echo(_("Este campo es requerido"));?>");
+        var t = check_empty($("#tipoesc"),"<?php echo(_("Este campo es requerido"));?>");
+        var f = check_empty($("#fechadoc"),"<?php echo(_("Este campo es requerido"));?>");
+        var img = check_empty($("#imagen"),"<?php echo(_("Este campo es requerido"));?>");
+        var tr = check_empty($("#transcripcion"),"<?php echo(_("Este campo es requerido"));?>");
         
         var checked_array = combo.getChecked();
         if(checked_array.length == 0){
@@ -174,8 +174,8 @@ ob_start();
     
     function validateChange() {
         var flag = true;
-        var i = check_empty($("#changeimagen"));
-        var tr = check_empty($("#changetranscripcion"));
+        var i = check_empty($("#changeimagen"),"<?php echo(_("Este campo es requerido"));?>");
+        var tr = check_empty($("#changetranscripcion"),"<?php echo(_("Este campo es requerido"));?>");
         
         if($("#changetranscripcion").val()!=""){
             var file = $("#changetranscripcion").val();
@@ -316,7 +316,7 @@ ob_start();
         
         <div id="gestionarGrupos" class="modalDialog2">
             <div>
-                <a href="#close" id="closeModal2" title="Close" class="close2">X</a>
+                <a href="#close" id="closeModal2" title="<?php echo(_("Cerrar"));?>" class="close2">X</a>
                     <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
                     <label class="labelModal2"><?php echo $coleccion;?></label>
                     <p></p>
@@ -412,7 +412,7 @@ ob_start();
         <div id="openModal" class="modalDialog">
             <div>
                 
-                <a href="#close" id="closeModal" title="Close" class="close">X</a>
+                <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                 <form method="post" enctype="multipart/form-data" id="formChangeDoc" action="../controller/addDocumentController.php?method=changeDocs" onsubmit="return validateChange()" >
                     <h3><?php echo(_("Modificar ficheros"));?></h3>
                     <label class="labelModal"><?php echo(_("Documento:"));?></label>
