@@ -14,7 +14,7 @@
     if(!mysqli_select_db($GLOBALS['link'] ,BD)){
         $flag = false;
     }
-    
+    @mysqli_query($GLOBALS['link'] ,"SET NAMES 'utf8'");
     if(!$flag){
         header('Location: ../view/error.php',FALSE);
         exit;

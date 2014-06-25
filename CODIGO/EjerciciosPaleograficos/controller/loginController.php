@@ -12,6 +12,9 @@ ob_start();
         case 'login':
             login();
             break;
+        case 'forgotPassword':
+            forgotPassword();
+            break;
 
     }
     
@@ -48,4 +51,49 @@ ob_start();
             header("Location: ../view/collectionsStudent.php");
         }
     }
+    
+    function newPassword(){
+        $dni = mysqli_real_escape_string($GLOBALS['link'],$_POST['dni']);
+        $result = userService::getUserByName($dni);
+        if($result){
+            $user = mysqli_fetch_assoc($result);
+            $idUser = $user['idUsuario'];
+            $email = $user['email'];
+            $newPassword = generateRandomString();
+            $result2=userService::updatePasswordById($newPassword, $idUser);
+            if($result2){ //Send email
+                $subject = 'echo(_("Nueva contraseña UBUPal:"))';
+                $message = 'echo(_("Hola, tu nueva contraseña es: "))'+$newPassword;
+                $headers = 'From: ubupal@ubu.es' . "\r\n";                
+                mail($email, $subject, $message, $headers);
+            }
+        }
+    }
+    
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
 ?> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

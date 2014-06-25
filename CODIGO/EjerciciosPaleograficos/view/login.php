@@ -111,7 +111,7 @@ ob_start();
         	<input  type="password" name="usuario_clave" id="password"/>
             <input class="buttonInicio" type="submit" name="enviar" value="<?php echo(_("Entrar"));?>" id="login" />
             <a href="register.php"><?php echo(_("Registro de alumnos"));?></a> <br />
-            <a href="recuperar_contrasena.php"><?php echo(_("¿Ha extraviado la contraseña?"));?></a>    
+            <a href="forgotPassword.php"><?php echo(_("¿Ha olvidado la contraseña?"));?></a>    
         </form>                   
     </div>
 	<?php

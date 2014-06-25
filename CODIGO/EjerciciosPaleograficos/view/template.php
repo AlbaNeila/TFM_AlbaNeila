@@ -4,6 +4,8 @@ include('../init.php');
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
   	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  	<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
 	<title>UBUPal</title>	
 	
 	<link href='http://fonts.googleapis.com/css?family=ABeeZee|Exo+2:700' rel='stylesheet' type='text/css'>
@@ -33,6 +35,7 @@ include('../init.php');
 	?>
 	<script>
 		function changeLanguage(language){
+		    var sURL = unescape(window.location.pathname);
 			var request = $.ajax({
 			  type: "POST",
 			  url: "../controller/languageController.php",
@@ -42,7 +45,7 @@ include('../init.php');
 			  },
 			  dataType: "script",	
 			  success:function(){
-			      location.reload();
+			     location.reload(true);
 			  }
 			});
 		}

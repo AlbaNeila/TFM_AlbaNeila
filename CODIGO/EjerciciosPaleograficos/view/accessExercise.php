@@ -462,7 +462,7 @@ ob_start();
         <?php
         $line=$rectangles[0]->getLineRectangle();
         $i=1;
-        ?><label><?php echo(_("Linea: ")); echo $i;?></label><?php
+        ?><label><?php echo(_("Línea: ")); echo $i;?></label><?php
         //Zona transcription
         $i++;
         foreach($rectangles as $rectangle){

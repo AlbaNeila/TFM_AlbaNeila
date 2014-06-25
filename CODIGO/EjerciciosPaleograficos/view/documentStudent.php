@@ -29,6 +29,7 @@ if(isset($_POST['idGrupo'])){
 ob_start();
 ?>
 <script>
+
     function accessDoc(){
         var rowId = mygrid.getSelectedId();
         var doc = mygrid.cellById(rowId, 0).getAttribute('idDoc');
@@ -83,7 +84,7 @@ ob_start();
             var label = document.createElement("label");
             label.setAttribute("class", "gridAfterForm");                           
             label.setAttribute("id", "noRecords");
-            label.setAttribute("style", "width: 85%; height: 90%;top:400px;text-align: center;");                            
+            label.setAttribute("style", "width: 85%; height: 90%;top:260px;text-align: center;");                            
             $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
             document.getElementById("labelAux").appendChild(label);
         }else{
@@ -133,9 +134,9 @@ ob_start();
         <div class="formulario" style="top:170px;">
             <h3><?php echo(_("Documentos disponibles:"));?></h3>
         </div>
-        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:215px">
-            <div id="labelAux"></div>          
+        <div class="gridAfterForm" id="gridDocs" style="width: 85%; height: 85%;top:215px">        
         </div>
+        <div id="labelAux"></div>  
         <script>
             var mygrid = new dhtmlXGridObject('gridDocs');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");

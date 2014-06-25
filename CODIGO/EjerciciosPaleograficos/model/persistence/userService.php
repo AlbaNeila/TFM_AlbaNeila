@@ -5,7 +5,7 @@ class userService{
     
     //SELECT QUERIES
     static function getUserByName($nameUser){
-        return mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario FROM usuario WHERE usuario.usuario='".$nameUser."'");
+        return mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario,usuario.email FROM usuario WHERE usuario.usuario='".$nameUser."'");
     }
     
     static function checkNameNotRepeat($nameUser,$idUser){

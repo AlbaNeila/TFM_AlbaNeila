@@ -14,11 +14,11 @@
 	}
 	
     // "limpiamos" los campos del formulario de posibles códigos maliciosos
-    $usuario_nombre = mysql_real_escape_string($_POST['usuario_nombre']);
-    $usuario_clave = mysql_real_escape_string($_POST['usuario_clave']);
-    $nombre = mysql_real_escape_string($_POST['nombre']);
-	$usuario_apellidos = mysql_real_escape_string($_POST['usuario_apellidos']);
-    $usuario_email = mysql_real_escape_string($_POST['usuario_email']);
+    $usuario_nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario_nombre']);
+    $usuario_clave = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario_clave']);
+    $nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['nombre']);
+	$usuario_apellidos = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario_apellidos']);
+    $usuario_email = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario_email']);
     // comprobamos que el usuario ingresado no haya sido registrado antes
     $result = userService::getUserByName($usuario_nombre);
     if($result==FALSE){ 
