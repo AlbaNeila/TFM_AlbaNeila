@@ -9,42 +9,15 @@ $idGrupo=$_REQUEST['idGrupo'];
 ?>
 <script>
 
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
+    
     
     function deleteStudent(){
         var rowId = mygrid.getSelectedId();
         var idStudent = mygrid.cellById(rowId, 3).getAttribute("id");
+        var nameUser = mygrid.cellById(rowId, 0).getValue();
+        var surnameUser = mygrid.cellById(rowId, 1).getValue();
         
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea denegar el acceso a esta colección al alumno?"));?>'}),
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea denegar el acceso a esta colección al alumno "));?>'+nameUser+' ' +surnameUser+'?'}),
                       ok = $('<button />', {text: 'Ok', click: function() {deleteStudentTeacher(idStudent);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
                 

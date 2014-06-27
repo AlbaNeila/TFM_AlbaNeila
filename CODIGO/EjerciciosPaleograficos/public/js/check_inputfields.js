@@ -156,27 +156,36 @@
         });
 	}
 	
-	function set_infoMessage(mensaje){
-		$(window).qtip({ 
-			content: mensaje,
-            style: {
-                classes: 'qtip-blue'
+	function dialogue(content, title) {
+        $('<div />').qtip({
+            content: {
+                text: content,
+                title: title
             },
             position: {
-                adjust: {
-		            x: 10
-		        }
+                my: 'center', at: 'center',
+                target: $(window)
             },
             show: {
-                event: false, // Don't specify a show event
-                ready: true // Show the tooltip when ready                        
+                ready: true,
+                modal: {
+                    on: true,
+                    blur: false
+                }
             },
-            hide: {
-                event: false,
-                inactive:2500
+            hide: false,
+            style: {classes: 'qtip-ubupaleodialog'
+            },
+            events: {
+                render: function(event, api) {
+                    $('button', api.elements.content).click(function(e) {
+                        api.hide(e);
+                    });
+                },
+                hide: function(event, api) { api.destroy(); }
             }
         });
-	}
+    }
 	
 	
 	

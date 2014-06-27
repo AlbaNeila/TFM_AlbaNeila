@@ -56,38 +56,6 @@ include('../init.php');
         return flag;
     }
     
-
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
-    
     function accessCollection(){
         var rowId = mygrid.getSelectedId();
         var idColeccion = mygrid.cellById(rowId, 0).getValue();
@@ -99,8 +67,9 @@ include('../init.php');
     function deleteCollection(){
        var rowId = mygrid.getSelectedId();
        var idColeccion = mygrid.cellById(rowId, 0).getValue();
+       var nameCollection = mygrid.cellById(rowId, 1).getValue();
        if(idColeccion != 1){
-           var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección"));?>'}),
+           var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección "));?>'+nameCollection+'?'}),
                           ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionTeacher(idColeccion);}}),
                           cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
         

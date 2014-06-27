@@ -93,45 +93,14 @@ ob_start();
         }
         return flag;
     }
-    
-    
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
+
     
     function deleteDoc(){
         var rowId = mygrid.getSelectedId();
         var idDoc = mygrid.cellById(rowId, 0).getAttribute("idDoc");
+        var nameDoc = mygrid.cellById(rowId, 0).getValue();
 
-
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el documento?"));?>'}),
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el documento "));?>'+nameDoc+'?'}),
                       ok = $('<button />', {text: 'Ok', click: function() {deleteDocAdmin(idDoc);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
         dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar documento"))?>'); 

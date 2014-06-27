@@ -147,7 +147,7 @@
         
         if($result!=FALSE){
             if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro usuario con el mismo dni, por lo que actualizamos la fila
-                $result2 = userService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), utf8_decode($row[3]), utf8_decode($row[4]), utf8_decode($row[5]), $idUser);
+                $result2 = userService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), utf8_decode($row[3]), utf8_decode($row[4]), $idUser);
                 if($result2!=FALSE)
                     echo 1;
             }
@@ -163,9 +163,10 @@
     function updatePassword(){
         $newPass = mysqli_real_escape_string($GLOBALS['link'],$_POST['newPass']);
         $idUser = mysqli_real_escape_string($GLOBALS['link'],$_POST['idUser']);
+        $newPassEncript = md5($newPass);
         
         if($newPass!=""){
-            $update = userService::updatePasswordById($newPass, $idUser);
+            $update = userService::updatePasswordById($newPassEncript, $idUser);
             if($update){
                 echo 1;
             }else{

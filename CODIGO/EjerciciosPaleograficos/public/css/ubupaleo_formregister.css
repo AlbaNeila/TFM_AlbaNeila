@@ -1,10 +1,26 @@
-/* FORM LOGIN*/
+html
+{
+	position: relative;
+}
 
+html:before { 
+ 	content: "";
+	position: fixed;
+	width: 300%;
+	height: 300%;
+	top: -65%;
+	left: -50%;
+	z-index: -1;
+	background: url(../img/fondo.jpg) 0 0 repeat;
+	-webkit-transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+	-ms-transform: rotate(30deg);
+	-o-transform: rotate(30deg);
+	transform: rotate(30deg);
+}
 body{
 	font-size: large;
 	margin:0 auto;
-
-	background-color: white;
 }
 
 form input{
@@ -27,6 +43,7 @@ form input[type=submit]{
 
 form input[type=text],input[type=password]{
 	width:250px;
+	background-color: #FFFED9;
 }
 
 form input[type=text]:focus,input[type=password]:focus{
@@ -60,9 +77,9 @@ form h2{
 .buttonInicio:hover{	
 	cursor: pointer;
 	color:#006DB3;
-	background-color: white;
+	background-color:rgba(0,109,179,0.1);;
 	font-family: 'open_sanslight';
-	border: 1px solid #006DB3;
+	border:1px solid #006DB3;
 	font-variant: small-caps;
 	padding: 5px 10px;
 	font-weight: bold;

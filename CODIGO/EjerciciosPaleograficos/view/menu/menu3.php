@@ -7,7 +7,6 @@
         <ul class="menu">
             <li><a href="collectionsStudent.php" ><?php echo(_("Colecciones"));?></a></li>
             <li><a href="groupStudent.php"><?php echo(_("Grupos"));?></a></li>
-            <li><a href="statisticsStudent.php" style="text-decoration:underline"><?php echo(_("Estadísticas"));?></a></li>
             <li><a href="helpStudent.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">
@@ -23,7 +22,6 @@
             <li><a href="collectionsTeacher.php" ><?php echo(_("Colecciones"));?></a></li>
             <li><a href="groupTeacher.php" ><?php echo(_("Grupos"));?></a></li>
             <li><a href="exercisesTeacher.php" style="text-decoration: underline"><?php echo(_("Ejercicios"));?></a></li>
-            <li><a href="statisticsTeacher.php"><?php echo(_("Estadísticas"));?></a></li>
             <li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">
@@ -39,7 +37,6 @@
             <li><a href="usersAdmin.php"><?php echo(_("Usuarios"));?></a></li>
             <li><a href="collectionsAdmin.php"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="exercisesAdmin.php" style="text-decoration:underline"><?php echo(_("Ejercicios"));?></a></li>
-            <li><a href="statisticsAdmin.php"><?php echo(_("Estadísticas"));?></a></li>
         </ul>
         <ul class="menu2">
             <li><a href="../controller/logout.php"><?php echo(_("Salir"));?></a></li>

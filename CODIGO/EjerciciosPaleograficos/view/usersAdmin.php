@@ -109,9 +109,11 @@ ob_start();
     function deleteStudent(){
         var rowId = mygrid.getSelectedId();
         var idUser = mygrid.cellById(rowId, 0).getValue();
+        var nameUser = mygrid.cellById(rowId, 1).getValue();
+        var surnameUser = mygrid.cellById(rowId, 2).getValue();
 
 
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el alumno?"));?>'}),
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el alumno "));?>'+nameUser+' ' +surnameUser+'?'}),
                       ok = $('<button />', {text: 'Ok', click: function() {deleteStudentAdmin(idUser);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
         dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar alumno"))?>'); 

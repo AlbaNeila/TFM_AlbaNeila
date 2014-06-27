@@ -2,6 +2,7 @@
 ob_start();
     session_start();
     include_once("../model/persistence/loginService.php");
+    include_once("../model/persistence/userService.php");
 	
     $method = $_REQUEST['method'];
     
@@ -12,8 +13,8 @@ ob_start();
         case 'login':
             login();
             break;
-        case 'forgotPassword':
-            forgotPassword();
+        case 'newPassword':
+            newPassword();
             break;
 
     }
@@ -54,27 +55,34 @@ ob_start();
     
     function newPassword(){
         $dni = mysqli_real_escape_string($GLOBALS['link'],$_POST['dni']);
+        $flag=0;
         $result = userService::getUserByName($dni);
-        if($result){
-            $user = mysqli_fetch_assoc($result);
+        if($user = mysqli_fetch_assoc($result)){
             $idUser = $user['idUsuario'];
             $email = $user['email'];
             $newPassword = generateRandomString();
-            $result2=userService::updatePasswordById($newPassword, $idUser);
+            $newPasswordEncript = md5($newPassword);
+            $result2=userService::updatePasswordById($newPasswordEncript, $idUser);
             if($result2){ //Send email
-                $subject = 'echo(_("Nueva contraseña UBUPal:"))';
-                $message = 'echo(_("Hola, tu nueva contraseña es: "))'+$newPassword;
+                $subject = "New passsword UBUPal";
+                $message = "Hello, you have received this message because the UBUPal user with ID:".$dni." has requested a new password.\n The new password is:".$newPassword."\n Regards.";
                 $headers = 'From: ubupal@ubu.es' . "\r\n";                
                 mail($email, $subject, $message, $headers);
+                $flag=1;
             }
         }
+        echo $flag;
     }
     
-    function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    function generateRandomString() {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
         $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        for ($j = 0; $j < 4; $j++) {
+            $randomString .= $numbers[rand(0, strlen($numbers) - 1)];
         }
         return $randomString;
     }

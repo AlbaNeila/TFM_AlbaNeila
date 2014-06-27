@@ -28,11 +28,11 @@ class userService{
     
     //UPDATE QUERIES
     static function updateById($dni,$surnames,$email,$name,$password,$idUser){
-        return mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.nombre='".$dni."', usuario.apellidos='".$surnames."',usuario.email='".$email."' ,usuario.usuario='".$name."',usuario.password='".md5($password)."' WHERE usuario.idUsuario='".$idUser."'");
+        return mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.nombre='".$dni."', usuario.apellidos='".$surnames."',usuario.email='".$email."' ,usuario.usuario='".$name."' WHERE usuario.idUsuario='".$idUser."'");
     }
     
     static function updatePasswordById($password,$idUser){
-        return mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.password='".md5($password)."' WHERE usuario.idUsuario='".$idUser."'");
+        return mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.password='".$password."' WHERE usuario.idUsuario='".$idUser."'");
     }
 
 }

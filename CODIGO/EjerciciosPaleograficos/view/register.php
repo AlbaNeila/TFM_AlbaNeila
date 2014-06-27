@@ -49,7 +49,7 @@
 	    	var cont = 0;
 	    	var empty=false;
 	    	var flag = true;
-debugger;
+
 	    	$("#formRegister").find(':input').each(function() {	        	
 	        	if(!empty){
 	        		empty = check_empty(this,"<?php echo(_("Este campo es requerido"));?>");

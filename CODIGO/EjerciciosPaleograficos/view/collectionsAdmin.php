@@ -75,8 +75,10 @@ ob_start();
     function deleteCollection(){
         var rowId = mygrid.getSelectedId();
         var idCollection = mygrid.cellById(rowId, 0).getValue();
+        var nameCollection = mygrid.cellById(rowId, 1).getValue();
+        
         if(idCollection != 1){
-            var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección?"));?>'}),
+            var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar la colección "));?>'+nameCollection+'?'}),
                           ok = $('<button />', {text: 'Ok', click: function() {deleteCollectionAdmin(idCollection);}}),
                           cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});                       
             dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 

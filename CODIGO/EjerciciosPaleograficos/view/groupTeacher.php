@@ -75,8 +75,9 @@ ob_start();
     function deleteGroup(){
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
+        var nameGroup = mygrid.cellById(rowId, 1).getValue();
         
-        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el grupo"));?>'}),
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea eliminar el grupo "));?>'+nameGroup+'?'}),
                       ok = $('<button />', {text: 'Ok', click: function() {deleteGroupTeacher(idGroup);}}),
                       cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
                 
