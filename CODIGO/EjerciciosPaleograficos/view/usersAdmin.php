@@ -101,6 +101,7 @@ ob_start();
         var idStudent = mygrid.cellById(rowId, 0).getValue();
         $("#idStudent").val(idStudent);
         $("#studentName").html(mygrid.cellById(rowId, 1).getValue());
+        $("#studentSurnames").html(mygrid.cellById(rowId, 2).getValue());
         mygrid2.clearAll();
         mygrid2.loadXML("../controller/gridControllers/gridManageGroups.php?idSearched="+idStudent+"&method=student");
         window.location = $('#anchorOpenModal').attr('href'); 
@@ -140,37 +141,7 @@ ob_start();
             });
         }
     }
-    
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
+
     
     function saveGroupPermissions(){
         var groups = new Array();
@@ -221,6 +192,8 @@ ob_start();
         
         $("#idStudent2").val(idUser);
         $("#studentName2").html(mygrid.cellById(rowId, 1).getValue());
+        $("#studentSurnames2").html(mygrid.cellById(rowId, 2).getValue());
+        $("#studentDNI").html(mygrid.cellById(rowId, 4).getValue());
         
         window.location = $('#anchorOpenModal2').attr('href'); 
     }
@@ -319,12 +292,12 @@ include_once("menu/menu1.php");
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%;top:350px;"></div>
+    <div class="gridAfterForm" id="gridStudents" style="width: 85%; height: 85%;top:370px;"></div>
 <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridStudents');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Código usuario"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("DNI"));?>, <?php echo(_("Modificar contraseña"));?>,<?php echo(_("Nº grupos"));?>,<?php echo(_("Consultar grupos"));?>,<?php echo(_("Eliminar"));?>");
+            mygrid.setHeader("<?php echo(_("Código usuario"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("DNI"));?>, <?php echo(_("Modificar contraseña"));?>,<?php echo(_("Nº grupos"));?>,<?php echo(_("Grupos"));?>,<?php echo(_("Eliminar"));?>");
             mygrid.setInitWidths("70,*,*,*,*,90,90,90,80");
             mygrid.setColAlign("center,left,left,left,left,center,center,center,center");
             mygrid.setColTypes("ro,ed,ed,ed,ed,img,ro,img,img");
@@ -338,6 +311,8 @@ include_once("menu/menu1.php");
             mygrid.loadXML("../controller/gridControllers/gridStudentsAdmin.php",onLoadFunction);
             mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
                 if (stage == 2){
+                    $('#idHidden').remove();
+                    $('#idHiddenEmail').remove();
                     var row = new Array();
                     var cont = 0;
                     var flag;
@@ -345,17 +320,27 @@ include_once("menu/menu1.php");
                         row[cont]=c.getValue();
                         cont++;
                     });
-                    //row[1]=nValue;
 
                     var idUser = mygrid.cellById(rId,0).getValue();
                     var dniStudent = mygrid.cellById(rId,4).getValue();
+                    var emailStudent = mygrid.cellById(rId,3).getValue();
                     var input = document.createElement("input");
                     input.setAttribute("type", "hidden");                           
                     input.setAttribute("id", "idHidden");                            
                     input.setAttribute("value", dniStudent);
                     document.getElementById("formStudents").appendChild(input);
+                    var input2 = document.createElement("input");
+                    input2.setAttribute("type", "hidden");                           
+                    input2.setAttribute("id", "idHiddenEmail");                            
+                    input2.setAttribute("value", emailStudent);
+                    document.getElementById("formStudents").appendChild(input2);
+
                     if(!check_dni($("#idHidden"))){
                         set_tooltip($(".cellSelected"),"<?php echo(_("DNI no válido"));?>");
+                        return false;
+                    }
+                    if(!check_email($("#idHiddenEmail"))){
+                        set_tooltip($(".cellSelected"),"<?php echo(_("Formato no válido"));?>");
                         return false;
                     }
                     
@@ -394,25 +379,26 @@ include_once("menu/menu1.php");
     
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
-            <div>
+            <div style="width: 500px;">
                 <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso a grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName"></label>
+                    <label id="studentSurnames"></label>
                     <p></p>
                     <input type="hidden" id="idStudent" name="idStudent">                    
                     <div id="gridGestionGrupos" style="width: 100%; height: 100%"></div>
                     <script>
                         var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
                         mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-                        mygrid2.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
-                        mygrid2.setInitWidths("*,*,*");
-                        mygrid2.setColAlign("center,center,center");
-                        mygrid2.setColTypes("ro,ro,ro");
+                        mygrid2.setHeader("<?php echo(_("Grupo"));?>,<?php echo(_("Descripción"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
+                        mygrid2.setInitWidths("*,*,70,70");
+                        mygrid2.setColAlign("center,center,center,center");
+                        mygrid2.setColTypes("ro,ro,ro,ro");
                         mygrid2.enableSmartRendering(true);
                         mygrid2.enableAutoHeight(true,200);
                         mygrid2.enableAutoWidth(true);
-                        mygrid2.enableTooltips("true,false,false");
+                        mygrid2.enableTooltips("true,true,false,false");
                         mygrid2.setSizes();
                         mygrid2.setSkin("dhx_skyblue");
                         mygrid2.init();
@@ -427,9 +413,13 @@ include_once("menu/menu1.php");
         <div id="openModal2" class="modalDialog2">
             <div>
                 <a href="#close" id="closeModal2" title="<?php echo(_("Cerrar"));?>" class="close2">X</a>
-                    <h3><?php echo(_("Modificar contraseña:"));?></h3>
+                    <h3><?php echo(_("Modificar contraseña"));?></h3>
                     <label class="labelModal"><?php echo(_("Alumno:"));?></label>
                     <label id="studentName2"></label>
+                    <label id="studentSurnames2"></label>
+                    <p></p>
+                    <label class="labelModal"><?php echo(_("DNI:"));?></label>
+                    <label id="studentDNI"></label>
                     <p></p>
                     <input type="hidden" id="idStudent2" name="idStudent2">     
     

@@ -272,7 +272,7 @@ ob_start();
         </div>
         
         <div class="formulario" style="top:320px;" >
-            <h2><?php echo $coleccion;?></h2>           
+            <h2><?php echo(_("COLECCIÓN: "));?><?php echo $coleccion;?></h2>         
         </div>
         <?php
             if($idColeccion != 1){

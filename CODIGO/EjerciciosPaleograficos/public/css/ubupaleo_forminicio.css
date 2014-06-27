@@ -87,7 +87,7 @@ form h2{
 .buttonInicio:hover{	
 	cursor: pointer;
 	color:#006DB3;
-	background-color:rgba(0,109,179,0.1);;
+	background-color:rgba(0,109,179,0.1);
 	font-family: 'open_sanslight';
 	border:1px solid #006DB3;
 	font-variant: small-caps;

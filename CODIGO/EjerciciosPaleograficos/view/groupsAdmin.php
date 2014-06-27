@@ -131,6 +131,7 @@ ob_start();
         input.setAttribute("type", "hidden");                           
         input.setAttribute("id", "idHidden");                            
         input.setAttribute("value", idGroup);
+        $("#groupName").html(mygrid.cellById(rowId, 1).getValue());
         var modal = document.getElementById("openModal");
         document.getElementById("openModal").appendChild(input);
                                                    
@@ -342,9 +343,12 @@ ob_start();
     
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
-            <div>
+            <div style="width: 450px;">
             <a href="#close" id="closeModal" onclick="$('#idHidden').remove();" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
             <h3><?php echo(_("Solicitud de acceso"));?></h3>
+            <label class="labelModal"><?php echo(_("Grupo:"));?></label>
+            <label id="groupName"></label>
+            <p></p>
             <div id="gridRequests" style="width: 100%; height: 100%"></div>
         <script>
             var mygrid2 = new dhtmlXGridObject('gridRequests');

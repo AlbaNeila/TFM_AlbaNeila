@@ -258,10 +258,10 @@
 	
 	.qtip-ubupaleodialog button:hover{	
 		cursor: pointer;
-		color:#006DB3;
-		background-color: white;
+		color:white;
+		background-color: #AC233E;
+		border:1px solid #AC233E;
 		font-family: 'open_sanslight';
-		border: 1px solid #006DB3;
 		font-variant: small-caps;
 		padding: 5px 10px;
 		font-weight: bold;

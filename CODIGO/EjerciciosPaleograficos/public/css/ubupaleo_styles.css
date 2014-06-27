@@ -170,8 +170,13 @@ input{
 	position:absolute;
 	left: 155px;
 	bottom:185px;
-	top:120px;
+	top:130px;
 	min-width: 75%;
+
+}
+
+.formulario table{
+	table-layout: fixed;
 }
 
 .formulario td{
@@ -179,7 +184,6 @@ input{
 	padding:0 0.3em;
 	font-size:90%;
 	min-height: 26px;
-	border-radius: 2px;
 }
 
 .td_label{
@@ -203,7 +207,7 @@ input{
 	border: 2px solid #AC233E;
 	font-variant:small-caps;
 	font-weight: bold;
-
+	text-decoration:underline;
 	padding:0.2em 0.6em;
 	margin:10px 0px 0px -3px;
 	
@@ -213,6 +217,7 @@ input{
 	color:white;
 	background-color: #AC233E;
 	border: 2px solid #white;
+	text-decoration: underline;
 }
 
 .formulario input[type='submit']:active,input[type='button']:active{
@@ -404,10 +409,10 @@ p{
 
 .buttonModal:hover{	
 	cursor: pointer;
-	color:#006DB3;
-	background-color: white;
+	color:white;
+	background-color: #AC233E;
 	font-family: 'open_sanslight';
-	border: 1px solid #006DB3;
+	border: 1px solid #AC233E;
 	font-variant: small-caps;
 	padding: 5px 10px;
 	font-weight: bold;
@@ -431,10 +436,10 @@ p{
 
 #cancelar.buttonModal:hover{	
 	cursor: pointer;
-	color:#006DB3;
-	background-color: white;
+	color:white;
+	background-color: #AC233E;
 	font-family: 'open_sanslight';
-	border: 1px solid #006DB3;
+	border: 1px solid #AC233E;
 	font-variant: small-caps;
 	padding: 5px 10px;
 	font-weight: bold;
@@ -449,6 +454,7 @@ p{
 	font-variant: small-caps;
 	padding: 5px 10px;
 	font-weight: bold;
+	text-decoration: none;
 }
 
 #cancelar.buttonModal:active{

@@ -27,11 +27,11 @@
     }
     
     function newStudent(){    	
-        $usuario_nombre = mysql_real_escape_string($_POST['dnialumno']);
-        $usuario_clave = mysql_real_escape_string($_POST['passwordalumno']);
-        $nombre = mysql_real_escape_string($_POST['nombrealumno']);
-    	$usuario_apellidos = mysql_real_escape_string($_POST['apellidosalumno']);
-        $usuario_email = mysql_real_escape_string($_POST['emailalumno']);
+        $usuario_nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['dnialumno']);
+        $usuario_clave = mysqli_real_escape_string($GLOBALS['link'],$_POST['passwordalumno']);
+        $nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['nombrealumno']);
+    	$usuario_apellidos = mysqli_real_escape_string($GLOBALS['link'],$_POST['apellidosalumno']);
+        $usuario_email = mysqli_real_escape_string($GLOBALS['link'],$_POST['emailalumno']);
         // comprobamos que el usuario ingresado no haya sido registrado antes
         $result = userService::getUserByName(utf8_decode($usuario_nombre));
         if($result==FALSE){ 
@@ -67,11 +67,11 @@
 	} 
 
     function newTeacher(){      
-        $usuario_nombre = mysql_real_escape_string($_POST['dniprofesor']);
-        $usuario_clave = mysql_real_escape_string($_POST['password']);
-        $nombre = mysql_real_escape_string($_POST['nombreprofesor']);
-        $usuario_apellidos = mysql_real_escape_string($_POST['apellidosprofesor']);
-        $usuario_email = mysql_real_escape_string($_POST['emailprofesor']);
+        $usuario_nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['dniprofesor']);
+        $usuario_clave = mysqli_real_escape_string($GLOBALS['link'],$_POST['password']);
+        $nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['nombreprofesor']);
+        $usuario_apellidos = mysqli_real_escape_string($GLOBALS['link'],$_POST['apellidosprofesor']);
+        $usuario_email = mysqli_real_escape_string($GLOBALS['link'],$_POST['emailprofesor']);
         // comprobamos que el usuario ingresado no haya sido registrado antes
         $result = userService::getUserByName(utf8_decode($usuario_nombre));
         if($result==FALSE){ 

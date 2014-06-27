@@ -71,7 +71,7 @@ ob_start();
     </div>
     
     <div class="formulario">
-        <h2><?php echo $grupo;?></h2>
+        <h2><?php echo(_("GRUPO: "));?> <?php echo $grupo;?></h2>
     </div>
         
         

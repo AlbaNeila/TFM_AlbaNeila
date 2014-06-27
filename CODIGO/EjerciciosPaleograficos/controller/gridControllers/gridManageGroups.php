@@ -38,12 +38,12 @@
         $domElement->appendChild($domAtribute);
         $row = $rows->appendChild($domElement); //añadimos <row>
 
-      for($i=0;$i<=3;$i++){
+      for($i=0;$i<=4;$i++){
           $flag = false;
           if(in_array($fila[0],$grupos)){
               $flag = true;
           }
-            if($i==2){ //Radiobutton aceptar
+            if($i==3){ //Radiobutton aceptar
                 $cell= $row->appendChild($dom->createElement("cell"));
                 if($flag){
                     $contenido = ("<input type='radio' name='radio$cont' checked='checked'></input>");
@@ -53,7 +53,7 @@
                 }
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i==3){ //Radiobutton rechazar
+            if($i==4){ //Radiobutton rechazar
                 $cell= $row->appendChild($dom->createElement("cell"));
                 if(!$flag){
                     $contenido = ("<input type='radio' name='radio$cont' checked='checked'></input>");
@@ -63,7 +63,7 @@
                 }
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
-            if($i!=0 && $i!=2 && $i!=3){
+            if($i!=0 && $i!=4 && $i!=3){
                 $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
                 $domAtribute = $dom->createAttribute('idGroup');
                 $domAtribute->value=$fila[0];

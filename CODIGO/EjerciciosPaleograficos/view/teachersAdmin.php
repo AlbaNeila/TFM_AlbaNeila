@@ -96,6 +96,7 @@ ob_start();
         var idTeacher = mygrid.cellById(rowId, 0).getValue();
         $("#idTeacher").val(idTeacher);
         $("#teacherName").html(mygrid.cellById(rowId, 1).getValue());
+        $("#teacherSurnames").html(mygrid.cellById(rowId, 2).getValue());
         mygrid2.clearAll();
         mygrid2.loadXML("../controller/gridControllers/gridTeacherGroups.php?idSearched="+idTeacher);
         window.location = $('#anchorOpenModal').attr('href'); 
@@ -335,6 +336,7 @@ ob_start();
                 <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Grupos del profesor:"));?></h3>
                     <label id="teacherName"></label>
+                    <label id="teacherSurnames"></label>
                     <p></p>
                     <input type="hidden" id="idStudent" name="idStudent">                    
                     <div id="gridGestionGrupos" style="width: 100%; height: 70%"></div>
