@@ -8,9 +8,6 @@ $grupo=$_REQUEST['grupo'];
 $idGrupo=$_REQUEST['idGrupo'];
 ?>
 <script>
-
-    
-    
     function deleteStudent(){
         var rowId = mygrid.getSelectedId();
         var idStudent = mygrid.cellById(rowId, 3).getAttribute("id");
@@ -81,7 +78,7 @@ ob_start();
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Eliminar"));?>");
+            mygrid.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Denegar acceso"));?>");
             mygrid.setInitWidths("*,*,*,90");
             mygrid.setColAlign("left,left,left,center");
             mygrid.setColTypes("ro,ro,ro,img");

@@ -114,7 +114,7 @@
             }
             else{
                 if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
-                    $delete = groupService::deleteUsuarioGrupoByIds($group, $idStudent);
+                    $delete = groupService::deleteUserGroupByIds($group, $idStudent);
                     if(!$delete){
                          $flag = 0;
                      }

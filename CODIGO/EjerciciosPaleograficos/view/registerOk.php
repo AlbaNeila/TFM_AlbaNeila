@@ -1,5 +1,5 @@
 <?php
-	include('../model/acceso_db.php'); // incluimos el archivo de conexión a la Base de Datos
+include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexión a la Base de Datos
 	include('../init.php');
 	session_start();
 ?>
@@ -24,7 +24,7 @@
 			<p><?php echo(_("Su cuenta ha sido creada con éxito."));?></p>
 			<p><?php echo(_("Ya puede acceder a la aplicación UBUPal. Cuando el profesor acepte sus solicitudes tendrá acceso a los grupos seleccionados."));?></p>
 			<p><?php echo(_("Muchas gracias."));?></p>
-			<input class="buttonInicio" type="submit" name="volver" value="<?php echo(_("Volver"));?>" style="display: inline;"/>
+			<input class="buttonInicio" type="submit" name="volver" value="<?php echo(_("Aceptar"));?>" style="display: inline;"/>
 		</form>
 	</div>
 </body>

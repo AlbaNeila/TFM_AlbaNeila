@@ -64,7 +64,7 @@ include('../init.php');
             <input  type="text" name="usuario_nombre" id="dniUser" />
             <p></p>
             <input class="buttonInicio" type="submit" name="enviar" value="<?php echo(_("Solicitar"));?>" id="newPassword" style="display:inline;"/>
-            <input class="buttonInicio" type="submit" name="volver" value="<?php echo(_("Volver"));?>" onclick="goBack()" style="display:inline;"/>
+            <input class="buttonInicio" type="button" name="volver" value="<?php echo(_("Volver"));?>" onclick="goBack()" style="display:inline;"/>
         </form>
     </div>
 </body>

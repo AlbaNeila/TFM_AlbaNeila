@@ -22,16 +22,16 @@
     
     function deleteDoc(){
         $idDoc = mysqli_real_escape_string($GLOBALS['link'],$_POST['idDoc']);
+        $document = new Document();
         
-        $result2 = documentService::getById($idDoc);
-        if($result2!=FALSE){
-            $row=mysqli_fetch_assoc($result2);
-            $imagen = $row['imagen'];
-            $transcripcion = $row['transcripcion'];
+        $document = documentService::getById($idDoc);
+        if($document!=null){
+            $imagen = $document->getImageDocument();
+            $transcripcion = $document->getTranscriptionDocument();
             unlink($imagen);
             unlink($transcripcion);
-            $result = documentService::deleteById($idDoc);
-            if($result!=FALSE){
+            $delete = documentService::deleteById($idDoc);
+            if($delete!=FALSE){
                  echo 1; //Delete document OK
             }
         }
@@ -43,19 +43,15 @@
     
     function checkNameDocument(){
         $document = $_POST['document'];
-        $result = documentService::getByName($document);
+        $existDocument = documentService::getByName($document);
         
-        if($result!=FALSE){
-            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre
-                echo 1;
-            }
-            else{
-                echo 2;
-            }
-        }else{
-            echo 0;
+
+        if(!$existDocument) { //Si no hay filas es que no existe otro documento con el mismo nombre
+            echo 1;
         }
-        
+        else{
+            echo 2;
+        }
     }
     
     function checkUpdateGrid(){
@@ -63,21 +59,16 @@
         $row = json_decode("$row",true);
         $idDocument = $_POST['idDoc'];
         
-        $result = documentService::checkNameNotRepeat($row[0], $idDocument);
-        
-        if($result!=FALSE){
-            if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre, por lo que actualizamos la fila
-                $result2 = documentService::updateById($idDocument,utf8_decode($row[0]),utf8_decode($row[1]),utf8_decode($row[3]),utf8_decode($row[2]));
-                if($result2!=FALSE)
+        $repeatDocument = documentService::checkNameNotRepeat($row[0], $idDocument);
+
+            if(!$repeatDocument) { //Si no hay filas es que no existe otro documento con el mismo nombre, por lo que actualizamos la fila
+                $update = documentService::updateById($idDocument,utf8_decode($row[0]),utf8_decode($row[1]),utf8_decode($row[3]),utf8_decode($row[2]));
+                if($update!=FALSE)
                     echo 1;
             }
             else{
                 echo 0;
             }
-        }
-        else{
-            echo 0;
-        }
     }
 
     function updatePermissionsGroup(){
@@ -91,9 +82,9 @@
         $flag=1;
         
         foreach($groups as $group){
-            $result = collectionService::getGroupCollectionByIds($group, $idCollection);
+            $groupCollection = collectionService::getGroupCollectionByIds($group, $idCollection);
             if($permissions[$cont]==true){
-                if(!$fila=mysqli_fetch_assoc($result)){//Si no hay filas -> Insert
+                if(!$groupCollection){//Si no hay filas -> Insert
                      $insert = collectionService::insertGroupCollection($group, $idCollection);
                      if(!$insert){
                          $flag = 0;
@@ -101,7 +92,7 @@
                 }
             }
             else{
-                if($fila=mysqli_fetch_assoc($result)){//Si hay filas -> Delete
+                if($groupCollection){//Si hay filas -> Delete
                     $delete = collectionService::deleteGroupCollectionByIds($group, $idCollection);
                     if(!$delete){
                          $flag = 0;

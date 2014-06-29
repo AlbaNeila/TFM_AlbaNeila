@@ -1,19 +1,36 @@
 <?php
-include("../model/acceso_db.php");
+include("../model/persistence/acceso_db.php");
+include("../model/Document.php");
 class documentService{
     
     
     //SELECT QUERIES
     static function getById($idDoc){
-        return mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.transcripcion,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDoc."'");
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.imagen,documento.transcripcion,documento.nombre,documento.descripcion,documento.fecha,documento.tipoEscritura FROM documento WHERE documento.idDocumento= '".$idDoc."'");
+        if($row = mysqli_fetch_assoc($result)){
+            $document = new Document($idDoc,$row['nombre'],$row['descripcion'],$row['fecha'],$row['tipoEscritura'],$row['imagen'],$row['transcripcion']);
+            return $document;
+        }else{
+            return null;
+        }
     }
     
     static function getByName($document){
-        return mysqli_query($GLOBALS['link'],"SELECT documento.idDocumento FROM documento WHERE documento.nombre= '".$document."'");
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.idDocumento FROM documento WHERE documento.nombre= '".$document."'");
+        if($row = mysqli_fetch_assoc($result)){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     static function checkNameNotRepeat($nombre,$idDoc){
-        return mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".$nombre."' and documento.idDocumento<>'".$idDoc."'");
+        $return = mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".$nombre."' and documento.idDocumento<>'".$idDoc."'");
+        if($row = mysqli_fetch_assoc($result)){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     static function getFilesById($idDoc){
@@ -22,21 +39,41 @@ class documentService{
     
     //INSERT QUERIES
     static function insertDocument($name,$description,$date,$type){
-        return mysqli_query($GLOBALS['link'],"INSERT INTO documento (documento.nombre, documento.descripcion, documento.fecha,documento.tipoEscritura) VALUES ('".$name."','".$description."','".$date."','".$type."')");
+        $result = mysqli_query($GLOBALS['link'],"INSERT INTO documento (documento.nombre, documento.descripcion, documento.fecha,documento.tipoEscritura) VALUES ('".$name."','".$description."','".$date."','".$type."')");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     //DELETE QUERIES
     static function deleteById($idDoc){
-        return mysqli_query($GLOBALS['link'],"DELETE FROM documento WHERE documento.idDocumento= '".$idDoc."'");
+        $return = mysqli_query($GLOBALS['link'],"DELETE FROM documento WHERE documento.idDocumento= '".$idDoc."'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     //UPDATE QUERIES
     static function updateById($idDocument,$nombre,$descripcion,$fecha,$tipoEscritura){
-        return mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.nombre='".$nombre."', documento.descripcion='".$descripcion."',documento.fecha='".$fecha."' ,documento.tipoEscritura='".$tipoEscritura."' WHERE documento.idDocumento='".$idDocument."'");
+        $result = mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.nombre='".$nombre."', documento.descripcion='".$descripcion."',documento.fecha='".$fecha."' ,documento.tipoEscritura='".$tipoEscritura."' WHERE documento.idDocumento='".$idDocument."'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     static function updateFilesById($idDocument,$uploadimg,$uploadxml){
-        return mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.imagen='".$uploadimg."', documento.transcripcion='".$uploadxml."' WHERE documento.idDocumento='".$idDocument."'");
+        $result = mysqli_query($GLOBALS['link'],"UPDATE documento SET documento.imagen='".$uploadimg."', documento.transcripcion='".$uploadxml."' WHERE documento.idDocumento='".$idDocument."'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     
@@ -63,7 +100,12 @@ class documentService{
     
     //DELETE QUERIES
     static function deleteColleccionDocumentoByIds($idCol,$idDoc){
-        return mysqli_query($GLOBALS['link'],"DELETE FROM coleccion_documento WHERE coleccion_documento.idColeccion='".$idCol."' AND coleccion_documento.idDocumento='".$idDoc."'");
+        $result = mysqli_query($GLOBALS['link'],"DELETE FROM coleccion_documento WHERE coleccion_documento.idColeccion='".$idCol."' AND coleccion_documento.idDocumento='".$idDoc."'");
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 ?>

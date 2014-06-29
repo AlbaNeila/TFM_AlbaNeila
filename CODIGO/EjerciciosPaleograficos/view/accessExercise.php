@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../model/acceso_db.php');
+include("../model/persistence/acceso_db.php");
 include('../controller/transcription.php');
 if($_SESSION['usuario_tipo'] != "ALUMNO"){
     header('Location: ../view/login.php');
@@ -443,7 +443,10 @@ ob_start();
     <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -4px;">
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
-       
+    <div class="textUbupal" >
+        <p></p>
+    <h3 style="color:#304369;"><?php echo(_("Imagen del documento:"));?></h3> 
+    </div>
    <div id="contentImage" style="text-align: left;margin-top:2%;height:55%;overflow: auto;position: relative" >
         <img  id="ej">
         <?php 
@@ -458,11 +461,11 @@ ob_start();
    </div>
    
    <div id="contentTranscription" class="textUbupal" style="text-align: left;overflow:auto;height:45%;position:relative;width:98%;"  >
-        <h3><?php echo(_("Transcripción:"));?></h3>
+        <h3 style="color:#304369;"><?php echo(_("Transcripción:"));?></h3>
         <?php
         $line=$rectangles[0]->getLineRectangle();
         $i=1;
-        ?><label><?php echo(_("Línea: ")); echo $i;?></label><?php
+        ?><label><?php echo(_("Línea ")); echo $i;?></label><?php
         //Zona transcription
         $i++;
         foreach($rectangles as $rectangle){

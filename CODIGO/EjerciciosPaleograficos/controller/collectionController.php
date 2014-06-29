@@ -29,59 +29,52 @@
         $groups = $_POST["groups"];
         $groups = json_decode("$groups",true);
         
-        $result = collectionService::getByName(utf8_decode($collection));
+        $existCollection = collectionService::getByName(utf8_decode($collection));
         
-        if($result!=FALSE){
-            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección
-                $reg = collectionService::insertCollection(utf8_decode($collection), utf8_decode($description));
-                $result2=collectionService::getByName(utf8_decode($collection));
-                if($reg) {
-                    $idCollection=mysqli_fetch_assoc($result2);
-                    $idCollection = $idCollection['idColeccion'];
-                    foreach($groups as $group){
-                        $reg2 = collectionService::insertGroupCollection(utf8_decode($group), utf8_decode($idCollection));
-                        if(!$reg2){
-                            $flag = 0;
-                        }
+
+        if(!$existCollection) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección
+            $idCollection = collectionService::insertCollection(utf8_decode($collection), utf8_decode($description));
+            if($idCollection!=null) {
+                foreach($groups as $group){
+                    $insert = collectionService::insertGroupCollection(utf8_decode($group), utf8_decode($idCollection));
+                    if(!$insert){
+                        $flag = 0;
                     }
-                }
-                else{
-                    $flag = 0;
                 }
             }
             else{
-                $flag = 2; //Ya existe un grupo con el mismo nombre
-            }        
+                $flag = 0;
+            }
         }
+        else{
+            $flag = 2; //Ya existe un grupo con el mismo nombre
+        }        
+
         echo $flag;
     }
     
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
-        $result = collectionService::checkNameNotRepeat($row[1], $row[0]);
+        $repeatCollection = collectionService::checkNameNotRepeat($row[1], $row[0]);
         
-        if($result!=FALSE){
-            if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe atra colección con el mismo nombre, por lo que actualizamos la fila
-                $result2 = collectionService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), $row[0]);
-                if($result2!=FALSE)
-                    echo 1;
-            }
-            else{
-                echo 0;
-            }
+        if(!$repeatCollection) { //Si no hay filas es que no existe atra colección con el mismo nombre, por lo que actualizamos la fila
+            $update = collectionService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), $row[0]);
+            if($update!=FALSE)
+                echo 1;
         }
         else{
             echo 0;
         }
+
     }
     
     function deleteCollection(){
         $idColeccion = mysqli_real_escape_string($GLOBALS['link'],$_POST['coleccion']);
     
-        $result = collectionService::deleteById($idColeccion);
+        $delete = collectionService::deleteById($idColeccion);
         
-        if($result!=FALSE){
+        if($delete!=FALSE){
                     echo 1; //Delete grupo OK
         }
         else{
@@ -98,8 +91,8 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = groupService::updateUsuarioGrupoAccess($idGrupo, $alumnos[$cont]);
-            if(!$result){
+            $update = groupService::updateUserGroupAccess($idGrupo, $alumnos[$cont]);
+            if(!$update){
                 $flag = false;
             }
         }
@@ -119,8 +112,8 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = groupService::deleteUsuarioGrupoByIds($idGrupo, $alumnos[$cont]);
-            if(!$result){
+            $delete = groupService::deleteUserGroupByIds($idGrupo, $alumnos[$cont]);
+            if(!$delete){
                 $flag = false;
             }
         }

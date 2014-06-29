@@ -35,16 +35,14 @@
         $grupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
         $descripcion = mysqli_real_escape_string($GLOBALS['link'],$_POST['descripcion']);
     
-        $result = groupService::getByName(utf8_decode($grupo));
+        $existGroup = groupService::getByName(utf8_decode($grupo));
         
-        if($result!=FALSE){
-            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
-                $reg = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $_SESSION['usuario_id']);
-                $result2= groupService::getByName(utf8_decode($grupo));
-                if($idGrupo = mysqli_fetch_assoc($result2)){
-                    $idGrupo = $idGrupo['idGrupo'];
+
+            if(!$existGroup) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
+                $idGroup = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $_SESSION['usuario_id']);
+                if($idGroup != null){
                     //Insertamos en la colección pública
-                    $reg2 = collectionService::insertGroupCollection($idGrupo,1);
+                    $reg2 = collectionService::insertGroupCollection($idGroup,1);
                     if($reg && $reg2) {
                         echo 1; //Nuevo grupo OK
                     }
@@ -53,7 +51,7 @@
             else{
                 echo 0; //Ya existe un grupo con el mismo nombre
             }
-        }
+
     }
     
     function newGroupAdmin(){
@@ -61,17 +59,14 @@
         $descripcion = mysqli_real_escape_string($GLOBALS['link'],$_POST['descripcion']);
         $profesor = mysqli_real_escape_string($GLOBALS['link'],$_POST['profesor']);
     
-        $result = groupService::getByName(utf8_decode($grupo));
+        $existGroup = groupService::getByName(utf8_decode($grupo));
         
-        if($result!=FALSE){
-            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
-                $reg = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $profesor);
-                $row = groupService::getByName(utf8_decode($grupo));
-                if($idGrupo = mysqli_fetch_assoc($row)){
-                    $idGrupo = $idGrupo['idGrupo'];
+            if(!$existGroup) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
+                $idGroup = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $profesor);
+                if($idGroup != null){
                     //Insertamos en la colección pública
-                    $reg2 = collectionService::insertGroupCollection($idGrupo,1);
-                    if($reg && $reg2) {
+                    $reg2 = collectionService::insertGroupCollection($idGroup,1);
+                    if($reg2) {
                         echo 1; //Nuevo grupo OK
                     }
                 }
@@ -79,21 +74,19 @@
             else{
                 echo 0; //Ya existe un grupo con el mismo nombre
             }
-        }
     }
     
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
-        $result = groupService::checkNameNotRepeat($row[1], $row[0]);
+        $existGroup = groupService::checkNameNotRepeat($row[1], $row[0]);
         
-        if($result!=FALSE){
-            if(!$fila=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que actualizamos la fila
-                $result2 = groupService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), utf8_decode($row[0]));
-                if($result2!=FALSE)
-                    echo 1;
-            }
-            else{
+        if(!$existGroup){
+//Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que actualizamos la fila
+            $insert = groupService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), utf8_decode($row[0]));
+            if($insert!=FALSE){
+                echo 1;
+            }else{
                 echo 0;
             }
         }
@@ -105,9 +98,9 @@
     function deleteGroup(){
         $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
     
-        $result = groupService::deleteById($idGrupo);
+        $delete = groupService::deleteById($idGrupo);
         
-        if($result!=FALSE){
+        if($delete!=FALSE){
                     echo 1; //Delete grupo OK
         }
         else{
@@ -124,8 +117,8 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = groupService::updateUsuarioGrupoAccess($idGrupo, $alumnos[$cont]);
-            if(!$result){
+            $update = groupService::updateUserGroupAccess($idGrupo, $alumnos[$cont]);
+            if(!$update){
                 $flag = false;
             }
         }
@@ -145,9 +138,9 @@
         $flag=true;
         
        for($cont=0; $cont < count($alumnos);$cont++){
-            $result = groupService::deleteUsuarioGrupoByIds($idGrupo, $alumnos[$cont]);
+            $deleteUserGroup = groupService::deleteUserGroupByIds($idGrupo, $alumnos[$cont]);
             $result2 = userService::deleteById($alumnos[$cont]);
-            if(!$result || !$result2){
+            if(!$deleteUserGroup || !$result2){
                 $flag = false;
             }
         }
@@ -163,7 +156,7 @@
         $idAlumno = mysqli_real_escape_string($GLOBALS['link'],$_POST['idAlumno']);
         $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['idGrupo']);
     
-        $result = groupService::deleteUsuarioGrupoByIds($idGrupo, $idAlumno);
+        $result = groupService::deleteUserGroupByIds($idGrupo, $idAlumno);
         
         if($result!=FALSE){
                     echo 1; //Delete grupo OK

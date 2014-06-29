@@ -1,7 +1,7 @@
 <?php
 ob_start();
 	session_start();
-	include('../model/acceso_db.php');
+include("../model/persistence/acceso_db.php");
 	include('../init.php');
     $defaultLang="es_ES";
     $flag=0;

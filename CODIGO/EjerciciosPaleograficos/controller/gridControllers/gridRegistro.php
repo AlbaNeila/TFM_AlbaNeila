@@ -38,11 +38,16 @@
 			$contenido = ("0");
 			$cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
 	  	}
-	  	if($i!=2 && $i!=3){ //Resto de columnas
+	  	if($i==0){ //Grupo
 		  	$cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
 		  	$contenido = ("$fila[$i]");
 		  	$cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
 	    }
+        if($i==1){ //Profesor
+            $cell= $row->appendChild($dom->createElement("cell")); //añadimos <cell>
+            $contenido = "$fila[$i]"." ".$fila[4];
+            $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
+        }
 	  }
 	 
 	}

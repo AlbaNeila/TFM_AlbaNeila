@@ -260,16 +260,15 @@
         $idDocument = $_POST['idDocument'];
         $idExercise = $_POST['idExercise'];
         
-        $result = documentService::getById($idDocument);
+        $document = documentService::getById($idDocument);
         $result2 = exerciseService::getById($idExercise);
-        if($result!=FALSE){
-                $row=mysqli_fetch_assoc($result);
-                $imagen = utf8_encode($row['imagen']);
-                $nombre = utf8_encode($row['nombre']);
-                $descripcion = utf8_encode($row['descripcion']);
-                $fecha = utf8_encode($row['fecha']);
-                $tipoEscritura = utf8_encode($row['tipoEscritura']);
-                $transcriptionFile = utf8_encode($row['transcripcion']);
+        if($document!=null){
+                $imagen = utf8_decode($document->getImageDocument());
+                $nombre = utf8_decode($document->getNameDocument());
+                $descripcion = utf8_decode($document->getDescriptionDocument());
+                $fecha = utf8_decode($document->getDateDocument());
+                $tipoEscritura = utf8_decode($document->getTypeWritingDocument());
+                $transcriptionFile = utf8_decode($document->getTranscriptionDocument());
                 
                 if($result2!=FALSE){
                     $row2=mysqli_fetch_assoc($result2);

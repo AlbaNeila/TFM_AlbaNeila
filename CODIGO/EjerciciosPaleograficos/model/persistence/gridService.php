@@ -1,5 +1,5 @@
 <?php
-include("../../model/grid_acceso_db.php");
+include("../../model/persistence/grid_acceso_db.php");
 class gridService{
     //SELECT QUERIES
     static function getCollectionsByUserAndGroup($idUser,$idGroup){
@@ -11,7 +11,11 @@ class gridService{
     }
     
     static function getCollectionsByStudent($idUser){
-        return mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$idUser."' and usuario_grupo.solicitud=0");
+        return mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM COLECCION");
+    }
+    
+    static function canAccessToCollection($idUser,$idCol){
+        return mysql_query("SELECT coleccion.nombre FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$idUser."' and usuario_grupo.solicitud=0 and coleccion.idColeccion='".$idCol."'");
     }
     
     static function getCollectionsByDoc($idDoc){
@@ -128,7 +132,7 @@ class gridService{
     }
     
     static function getGroupsToRegister(){
-        return mysql_query("SELECT grupo.nombre,usuario.nombre,usuario.idUsuario,grupo.idGrupo FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.tipo='PROFESOR'");
+        return mysql_query("SELECT grupo.nombre,usuario.nombre,usuario.idUsuario,grupo.idGrupo,usuario.apellidos FROM grupo,usuario WHERE grupo.idUsuarioCreador=usuario.idUsuario AND usuario.tipo='PROFESOR'");
     }
     
     static function getNameSurnameGroupTeacher($idGroup){

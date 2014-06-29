@@ -38,11 +38,10 @@
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
             //Insertamos en la BD
-            $reg = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
-            if($reg) {
-                $result= documentService::getByName(utf8_decode($name));
-                $idDocument=mysqli_fetch_assoc($result);
-                $idDocument = $idDocument['idDocumento'];
+            $insert = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
+            if($insert) {
+                $document= documentService::getByName(utf8_decode($name));
+                $idDocument = $document->getIdDocument();
                 
                 $uploaddir = '../img_xml/';
                 
@@ -59,9 +58,9 @@
                 move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg);
                 move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml);
                 
-                $result2 = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 for($i = 0;$i<count($coleccionesArray);$i++){
-                    $reg2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
+                    $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
                 }                
             }
         }
@@ -81,11 +80,10 @@
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
             //Insertamos en la BD
-            $reg = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
-            if($reg) {
-                $result= documentService::getByName(utf8_decode($name));
-                $idDocument=mysqli_fetch_assoc($result);
-                $idDocument = $idDocument['idDocumento'];
+            $insert = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
+            if($insert) {
+                $document= documentService::getByName(utf8_decode($name));
+                $idDocument = $document->getIdDocument();
                 
                 $uploaddir = '../img_xml/';
                 
@@ -102,9 +100,9 @@
                 move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg);
                 move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml);
                 
-                $result2 = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 for($i = 0;$i<count($coleccionesArray);$i++){
-                    $reg2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDocument);
+                    $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDocument);
                 }                
             }
         }
@@ -138,8 +136,8 @@
                 move_uploaded_file($_FILES['changeimagen']['tmp_name'], $uploadimg);
                 move_uploaded_file($_FILES['changetranscripcion']['tmp_name'], $uploadxml);
             
-                $result2 = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
-                if($result2!=FALSE){
+                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                if($update!=FALSE){
                     //Delete old files
                     unlink($imagen);
                     unlink($transcripcion);
@@ -176,8 +174,8 @@
                 move_uploaded_file($_FILES['changeimagen']['tmp_name'], $uploadimg);
                 move_uploaded_file($_FILES['changetranscripcion']['tmp_name'], $uploadxml);
             
-                $result2 = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
-                if($result2!=FALSE){
+                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                if($update!=FALSE){
                     //Delete old files
                     unlink($imagen);
                     unlink($transcripcion);
@@ -191,14 +189,13 @@
     function accessDoc(){
         $idDocument = $_POST['idDocument'];
         
-        $result =documentService::getById($idDocument);
+        $document =documentService::getById($idDocument);
         if($result!=FALSE){
-                $row=mysqli_fetch_assoc($result);
-                $imagen = utf8_encode($row['imagen']);
-                $nombre = utf8_encode($row['nombre']);
-                $descripcion = utf8_encode($row['descripcion']);
-                $fecha = utf8_encode($row['fecha']);
-                $tipoEscritura = utf8_encode($row['tipoEscritura']);
+                $imagen = $document->getImageDocument();
+                $nombre = $document->getNameDocument();
+                $descripcion = $document->getTranscriptionDocument();
+                $fecha = $document->getDateDocument();
+                $tipoEscritura = $document->getTypeWritingDocument();
                 
                 $res= 1;
         }else{

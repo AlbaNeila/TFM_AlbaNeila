@@ -1,5 +1,5 @@
 <?php
-include("../../model/grid_acceso_db.php");
+include("../../model/persistence/grid_acceso_db.php");
 class comboService{
     //SELECT QUERIES
    static function getCollectionsOfTeacher($idUser){

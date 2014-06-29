@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['usuario_tipo'] != "ADMIN"){
     header('Location: ../view/login.php');
 }
-include('../model/acceso_db.php');
+include("../model/persistence/acceso_db.php");
 
 ob_start();
 ?>

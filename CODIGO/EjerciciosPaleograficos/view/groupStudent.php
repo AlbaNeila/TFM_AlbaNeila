@@ -36,7 +36,7 @@ ob_start();
 ?>
     <div class="submenu">
         <div class="submenuitem"><img src="../public/img/menu2.png"><a href="groupStudent.php" style="font-weight: bold"><?php echo(_("Grupos"));?></a></div>
-        <div class="submenuitem2"><img src="../public/img/menu2.png"><a><?php echo(_("Colección"));?></a></div>
+        <div class="submenuitem2"><img src="../public/img/menu2.png"><a><?php echo(_("Colecciones"));?></a></div>
     </div>
         
         <div class="formulario">

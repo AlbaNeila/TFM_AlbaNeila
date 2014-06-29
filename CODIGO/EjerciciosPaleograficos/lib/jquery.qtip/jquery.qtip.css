@@ -237,6 +237,9 @@
 	.qtip-ubupaleodialog .qtip-close .qtip-icon{
 		background-position: -2px 0;
 	}
+	.qtip-ubupaleodialog .qtip-content{
+		margin:4% 4%;
+	}
 	
 	.qtip-ubupaleodialog button{
 		cursor: pointer;
