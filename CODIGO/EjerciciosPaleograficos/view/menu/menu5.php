@@ -5,8 +5,8 @@
         if($tipoUsuario == 'ALUMNO'){
 ?>
         <ul class="menu">
-            <li><a href="#" style="text-decoration:underline"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="#"><?php echo(_("Grupos"));?></a></li>
+            <li><a href="#" style="text-decoration:underline"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="#"><?php echo(_("Ayuda"));?></a></li>
         </ul>
         <ul class="menu2">

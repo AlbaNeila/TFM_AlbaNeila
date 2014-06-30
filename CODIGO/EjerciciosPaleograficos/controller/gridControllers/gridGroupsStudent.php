@@ -1,7 +1,7 @@
 <?php    
     session_start();  
-
     include('../../model/persistence/gridService.php');
+ 
 
 
     $result = gridService::getGroupsStudent($_SESSION['usuario_id']);
@@ -39,7 +39,18 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $contenido = ("../public/img/enter.png^^javascript:accessGroup()^' id='".$cont."");
+                $canAccess=gridService::canAccessGroup($_SESSION['usuario_id'], $fila[0]);
+                if($access = mysql_fetch_assoc($canAccess)){
+                    $contenido = ("../public/img/enter.png^^javascript:accessGroup()^' id='".$cont."");
+                }else{
+                    $isRequest = gridService::checkIsRequestSend($_SESSION['usuario_id'], $fila[0]);
+                    if($isRequest){
+                        $contenido = ("../public/img/requestaccesssent.png^^javascript:requestSent(this)^' id='".$cont."");
+                    }else{
+                        $contenido = ("../public/img/requestaccess.png^^javascript:requestAccess()^' id='".$cont."");
+                    }
+                }
+                
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=3 && $i!=4){

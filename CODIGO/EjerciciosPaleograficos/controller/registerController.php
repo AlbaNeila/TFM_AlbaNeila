@@ -42,7 +42,7 @@
 								if($result3!=FALSE){ //Tenemos el idGrupo del grupo al que se ha solicitado acceso
 									if($row=mysqli_fetch_assoc($result3)) {
 										$idGrupo = $row['idGrupo'];
-										$reg2 = groupService::insertUsuarioGrupoSolicitud($idUsuario, $idGrupo);
+										$reg2 = groupService::insertUserGroupRequest($idUsuario, $idGrupo);
 									}
 								}
 						    }

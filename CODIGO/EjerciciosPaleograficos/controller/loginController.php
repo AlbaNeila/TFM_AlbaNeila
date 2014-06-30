@@ -49,7 +49,7 @@ ob_start();
             header("Location: ../view/usersAdmin.php");
         }
         if($_SESSION['usuario_tipo']== "ALUMNO"){
-            header("Location: ../view/collectionsStudent.php");
+            header("Location: ../view/groupStudent.php");
         }
     }
     

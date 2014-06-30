@@ -50,7 +50,7 @@
     							$grupos   =   $_POST["grupos"];
     						    $grupos   =    json_decode("$grupos",true);
     						    foreach($grupos as $grupo){
-									$reg2 = groupService::insertUsuarioGrupoSolicitud($idUsuario,$grupo);
+									$reg2 = groupService::insertUserGroupRequest($idUsuario,$grupo);
                                     if($reg2)
                                     {
                                         echo 1;

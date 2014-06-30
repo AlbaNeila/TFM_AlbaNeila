@@ -29,6 +29,9 @@
         case 'deleteStudent':
             deleteStudent();
             break;
+        case 'requestAccess':
+            requestAccess();
+            break;
     }
 
     function newGroup(){
@@ -111,6 +114,7 @@
     
     function acceptRequest(){
         $idGrupo = $_POST["idGrupo"];
+        $nameGroup = $_POST["nameGroup"];
         $alumnos = $_POST["alumnos"];
         $alumnos = json_decode("$alumnos",true);
         
@@ -120,6 +124,14 @@
             $update = groupService::updateUserGroupAccess($idGrupo, $alumnos[$cont]);
             if(!$update){
                 $flag = false;
+            }else{
+                $user = userService::getUserById($alumnos[$cont]);
+                if($user!=null){
+                    $subject = "UBUPal: Your request group has been accepted";
+                    $message = "Hello, now you can access the group: ".$nameGroup." because the teacher has accepted your request. \n Regards.";
+                    $headers = 'From: ubupal@ubu.es' . "\r\n";                
+                    mail($user->getEmail(), $subject, $message, $headers);
+                }
             }
         }
        if($flag){
@@ -132,6 +144,7 @@
     
     function rejectRequest(){
         $idGrupo = $_POST["idGrupo"];
+        $nameGroup = $_POST["nameGroup"];
         $alumnos = $_POST["alumnos"];
         $alumnos = json_decode("$alumnos",true);
         
@@ -140,8 +153,17 @@
        for($cont=0; $cont < count($alumnos);$cont++){
             $deleteUserGroup = groupService::deleteUserGroupByIds($idGrupo, $alumnos[$cont]);
             $result2 = userService::deleteById($alumnos[$cont]);
+            
             if(!$deleteUserGroup || !$result2){
                 $flag = false;
+            }else{
+                $user = userService::getUserById($alumnos[$cont]);
+                if($user!=null){
+                    $subject = "UBUPal: Your request group has been rejected";
+                    $message = "Hello, the teacher hasn't accepted your request to access the group: ".$nameGroup."\n Regards.";
+                    $headers = 'From: ubupal@ubu.es' . "\r\n";                
+                    mail($user->getEmail(), $subject, $message, $headers);
+                }
             }
         }
        if($flag){
@@ -164,6 +186,16 @@
         else{
             echo 0; //Error
         }
-
+    }
+    
+    function requestAccess(){
+        $idGroup = mysqli_real_escape_string($GLOBALS['link'],$_POST['idGroup']);
+        
+        $insert = groupService::insertUserGroupRequest($_SESSION['usuario_id'], $idGroup);
+        if($insert){
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
 ?> 

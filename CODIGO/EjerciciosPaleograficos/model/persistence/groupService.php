@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include("../model/persistence/acceso_db.php");
 include("../model/Group.php");
 class groupService{
@@ -71,7 +72,7 @@ class groupService{
     /*** USUARIO_GRUPO ***/
     
     //INSERT QUERIES
-    static function insertUsuarioGrupoSolicitud($idUser,$idGroup){
+    static function insertUserGroupRequest($idUser,$idGroup){
         $result = mysqli_query($GLOBALS['link'],"INSERT INTO usuario_grupo (usuario_grupo.idUsuario,usuario_grupo.idGrupo,usuario_grupo.solicitud) VALUES ('".$idUser."', '".$idGroup."', '1')");
         if($result){
             return true;

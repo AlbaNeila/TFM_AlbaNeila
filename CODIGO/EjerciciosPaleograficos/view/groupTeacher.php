@@ -41,37 +41,6 @@ ob_start();
         return flag;
     }
     
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
-    
     function deleteGroup(){
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
@@ -116,6 +85,7 @@ ob_start();
         input.setAttribute("type", "hidden");                           
         input.setAttribute("id", "idHidden");                            
         input.setAttribute("value", idGroup);
+        $("#groupName").html(mygrid.cellById(rowId, 1).getValue());
         var modal = document.getElementById("openModal");
         document.getElementById("openModal").appendChild(input);
         mygrid2.clearAll();                                                        
@@ -149,12 +119,13 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
+            var nameGroup = $("#groupName").val();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
               async: false,
               data: {
-                method:"acceptRequest", idGrupo: idGrupo, alumnos:JSON.stringify(alumnos) 
+                method:"acceptRequest", idGrupo: idGrupo,nameGroup:nameGroup, alumnos:JSON.stringify(alumnos) 
               },
               dataType: "script",   
             });
@@ -191,12 +162,13 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
+            var nameGroup = $("#groupName").val();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
               async: false,
               data: {
-                method:"rejectRequest", idGrupo: idGrupo, alumnos:JSON.stringify(alumnos) 
+                method:"rejectRequest", idGrupo: idGrupo,nameGroup:nameGroup, alumnos:JSON.stringify(alumnos) 
               },
               dataType: "script",   
             });
@@ -322,6 +294,9 @@ ob_start();
             <div>
             <a href="#close" id="closeModal" onclick="$('#idHidden').remove();" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
             <h3><?php echo(_("Solicitud de acceso"));?></h3>
+            <label class="labelModal"><?php echo(_("Grupo:"));?></label>
+            <label id="groupName"></label>
+            <p></p>
             <div id="gridRequests" style="width: 90%; height: 90%"></div>
         <script>
             var mygrid2 = new dhtmlXGridObject('gridRequests');

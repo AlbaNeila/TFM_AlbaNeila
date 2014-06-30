@@ -16,6 +16,45 @@ ob_start();
         $('form#access').submit();       
     }
     
+    function requestAccess(){
+        var rowId = mygrid.getSelectedId();
+        var idGroup = mygrid.cellById(rowId, 0).getValue();
+        var nameGroup = mygrid.cellById(rowId, 1).getValue();
+        var nameTeacher = mygrid.cellById(rowId, 3).getValue();
+        
+        var message = $('<p />', { text: '<?php echo(_("¿Está seguro de que desea enviar una solicitud al profesor "));?>'+nameTeacher+'<?php echo(_(" de acceso a su grupo "));?>'+nameGroup+'?'}),
+                      ok = $('<button />', {text: '<?php echo(_("Enviar"))?>', click: function() {acceptRequestAccess(idGroup)}}),
+                      cancel = $('<button />', {text: '<?php echo(_("Cancelar"))?>'});
+    
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("Solicitud de acceso a grupo"))?>'); 
+    }
+    
+    function acceptRequestAccess(idGroup){
+        var request = $.ajax({
+              type: "POST",
+              url: "../controller/groupController.php",
+              async: false,
+              data: {
+                method:"requestAccess", idGroup: idGroup
+              },
+              dataType: "script",   
+            });
+            request.success(function(request){
+                    if($.trim(request) == "1"){
+                        $('qtip-0').parents('.qtip').qtip('hide');
+                        mygrid.updateFromXML("../controller/gridControllers/gridGroupsStudent.php",onLoadFunction,true)
+                    }
+                    if($.trim(request) == "0"){
+                        alert("error");
+                    }
+            });
+    }
+    
+    function requestSent(){
+        var cell = $('td.cellselected');
+        set_tooltip_left(cell,'<?php echo(_("Ya ha sido enviada una solicitud de acceso. Por favor, espere a que el profesor responda."))?>');
+    }
+    
     onLoadFunction = function onLoadFunction(){
         if(mygrid.getRowsNum()==0){
             var label = document.createElement("label");
@@ -48,12 +87,12 @@ ob_start();
             var mygrid = new dhtmlXGridObject('gridGroups');
             mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid.setHeader("<?php echo(_("Código grupo"));?>, <?php echo(_("Nombre"));?>, <?php echo(_("Descripción"));?>, <?php echo(_("Profesor responsable"));?>, <?php echo(_("Acceder"));?>");
-            mygrid.setInitWidths("100,210,*,180,90");
+            mygrid.setInitWidths("100,210,*,190,90");
             mygrid.setColAlign("center,left,left,center,center");
             mygrid.setColTypes("ro,ro,ro,ro,img");
             mygrid.enableSmartRendering(true);
-            mygrid.enableAutoHeight(true,200);
-            mygrid.enableAutoWidth(true);
+            mygrid.enableAutoHeight(true);
+            mygrid.enableAutoWidth(true,1000);
             mygrid.enableTooltips("false,true,true,true,false");
             mygrid.setSizes();
             mygrid.setSkin("dhx_skyblue");

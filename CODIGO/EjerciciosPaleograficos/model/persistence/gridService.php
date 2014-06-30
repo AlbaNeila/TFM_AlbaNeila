@@ -11,11 +11,7 @@ class gridService{
     }
     
     static function getCollectionsByStudent($idUser){
-        return mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM COLECCION");
-    }
-    
-    static function canAccessToCollection($idUser,$idCol){
-        return mysql_query("SELECT coleccion.nombre FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$idUser."' and usuario_grupo.solicitud=0 and coleccion.idColeccion='".$idCol."'");
+        return mysql_query("SELECT distinct coleccion.idColeccion, coleccion.nombre,coleccion.descripcion FROM usuario_grupo,grupo,grupo_coleccion,coleccion,usuario WHERE usuario.idUsuario=usuario_grupo.idUsuario and usuario_grupo.idGrupo=grupo.idGrupo and grupo.idGrupo=grupo_coleccion.idGrupo and grupo_coleccion.idColeccion=coleccion.idColeccion and usuario.idUsuario='".$idUser."' and usuario_grupo.solicitud=0");
     }
     
     static function getCollectionsByDoc($idDoc){
@@ -128,7 +124,20 @@ class gridService{
     }
     
     static function getGroupsStudent($idUser){
-        return mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo,usuario,usuario_grupo WHERE usuario.idUsuario=usuario_grupo.idUsuario AND usuario_grupo.idGrupo=grupo.idGrupo AND usuario_grupo.solicitud=0 and usuario.idUsuario='".$idUser."'");
+        return mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo");
+    }
+    
+    static function canAccessGroup($idUser,$idGroup){
+        return mysql_query("SELECT grupo.idGrupo,grupo.nombre,grupo.descripcion FROM grupo,usuario,usuario_grupo WHERE usuario.idUsuario=usuario_grupo.idUsuario AND usuario_grupo.idGrupo=grupo.idGrupo AND usuario_grupo.solicitud=0 and usuario.idUsuario='".$idUser."' and grupo.idGrupo='".$idGroup."'");
+    }
+    
+    static function checkIsRequestSend($idUser,$idGroup){
+        $result = mysql_query("SELECT * FROM usuario_grupo WHERE usuario_grupo.idGrupo='".$idGroup."' and usuario_grupo.idUsuario='".$idUser."' and usuario_grupo.solicitud=1");
+        if($row = mysql_fetch_assoc($result)){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     static function getGroupsToRegister(){

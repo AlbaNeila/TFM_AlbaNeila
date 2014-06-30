@@ -42,12 +42,7 @@
                 $domAtribute = $dom->createAttribute('type');
                 $domAtribute->value='img';
                 $cell->appendChild($domAtribute);
-                $canAccess = gridService::canAccessToCollection($_SESSION['usuario_id'], $fila[0]);
-                if($accessCollection = mysql_fetch_assoc($canAccess)){
-                    $contenido = ("../public/img/enter.png^^javascript:accessCollection()^' id='".$cont."");
-                }else{
-                    $contenido = ("../public/img/requireaccess.png^^javascript:requireAccess()^' id='".$cont."");
-                }
+                $contenido = ("../public/img/enter.png^^javascript:accessCollection()^' id='".$cont."");
                 $cell->appendChild($dom->createCDATASection(utf8_encode($contenido)));
             }
             if($i!=3 && $i!=4){

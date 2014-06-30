@@ -92,37 +92,6 @@ ob_start();
         }
     }
     
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
-    
     function showAlert(){
         var rowId = mygrid.getSelectedId();
         var idGroup = mygrid.cellById(rowId, 0).getValue();
@@ -159,12 +128,13 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
+            var nameGroup = $("#groupName").val();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
               async: false,
               data: {
-                method:"acceptRequest", idGrupo: idGrupo, alumnos:JSON.stringify(alumnos) 
+                method:"acceptRequest", idGrupo: idGrupo,nameGroup:nameGroup, alumnos:JSON.stringify(alumnos) 
               },
               dataType: "script",   
             });
@@ -200,12 +170,13 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
+            var nameGroup = $("#groupName").val();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
               async: false,
               data: {
-                method:"rejectRequest", idGrupo: idGrupo, alumnos:JSON.stringify(alumnos) 
+                method:"rejectRequest", idGrupo: idGrupo,nameGroup:nameGroup, alumnos:JSON.stringify(alumnos) 
               },
               dataType: "script",   
             });

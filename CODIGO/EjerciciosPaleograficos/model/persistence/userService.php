@@ -1,11 +1,22 @@
 <?php
 include("../model/persistence/acceso_db.php");
+include("../model/User.php");
 class userService{
     
     
     //SELECT QUERIES
     static function getUserByName($nameUser){
         return mysqli_query($GLOBALS['link'],"SELECT usuario.idUsuario,usuario.email FROM usuario WHERE usuario.usuario='".$nameUser."'");
+    }
+    
+    static function getUserById($idUser){
+        $result = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE usuario.idUsuario='".$idUser."'");
+        if($row = mysqli_fetch_assoc($result)){
+            $user = new User($idUser,$row['usuario'],$row['password'],$row['nombre'],$row['apellidos'],$row['email'],$row['tipo']);
+            return $user;
+        }else{
+            return null;
+        }
     }
     
     static function checkNameNotRepeat($nameUser,$idUser){
