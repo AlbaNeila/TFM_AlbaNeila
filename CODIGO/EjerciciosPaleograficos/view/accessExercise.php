@@ -138,15 +138,19 @@ ob_start();
         
         //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
         if(comprobarTranscripcion==1){
-            $('#correccion').text('Paso a paso');
+            $('#correccion').text('<?php echo(_("Paso a paso"))?>');
             if($('#type').val()=="do"){
-            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?>'}),
+            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                          message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
+                          message.append($('<p><?php echo(_("Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?></p>'));
             }else{
-                var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO. Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente. Recuerde que este ejercicio ya ha sido superado, por lo que no se sumará un intento de realización. Si selecciona la opción Continuar comenzará el ejercicio. "));?>'}),
+                var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                          message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
+                          message.append($('<p><?php echo(_("Recuerde que este ejercicio ya ha sido superado, por lo que no se sumará un intento de realización. Si selecciona la opción Continuar comenzará el ejercicio."));?></p>'));
             }
                 
             dialogue( message.add(ok).add(cancel), '<?php echo(_("INICIAR EJERCICIO"))?>');
@@ -236,6 +240,7 @@ ob_start();
     function finishExercise(){
         var correctos=0;
         var superado=0;
+        var resultado="";
 
         $('#contentTranscription input:text').each(function(index) {
             if($(this).attr("class") == "inputTransc ok"){ //Verde -> correcto
@@ -247,10 +252,13 @@ ob_start();
             if(porcentaje>=valorObjetivo){
                superado=1; 
             }
+            porcentaje = Math.round(porcentaje * 100) / 100;
+            resultado = porcentaje +"<?php echo(_(" % de palabras acertadas"));?>";
         }else{ //nº máximo de fallos
             if(((numRec-total)-correctos)<valorObjetivo){
                 superado=1;
             }
+            resultado = (numRec-total)-correctos +"<?php echo(_(" fallos"));?>";
         }
 
         if($('#type').val( )== "do"){
@@ -266,12 +274,16 @@ ob_start();
                     request.success(function(request){
                             if($.trim(request) == "1"){
                               if(superado==1){
-                                      var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?>'}),
+                                      var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito!"));?>'}),
                                       ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
                                       cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                                      message.append($('<p><?php echo(_(" Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?></p>'));
                               }else{
-                                      var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
+                                      var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio: "));?>'}),
                                       cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                                      message.append('<label style="font-weight:bold;">'+$('#objetivo').text()+'.</label>');
+                                      message.append($('<p><?php echo(_("El resultado obtenido sobre el ejercicio "));?><label style="font-style:italic;">'+$('#nombreej').text()+'</label><?php echo(_(" ha sido: "));?><label style="font-weight:bold;">'+resultado+'</label></p>'));
+                                      message.append($('<p><?php echo(_("Vuelva a intentarlo de nuevo."));?></p>'));
                               }
                     
                 dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
@@ -282,12 +294,15 @@ ob_start();
                     });
         }else{
             if(superado==1){
-               var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito! Si pulsa la opción Revisar podrá repasar sus respuestas."));?>'}),
+               var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito!"));?>'}),
               ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
               cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}}); 
+              message.append($('<p><?php echo(_("Si pulsa la opción Revisar podrá repasar sus respuestas."));?></p>'));
             }else{
-              var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio. Vuelva a intentarlo de nuevo."));?>'}),
+              var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio: "));?>'}),
                                       cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+              message.append('<p>'+$('#objetivo').val()+'</p>');
+              message.append($('<p><?php echo(_("Vuelva a intentarlo de nuevo."));?></p>'));
           }
           dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
         }
@@ -350,6 +365,14 @@ ob_start();
         $(idTransc).css({ "border":"3px dashed #AC233E","outline": "0px" });
     }
     
+    function check_goBack(){
+        var message = $('<p />', { text: '<?php echo(_("Si abandona la página, se dará por finalizado el ejercicio."));?>'}),
+                          ok = $('<button />', {text: '<?php echo(_("Abandonar"))?>', click: function() {okCheckExercise();}}),
+                          cancel = $('<button />', {text: '<?php echo(_("Volver"))?>'});
+                
+        dialogue( message.add(ok).add(cancel), '<?php echo(_("FINALIZAR EJERCICIO"))?>');
+    }
+    
 </script>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
@@ -409,7 +432,7 @@ ob_start();
     </div>
       
     <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -4px;">
-        <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
+        <h3><a href="#" onclick="check_goBack()"><?php echo(_("Volver"));?></a></h3>
     </div>
     <div class="textUbupal" >
         <p></p>
@@ -441,7 +464,7 @@ ob_start();
             if($line!=$rectangle->getLineRectangle()){
             ?>
             <br>
-            <label><?php echo(_("Linea: ")); echo $i;?></label>
+            <label><?php echo(_("Línea ")); echo $i;?></label>
             <input type="text" onclick="iluminateDiv(this);" onblur="desIluminateTransc(this);" id="<?php echo $rectangle->getIdRectangle();?>input" class="inputTransc" style="width:<?php echo $width;?>" />
             <input type="hidden" id="<?php echo $rectangle->getIdRectangle();?>transc" value="<?php echo $rectangle->getTranscriptionRectangle();?>"/>
             <?php

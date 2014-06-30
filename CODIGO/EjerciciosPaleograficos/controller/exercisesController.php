@@ -263,12 +263,12 @@
         $document = documentService::getById($idDocument);
         $result2 = exerciseService::getById($idExercise);
         if($document!=null){
-                $imagen = utf8_decode($document->getImageDocument());
-                $nombre = utf8_decode($document->getNameDocument());
-                $descripcion = utf8_decode($document->getDescriptionDocument());
-                $fecha = utf8_decode($document->getDateDocument());
-                $tipoEscritura = utf8_decode($document->getTypeWritingDocument());
-                $transcriptionFile = utf8_decode($document->getTranscriptionDocument());
+                $imagen = utf8_encode($document->getImageDocument());
+                $nombre = utf8_encode($document->getNameDocument());
+                $descripcion = utf8_encode($document->getDescriptionDocument());
+                $fecha = utf8_encode($document->getDateDocument());
+                $tipoEscritura = utf8_encode($document->getTypeWritingDocument());
+                $transcriptionFile = utf8_encode($document->getTranscriptionDocument());
                 
                 if($result2!=FALSE){
                     $row2=mysqli_fetch_assoc($result2);
