@@ -47,7 +47,7 @@ ob_start();
                             $('#doc').attr('src',img);
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 });
         }

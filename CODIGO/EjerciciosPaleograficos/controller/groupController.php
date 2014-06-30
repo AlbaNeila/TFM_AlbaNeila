@@ -48,7 +48,11 @@
                     $reg2 = collectionService::insertGroupCollection($idGroup,1);
                     if($reg && $reg2) {
                         echo 1; //Nuevo grupo OK
+                    }else{
+                        echo 2;
                     }
+                }else{
+                    echo 2;
                 }
             }
             else{

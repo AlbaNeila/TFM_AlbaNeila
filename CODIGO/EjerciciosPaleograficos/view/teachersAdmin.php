@@ -77,10 +77,10 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "1"){
-                        flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió el profesor correctamente."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag= false;
@@ -128,43 +128,13 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.updateFromXML("../controller/gridControllers/gridTeachersAdmin.php",false,true); 
+                        set_tooltip_general("<?php echo(_("Se eliminó el profesor correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
-    }
-    
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
     }
     
     function changePassword(){
@@ -202,9 +172,10 @@ ob_start();
                     request.success(function(request){
                             if($.trim(request) == "1"){
                                 window.location = $('#closeModal2').attr('href');
+                                set_tooltip_general_error("<?php echo(_("Se modificó la contraseña correctamente."));?>"); 
                             }
                             else{
-                                alert("error");
+                                set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                             }
                     });
                 }

@@ -60,10 +60,11 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         flag= true;
+                        set_tooltip_general_error("<?php echo(_("Se añadió el ejercicio correctamente."));?>"); 
                     }
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag=false;
@@ -101,9 +102,10 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                        set_tooltip_general_error("<?php echo(_("Se eliminó el ejercicio correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
@@ -127,13 +129,14 @@ ob_start();
                         if($.trim(request) == "1"){
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                            set_tooltip_general("<?php echo(_("Se actualizó la dificultad del ejercicio correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 }); 
         }else{
-            set_tooltip($("#combo_selectcollection"),"La dificultad de los ejercicios no puede ser modificada porque estos se encuentran actualmente en uso.");
+            set_tooltip($("#combo_selectcollection"),"<?php echo(_("La dificultad de los ejercicios no puede ser modificada porque estos se encuentran actualmente en uso."));?>");
         }
     }
     
@@ -155,13 +158,14 @@ ob_start();
                         if($.trim(request) == "1"){
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                            set_tooltip_general("<?php echo(_("Se actualizó el objetivo del ejercicio correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 }); 
         }else{
-            set_tooltip($("#combo_selectcollection"),"El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+            set_tooltip($("#combo_selectcollection"),"<?php echo(_("El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso."));?>");
         }
     }
     
@@ -183,13 +187,14 @@ ob_start();
                         if($.trim(request) == "1"){
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                            set_tooltip_general("<?php echo(_("Se actualizó el modo de corrección del ejercicio correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 }); 
         }else{
-            set_tooltip($("#combo_selectcollection"),"El modo de corrección de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+            set_tooltip($("#combo_selectcollection"),"<?php echo(_("El modo de corrección de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso."));?>");
         }
     }
     
@@ -242,9 +247,10 @@ ob_start();
                 request.success(function(request){
                         if($.trim(request) == "1"){
                             window.location = $('#closeModal').attr('href');
+                            set_tooltip_general("<?php echo(_("Se actualizaron los permisos correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 });
         }
@@ -318,9 +324,10 @@ ob_start();
                             if($.trim(request) == "1"){
                                 mygrid.clearAll();
                                 mygrid.loadXML("../controller/gridControllers/gridExercisesAdmin.php?idCollection="+selectedCollection,onLoadFunction);
+                                set_tooltip_general("<?php echo(_("Se actualizó el objetivo del ejercicio correctamente."));?>"); 
                             }
                             else{
-                                alert("error");
+                                set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                             }
                     }); 
             }
@@ -330,7 +337,7 @@ ob_start();
             var idTarget = newValue.getAttribute("id");
             $('input#' + idTarget).val(auxValue);
 
-            set_tooltip($("#combo_selectcollection"),"El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+            set_tooltip($("#combo_selectcollection"),"<?php echo(_("El objetivo de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso."));?>");
         }
     }
     
@@ -360,15 +367,16 @@ ob_start();
                         if($.trim(request) == "1"){                        
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                            set_tooltip_general("<?php echo(_("Se actualizó el orden del ejercicio correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                     }); 
                 }
             }
         }else{
-                set_tooltip($("#combo_selectcollection"),"El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+                set_tooltip($("#combo_selectcollection"),"<?php echo(_("El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso."));?>");
             }
     }
     
@@ -397,15 +405,16 @@ ob_start();
                         if($.trim(request) == "1"){                        
                             mygrid.clearAll();
                             mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
+                            set_tooltip_general("<?php echo(_("Se actualizó el orden del ejercicio correctamente."));?>"); 
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                     }); 
                 }
             }
         }else{
-            set_tooltip($("#combo_selectcollection"),"El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso.");
+            set_tooltip($("#combo_selectcollection"),"<?php echo(_("El orden de los ejercicios no puede ser modificado porque estos se encuentran actualmente en uso."));?>");
         }
     }
     

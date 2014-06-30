@@ -116,6 +116,52 @@
         });
 	}
 	
+	function set_tooltip_general(mensaje){
+		$('.generalTooltip').qtip({ 
+			content: mensaje,
+            style: {
+                classes: 'qtip-general',
+                tip: {
+		            corner: false
+		        }
+            },
+            position: {
+                target: [11, 120]
+            },
+             show: {
+                event: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready                       
+            },
+            hide: {
+                event: false,
+                inactive:4000
+            }
+        });
+	}
+	
+	function set_tooltip_general_error(mensaje){
+		$('.generalTooltip').qtip({ 
+			content: mensaje,
+            style: {
+                classes: 'qtip-general-error',
+                tip: {
+		            corner: false
+		        }
+            },
+            position: {
+                target: [11, 120]
+            },
+            show: {
+                event: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready                        
+            },
+            hide: {
+                event: false,
+                inactive:4000
+            }
+        });
+	}
+	
 	function set_tooltipBD(campo,mensaje){
 		$(campo).qtip({ 
 			content: mensaje,

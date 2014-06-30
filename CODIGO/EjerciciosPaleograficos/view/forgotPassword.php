@@ -59,7 +59,7 @@ include('../init.php');
         <form action="login.php" method="post" id="forgotPassword" onsubmit="return validateForm()">
             <img src="../public/img/ubu.png" style="float:left;height: 50px;margin-top: -1%;">
             <h1><?php echo(_("UBUPal Nueva contraseña"));?></h1>
-            <p style="color:#006db3;"><?php echo(_("La nueva contraseña será enviada a la dirección de correo electrónico que falicitó en su registro."));?></p>
+            <p style="color:#006db3;"><?php echo(_("La nueva contraseña será enviada a la dirección de correo electrónico que facilitó en su registro."));?></p>
             <label><?php echo(_("Introduzca su DNI:"));?></label>
             <input  type="text" name="usuario_nombre" id="dniUser" />
             <p></p>

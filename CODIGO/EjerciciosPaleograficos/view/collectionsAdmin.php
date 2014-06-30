@@ -43,10 +43,11 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "1"){
                         flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió la colección correctamente."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag= false;
@@ -68,7 +69,7 @@ ob_start();
             window.location = $('#anchorOpenModal').attr('href');
         }else{
             var cell = $('td.cellselected');
-            set_tooltip_left(cell,"A la colección Pública tienen acceso todos los grupos de la aplicación. Esto no se puede modificar.")
+            set_tooltip_left(cell,"<?php echo(_("A la colección Pública tienen acceso todos los grupos de la aplicación. Esto no se puede modificar."));?>");
         } 
     }
     
@@ -84,7 +85,7 @@ ob_start();
             dialogue( message.add(ok).add(cancel), '<?php echo(_("Confirmación eliminar colección"))?>'); 
         }else{
             var cell = $('td.cellselected');
-            set_tooltip_left(cell,"La colección Pública no puede eliminarse.")
+            set_tooltip_left(cell,"<?php echo(_("La colección Pública no puede eliminarse."));?>");
         }
     }
     
@@ -103,45 +104,15 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridCollectionsAdmin.php",false,true); 
+                        set_tooltip_general("<?php echo(_("Se eliminó la colección correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
     }
-    
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
-    
+
     function saveGroupPermissions(){
         var groups = new Array();
         var permissions = new Array();
@@ -178,9 +149,10 @@ ob_start();
                     if($.trim(request) == "1"){
                         window.location = $('#closeModal').attr('href');
                         mygrid.updateFromXML("../controller/gridControllers/gridCollectionsAdmin.php");
+                        set_tooltip_general("<?php echo(_("Se actualizaron los permisos correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
     }

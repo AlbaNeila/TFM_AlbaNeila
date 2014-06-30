@@ -43,9 +43,10 @@ ob_start();
                     if($.trim(request) == "1"){
                         $('qtip-0').parents('.qtip').qtip('hide');
                         mygrid.updateFromXML("../controller/gridControllers/gridGroupsStudent.php",onLoadFunction,true)
+                        set_tooltip_general("<?php echo(_("La solicitud de grupo se envió correctamente."));?>"); 
                     }
                     if($.trim(request) == "0"){
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
     }

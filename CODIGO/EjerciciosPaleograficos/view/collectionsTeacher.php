@@ -42,10 +42,11 @@ include('../init.php');
             request.success(function(request){
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "1"){
                         flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió la colección correctamente."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag= false;
@@ -95,9 +96,10 @@ include('../init.php');
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridCollections.php");  
+                        set_tooltip_general("<?php echo(_("Se eliminó la colección correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }

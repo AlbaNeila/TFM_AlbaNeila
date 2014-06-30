@@ -78,10 +78,11 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "1"){
                         flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió el documento correctamente."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag= false;
@@ -135,9 +136,10 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridDocuments.php?idColeccion="+<?php echo $idColeccion;?>);
+                        set_tooltip_general("<?php echo(_("Se eliminó el ejercicio correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
@@ -198,9 +200,10 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         window.location = $('#closeModal').attr('href');
+                        set_tooltip_general_error("<?php echo(_("Se actualizaron los permisos correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
     }

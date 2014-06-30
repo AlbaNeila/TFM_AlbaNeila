@@ -82,10 +82,10 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "0"){
                         flag= false;
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
                     if($.trim(request) == "1"){
-                        flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió el alumno correctamente."));?>"); 
                     }
                     if($.trim(request) == "2"){
                         flag= false;
@@ -134,9 +134,10 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         mygrid.updateFromXML("../controller/gridControllers/gridStudentsAdmin.php",false,true); 
+                        set_tooltip_general("<?php echo(_("Se eliminó el alumno correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
@@ -155,7 +156,7 @@ ob_start();
         
          $('#gridGestionGrupos .objbox tr').each(function (index){
             $(this).children("td").each(function (index2) {
-                if(index2 == 1){ //Permitir
+                if(index2 == 2){ //Permitir
                     if($(this).children("input").is(':checked')){ 
                        permissions[cont2]=true;
                     }else{
@@ -178,10 +179,11 @@ ob_start();
             request.success(function(request){
                     if($.trim(request) == "1"){
                         window.location = $('#closeModal').attr('href');
-                        mygrid.updateFromXML("../controller/gridControllers/gridStudentsAdmin.php",false,true); 
+                        mygrid.updateFromXML("../controller/gridControllers/gridStudentsAdmin.php",false,true);
+                        set_tooltip_general("<?php echo(_("Las permisos se actualizaron correctamente"));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
     }
@@ -223,9 +225,10 @@ ob_start();
                     request.success(function(request){
                             if($.trim(request) == "1"){
                                 window.location = $('#closeModal2').attr('href');
+                                set_tooltip_general_error("<?php echo(_("La contraseña se modificó correctamente."));?>"); 
                             }
                             else{
-                                alert("error");
+                                set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                             }
                     });
                 }

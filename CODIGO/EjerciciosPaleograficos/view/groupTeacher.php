@@ -30,11 +30,15 @@ ob_start();
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
-                        flag= true;
+                        set_tooltip_general("<?php echo(_("Se añadió el grupo correctamente."));?>"); 
                     }
-                    else{
+                    if($.trim(request) == "0"){
                         flag= false;
                         set_tooltip($("#nombregrupo"),"<?php echo(_("Ya existe un grupo con el mismo nombre. Por favor, introduzca un nombre de grupo diferente."));?>");
+                    }
+                    if($.trim(request) == "2"){
+                        flag=false;
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }       
@@ -68,9 +72,10 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridGroups.php"); 
+                        set_tooltip_general("<?php echo(_("Se eliminó el grupo correctamente."));?>"); 
                     }
                     else{
-                        alert("error");
+                        set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                     }
             });
         }
@@ -138,7 +143,7 @@ ob_start();
                         mygrid.loadXML("../controller/gridControllers/gridGroups.php");  
                     }
                     else{
-                        set_tooltip($("#gridRequests"),"<?php echo(_("Ocurrió un error"));?>");
+                        set_tooltip($("#gridRequests"),"<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>");
                     }
             });
         }
@@ -181,7 +186,7 @@ ob_start();
                         mygrid.loadXML("../controller/gridControllers/gridGroups.php");  
                     }
                     else{
-                        set_tooltip($("#gridRequests"),"<?php echo(_("Ocurrió un error"));?>");
+                        set_tooltip($("#gridRequests"),"<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>");
                     }
             });
         }

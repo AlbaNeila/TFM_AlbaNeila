@@ -183,7 +183,7 @@ input{
 	min-width:100px;
 	padding:0 0.3em;
 	font-size:90%;
-	min-height: 26px;
+	height:26px;
 }
 
 .td_label{
@@ -231,6 +231,19 @@ p{
 
 .formulario input:focus,select:focus{
 	box-shadow: 0 0 7px #bfdaff;
+}
+
+/*ABOUT*/
+.aboutTable{
+	margin-left:5%;
+	border-spacing: 5px;
+	
+}
+
+.td_labelHelp{
+	background-color:#AC233E;
+	color:#FFFFFF;
+	font-weight: bold;
 }
 
 /*CONTENT ACCORDION*/

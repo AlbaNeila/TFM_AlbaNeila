@@ -86,7 +86,7 @@ ob_start();
                             $('#ej').attr('src',img);
                         }
                         else{
-                            alert("error");
+                            set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                         }
                 });
         }
@@ -176,44 +176,12 @@ ob_start();
                     });
                     request.success(function(request){
                             if($.trim(request) != "1"){
-                                alert("error");
+                                set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                             }
                     }); 
             }
     }
-    
-    function dialogue(content, title) {
-        $('<div />').qtip({
-            content: {
-                text: content,
-                title: title
-            },
-            position: {
-                my: 'center', at: 'center',
-                target: $(window)
-            },
-            show: {
-                ready: true,
-                modal: {
-                    on: true,
-                    blur: false
-                }
-            },
-            hide: false,
-            style: {classes: 'qtip-ubupaleodialog'
-            },
-            events: {
-                render: function(event, api) {
-                    $('button', api.elements.content).click(function(e) {
-                        api.hide(e);
-                    });
-                },
-                hide: function(event, api) { api.destroy(); }
-            }
-        });
-    }
-    
-    
+
     function exit(){
         $('form#access').submit();
     } 
@@ -309,7 +277,7 @@ ob_start();
                 dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
                             }
                             else{
-                                alert("error");
+                                set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
                             }
                     });
         }else{

@@ -5,7 +5,7 @@
         if($tipoUsuario == 'ALUMNO'){
 ?>
         <ul class="menu">
-            <li><a href="groupStudent.php"><?php echo(_("Grupos"));?></a></li>
+            <li><a class="generalTooltip" href="groupStudent.php"><?php echo(_("Grupos"));?></a></li>
             <li><a href="collectionsStudent.php" ><?php echo(_("Colecciones"));?></a></li>
             <li><a href="helpStudent.php" style="text-decoration:underline"><?php echo(_("Ayuda"));?></a></li>
         </ul>
@@ -19,7 +19,7 @@
         }elseif($tipoUsuario == 'PROFESOR'){
         ?>
         <ul class="menu">
-            <li><a href="collectionsTeacher.php" ><?php echo(_("Colecciones"));?></a></li>
+            <li><a class="generalTooltip" href="collectionsTeacher.php" ><?php echo(_("Colecciones"));?></a></li>
             <li><a href="groupTeacher.php" ><?php echo(_("Grupos"));?></a></li>
             <li><a href="exercisesTeacher.php"><?php echo(_("Ejercicios"));?></a></li>
             <li><a href="helpTeacher.php"><?php echo(_("Ayuda"));?></a></li>
@@ -34,7 +34,7 @@
         }else{
         ?>
         <ul class="menu">
-            <li><a href="usersAdmin.php"><?php echo(_("Usuarios"));?></a></li>
+            <li><a class="generalTooltip" href="usersAdmin.php"><?php echo(_("Usuarios"));?></a></li>
             <li><a href="collectionsAdmin.php"><?php echo(_("Colecciones"));?></a></li>
             <li><a href="exercisesAdmin.php" ><?php echo(_("Ejercicios"));?></a></li>
         </ul>
