@@ -1,11 +1,12 @@
-<?php    
+<?php   
+    header("Content-type: text/xml"); 
     session_start();  
     include('../../model/persistence/gridService.php');
 
 
     $result = gridService::getDocumentsOfCollectionAdmin();
     
-    header("Content-type: text/xml");
+    
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));

@@ -1,11 +1,11 @@
 <?php      
-
+    header("Content-type: text/xml");
 	include('../../model/persistence/gridService.php');
 
 
 	$result = gridService::getGroupsToRegister();
 	
-	header("Content-type: text/xml");
+	
 	$dom = new DOMDocument("1.0","UTF-8");
 	$dom->formatOutput = true;
 	$rows = $dom->appendChild($dom->createElement("rows"));

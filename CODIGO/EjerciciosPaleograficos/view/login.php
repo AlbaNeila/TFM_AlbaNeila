@@ -112,8 +112,12 @@ include("../model/persistence/acceso_db.php");
             <input class="buttonInicio" type="submit" name="enviar" value="<?php echo(_("Entrar"));?>" id="login" />
             <a href="register.php"><?php echo(_("Registro de alumnos"));?></a> <br />
             <a href="forgotPassword.php"><?php echo(_("¿Ha olvidado la contraseña?"));?></a>    
-        </form>                   
+        </form> 
+        <div style="margin: 35px 0px -15px;">
+        <label style="color:#006db3;font-size: 50%;font-style: italic;"><?php echo(_("'Fondo: Imagen  cedida por el Archivo Municipal de Burgos'"));?></label>
+        </div>         
     </div>
+     
 	<?php
 	    }else {
     		if($_SESSION['usuario_tipo'] == "ADMIN"){

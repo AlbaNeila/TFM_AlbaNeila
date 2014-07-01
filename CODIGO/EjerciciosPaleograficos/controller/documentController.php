@@ -22,14 +22,17 @@
     
     function deleteDoc(){
         $idDoc = mysqli_real_escape_string($GLOBALS['link'],$_POST['idDoc']);
-        $document = new Document();
         
         $document = documentService::getById($idDoc);
         if($document!=null){
             $imagen = $document->getImageDocument();
             $transcripcion = $document->getTranscriptionDocument();
+            try{
             unlink($imagen);
             unlink($transcripcion);
+            }catch (Exception $e) {
+                echo 'Excepción eliminar documentos: ',  $e->getMessage(), "\n";
+            }
             $delete = documentService::deleteById($idDoc);
             if($delete!=FALSE){
                  echo 1; //Delete document OK

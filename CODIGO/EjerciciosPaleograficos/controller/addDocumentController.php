@@ -139,8 +139,12 @@
                 $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 if($update!=FALSE){
                     //Delete old files
+                    try{
                     unlink($imagen);
                     unlink($transcripcion);
+                    }catch (Exception $e) {
+                        echo 'Excepción eliminar documentos: ',  $e->getMessage(), "\n";
+                    }
                     header("Location: ../view/documentTeacher.php?coleccion=$coleccion+&idColeccion=$idColeccion");
                 }
                 
@@ -177,8 +181,13 @@
                 $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 if($update!=FALSE){
                     //Delete old files
+                    try{
                     unlink($imagen);
                     unlink($transcripcion);
+                    }
+                    catch (Exception $e) {
+                        echo 'Excepción eliminar documentos: ',  $e->getMessage(), "\n";
+                    }
                     header("Location: ../view/documentAdmin.php");
                 }
                 

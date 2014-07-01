@@ -141,15 +141,17 @@ ob_start();
             $('#correccion').text('<?php echo(_("Paso a paso"))?>');
             if($('#type').val()=="do"){
             var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
-                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
+                          ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
                           message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
+                          message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
                           message.append($('<p><?php echo(_("Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?></p>'));
             }else{
                 var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
-                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {initExercise();}}),
+                          ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
                           message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
+                          message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
                           message.append($('<p><?php echo(_("Recuerde que este ejercicio ya ha sido superado, por lo que no se sumará un intento de realización. Si selecciona la opción Continuar comenzará el ejercicio."));?></p>'));
             }
                 
@@ -193,7 +195,7 @@ ob_start();
     
     function checkExercise(){
          var message = $('<p />', { text: '<?php echo(_("Si selecciona la opción Continuar se realizará la corrección del ejercicio."));?>'}),
-                          ok = $('<button />', {text: '<?php echo(_("Coninuar"))?>', click: function() {okCheckExercise();}}),
+                          ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {okCheckExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Volver"))?>'});
                 
         dialogue( message.add(ok).add(cancel), '<?php echo(_("CORREGIR EJERCICIO"))?>');
