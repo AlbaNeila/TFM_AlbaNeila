@@ -262,7 +262,7 @@ include_once("menu/menu1.php");
     </div>
 
     <div class="formulario"  >
-        <form id="formStudents" action="usersAdmin.php" method="post" onsubmit="return validateForm()">
+        <form id="formStudents" class="formsAdd" action="usersAdmin.php" method="post" onsubmit="return validateForm()">
            <h2><?php echo(_("Nuevo alumno"));?></h2>
            <table>
                <tr>
@@ -273,7 +273,7 @@ include_once("menu/menu1.php");
                <tr>
                    <td class="td_label"><label><?php echo(_("DNI"));?></label></td> <td><input type="text" id="dnialumno" /></td>
                    <td class="td_label"><label><?php echo(_("Contraseña"));?></label></td> <td><input type="password" id="password" /></td>
-                   <td class="td_label"><label><?php echo(_("Repita contraseña"));?></label></td> <td><input type="password" id="password2" /></td>
+                   <td class="td_label" nowrap="nowrap"><label><?php echo(_("Repita contraseña"));?></label></td> <td><input type="password" id="password2" /></td>
                </tr>
                <tr>
                    <td class="td_label"><label><?php echo(_("Grupos"));?></label></td>

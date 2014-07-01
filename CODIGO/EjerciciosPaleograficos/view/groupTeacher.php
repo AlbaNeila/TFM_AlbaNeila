@@ -221,7 +221,7 @@ ob_start();
     </div>
 
         <div class="formulario" >
-            <form  action="groupTeacher.php" method="post" onsubmit="return validateForm()">
+            <form  action="groupTeacher.php" method="post" class="formsAdd" onsubmit="return validateForm()">
                 <h2><?php echo(_("Nuevo grupo"));?></h2>
                 <table>
                     <tr>

@@ -209,7 +209,7 @@ ob_start();
     </div>
 
     <div class="formulario"  >
-        <form id="formTeachers" action="teachersAdmin.php" method="post" onsubmit="return validateForm()">
+        <form id="formTeachers" action="teachersAdmin.php" class="formsAdd" method="post" onsubmit="return validateForm()">
             <h2><?php echo(_("Nuevo profesor"));?></h2>
             <table>
                 <tr>
@@ -229,7 +229,7 @@ ob_start();
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridTeachers" style="width: 85%; height: 85%;top:350px;"></div>
+    <div class="gridAfterForm" id="gridTeachers" style="width: 85%; height: 85%;top:370px;"></div>
 <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridTeachers');

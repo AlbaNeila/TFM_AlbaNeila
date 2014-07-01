@@ -182,7 +182,7 @@ ob_start();
     </div>
 
    <div  class="formulario"   >
-            <form action="collectionsAdmin.php" method="post" onsubmit="return validateForm()">
+            <form action="collectionsAdmin.php" class="formsAdd"  method="post" onsubmit="return validateForm()">
                 <h2><?php echo(_("Nueva colección"));?></h2>
                 <table>
                     <tr>

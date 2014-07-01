@@ -303,34 +303,35 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#adbddb',GradientType=0 );
 	border-color: #304369;
 	color: #304369;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	font-size:80%;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+	font-size:70%;
 	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	z-index: 10000000 !important;
-	padding:5px;
+	padding:3px;
+	line-height:120%
 }
 
 .qtip-general-error{
 	background: #ffffff;
-	background: -moz-linear-gradient(top, #ffffff 0%, #fc8888 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#fc8888));
-	background: -webkit-linear-gradient(top, #ffffff 0%,#fc8888 100%);
-	background: -o-linear-gradient(top, #ffffff 0%,#fc8888 100%);
-	background: -ms-linear-gradient(top, #ffffff 0%,#fc8888 100%);
-	background: linear-gradient(to bottom, #ffffff 0%,#fc8888 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fc8888',GradientType=0 );
+	background: -moz-linear-gradient(top, #ffffff 1%, #f9e8e8 66%, #febbbb 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(66%,#f9e8e8), color-stop(100%,#febbbb));
+	background: -webkit-linear-gradient(top, #ffffff 1%,#f9e8e8 66%,#febbbb 100%);
+	background: -o-linear-gradient(top, #ffffff 1%,#f9e8e8 66%,#febbbb 100%);
+	background: -ms-linear-gradient(top, #ffffff 1%,#f9e8e8 66%,#febbbb 100%);
+	background: linear-gradient(to bottom, #ffffff 1%,#f9e8e8 66%,#febbbb 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#febbbb',GradientType=0 );
 	border-color: #AC233E;
 	color: #AC233E;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	font-size:80%;
+	font-size:70%;
 	font-family: 'Open Sans',Verdana,Arial,Tahoma,"DejaVu Sans",sans-serif;
 	z-index: 10000000 !important;
-	padding:5px;
-
+	padding:3px;
+	line-height:120%
 }
 
 .qtip-shadow{

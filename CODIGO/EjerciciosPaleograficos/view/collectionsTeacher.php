@@ -130,7 +130,7 @@ ob_start();
 
 
         <div  class="formulario"   >
-            <form action="collectionsTeacher.php" method="post" onsubmit="return validateForm()">
+            <form action="collectionsTeacher.php" class="formsAdd"  method="post" onsubmit="return validateForm()">
                 <h2><?php echo(_("Añadir nueva colección"));?></h2>
                 <table>
                     <tr>

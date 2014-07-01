@@ -236,7 +236,7 @@ ob_start();
         
         
         <div class="formulario"  >
-            <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocs" onsubmit="return validateForm()" >
+            <form method="post" class="formsAdd"  enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocs" onsubmit="return validateForm()" >
                 <input type="hidden" name="coleccion" value="<?php echo $coleccion;?>">
                 <input type="hidden" name="idColeccion" value="<?php echo $idColeccion;?>">
                 <h2><?php echo(_("Añadir nuevo documento"));?></h2>

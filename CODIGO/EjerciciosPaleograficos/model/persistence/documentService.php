@@ -49,7 +49,7 @@ class documentService{
     
     //DELETE QUERIES
     static function deleteById($idDoc){
-        $return = mysqli_query($GLOBALS['link'],"DELETE FROM documento WHERE documento.idDocumento= '".$idDoc."'");
+        $result = mysqli_query($GLOBALS['link'],"DELETE FROM documento WHERE documento.idDocumento= '".$idDoc."'");
         if($result){
             return true;
         }else{

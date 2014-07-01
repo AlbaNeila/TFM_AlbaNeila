@@ -426,7 +426,7 @@ include ('menu/menu3.php');
 ob_start();
 ?>
         <div class="formulario"  style="left:35px;">
-            <form action="exercisesTeacher.php" method="post" onsubmit="return validateForm()">
+            <form action="exercisesTeacher.php" class="formsAdd" style="width:114% !important;"  method="post" onsubmit="return validateForm()">
                 <h2><?php echo(_("Añadir nuevo ejercicio"));?></h2>
                 <table>
                     <tr>

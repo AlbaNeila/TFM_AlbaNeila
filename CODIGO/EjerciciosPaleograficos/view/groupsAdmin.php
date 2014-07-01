@@ -231,7 +231,7 @@ ob_start();
     </div>
 
     <div class="formulario"  >
-        <form id="formGroups" action="groupsAdmin.php" method="post" onsubmit="return validateForm()">
+        <form id="formGroups" action="groupsAdmin.php" class="formsAdd"  method="post" onsubmit="return validateForm()">
           <h2><?php echo(_("Nuevo grupo"));?></h2>
           <table>
               <tr>
@@ -257,7 +257,7 @@ ob_start();
         </form>
     </div> 
     
-    <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:350px;"></div>
+    <div class="gridAfterForm" id="gridGroups" style="width: 85%; height: 85%;top:370px;"></div>
     <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridGroups');

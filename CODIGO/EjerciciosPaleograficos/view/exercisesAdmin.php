@@ -269,7 +269,7 @@ ob_start();
             var label = document.createElement("label");
             label.setAttribute("class", "gridAfterForm");                           
             label.setAttribute("id", "noRecords");
-            label.setAttribute("style", "width: 70%; height: 90%;top:500px;text-align: center;");                            
+            label.setAttribute("style", "width: 70%; height: 90%;top:560px;text-align: center;");                            
             $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
             document.getElementById("labelAux").appendChild(label);
         }else{
@@ -429,7 +429,7 @@ include ('menu/menu3.php');
 ob_start();
 ?>
     <div class="formulario"  style="left:35px;">
-            <form action="exercisesAdmin.php" method="post" onsubmit="return validateForm()">
+            <form action="exercisesAdmin.php" class="formsAdd" style="width:114% !important;"  method="post" onsubmit="return validateForm()">
                 <h2><?php echo(_("Añadir nuevo ejercicio"));?></h2>
                 <table>
                     <tr>
@@ -476,7 +476,8 @@ ob_start();
                         combo2.clearAll(true);
                         combo2.loadXML("../controller/comboControllers/comboDocuments.php?idCollection="+selectedCollection);
                         combo6.clearAll(true);
-                        combo6.loadXML("../controller/comboControllers/comboGroups.php?method=adminExercises&idCollection="+selectedCollection);  
+                        combo6.loadXML("../controller/comboControllers/comboGroups.php?method=adminExercises&idCollection="+selectedCollection);
+                        combo6.getOptionByIndex(0).checked = false; 
                     });  
                 </script>
                  <script>
@@ -492,8 +493,9 @@ ob_start();
                     var combo6 = new dhtmlXCombo("combo_grupo","comboGroups",200,'checkbox');
                     //dhtmlx.skin = 'dhx_skyblue';
                     combo6.enableOptionAutoWidth(true);
-                    combo2.enableOptionAutoHeight(true);
-                    combo6.enableOptionAutoPositioning();                    
+                    combo6.enableOptionAutoHeight(true);
+                    combo6.enableOptionAutoPositioning();
+                    combo6.DOMelem_checkbox.checked = false;                
                 </script>
                 <script>
                     var combo3=dhtmlXComboFromSelect("combo_pistas");
@@ -520,7 +522,7 @@ ob_start();
         </div>
         
         
-        <div class="formulario" style="top:372px;left:32px;" >
+        <div class="formulario" style="top:425px;left:32px;" >
         <table>
             <tr><td><label class="labelModal"><?php echo(_("Seleccione una colección:"));?></label></td></tr>
              <tr><td><div id="combo_selectcollection" style="width:200px; height:20px;"></div></td></tr>                 
@@ -542,7 +544,7 @@ ob_start();
         </script>
         </div>
         
-        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
+        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:500px;left:36px;"></div>
 <div id="labelAux"></div>
         <script>
             var mygrid = new dhtmlXGridObject('gridExercises');

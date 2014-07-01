@@ -121,9 +121,6 @@
 			content: mensaje,
             style: {
                 classes: 'qtip-general',
-                tip: {
-		            corner: false
-		        }
             },
             position: {
                 target: [11, 120]
@@ -133,8 +130,8 @@
                 ready: true // Show the tooltip when ready                       
             },
             hide: {
-                event: false,
-                inactive:4000
+               event: false,
+               inactive:4000
             }
         });
 	}
@@ -144,9 +141,6 @@
 			content: mensaje,
             style: {
                 classes: 'qtip-general-error',
-                tip: {
-		            corner: false
-		        }
             },
             position: {
                 target: [11, 120]

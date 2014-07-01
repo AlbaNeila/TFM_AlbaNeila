@@ -122,7 +122,7 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridDocumentsAdmin.php",true,true);
-                        set_tooltip_general_error("<?php echo(_("Se eliminó el documento correctamente."));?>"); 
+                        set_tooltip_general("<?php echo(_("Se eliminó el documento correctamente."));?>"); 
                     }
                     else{
                         set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
@@ -266,7 +266,7 @@ ob_start();
     </div>
        
         <div class="formulario"  >
-            <form method="post" enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocsAdmin" onsubmit="return validateForm()" >
+            <form method="post" class="formsAdd"  enctype="multipart/form-data" id="formDoc" action="../controller/addDocumentController.php?method=addNewDocsAdmin" onsubmit="return validateForm()" >
                 <h2><?php echo(_("Nuevo documento"));?></h2>
                 <table>
                     <tr>
