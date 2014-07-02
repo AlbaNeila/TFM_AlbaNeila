@@ -252,13 +252,20 @@ p{
 .aboutTable{
 	margin-left:5%;
 	border-spacing: 5px;
-	
+	text-align:center;
 }
 
 .td_labelHelp{
-	background-color:#AC233E;
-	color:#FFFFFF;
+	color:#AC233E;
 	font-weight: bold;
+	margin-right:2px;
+	font-size:120%;
+}
+
+.td_labelHelp2{
+	color:black;
+	font-weight: bold;
+	margin-left:2px;
 }
 
 /*CONTENT ACCORDION*/

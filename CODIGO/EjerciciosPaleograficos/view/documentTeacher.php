@@ -274,7 +274,7 @@ ob_start();
             </form>
         </div>
         
-        <div class="formulario" style="top:320px;" >
+        <div class="formulario" style="top:335px;" >
             <h2><?php echo(_("COLECCIÓN: "));?><?php echo $coleccion;?></h2>         
         </div>
         <?php

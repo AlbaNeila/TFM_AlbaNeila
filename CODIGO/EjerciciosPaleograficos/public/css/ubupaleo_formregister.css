@@ -8,15 +8,16 @@ html:before {
 	position: fixed;
 	width: 300%;
 	height: 300%;
-	top: -65%;
-	left: -50%;
+	top: -90%;
+	left: -68%;
 	z-index: -1;
 	background: url(../img/fondo.jpg) 0 0 repeat;
-	-webkit-transform: rotate(30deg);
-	-moz-transform: rotate(30deg);
-	-ms-transform: rotate(30deg);
-	-o-transform: rotate(30deg);
-	transform: rotate(30deg);
+	-webkit-transform: rotate(-30deg);
+	-moz-transform: rotate(-30deg);
+	-ms-transform: rotate(-30deg);
+	-o-transform: rotate(-30deg);
+	transform: rotate(-30deg);
+	background-size: 30%;
 }
 body{
 	font-size: large;

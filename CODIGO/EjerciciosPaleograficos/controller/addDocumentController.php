@@ -1,4 +1,5 @@
 <?php
+ob_start();
     session_start();
     include('../model/persistence/documentService.php');
     
@@ -25,6 +26,7 @@
     function addNewDocs(){
         $coleccion = $_POST['coleccion'];
         $idColeccion = $_POST['idColeccion'];
+        $flag=true;
         
         $col = $_POST['idHidden'];
         $coleccionesArray = preg_split('/[;]+/',$col);
@@ -38,39 +40,48 @@
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
             //Insertamos en la BD
-            $insert = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
-            if($insert) {
-                $document= documentService::getByName(utf8_decode($name));
-                $idDocument = $document->getIdDocument();
-                
+            $idDoc = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
+            if($idDoc!=null) {
                 $uploaddir = '../img_xml/';
                 
                 $nameimg  = basename($_FILES['imagen']['name']);
                 $extension = pathinfo($nameimg, PATHINFO_EXTENSION);
-                $newnameimg       = $coleccionesArray[0].'_'.$idDocument.'.'.$extension;
+                $newnameimg       = $coleccionesArray[0].'_'.$idDoc.'.'.$extension;
                 
                 $namexml  = basename($_FILES['transcripcion']['name']);
                 $extension = pathinfo($namexml, PATHINFO_EXTENSION);
-                $newnamexml       = $coleccionesArray[0].'_'.$idDocument.'.'.$extension;
+                $newnamexml       = $coleccionesArray[0].'_'.$idDoc.'.'.$extension;
                 
                 $uploadimg = $uploaddir . $newnameimg;
                 $uploadxml = $uploaddir . $newnamexml;
-                move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg);
-                move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml);
-                
-                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
-                for($i = 0;$i<count($coleccionesArray);$i++){
-                    $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
-                }                
+                if(!move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg)){
+                    $flag = false;
+                }
+                if(!move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml)){
+                    $flag = false;
+                }
+                if(!$flag){
+                    documentService::deleteById($idDoc);
+                    header("Location: ../view/errorUploadDocument.php");
+                }else{
+                    $update = documentService::updateFilesById($idDoc, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                    for($i = 0;$i<count($coleccionesArray);$i++){
+                        $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
+                    }  
+                    header("Location: ../view/documentTeacher.php?coleccion=$coleccion+&idColeccion=$idColeccion");
+                }              
             }
+        }else{
+            header("Location: ../view/errorUploadDocument.php");
         }
-        header("Location: ../view/documentTeacher.php?coleccion=$coleccion+&idColeccion=$idColeccion");
+        
     }
 
     function addNewDocsAdmin(){
         $col = $_POST['idHidden'];
         $coleccionesArray = preg_split('/[;]+/',$col);
         array_pop($coleccionesArray);
+        $flag=true;
         
         if($_FILES['imagen']['size'] > 0 && $_FILES['transcripcion']['size'] > 0)
         {
@@ -80,33 +91,42 @@
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
             //Insertamos en la BD
-            $insert = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
-            if($insert) {
-                $document= documentService::getByName(utf8_decode($name));
-                $idDocument = $document->getIdDocument();
-                
+            $idDoc = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
+            if($idDoc!=null) {                    
                 $uploaddir = '../img_xml/';
                 
                 $nameimg  = basename($_FILES['imagen']['name']);
                 $extension = pathinfo($nameimg, PATHINFO_EXTENSION);
-                $newnameimg       = $coleccionesArray[0].'_'.$idDocument.'.'.$extension;
+                $newnameimg       = $coleccionesArray[0].'_'.$idDoc.'.'.$extension;
                 
                 $namexml  = basename($_FILES['transcripcion']['name']);
                 $extension = pathinfo($namexml, PATHINFO_EXTENSION);
-                $newnamexml       = $coleccionesArray[0].'_'.$idDocument.'.'.$extension;
+                $newnamexml       = $coleccionesArray[0].'_'.$idDoc.'.'.$extension;
                 
                 $uploadimg = $uploaddir . $newnameimg;
                 $uploadxml = $uploaddir . $newnamexml;
-                move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg);
-                move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml);
                 
-                $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
-                for($i = 0;$i<count($coleccionesArray);$i++){
-                    $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDocument);
-                }                
+                if(!move_uploaded_file($_FILES['imagen']['tmp_name'], $uploadimg)){
+                    $flag = false;
+                }
+                if(!move_uploaded_file($_FILES['transcripcion']['tmp_name'], $uploadxml)){
+                    $flag = false;
+                }
+                if(!$flag){
+                    documentService::deleteById($idDoc);
+                    header("Location: ../view/errorUploadDocument.php");
+                }else{
+                    $update = documentService::updateFilesById($idDoc, utf8_decode($uploadimg), utf8_decode($uploadxml));
+                    for($i = 0;$i<count($coleccionesArray);$i++){
+                        $insert2 = documentService::insertColeccionDocumento($coleccionesArray[$i], $idDoc);
+                    }
+                    header("Location: ../view/documentAdmin.php");
+                }
             }
+        }else{
+            header("Location: ../view/errorUploadDocument.php");
         }
-        header("Location: ../view/documentAdmin.php");
+        
     }
     
     function changeDocs(){
@@ -199,10 +219,10 @@
         $idDocument = $_POST['idDocument'];
         
         $document =documentService::getById($idDocument);
-        if($result!=FALSE){
+        if($document!=FALSE){
                 $imagen = $document->getImageDocument();
                 $nombre = $document->getNameDocument();
-                $descripcion = $document->getTranscriptionDocument();
+                $descripcion = $document->getDescriptionDocument();
                 $fecha = $document->getDateDocument();
                 $tipoEscritura = $document->getTypeWritingDocument();
                 

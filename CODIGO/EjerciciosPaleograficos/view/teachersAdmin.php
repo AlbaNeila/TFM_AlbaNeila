@@ -172,7 +172,7 @@ ob_start();
                     request.success(function(request){
                             if($.trim(request) == "1"){
                                 window.location = $('#closeModal2').attr('href');
-                                set_tooltip_general_error("<?php echo(_("Se modificó la contraseña correctamente."));?>"); 
+                                set_tooltip_general("<?php echo(_("Se modificó la contraseña correctamente."));?>"); 
                             }
                             else{
                                 set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 

@@ -38,7 +38,7 @@ class userService{
     }
     
     //UPDATE QUERIES
-    static function updateById($dni,$surnames,$email,$name,$password,$idUser){
+    static function updateById($dni,$surnames,$email,$name,$idUser){
         return mysqli_query($GLOBALS['link'],"UPDATE usuario SET usuario.nombre='".$dni."', usuario.apellidos='".$surnames."',usuario.email='".$email."' ,usuario.usuario='".$name."' WHERE usuario.idUsuario='".$idUser."'");
     }
     

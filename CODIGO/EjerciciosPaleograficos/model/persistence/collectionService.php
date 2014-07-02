@@ -64,7 +64,7 @@ class collectionService{
     
     //INSERT QUERIES
     static function insertGroupCollection($idGroup,$idCol){
-        $return = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".$idGroup."','".$idCol."')");
+        $result = mysqli_query($GLOBALS['link'],"INSERT INTO grupo_coleccion (grupo_coleccion.idGrupo, grupo_coleccion.idColeccion) VALUES ('".$idGroup."','".$idCol."')");
         if($result){
             return true;
         }else{

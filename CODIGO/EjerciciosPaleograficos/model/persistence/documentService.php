@@ -41,9 +41,12 @@ class documentService{
     static function insertDocument($name,$description,$date,$type){
         $result = mysqli_query($GLOBALS['link'],"INSERT INTO documento (documento.nombre, documento.descripcion, documento.fecha,documento.tipoEscritura) VALUES ('".$name."','".$description."','".$date."','".$type."')");
         if($result){
-            return true;
+            $result2 = mysqli_query($GLOBALS['link'],"SELECT documento.idDocumento FROM documento WHERE documento.nombre= '".$name."'");
+            if($row = mysqli_fetch_assoc($result2)){
+                return $row['idDocumento'];
+            }
         }else{
-            return false;
+            return null;
         }
     }
     

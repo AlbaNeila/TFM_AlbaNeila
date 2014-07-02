@@ -1,9 +1,9 @@
 <?php   
-
+header("Content-type: text/xml");
     session_start();
     include('../../model/persistence/comboService.php');  
     
-    header("Content-type: text/xml");
+    
 
     $result = comboService::getCollectionsOfAdmin();
     

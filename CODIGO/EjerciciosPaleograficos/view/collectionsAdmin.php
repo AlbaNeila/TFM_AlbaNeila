@@ -270,7 +270,7 @@ ob_start();
     
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
-            <div>
+             <div style="width: 500px;">
                 <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Colección:"));?></label>
@@ -281,14 +281,14 @@ ob_start();
                     <script>
                         var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
                         mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-                        mygrid2.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
-                        mygrid2.setInitWidths("*,90,90");
-                        mygrid2.setColAlign("center,center,center");
-                        mygrid2.setColTypes("ro,ro,ro");
+                        mygrid2.setHeader("<?php echo(_("Grupo"));?>,<?php echo(_("Descripción"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
+                        mygrid2.setInitWidths("*,*,70,70");
+                        mygrid2.setColAlign("center,center,center,center");
+                        mygrid2.setColTypes("ro,ro,ro,ro");
                         mygrid2.enableSmartRendering(true);
                         mygrid2.enableAutoHeight(true,200);
                         mygrid2.enableAutoWidth(true);
-                        mygrid2.enableTooltips("true,false,false");
+                        mygrid2.enableTooltips("true,true,false,false");
                         mygrid2.setSizes();
                         mygrid2.setSkin("dhx_skyblue");
                         mygrid2.init();

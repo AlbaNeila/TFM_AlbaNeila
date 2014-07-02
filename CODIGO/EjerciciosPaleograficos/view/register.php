@@ -6,7 +6,7 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title><?php echo(_("Registro UBUPal"));?></title>
 	
 	<link rel="STYLESHEET" type="text/css" href="../lib/dhtmlxGrid/codebase/dhtmlxgrid.css">
@@ -153,7 +153,7 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 		function doInitGrid(){
 			mygrid = new dhtmlXGridObject('gridRegistro');
 			mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
-			mygrid.setHeader("Grupo, Profesor, Información, Seleccionar");
+			mygrid.setHeader("<?php echo(_("Grupo"));?>, <?php echo(_("Profesor"));?>, <?php echo(_("Información"));?>, <?php echo(_("Seleccionar"));?>");
 			mygrid.setInitWidths("*,*,100,100");
 			mygrid.setColAlign("left,left,center,center");
 			mygrid.setColTypes("ro,ro,img,ch");

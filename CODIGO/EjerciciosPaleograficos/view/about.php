@@ -1,19 +1,35 @@
 <?php
+ob_start();
 session_start();
-if($_SESSION['usuario_tipo'] != "ALUMNO"){
-    header('Location: ../view/login.php');
-}
-ob_start();
-include ('menu/menu4.php');
-ob_start();
+include('../init.php');
 ?>
-    <div class="submenu">
-        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="helpStudent.php" style="font-weight: bold"><?php echo(_("Acerca de"));?></a></div>
-        <div class="submenuitem"><img src="../public/img/menu2.png"><a href="helpStudent.php" ><?php echo(_("Manual de usuario"));?></a></div>
-    </div>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo(_("UBUPal"));?></title>
+    <link type="text/css" rel="stylesheet" href="../lib/jquery.qtip/jquery.qtip.css" />
+    <link rel="stylesheet" href="../public/css/ubupaleo_forminicio.css" />
+    <link rel="stylesheet" href="../public/css/webfonts/opensans_light/stylesheet.css" type="text/css" charset="utf-8" />
+    <script src="../lib/jquery.qtip/jquery-1.10.2.min.js"></script> 
+    <script type="text/javascript" src="../lib/jquery.qtip/jquery.qtip.js"></script>
+    <script type="text/javascript" src="../public/js/check_inputfields.js"></script>
+
+    <script>    
+
+    function goBack(){
+        location.href='login.php';
+    }
     
-    <div class="formulario" style="left: 27%;width: 60%" >
+</script>
+    
+</head>
+<body>
+    <div class="formsInicio"  style="width: 45%;min-width: 569px;margin-top: 1%;text-align: center;">
+        <form action="login.php" method="post" id="forgotPassword" onsubmit="return validateForm()">
+            <h1 style="text-decoration: underline;"><?php echo(_("UBUPal: Acerca de"));?></h1>
+            <div class="formulario" style="width: 89%" >
         <table class="aboutTable">
+
             <tr>
                 <td> <label class="td_labelHelp"><?php echo(_("UBUPal: "));?></label><label class="td_labelHelp2"><?php echo(_("Aplicación web para la realización de ejercicios paleográficos."));?></label></td>
             </tr>
@@ -39,12 +55,13 @@ ob_start();
                 <td ><label class="td_labelHelp"><?php echo(_("Fecha: "));?></label><label class="td_labelHelp2"><?php echo(_("Julio de 2014"));?></label></td>
             </tr>
             <tr>
-                <td><img src="../public/img/ubulogo.png" style="margin:1%;height: 120px;"></td>
+                <td><img src="../public/img/ubulogo2.png" style="margin:1%;height: 80px;"></td>
             </tr>
         </table>      
     </div>
-
-<?php       
-$GLOBALS['TEMPLATE']['content']= ob_get_clean();
-include_once('template.php');
- ?>
+    
+        </form>
+        <a href="login.php"><?php echo(_("Volver"));?></a>
+    </div>
+</body>
+</html>

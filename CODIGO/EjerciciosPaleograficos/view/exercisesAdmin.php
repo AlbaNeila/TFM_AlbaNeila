@@ -477,7 +477,6 @@ ob_start();
                         combo2.loadXML("../controller/comboControllers/comboDocuments.php?idCollection="+selectedCollection);
                         combo6.clearAll(true);
                         combo6.loadXML("../controller/comboControllers/comboGroups.php?method=adminExercises&idCollection="+selectedCollection);
-                        combo6.getOptionByIndex(0).checked = false; 
                     });  
                 </script>
                  <script>

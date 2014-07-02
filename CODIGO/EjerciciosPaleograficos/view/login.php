@@ -113,8 +113,10 @@ include("../model/persistence/acceso_db.php");
             <a href="register.php"><?php echo(_("Registro de alumnos"));?></a> <br />
             <a href="forgotPassword.php"><?php echo(_("¿Ha olvidado la contraseña?"));?></a>    
         </form> 
-        <div style="margin: 35px 0px -15px;">
-        <label style="color:#006db3;font-size: 50%;font-style: italic;"><?php echo(_("'Fondo: Imagen  cedida por el Archivo Municipal de Burgos'"));?></label>
+        
+        <div style="margin: 35px 0px -15px;text-align: right;">
+        <label class="labelAbout" onclick="location.href='about.php';"><?php echo(_("Acerca de"));?></label><p></p>
+        <label style="color:#006db3;font-size: 50%;font-style: italic;text-align: right;"><?php echo(_("'Fondo: Imagen  cedida por el Archivo Municipal de Burgos'"));?></label>
         </div>         
     </div>
      
