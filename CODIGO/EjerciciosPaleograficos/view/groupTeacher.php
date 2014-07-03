@@ -124,7 +124,7 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
-            var nameGroup = $("#groupName").val();
+            var nameGroup = $("#groupName").text();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",
@@ -167,7 +167,7 @@ ob_start();
         }
         else{
             var idGrupo = $("#idHidden").val();
-            var nameGroup = $("#groupName").val();
+            var nameGroup = $("#groupName").text();
              var request = $.ajax({
               type: "POST",
               url: "../controller/groupController.php",

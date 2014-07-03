@@ -180,13 +180,13 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 			<p><?php echo(_("Todos los campos del formulario son obligatorios."));?></p>
 			<div class="divForm">
 				<label><?php echo(_("Apellidos"));?></label></td> <td><input tabindex="2" type="text" name="usuario_apellidos" id="apellidos"/></td>
-				<label><?php echo(_("Email"));?></label></td> <td><input tabindex="5" type="text" name="usuario_email" id="email"/></td>
+				<label><?php echo(_("Email"));?></label></td> <td><input tabindex="4" type="text" name="usuario_email" id="email"/></td>
 				<label><?php echo(_("Confirme contraseña"));?></label></td> <td><input tabindex="6" type="password" name="usuario_clave_conf" id="password2"/></td>
 			</div>	
 			<div class="divForm">
 				<label><?php echo(_("Nombre"));?></label></td> <td><input tabindex="1" type="text" name="nombre"  id="nombre"/></td>
 				<label><?php echo(_("DNI"));?></label></td> <td><input tabindex="3" type="text" name="usuario_nombre" id="usuario"/></td>
-				<label><?php echo(_("Contraseña"));?></label></td> <td><input tabindex="4" type="password" name="usuario_clave"  id="password"/></td>
+				<label><?php echo(_("Contraseña"));?></label></td> <td><input tabindex="5" type="password" name="usuario_clave"  id="password"/></td>
 			</div>	
 			<label><?php echo(_("Grupo"));?></label>		   
 			<div id="gridRegistro" style="width: 96%; height: 100%"></div>

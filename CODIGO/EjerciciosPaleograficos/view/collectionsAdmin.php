@@ -125,7 +125,7 @@ ob_start();
 
          $('#gridGestionGrupos .objbox tr').each(function (index){
             $(this).children("td").each(function (index2) {
-                if(index2 == 1){ //Permitir
+                if(index2 == 2){ //Permitir
                     if($(this).children("input").is(':checked')){ 
                        permissions[cont2]=true;
                     }else{

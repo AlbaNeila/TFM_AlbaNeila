@@ -156,9 +156,9 @@
         
        for($cont=0; $cont < count($alumnos);$cont++){
             $deleteUserGroup = groupService::deleteUserGroupByIds($idGrupo, $alumnos[$cont]);
-            $result2 = userService::deleteById($alumnos[$cont]);
+            $update = groupService::updateUserGroupAccess($idGrupo, $alumnos[$cont]);
             
-            if(!$deleteUserGroup || !$result2){
+            if(!$deleteUserGroup || !$update){
                 $flag = false;
             }else{
                 $user = userService::getUserById($alumnos[$cont]);

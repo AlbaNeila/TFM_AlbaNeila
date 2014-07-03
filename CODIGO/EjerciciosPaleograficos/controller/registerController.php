@@ -29,7 +29,7 @@
 			if($captcha!='captcha'){	//si el captcha y el usuario están OK insertamos en la bd
 				$usuario_clave = md5($usuario_clave); // encriptamos la contraseña ingresada con md5
 	            // ingresamos los datos a la BD
-	            $reg = userService::insertUser($usuario_nombre, $usuario_clave, $nombre, $usuario_apellidos, $usuario_email);
+	            $reg = userService::insertUser($usuario_nombre, $usuario_clave, utf8_decode($nombre), utf8_decode($usuario_apellidos), $usuario_email);
 	            if($reg) {
 					$result2 = userService::getUserByName($usuario_nombre);
 					if($result2!=FALSE){ //Tenemos el idUsuario del nuevo usuario registrado
@@ -38,18 +38,16 @@
 							$grupos   =   $_POST["grupos"];
 						    $grupos   =    json_decode("$grupos",true);
 						    foreach($grupos as $grupo){
-						    	$result3 = groupService::getByName(utf8_decode($grupo));
-								if($result3!=FALSE){ //Tenemos el idGrupo del grupo al que se ha solicitado acceso
-									if($row=mysqli_fetch_assoc($result3)) {
-										$idGrupo = $row['idGrupo'];
-										$reg2 = groupService::insertUserGroupRequest($idUsuario, $idGrupo);
+						    	$idGroup = groupService::getByName(utf8_decode($grupo));
+								if($idGroup!=FALSE){ //Tenemos el idGrupo del grupo al que se ha solicitado acceso
+										$reg2 = groupService::insertUserGroupRequest($idUsuario, $idGroup);
 									}
 								}
 						    }
 						}					    
 					}
 	            }	
-            }
+           
 		}
 		else{
 			$insertUser = 'repeatUsername';

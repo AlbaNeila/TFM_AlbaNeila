@@ -9,7 +9,7 @@ class groupService{
     static function getByName($groupName){
         $result = mysqli_query($GLOBALS['link'],"SELECT grupo.idGrupo FROM grupo WHERE grupo.nombre= '".$groupName."'");
         if($row = mysqli_fetch_assoc($result)){
-            return true;
+            return $row['idGrupo'];
         }else{
             return false;
         }
