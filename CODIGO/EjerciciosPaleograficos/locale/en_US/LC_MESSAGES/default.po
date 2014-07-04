@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EjerciciosPaleograficos\n"
-"POT-Creation-Date: 2014-07-02 19:27+0100\n"
-"PO-Revision-Date: 2014-07-02 19:31+0100\n"
+"POT-Creation-Date: 2014-07-04 08:35+0100\n"
+"PO-Revision-Date: 2014-07-04 08:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\\..\\..\n"
 
 #: ..\..\../view/about.php:9 ..\..\../view/forgotPassword.php:9
-#: ..\..\../view/helpTeacher.php:18 ..\..\../view/newPasswordOk.php:10
+#: ..\..\../view/newPasswordOk.php:10
 msgid "UBUPal"
 msgstr "UBUPal"
 
@@ -26,43 +26,52 @@ msgid "UBUPal: Acerca de"
 msgstr "UBUPal: About"
 
 #: ..\..\../view/about.php:34 ..\..\../view/helpStudent.php:18
+#: ..\..\../view/helpTeacher.php:18
 msgid "UBUPal: "
 msgstr "UBUPal:"
 
 #: ..\..\../view/about.php:34 ..\..\../view/helpStudent.php:18
-#: ..\..\../view/helpTeacher.php:19
+#: ..\..\../view/helpTeacher.php:18
 msgid "Aplicación web para la realización de ejercicios paleográficos."
 msgstr "Web application for paleography exercises."
 
 #: ..\..\../view/about.php:37 ..\..\../view/helpStudent.php:21
+#: ..\..\../view/helpTeacher.php:21
 msgid "Autora: "
 msgstr "Author:"
 
 #: ..\..\../view/about.php:40 ..\..\../view/helpStudent.php:24
+#: ..\..\../view/helpTeacher.php:24
 msgid "Email: "
 msgstr "Email:"
 
 #: ..\..\../view/about.php:43 ..\..\../view/helpStudent.php:27
+#: ..\..\../view/helpTeacher.php:27
 msgid "Tutores: "
 msgstr "Supervisors:"
 
 #: ..\..\../view/about.php:46 ..\..\../view/helpStudent.php:30
+#: ..\..\../view/helpTeacher.php:30
 msgid "Colaboradora: "
 msgstr "Collaborator:"
 
 #: ..\..\../view/about.php:49 ..\..\../view/helpStudent.php:33
+#: ..\..\../view/helpTeacher.php:33
 msgid "Licencia: "
 msgstr "License:"
 
 #: ..\..\../view/about.php:52 ..\..\../view/helpStudent.php:36
+#: ..\..\../view/helpTeacher.php:36
 msgid "Versión: "
 msgstr "Version:"
 
 #: ..\..\../view/about.php:55 ..\..\../view/helpStudent.php:39
+#: ..\..\../view/helpTeacher.php:39
 msgid "Fecha: "
 msgstr "Date:"
 
 #: ..\..\../view/about.php:55 ..\..\../view/helpStudent.php:39
+#: ..\..\../view/helpTeacher.php:39
 msgid "Julio de 2014"
 msgstr "July 2014"
 
@@ -81,35 +90,35 @@ msgstr "Back"
 
 #: ..\..\../view/accessDocument.php:50 ..\..\../view/accessExercise.php:89
 #: ..\..\../view/accessExercise.php:185 ..\..\../view/accessExercise.php:294
-#: ..\..\../view/collectionsAdmin.php:46
-#: ..\..\../view/collectionsAdmin.php:110
-#: ..\..\../view/collectionsAdmin.php:155
-#: ..\..\../view/collectionsTeacher.php:45
-#: ..\..\../view/collectionsTeacher.php:102 ..\..\../view/documentAdmin.php:83
-#: ..\..\../view/documentAdmin.php:128 ..\..\../view/documentAdmin.php:232
+#: ..\..\../view/collectionsAdmin.php:47
+#: ..\..\../view/collectionsAdmin.php:111
+#: ..\..\../view/collectionsAdmin.php:156
+#: ..\..\../view/collectionsTeacher.php:48
+#: ..\..\../view/collectionsTeacher.php:105 ..\..\../view/documentAdmin.php:84
+#: ..\..\../view/documentAdmin.php:129 ..\..\../view/documentAdmin.php:233
 #: ..\..\../view/documentTeacher.php:81 ..\..\../view/documentTeacher.php:142
-#: ..\..\../view/documentTeacher.php:206 ..\..\../view/exercisesAdmin.php:72
-#: ..\..\../view/exercisesAdmin.php:112 ..\..\../view/exercisesAdmin.php:139
-#: ..\..\../view/exercisesAdmin.php:168 ..\..\../view/exercisesAdmin.php:197
-#: ..\..\../view/exercisesAdmin.php:255 ..\..\../view/exercisesAdmin.php:334
-#: ..\..\../view/exercisesAdmin.php:377 ..\..\../view/exercisesAdmin.php:415
-#: ..\..\../view/exercisesTeacher.php:67
-#: ..\..\../view/exercisesTeacher.php:108
-#: ..\..\../view/exercisesTeacher.php:135
-#: ..\..\../view/exercisesTeacher.php:164
-#: ..\..\../view/exercisesTeacher.php:193
-#: ..\..\../view/exercisesTeacher.php:253
-#: ..\..\../view/exercisesTeacher.php:330
-#: ..\..\../view/exercisesTeacher.php:373
-#: ..\..\../view/exercisesTeacher.php:411 ..\..\../view/groupStudent.php:49
+#: ..\..\../view/documentTeacher.php:206 ..\..\../view/exercisesAdmin.php:73
+#: ..\..\../view/exercisesAdmin.php:113 ..\..\../view/exercisesAdmin.php:140
+#: ..\..\../view/exercisesAdmin.php:169 ..\..\../view/exercisesAdmin.php:198
+#: ..\..\../view/exercisesAdmin.php:256 ..\..\../view/exercisesAdmin.php:335
+#: ..\..\../view/exercisesAdmin.php:378 ..\..\../view/exercisesAdmin.php:416
+#: ..\..\../view/exercisesTeacher.php:68
+#: ..\..\../view/exercisesTeacher.php:109
+#: ..\..\../view/exercisesTeacher.php:136
+#: ..\..\../view/exercisesTeacher.php:165
+#: ..\..\../view/exercisesTeacher.php:194
+#: ..\..\../view/exercisesTeacher.php:254
+#: ..\..\../view/exercisesTeacher.php:331
+#: ..\..\../view/exercisesTeacher.php:374
+#: ..\..\../view/exercisesTeacher.php:412 ..\..\../view/groupStudent.php:49
 #: ..\..\../view/groupTeacher.php:41 ..\..\../view/groupTeacher.php:78
 #: ..\..\../view/groupTeacher.php:146 ..\..\../view/groupTeacher.php:189
 #: ..\..\../view/groupTeacherStudents.php:42 ..\..\../view/groupsAdmin.php:48
 #: ..\..\../view/groupsAdmin.php:94 ..\..\../view/groupsAdmin.php:154
 #: ..\..\../view/groupsAdmin.php:197 ..\..\../view/teachersAdmin.php:80
 #: ..\..\../view/teachersAdmin.php:134 ..\..\../view/teachersAdmin.php:178
-#: ..\..\../view/usersAdmin.php:85 ..\..\../view/usersAdmin.php:140
-#: ..\..\../view/usersAdmin.php:186 ..\..\../view/usersAdmin.php:231
+#: ..\..\../view/usersAdmin.php:86 ..\..\../view/usersAdmin.php:141
+#: ..\..\../view/usersAdmin.php:187 ..\..\../view/usersAdmin.php:232
 msgid "Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."
 msgstr "An unexpected error has occurred. Please try again later."
 
@@ -130,7 +139,7 @@ msgid "Tipo escritura:"
 msgstr "Type of script:"
 
 #: ..\..\../view/accessDocument.php:90 ..\..\../view/accessExercise.php:412
-#: ..\..\../view/collectionsAdmin.php:276
+#: ..\..\../view/collectionsAdmin.php:277
 msgid "Colección:"
 msgstr "Collection:"
 
@@ -279,8 +288,8 @@ msgstr "FINISH EXERCISE"
 msgid "Información Documento "
 msgstr "Document information"
 
-#: ..\..\../view/accessExercise.php:395 ..\..\../view/documentAdmin.php:373
-#: ..\..\../view/documentAdmin.php:393 ..\..\../view/documentTeacher.php:392
+#: ..\..\../view/accessExercise.php:395 ..\..\../view/documentAdmin.php:374
+#: ..\..\../view/documentAdmin.php:394 ..\..\../view/documentTeacher.php:392
 msgid "Documento:"
 msgstr "Document:"
 
@@ -288,8 +297,8 @@ msgstr "Document:"
 msgid "Información Ejercicio"
 msgstr "Exercise information"
 
-#: ..\..\../view/accessExercise.php:421 ..\..\../view/exercisesAdmin.php:611
-#: ..\..\../view/exercisesTeacher.php:608
+#: ..\..\../view/accessExercise.php:421 ..\..\../view/exercisesAdmin.php:612
+#: ..\..\../view/exercisesTeacher.php:609
 msgid "Ejercicio:"
 msgstr "Exercise:"
 
@@ -305,7 +314,7 @@ msgstr "Correction mode:"
 msgid "Imagen del documento:"
 msgstr "Document image:"
 
-#: ..\..\../view/accessExercise.php:457 ..\..\../view/documentAdmin.php:379
+#: ..\..\../view/accessExercise.php:457 ..\..\../view/documentAdmin.php:380
 msgid "Transcripción:"
 msgstr "Transcription:"
 
@@ -314,22 +323,22 @@ msgid "Línea "
 msgstr "Line"
 
 #: ..\..\../view/accessGroupStudent.php:37
-#: ..\..\../view/collectionsAdmin.php:166
+#: ..\..\../view/collectionsAdmin.php:167
 #: ..\..\../view/collectionsStudent.php:27
-#: ..\..\../view/collectionsTeacher.php:114
-#: ..\..\../view/documentAdmin.php:249 ..\..\../view/documentStudent.php:88
+#: ..\..\../view/collectionsTeacher.php:117
+#: ..\..\../view/documentAdmin.php:250 ..\..\../view/documentStudent.php:88
 #: ..\..\../view/documentStudent.php:101 ..\..\../view/documentTeacher.php:217
-#: ..\..\../view/exercisesAdmin.php:25 ..\..\../view/exercisesAdmin.php:273
-#: ..\..\../view/exercisesTeacher.php:270 ..\..\../view/groupStudent.php:65
+#: ..\..\../view/exercisesAdmin.php:25 ..\..\../view/exercisesAdmin.php:274
+#: ..\..\../view/exercisesTeacher.php:271 ..\..\../view/groupStudent.php:65
 #: ..\..\../view/groupTeacher.php:206
 #: ..\..\../view/groupTeacherStudents.php:54 ..\..\../view/groupsAdmin.php:214
 #: ..\..\../view/register.php:146 ..\..\../view/teachersAdmin.php:192
-#: ..\..\../view/usersAdmin.php:245
+#: ..\..\../view/usersAdmin.php:246
 msgid "- No se encontraron resultados -"
-msgstr "- No results found -"
+msgstr "-  No results found  -"
 
 #: ..\..\../view/accessGroupStudent.php:50
-#: ..\..\../view/exercisesAdmin.php:551 ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:552 ..\..\../view/exercisesTeacher.php:549
 #: ..\..\../view/groupStudent.php:78 ..\..\../view/groupTeacher.php:219
 #: ..\..\../view/groupTeacherStudents.php:67 ..\..\../view/groupsAdmin.php:230
 #: ..\..\../view/menu/menu1.php:8 ..\..\../view/menu/menu1.php:23
@@ -338,16 +347,16 @@ msgstr "- No results found -"
 #: ..\..\../view/menu/menu4.php:8 ..\..\../view/menu/menu4.php:23
 #: ..\..\../view/menu/menu5.php:8 ..\..\../view/menu/menu5.php:23
 #: ..\..\../view/teachersAdmin.php:208 ..\..\../view/teachersAdmin.php:317
-#: ..\..\../view/usersAdmin.php:261 ..\..\../view/usersAdmin.php:279
-#: ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/usersAdmin.php:262 ..\..\../view/usersAdmin.php:280
+#: ..\..\../view/usersAdmin.php:304
 msgid "Grupos"
 msgstr "Groups"
 
 #: ..\..\../view/accessGroupStudent.php:51
-#: ..\..\../view/collectionsAdmin.php:180
+#: ..\..\../view/collectionsAdmin.php:181
 #: ..\..\../view/collectionsStudent.php:41
-#: ..\..\../view/collectionsTeacher.php:127
-#: ..\..\../view/documentAdmin.php:264 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/collectionsTeacher.php:130
+#: ..\..\../view/documentAdmin.php:265 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentStudent.php:115 ..\..\../view/documentTeacher.php:232
 #: ..\..\../view/groupStudent.php:79 ..\..\../view/menu/menu1.php:9
 #: ..\..\../view/menu/menu1.php:22 ..\..\../view/menu/menu1.php:38
@@ -365,58 +374,58 @@ msgid "Colecciones disponibles:"
 msgstr "Available collections:"
 
 #: ..\..\../view/accessGroupStudent.php:72
-#: ..\..\../view/collectionsAdmin.php:216
+#: ..\..\../view/collectionsAdmin.php:217
 #: ..\..\../view/collectionsStudent.php:54
-#: ..\..\../view/collectionsTeacher.php:164
+#: ..\..\../view/collectionsTeacher.php:167
 msgid "Código colección"
 msgstr "Collection code"
 
 #: ..\..\../view/accessGroupStudent.php:72
-#: ..\..\../view/collectionsAdmin.php:189
-#: ..\..\../view/collectionsAdmin.php:216
+#: ..\..\../view/collectionsAdmin.php:190
+#: ..\..\../view/collectionsAdmin.php:217
 #: ..\..\../view/collectionsStudent.php:54
-#: ..\..\../view/collectionsTeacher.php:137
-#: ..\..\../view/collectionsTeacher.php:164
-#: ..\..\../view/documentAdmin.php:273 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/collectionsTeacher.php:140
+#: ..\..\../view/collectionsTeacher.php:167
+#: ..\..\../view/documentAdmin.php:274 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentStudent.php:143 ..\..\../view/documentStudent.php:167
 #: ..\..\../view/documentTeacher.php:246 ..\..\../view/documentTeacher.php:328
-#: ..\..\../view/exercisesAdmin.php:445 ..\..\../view/exercisesTeacher.php:442
+#: ..\..\../view/exercisesAdmin.php:446 ..\..\../view/exercisesTeacher.php:443
 #: ..\..\../view/groupStudent.php:90 ..\..\../view/groupTeacher.php:228
 #: ..\..\../view/groupTeacher.php:243 ..\..\../view/groupTeacher.php:309
 #: ..\..\../view/groupTeacherStudents.php:82 ..\..\../view/groupsAdmin.php:238
 #: ..\..\../view/groupsAdmin.php:265 ..\..\../view/groupsAdmin.php:332
 #: ..\..\../view/register.php:187 ..\..\../view/teachersAdmin.php:216
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:269
-#: ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:270
+#: ..\..\../view/usersAdmin.php:304
 msgid "Nombre"
 msgstr "Name"
 
 #: ..\..\../view/accessGroupStudent.php:72
-#: ..\..\../view/collectionsAdmin.php:190
-#: ..\..\../view/collectionsAdmin.php:216
-#: ..\..\../view/collectionsAdmin.php:284
+#: ..\..\../view/collectionsAdmin.php:191
+#: ..\..\../view/collectionsAdmin.php:217
+#: ..\..\../view/collectionsAdmin.php:285
 #: ..\..\../view/collectionsStudent.php:54
-#: ..\..\../view/collectionsTeacher.php:138
-#: ..\..\../view/collectionsTeacher.php:164
-#: ..\..\../view/documentAdmin.php:274 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/collectionsTeacher.php:141
+#: ..\..\../view/collectionsTeacher.php:167
+#: ..\..\../view/documentAdmin.php:275 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentStudent.php:143 ..\..\../view/documentTeacher.php:247
 #: ..\..\../view/documentTeacher.php:328 ..\..\../view/groupStudent.php:90
 #: ..\..\../view/groupTeacher.php:229 ..\..\../view/groupTeacher.php:243
 #: ..\..\../view/groupsAdmin.php:239 ..\..\../view/groupsAdmin.php:265
-#: ..\..\../view/usersAdmin.php:397
+#: ..\..\../view/usersAdmin.php:398
 msgid "Descripción"
 msgstr "Description"
 
 #: ..\..\../view/accessGroupStudent.php:72
-#: ..\..\../view/collectionsAdmin.php:181
+#: ..\..\../view/collectionsAdmin.php:182
 #: ..\..\../view/collectionsStudent.php:42
-#: ..\..\../view/collectionsTeacher.php:128
-#: ..\..\../view/documentAdmin.php:265 ..\..\../view/documentStudent.php:116
+#: ..\..\../view/collectionsTeacher.php:131
+#: ..\..\../view/documentAdmin.php:266 ..\..\../view/documentStudent.php:116
 #: ..\..\../view/documentTeacher.php:233
 msgid "Documentos"
 msgstr "Documents"
 
-#: ..\..\../view/accessGroupStudent.php:72 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/accessGroupStudent.php:72 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentTeacher.php:328 ..\..\../view/menu/menu1.php:24
 #: ..\..\../view/menu/menu1.php:39 ..\..\../view/menu/menu2.php:24
 #: ..\..\../view/menu/menu2.php:39 ..\..\../view/menu/menu3.php:24
@@ -428,50 +437,50 @@ msgstr "Exercises"
 
 #: ..\..\../view/accessGroupStudent.php:72
 #: ..\..\../view/collectionsStudent.php:54
-#: ..\..\../view/collectionsTeacher.php:164
+#: ..\..\../view/collectionsTeacher.php:167
 #: ..\..\../view/documentStudent.php:143 ..\..\../view/groupStudent.php:90
 #: ..\..\../view/groupTeacher.php:243
 msgid "Acceder"
 msgstr "Enter"
 
-#: ..\..\../view/collectionsAdmin.php:21 ..\..\../view/collectionsAdmin.php:22
-#: ..\..\../view/collectionsTeacher.php:20
-#: ..\..\../view/collectionsTeacher.php:21 ..\..\../view/documentAdmin.php:25
-#: ..\..\../view/documentAdmin.php:26 ..\..\../view/documentAdmin.php:27
-#: ..\..\../view/documentAdmin.php:28 ..\..\../view/documentAdmin.php:29
-#: ..\..\../view/documentAdmin.php:30 ..\..\../view/documentAdmin.php:152
-#: ..\..\../view/documentAdmin.php:153 ..\..\../view/documentTeacher.php:32
+#: ..\..\../view/collectionsAdmin.php:22 ..\..\../view/collectionsAdmin.php:23
+#: ..\..\../view/collectionsTeacher.php:23
+#: ..\..\../view/collectionsTeacher.php:24 ..\..\../view/documentAdmin.php:26
+#: ..\..\../view/documentAdmin.php:27 ..\..\../view/documentAdmin.php:28
+#: ..\..\../view/documentAdmin.php:29 ..\..\../view/documentAdmin.php:30
+#: ..\..\../view/documentAdmin.php:31 ..\..\../view/documentAdmin.php:153
+#: ..\..\../view/documentAdmin.php:154 ..\..\../view/documentTeacher.php:32
 #: ..\..\../view/documentTeacher.php:33 ..\..\../view/documentTeacher.php:34
 #: ..\..\../view/documentTeacher.php:35 ..\..\../view/documentTeacher.php:36
 #: ..\..\../view/documentTeacher.php:37 ..\..\../view/documentTeacher.php:150
-#: ..\..\../view/documentTeacher.php:151 ..\..\../view/exercisesAdmin.php:29
-#: ..\..\../view/exercisesAdmin.php:30 ..\..\../view/exercisesTeacher.php:24
-#: ..\..\../view/exercisesTeacher.php:25 ..\..\../view/groupTeacher.php:14
+#: ..\..\../view/documentTeacher.php:151 ..\..\../view/exercisesAdmin.php:30
+#: ..\..\../view/exercisesAdmin.php:31 ..\..\../view/exercisesTeacher.php:25
+#: ..\..\../view/exercisesTeacher.php:26 ..\..\../view/groupTeacher.php:14
 #: ..\..\../view/groupTeacher.php:15 ..\..\../view/groupsAdmin.php:20
 #: ..\..\../view/groupsAdmin.php:21 ..\..\../view/login.php:36
 #: ..\..\../view/login.php:37 ..\..\../view/register.php:55
 #: ..\..\../view/register.php:57 ..\..\../view/teachersAdmin.php:25
-#: ..\..\../view/teachersAdmin.php:27 ..\..\../view/usersAdmin.php:25
-#: ..\..\../view/usersAdmin.php:27
+#: ..\..\../view/teachersAdmin.php:27 ..\..\../view/usersAdmin.php:26
+#: ..\..\../view/usersAdmin.php:28
 msgid "Este campo es requerido"
 msgstr "This field is required"
 
-#: ..\..\../view/collectionsAdmin.php:26
-#: ..\..\../view/collectionsTeacher.php:25 ..\..\../view/exercisesAdmin.php:34
-#: ..\..\../view/exercisesAdmin.php:236 ..\..\../view/exercisesTeacher.php:29
-#: ..\..\../view/exercisesTeacher.php:234 ..\..\../view/register.php:105
-#: ..\..\../view/usersAdmin.php:34
+#: ..\..\../view/collectionsAdmin.php:27
+#: ..\..\../view/collectionsTeacher.php:28 ..\..\../view/exercisesAdmin.php:35
+#: ..\..\../view/exercisesAdmin.php:237 ..\..\../view/exercisesTeacher.php:30
+#: ..\..\../view/exercisesTeacher.php:235 ..\..\../view/register.php:105
+#: ..\..\../view/usersAdmin.php:35
 msgid "Debe seleccionar al menos un grupo"
 msgstr "You must select at least one group"
 
-#: ..\..\../view/collectionsAdmin.php:50
-#: ..\..\../view/collectionsTeacher.php:49
+#: ..\..\../view/collectionsAdmin.php:51
+#: ..\..\../view/collectionsTeacher.php:52
 msgid "Se añadió la colección correctamente."
 msgstr "The collection has been added successfully."
 
-#: ..\..\../view/collectionsAdmin.php:54
-#: ..\..\../view/collectionsAdmin.php:258
-#: ..\..\../view/collectionsTeacher.php:53
+#: ..\..\../view/collectionsAdmin.php:55
+#: ..\..\../view/collectionsAdmin.php:259
+#: ..\..\../view/collectionsTeacher.php:56
 msgid ""
 "Ya existe una colección con el mismo nombre. Por favor, introduzca un nombre "
 "de colección diferente."
@@ -479,137 +488,137 @@ msgstr ""
 "There already exists a collection with the same name. Please enter a "
 "different collection name."
 
-#: ..\..\../view/collectionsAdmin.php:72
+#: ..\..\../view/collectionsAdmin.php:73
 msgid ""
 "A la colección Pública tienen acceso todos los grupos de la aplicación. Esto "
 "no se puede modificar."
 msgstr ""
 "Public collection is accessible to all groups. This can not be changed."
 
-#: ..\..\../view/collectionsAdmin.php:82
-#: ..\..\../view/collectionsTeacher.php:73
+#: ..\..\../view/collectionsAdmin.php:83
+#: ..\..\../view/collectionsTeacher.php:76
 msgid "¿Está seguro de que desea eliminar la colección "
 msgstr "Are you sure you want to delete the collection "
 
-#: ..\..\../view/collectionsAdmin.php:84
-#: ..\..\../view/collectionsAdmin.php:298
-#: ..\..\../view/collectionsTeacher.php:75 ..\..\../view/documentAdmin.php:106
-#: ..\..\../view/documentAdmin.php:383 ..\..\../view/documentAdmin.php:414
+#: ..\..\../view/collectionsAdmin.php:85
+#: ..\..\../view/collectionsAdmin.php:299
+#: ..\..\../view/collectionsTeacher.php:78 ..\..\../view/documentAdmin.php:107
+#: ..\..\../view/documentAdmin.php:384 ..\..\../view/documentAdmin.php:415
 #: ..\..\../view/documentTeacher.php:119 ..\..\../view/documentTeacher.php:319
-#: ..\..\../view/documentTeacher.php:405 ..\..\../view/exercisesAdmin.php:90
-#: ..\..\../view/exercisesAdmin.php:635 ..\..\../view/exercisesTeacher.php:86
-#: ..\..\../view/exercisesTeacher.php:631 ..\..\../view/groupStudent.php:27
+#: ..\..\../view/documentTeacher.php:405 ..\..\../view/exercisesAdmin.php:91
+#: ..\..\../view/exercisesAdmin.php:636 ..\..\../view/exercisesTeacher.php:87
+#: ..\..\../view/exercisesTeacher.php:632 ..\..\../view/groupStudent.php:27
 #: ..\..\../view/groupTeacher.php:55 ..\..\../view/groupTeacherStudents.php:19
 #: ..\..\../view/groupsAdmin.php:72 ..\..\../view/teachersAdmin.php:113
-#: ..\..\../view/teachersAdmin.php:350 ..\..\../view/usersAdmin.php:119
-#: ..\..\../view/usersAdmin.php:410 ..\..\../view/usersAdmin.php:435
+#: ..\..\../view/teachersAdmin.php:350 ..\..\../view/usersAdmin.php:120
+#: ..\..\../view/usersAdmin.php:411 ..\..\../view/usersAdmin.php:436
 msgid "Cancelar"
 msgstr "Cancel"
 
-#: ..\..\../view/collectionsAdmin.php:85
-#: ..\..\../view/collectionsTeacher.php:77
+#: ..\..\../view/collectionsAdmin.php:86
+#: ..\..\../view/collectionsTeacher.php:80
 msgid "Confirmación eliminar colección"
 msgstr "Confirmation delete collection"
 
-#: ..\..\../view/collectionsAdmin.php:88
+#: ..\..\../view/collectionsAdmin.php:89
 msgid "La colección Pública no puede eliminarse."
 msgstr "Public collection can not be deleted."
 
-#: ..\..\../view/collectionsAdmin.php:107
-#: ..\..\../view/collectionsTeacher.php:99
+#: ..\..\../view/collectionsAdmin.php:108
+#: ..\..\../view/collectionsTeacher.php:102
 msgid "Se eliminó la colección correctamente."
 msgstr "The collection was removed successfully."
 
-#: ..\..\../view/collectionsAdmin.php:152
-#: ..\..\../view/documentTeacher.php:203 ..\..\../view/exercisesAdmin.php:252
-#: ..\..\../view/exercisesTeacher.php:250
+#: ..\..\../view/collectionsAdmin.php:153
+#: ..\..\../view/documentTeacher.php:203 ..\..\../view/exercisesAdmin.php:253
+#: ..\..\../view/exercisesTeacher.php:251
 msgid "Se actualizaron los permisos correctamente."
 msgstr "Permissions were updated successfully ."
 
-#: ..\..\../view/collectionsAdmin.php:186
+#: ..\..\../view/collectionsAdmin.php:187
 msgid "Nueva colección"
 msgstr "New collection"
 
-#: ..\..\../view/collectionsAdmin.php:193
-#: ..\..\../view/collectionsAdmin.php:284
-#: ..\..\../view/collectionsTeacher.php:141
-#: ..\..\../view/documentTeacher.php:304 ..\..\../view/exercisesAdmin.php:441
-#: ..\..\../view/exercisesAdmin.php:620 ..\..\../view/exercisesTeacher.php:438
-#: ..\..\../view/exercisesTeacher.php:617 ..\..\../view/register.php:156
-#: ..\..\../view/register.php:191 ..\..\../view/usersAdmin.php:397
+#: ..\..\../view/collectionsAdmin.php:194
+#: ..\..\../view/collectionsAdmin.php:285
+#: ..\..\../view/collectionsTeacher.php:144
+#: ..\..\../view/documentTeacher.php:304 ..\..\../view/exercisesAdmin.php:442
+#: ..\..\../view/exercisesAdmin.php:621 ..\..\../view/exercisesTeacher.php:439
+#: ..\..\../view/exercisesTeacher.php:618 ..\..\../view/register.php:156
+#: ..\..\../view/register.php:191 ..\..\../view/usersAdmin.php:398
 msgid "Grupo"
 msgstr "Group"
 
-#: ..\..\../view/collectionsAdmin.php:196
-#: ..\..\../view/collectionsTeacher.php:144
-#: ..\..\../view/documentAdmin.php:288 ..\..\../view/documentTeacher.php:261
-#: ..\..\../view/exercisesAdmin.php:463 ..\..\../view/exercisesTeacher.php:461
+#: ..\..\../view/collectionsAdmin.php:197
+#: ..\..\../view/collectionsTeacher.php:147
+#: ..\..\../view/documentAdmin.php:289 ..\..\../view/documentTeacher.php:261
+#: ..\..\../view/exercisesAdmin.php:464 ..\..\../view/exercisesTeacher.php:462
 #: ..\..\../view/groupTeacher.php:232
 msgid "Añadir"
 msgstr "Add"
 
-#: ..\..\../view/collectionsAdmin.php:216
-#: ..\..\../view/collectionsTeacher.php:164
+#: ..\..\../view/collectionsAdmin.php:217
+#: ..\..\../view/collectionsTeacher.php:167
 msgid "Nº documentos"
 msgstr "Nº documents"
 
-#: ..\..\../view/collectionsAdmin.php:216
-#: ..\..\../view/collectionsTeacher.php:164
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/collectionsAdmin.php:217
+#: ..\..\../view/collectionsTeacher.php:167
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:304
 msgid "Nº grupos"
 msgstr "Nº groups"
 
-#: ..\..\../view/collectionsAdmin.php:216 ..\..\../view/teachersAdmin.php:237
+#: ..\..\../view/collectionsAdmin.php:217 ..\..\../view/teachersAdmin.php:237
 msgid "Consultar grupos"
 msgstr "View groups"
 
-#: ..\..\../view/collectionsAdmin.php:216
-#: ..\..\../view/collectionsTeacher.php:164
-#: ..\..\../view/documentAdmin.php:309 ..\..\../view/documentTeacher.php:328
-#: ..\..\../view/exercisesAdmin.php:551 ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/collectionsAdmin.php:217
+#: ..\..\../view/collectionsTeacher.php:167
+#: ..\..\../view/documentAdmin.php:310 ..\..\../view/documentTeacher.php:328
+#: ..\..\../view/exercisesAdmin.php:552 ..\..\../view/exercisesTeacher.php:549
 #: ..\..\../view/groupTeacher.php:243 ..\..\../view/groupsAdmin.php:265
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:304
 msgid "Eliminar"
 msgstr "Delete"
 
-#: ..\..\../view/collectionsAdmin.php:239
-#: ..\..\../view/collectionsTeacher.php:187
-#: ..\..\../view/documentAdmin.php:334 ..\..\../view/documentTeacher.php:353
-#: ..\..\../view/exercisesAdmin.php:575 ..\..\../view/exercisesTeacher.php:572
+#: ..\..\../view/collectionsAdmin.php:240
+#: ..\..\../view/collectionsTeacher.php:190
+#: ..\..\../view/documentAdmin.php:335 ..\..\../view/documentTeacher.php:353
+#: ..\..\../view/exercisesAdmin.php:576 ..\..\../view/exercisesTeacher.php:573
 #: ..\..\../view/groupTeacher.php:266 ..\..\../view/groupsAdmin.php:288
-#: ..\..\../view/teachersAdmin.php:272 ..\..\../view/usersAdmin.php:351
+#: ..\..\../view/teachersAdmin.php:272 ..\..\../view/usersAdmin.php:352
 msgid "No puede estar vacío."
 msgstr "Can not be empty"
 
-#: ..\..\../view/collectionsAdmin.php:274 ..\..\../view/documentAdmin.php:370
+#: ..\..\../view/collectionsAdmin.php:275 ..\..\../view/documentAdmin.php:371
 #: ..\..\../view/documentTeacher.php:293 ..\..\../view/documentTeacher.php:389
-#: ..\..\../view/exercisesAdmin.php:609 ..\..\../view/exercisesTeacher.php:606
+#: ..\..\../view/exercisesAdmin.php:610 ..\..\../view/exercisesTeacher.php:607
 #: ..\..\../view/groupTeacher.php:300 ..\..\../view/groupsAdmin.php:323
 #: ..\..\../view/teachersAdmin.php:307 ..\..\../view/teachersAdmin.php:337
-#: ..\..\../view/usersAdmin.php:386 ..\..\../view/usersAdmin.php:418
+#: ..\..\../view/usersAdmin.php:387 ..\..\../view/usersAdmin.php:419
 msgid "Cerrar"
 msgstr "Close"
 
-#: ..\..\../view/collectionsAdmin.php:275
+#: ..\..\../view/collectionsAdmin.php:276
 #: ..\..\../view/documentTeacher.php:294
 msgid "Gestionar acceso de grupos:"
 msgstr "Manage group access:"
 
-#: ..\..\../view/collectionsAdmin.php:284
-#: ..\..\../view/documentTeacher.php:304 ..\..\../view/usersAdmin.php:397
+#: ..\..\../view/collectionsAdmin.php:285
+#: ..\..\../view/documentTeacher.php:304 ..\..\../view/usersAdmin.php:398
 msgid "Permitir acceso"
 msgstr "Allow access"
 
-#: ..\..\../view/collectionsAdmin.php:284
+#: ..\..\../view/collectionsAdmin.php:285
 #: ..\..\../view/documentTeacher.php:304
-#: ..\..\../view/groupTeacherStudents.php:82 ..\..\../view/usersAdmin.php:397
+#: ..\..\../view/groupTeacherStudents.php:82 ..\..\../view/usersAdmin.php:398
 msgid "Denegar acceso"
 msgstr "Deny access"
 
-#: ..\..\../view/collectionsAdmin.php:297 ..\..\../view/documentAdmin.php:413
-#: ..\..\../view/documentTeacher.php:318 ..\..\../view/exercisesAdmin.php:634
-#: ..\..\../view/exercisesTeacher.php:630 ..\..\../view/teachersAdmin.php:349
-#: ..\..\../view/usersAdmin.php:409 ..\..\../view/usersAdmin.php:434
+#: ..\..\../view/collectionsAdmin.php:298 ..\..\../view/documentAdmin.php:414
+#: ..\..\../view/documentTeacher.php:318 ..\..\../view/exercisesAdmin.php:635
+#: ..\..\../view/exercisesTeacher.php:631 ..\..\../view/teachersAdmin.php:349
+#: ..\..\../view/usersAdmin.php:410 ..\..\../view/usersAdmin.php:435
 msgid "Guardar"
 msgstr "Save"
 
@@ -621,11 +630,11 @@ msgstr "Available collections"
 msgid "Profesor responsable"
 msgstr "Lecturer in charge"
 
-#: ..\..\../view/collectionsTeacher.php:134
+#: ..\..\../view/collectionsTeacher.php:137
 msgid "Añadir nueva colección"
 msgstr "Add new collection"
 
-#: ..\..\../view/collectionsTeacher.php:206 ..\..\../view/groupTeacher.php:37
+#: ..\..\../view/collectionsTeacher.php:209 ..\..\../view/groupTeacher.php:37
 #: ..\..\../view/groupTeacher.php:285 ..\..\../view/groupsAdmin.php:44
 #: ..\..\../view/groupsAdmin.php:307
 msgid ""
@@ -635,24 +644,24 @@ msgstr ""
 "There already exists a group with the same name. Please enter a different "
 "group name."
 
-#: ..\..\../view/documentAdmin.php:34 ..\..\../view/documentTeacher.php:41
+#: ..\..\../view/documentAdmin.php:35 ..\..\../view/documentTeacher.php:41
 msgid "Debe seleccionar al menos una colección"
 msgstr "You must select at least one collection"
 
-#: ..\..\../view/documentAdmin.php:53 ..\..\../view/documentAdmin.php:159
+#: ..\..\../view/documentAdmin.php:54 ..\..\../view/documentAdmin.php:160
 #: ..\..\../view/documentTeacher.php:60 ..\..\../view/documentTeacher.php:157
 msgid "La transcripción debe ser un archivo con extensión .xml"
 msgstr "The transcription must be contained in an xml file"
 
-#: ..\..\../view/documentAdmin.php:62 ..\..\../view/documentAdmin.php:168
+#: ..\..\../view/documentAdmin.php:63 ..\..\../view/documentAdmin.php:169
 msgid "El formato de la imagen no es válido."
 msgstr "Invalid image format."
 
-#: ..\..\../view/documentAdmin.php:87 ..\..\../view/documentTeacher.php:85
+#: ..\..\../view/documentAdmin.php:88 ..\..\../view/documentTeacher.php:85
 msgid "Se añadió el documento correctamente."
 msgstr "The document has been successfully added."
 
-#: ..\..\../view/documentAdmin.php:91 ..\..\../view/documentAdmin.php:353
+#: ..\..\../view/documentAdmin.php:92 ..\..\../view/documentAdmin.php:354
 #: ..\..\../view/documentTeacher.php:89 ..\..\../view/documentTeacher.php:372
 msgid ""
 "Ya existe un documento con el mismo nombre. Por favor, introduzca un nombre "
@@ -661,78 +670,78 @@ msgstr ""
 "There already exists a document with the same name. Please enter a different "
 "document name."
 
-#: ..\..\../view/documentAdmin.php:104 ..\..\../view/documentTeacher.php:117
+#: ..\..\../view/documentAdmin.php:105 ..\..\../view/documentTeacher.php:117
 msgid "¿Está seguro de que desea eliminar el documento "
 msgstr "Are you sure you want to delete the document "
 
-#: ..\..\../view/documentAdmin.php:107 ..\..\../view/documentTeacher.php:121
+#: ..\..\../view/documentAdmin.php:108 ..\..\../view/documentTeacher.php:121
 msgid "Confirmación eliminar documento"
 msgstr "Confirmation delete document"
 
-#: ..\..\../view/documentAdmin.php:125
+#: ..\..\../view/documentAdmin.php:126
 msgid "Se eliminó el documento correctamente."
 msgstr "The document has been successfully removed."
 
-#: ..\..\../view/documentAdmin.php:211
+#: ..\..\../view/documentAdmin.php:212
 msgid "El documento debe encontrarse al menos en una colección"
 msgstr "The document must be in one collection, at least"
 
-#: ..\..\../view/documentAdmin.php:228
+#: ..\..\../view/documentAdmin.php:229
 msgid "Se actualizaron los permisos de acceso correctamente."
 msgstr "Access permissions has been successfully updated."
 
-#: ..\..\../view/documentAdmin.php:270
+#: ..\..\../view/documentAdmin.php:271
 msgid "Nuevo documento"
 msgstr "New document"
 
-#: ..\..\../view/documentAdmin.php:275 ..\..\../view/documentAdmin.php:400
-#: ..\..\../view/documentTeacher.php:248 ..\..\../view/exercisesAdmin.php:439
-#: ..\..\../view/exercisesTeacher.php:436
+#: ..\..\../view/documentAdmin.php:276 ..\..\../view/documentAdmin.php:401
+#: ..\..\../view/documentTeacher.php:248 ..\..\../view/exercisesAdmin.php:440
+#: ..\..\../view/exercisesTeacher.php:437
 msgid "Colección"
 msgstr "Collection"
 
-#: ..\..\../view/documentAdmin.php:278 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/documentAdmin.php:279 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentStudent.php:143 ..\..\../view/documentTeacher.php:251
 #: ..\..\../view/documentTeacher.php:328
 msgid "Tipo escritura"
 msgstr "Type of script"
 
-#: ..\..\../view/documentAdmin.php:279 ..\..\../view/documentAdmin.php:309
+#: ..\..\../view/documentAdmin.php:280 ..\..\../view/documentAdmin.php:310
 #: ..\..\../view/documentStudent.php:143 ..\..\../view/documentTeacher.php:252
-#: ..\..\../view/documentTeacher.php:328 ..\..\../view/helpTeacher.php:47
+#: ..\..\../view/documentTeacher.php:328
 msgid "Fecha"
 msgstr "Date"
 
-#: ..\..\../view/documentAdmin.php:282 ..\..\../view/documentTeacher.php:255
+#: ..\..\../view/documentAdmin.php:283 ..\..\../view/documentTeacher.php:255
 #: ..\..\../view/documentTeacher.php:397
 msgid "Imagen"
 msgstr "Image"
 
-#: ..\..\../view/documentAdmin.php:284 ..\..\../view/documentTeacher.php:257
+#: ..\..\../view/documentAdmin.php:285 ..\..\../view/documentTeacher.php:257
 #: ..\..\../view/documentTeacher.php:400
 msgid "Transcripción"
 msgstr "Transcription"
 
-#: ..\..\../view/documentAdmin.php:309 ..\..\../view/documentAdmin.php:372
+#: ..\..\../view/documentAdmin.php:310 ..\..\../view/documentAdmin.php:373
 #: ..\..\../view/documentTeacher.php:328 ..\..\../view/documentTeacher.php:391
 msgid "Modificar ficheros"
 msgstr "Edit files"
 
-#: ..\..\../view/documentAdmin.php:376
+#: ..\..\../view/documentAdmin.php:377
 msgid "Imagen:"
 msgstr "Image:"
 
-#: ..\..\../view/documentAdmin.php:382 ..\..\../view/documentTeacher.php:404
+#: ..\..\../view/documentAdmin.php:383 ..\..\../view/documentTeacher.php:404
 #: ..\..\../view/groupTeacher.php:322 ..\..\../view/groupsAdmin.php:345
 #: ..\..\../view/registerOk.php:27
 msgid "Aceptar"
 msgstr "Accept"
 
-#: ..\..\../view/documentAdmin.php:392
+#: ..\..\../view/documentAdmin.php:393
 msgid "Gestionar colecciones"
 msgstr "Manage collections"
 
-#: ..\..\../view/documentAdmin.php:400
+#: ..\..\../view/documentAdmin.php:401
 msgid "Asignar documento"
 msgstr "Assign document"
 
@@ -750,9 +759,9 @@ msgstr "Available documents:"
 msgid "Ejercicios disponibles:"
 msgstr "Available exercises:"
 
-#: ..\..\../view/documentStudent.php:167 ..\..\../view/exercisesAdmin.php:440
-#: ..\..\../view/exercisesAdmin.php:551 ..\..\../view/exercisesTeacher.php:437
-#: ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/documentStudent.php:167 ..\..\../view/exercisesAdmin.php:441
+#: ..\..\../view/exercisesAdmin.php:552 ..\..\../view/exercisesTeacher.php:438
+#: ..\..\../view/exercisesTeacher.php:549
 msgid "Documento"
 msgstr "Document"
 
@@ -760,8 +769,8 @@ msgstr "Document"
 msgid "Superado"
 msgstr "Passed"
 
-#: ..\..\../view/documentStudent.php:167 ..\..\../view/exercisesAdmin.php:551
-#: ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/documentStudent.php:167 ..\..\../view/exercisesAdmin.php:552
+#: ..\..\../view/exercisesTeacher.php:549
 msgid "Ejercicio"
 msgstr "Exercise"
 
@@ -769,8 +778,8 @@ msgstr "Exercise"
 msgid " Se eliminarán también los ejercicios creados a partir de él."
 msgstr "Exercises from it will be deleted as well."
 
-#: ..\..\../view/documentTeacher.php:139 ..\..\../view/exercisesAdmin.php:109
-#: ..\..\../view/exercisesTeacher.php:105
+#: ..\..\../view/documentTeacher.php:139 ..\..\../view/exercisesAdmin.php:110
+#: ..\..\../view/exercisesTeacher.php:106
 msgid "Se eliminó el ejercicio correctamente."
 msgstr "The exercise has been successfully removed."
 
@@ -838,17 +847,17 @@ msgstr "An error occurred while the documents were saved."
 msgid "Inténtelo de nuevo más tarde. Disculpen las molestias."
 msgstr "Please try again later.Sorry for the inconvenience."
 
-#: ..\..\../view/exercisesAdmin.php:40 ..\..\../view/exercisesTeacher.php:35
+#: ..\..\../view/exercisesAdmin.php:41 ..\..\../view/exercisesTeacher.php:36
 msgid "Debe seleccionar un documento a partir del que crear un ejercicio"
 msgstr "You must select a document from which to create an exercise"
 
-#: ..\..\../view/exercisesAdmin.php:68 ..\..\../view/exercisesTeacher.php:63
+#: ..\..\../view/exercisesAdmin.php:69 ..\..\../view/exercisesTeacher.php:64
 msgid "Se añadió el ejercicio correctamente."
 msgstr "The exercise has been successfully added."
 
-#: ..\..\../view/exercisesAdmin.php:76 ..\..\../view/exercisesAdmin.php:594
-#: ..\..\../view/exercisesTeacher.php:71
-#: ..\..\../view/exercisesTeacher.php:591
+#: ..\..\../view/exercisesAdmin.php:77 ..\..\../view/exercisesAdmin.php:595
+#: ..\..\../view/exercisesTeacher.php:72
+#: ..\..\../view/exercisesTeacher.php:592
 msgid ""
 "Ya existe un ejercicio con el mismo nombre. Por favor, introduzca un nombre "
 "de ejercicio diferente."
@@ -856,19 +865,19 @@ msgstr ""
 "There already exists an exercise with the same name. Please enter a "
 "different exercise name."
 
-#: ..\..\../view/exercisesAdmin.php:88 ..\..\../view/exercisesTeacher.php:84
+#: ..\..\../view/exercisesAdmin.php:89 ..\..\../view/exercisesTeacher.php:85
 msgid "¿Está seguro de que desea eliminar el ejercicio "
 msgstr "Are you sure you want to delete the exercise "
 
-#: ..\..\../view/exercisesAdmin.php:91 ..\..\../view/exercisesTeacher.php:87
+#: ..\..\../view/exercisesAdmin.php:92 ..\..\../view/exercisesTeacher.php:88
 msgid "Confirmación eliminar ejercicio"
 msgstr "Confirmation delete exercise"
 
-#: ..\..\../view/exercisesAdmin.php:136 ..\..\../view/exercisesTeacher.php:132
+#: ..\..\../view/exercisesAdmin.php:137 ..\..\../view/exercisesTeacher.php:133
 msgid "Se actualizó la dificultad del ejercicio correctamente."
 msgstr "The difficulty of the exercise has been successfully updated."
 
-#: ..\..\../view/exercisesAdmin.php:143 ..\..\../view/exercisesTeacher.php:139
+#: ..\..\../view/exercisesAdmin.php:144 ..\..\../view/exercisesTeacher.php:140
 msgid ""
 "La dificultad de los ejercicios no puede ser modificada porque estos se "
 "encuentran actualmente en uso."
@@ -876,15 +885,15 @@ msgstr ""
 "The difficulty of the exercises can not be modified because those are "
 "currently in use."
 
-#: ..\..\../view/exercisesAdmin.php:165 ..\..\../view/exercisesAdmin.php:331
-#: ..\..\../view/exercisesTeacher.php:161
-#: ..\..\../view/exercisesTeacher.php:327
+#: ..\..\../view/exercisesAdmin.php:166 ..\..\../view/exercisesAdmin.php:332
+#: ..\..\../view/exercisesTeacher.php:162
+#: ..\..\../view/exercisesTeacher.php:328
 msgid "Se actualizó el objetivo del ejercicio correctamente."
 msgstr "The target of the exercise has been successfully updated."
 
-#: ..\..\../view/exercisesAdmin.php:172 ..\..\../view/exercisesAdmin.php:344
-#: ..\..\../view/exercisesTeacher.php:168
-#: ..\..\../view/exercisesTeacher.php:340
+#: ..\..\../view/exercisesAdmin.php:173 ..\..\../view/exercisesAdmin.php:345
+#: ..\..\../view/exercisesTeacher.php:169
+#: ..\..\../view/exercisesTeacher.php:341
 msgid ""
 "El objetivo de los ejercicios no puede ser modificado porque estos se "
 "encuentran actualmente en uso."
@@ -892,11 +901,11 @@ msgstr ""
 "The target of the exercises can not be modified because those are currently "
 "in use."
 
-#: ..\..\../view/exercisesAdmin.php:194 ..\..\../view/exercisesTeacher.php:190
+#: ..\..\../view/exercisesAdmin.php:195 ..\..\../view/exercisesTeacher.php:191
 msgid "Se actualizó el modo de corrección del ejercicio correctamente."
 msgstr "The correction mode of the exercise has been successfully updated."
 
-#: ..\..\../view/exercisesAdmin.php:201 ..\..\../view/exercisesTeacher.php:197
+#: ..\..\../view/exercisesAdmin.php:202 ..\..\../view/exercisesTeacher.php:198
 msgid ""
 "El modo de corrección de los ejercicios no puede ser modificado porque estos "
 "se encuentran actualmente en uso."
@@ -904,19 +913,19 @@ msgstr ""
 "The correction mode of the exercises can not be modified because those are "
 "currently in use."
 
-#: ..\..\../view/exercisesAdmin.php:316 ..\..\../view/exercisesTeacher.php:312
+#: ..\..\../view/exercisesAdmin.php:317 ..\..\../view/exercisesTeacher.php:313
 msgid "Debe introducir un valor"
 msgstr "Must type a value"
 
-#: ..\..\../view/exercisesAdmin.php:374 ..\..\../view/exercisesAdmin.php:412
-#: ..\..\../view/exercisesTeacher.php:370
-#: ..\..\../view/exercisesTeacher.php:408
+#: ..\..\../view/exercisesAdmin.php:375 ..\..\../view/exercisesAdmin.php:413
+#: ..\..\../view/exercisesTeacher.php:371
+#: ..\..\../view/exercisesTeacher.php:409
 msgid "Se actualizó el orden del ejercicio correctamente."
 msgstr "The order of the exercise has been successfully updated."
 
-#: ..\..\../view/exercisesAdmin.php:383 ..\..\../view/exercisesAdmin.php:421
-#: ..\..\../view/exercisesTeacher.php:379
-#: ..\..\../view/exercisesTeacher.php:417
+#: ..\..\../view/exercisesAdmin.php:384 ..\..\../view/exercisesAdmin.php:422
+#: ..\..\../view/exercisesTeacher.php:380
+#: ..\..\../view/exercisesTeacher.php:418
 msgid ""
 "El orden de los ejercicios no puede ser modificado porque estos se "
 "encuentran actualmente en uso."
@@ -924,77 +933,77 @@ msgstr ""
 "The order of the exercises can not be modified because those are currently "
 "in use."
 
-#: ..\..\../view/exercisesAdmin.php:433 ..\..\../view/exercisesTeacher.php:430
+#: ..\..\../view/exercisesAdmin.php:434 ..\..\../view/exercisesTeacher.php:431
 msgid "Añadir nuevo ejercicio"
 msgstr "Add new exercise"
 
-#: ..\..\../view/exercisesAdmin.php:436 ..\..\../view/exercisesTeacher.php:433
+#: ..\..\../view/exercisesAdmin.php:437 ..\..\../view/exercisesTeacher.php:434
 msgid "Seleccione un documento a partir del que crear un ejercicio:"
 msgstr "Select a document from which to create an exercise"
 
-#: ..\..\../view/exercisesAdmin.php:448 ..\..\../view/exercisesAdmin.php:551
-#: ..\..\../view/exercisesTeacher.php:445
-#: ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:449 ..\..\../view/exercisesAdmin.php:552
+#: ..\..\../view/exercisesTeacher.php:446
+#: ..\..\../view/exercisesTeacher.php:549
 msgid "Dificultad realización"
 msgstr "Degree of difficulty"
 
-#: ..\..\../view/exercisesAdmin.php:449 ..\..\../view/exercisesTeacher.php:446
+#: ..\..\../view/exercisesAdmin.php:450 ..\..\../view/exercisesTeacher.php:447
 msgid "Fácil"
 msgstr "Easy"
 
-#: ..\..\../view/exercisesAdmin.php:450 ..\..\../view/exercisesTeacher.php:447
+#: ..\..\../view/exercisesAdmin.php:451 ..\..\../view/exercisesTeacher.php:448
 msgid "Medio"
 msgstr "Medium"
 
-#: ..\..\../view/exercisesAdmin.php:451 ..\..\../view/exercisesTeacher.php:448
+#: ..\..\../view/exercisesAdmin.php:452 ..\..\../view/exercisesTeacher.php:449
 msgid "Difícil"
 msgstr "Hard"
 
-#: ..\..\../view/exercisesAdmin.php:453 ..\..\../view/exercisesAdmin.php:551
-#: ..\..\../view/exercisesTeacher.php:450
-#: ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:454 ..\..\../view/exercisesAdmin.php:552
+#: ..\..\../view/exercisesTeacher.php:451
+#: ..\..\../view/exercisesTeacher.php:549
 msgid "Objetivo"
 msgstr "Target"
 
-#: ..\..\../view/exercisesAdmin.php:454 ..\..\../view/exercisesTeacher.php:451
+#: ..\..\../view/exercisesAdmin.php:455 ..\..\../view/exercisesTeacher.php:452
 msgid "% palabras acertadas"
 msgstr "% right words"
 
-#: ..\..\../view/exercisesAdmin.php:455 ..\..\../view/exercisesTeacher.php:452
+#: ..\..\../view/exercisesAdmin.php:456 ..\..\../view/exercisesTeacher.php:453
 msgid "Nº máximo de fallos"
 msgstr "Maximum number of mistakes"
 
-#: ..\..\../view/exercisesAdmin.php:457 ..\..\../view/exercisesAdmin.php:551
-#: ..\..\../view/exercisesTeacher.php:455
-#: ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:458 ..\..\../view/exercisesAdmin.php:552
+#: ..\..\../view/exercisesTeacher.php:456
+#: ..\..\../view/exercisesTeacher.php:549
 msgid "Modo corrección"
 msgstr "Correction mode"
 
-#: ..\..\../view/exercisesAdmin.php:458 ..\..\../view/exercisesTeacher.php:456
+#: ..\..\../view/exercisesAdmin.php:459 ..\..\../view/exercisesTeacher.php:457
 msgid "Corregir al final"
 msgstr "Correct at the end"
 
-#: ..\..\../view/exercisesAdmin.php:459 ..\..\../view/exercisesTeacher.php:457
+#: ..\..\../view/exercisesAdmin.php:460 ..\..\../view/exercisesTeacher.php:458
 msgid "Corregir paso a paso"
 msgstr "Correct step by step"
 
-#: ..\..\../view/exercisesAdmin.php:526 ..\..\../view/exercisesTeacher.php:522
+#: ..\..\../view/exercisesAdmin.php:527 ..\..\../view/exercisesTeacher.php:523
 msgid "Seleccione una colección:"
 msgstr "Select a collection:"
 
-#: ..\..\../view/exercisesAdmin.php:551 ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:552 ..\..\../view/exercisesTeacher.php:549
 msgid "Código ejercicio"
 msgstr "Exercise code"
 
-#: ..\..\../view/exercisesAdmin.php:551 ..\..\../view/exercisesTeacher.php:548
+#: ..\..\../view/exercisesAdmin.php:552 ..\..\../view/exercisesTeacher.php:549
 msgid "Ordenar"
 msgstr "Order"
 
-#: ..\..\../view/exercisesAdmin.php:610 ..\..\../view/exercisesTeacher.php:607
+#: ..\..\../view/exercisesAdmin.php:611 ..\..\../view/exercisesTeacher.php:608
 msgid "Acceso a grupos:"
 msgstr "Group access:"
 
-#: ..\..\../view/exercisesAdmin.php:620 ..\..\../view/exercisesTeacher.php:617
+#: ..\..\../view/exercisesAdmin.php:621 ..\..\../view/exercisesTeacher.php:618
 msgid "Incluir ejercicio"
 msgstr "Include exercise"
 
@@ -1094,7 +1103,7 @@ msgstr "Acces to the group has been denied"
 
 #: ..\..\../view/groupTeacher.php:220
 #: ..\..\../view/groupTeacherStudents.php:68 ..\..\../view/groupsAdmin.php:228
-#: ..\..\../view/teachersAdmin.php:206 ..\..\../view/usersAdmin.php:259
+#: ..\..\../view/teachersAdmin.php:206 ..\..\../view/usersAdmin.php:260
 msgid "Alumnos"
 msgstr "Students"
 
@@ -1121,16 +1130,16 @@ msgstr "Group:"
 #: ..\..\../view/groupTeacher.php:309
 #: ..\..\../view/groupTeacherStudents.php:82 ..\..\../view/groupsAdmin.php:332
 #: ..\..\../view/register.php:182 ..\..\../view/teachersAdmin.php:217
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:270
-#: ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:271
+#: ..\..\../view/usersAdmin.php:304
 msgid "Apellidos"
 msgstr "Surnames"
 
 #: ..\..\../view/groupTeacher.php:309
 #: ..\..\../view/groupTeacherStudents.php:82 ..\..\../view/groupsAdmin.php:332
-#: ..\..\../view/helpTeacher.php:27 ..\..\../view/register.php:183
-#: ..\..\../view/teachersAdmin.php:218 ..\..\../view/teachersAdmin.php:237
-#: ..\..\../view/usersAdmin.php:271 ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/register.php:183 ..\..\../view/teachersAdmin.php:218
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:272
+#: ..\..\../view/usersAdmin.php:304
 msgid "Email"
 msgstr "Email"
 
@@ -1151,7 +1160,7 @@ msgstr "Delay"
 msgid "¿Está seguro de que desea denegar el acceso a esta colección al alumno "
 msgstr "Are you sure you want to deny the student access to "
 
-#: ..\..\../view/groupTeacherStudents.php:21 ..\..\../view/usersAdmin.php:120
+#: ..\..\../view/groupTeacherStudents.php:21 ..\..\../view/usersAdmin.php:121
 msgid "Confirmación eliminar alumno"
 msgstr "Confirmation to remove student access"
 
@@ -1164,7 +1173,7 @@ msgid "GRUPO: "
 msgstr "GROUP: "
 
 #: ..\..\../view/groupsAdmin.php:229 ..\..\../view/teachersAdmin.php:207
-#: ..\..\../view/usersAdmin.php:260
+#: ..\..\../view/usersAdmin.php:261
 msgid "Profesores"
 msgstr "Lecturers"
 
@@ -1174,7 +1183,7 @@ msgid "Profesor"
 msgstr "Lecturer"
 
 #: ..\..\../view/groupsAdmin.php:245 ..\..\../view/teachersAdmin.php:226
-#: ..\..\../view/usersAdmin.php:283
+#: ..\..\../view/usersAdmin.php:284
 msgid "Crear"
 msgstr "Create"
 
@@ -1186,26 +1195,6 @@ msgstr "About"
 #: ..\..\../view/helpStudent.php:12 ..\..\../view/helpTeacher.php:12
 msgid "Manual de usuario"
 msgstr "User manual"
-
-#: ..\..\../view/helpTeacher.php:23
-msgid "Autora"
-msgstr "Author"
-
-#: ..\..\../view/helpTeacher.php:31
-msgid "Tutores"
-msgstr "Supervisors"
-
-#: ..\..\../view/helpTeacher.php:35
-msgid "Colaboradora"
-msgstr "Collaborator"
-
-#: ..\..\../view/helpTeacher.php:39
-msgid "Licencia"
-msgstr "License"
-
-#: ..\..\../view/helpTeacher.php:43
-msgid "Versión"
-msgstr "Version"
 
 #: ..\..\../view/login.php:18 ..\..\../view/login.php:102
 msgid "Acceso UBUPal"
@@ -1241,11 +1230,11 @@ msgstr "Spanish"
 msgid "Inglés"
 msgstr "English"
 
-#: ..\..\../view/login.php:108 ..\..\../view/usersAdmin.php:424
+#: ..\..\../view/login.php:108 ..\..\../view/usersAdmin.php:425
 msgid "DNI:"
 msgstr "ID:"
 
-#: ..\..\../view/login.php:110 ..\..\../view/usersAdmin.php:429
+#: ..\..\../view/login.php:110 ..\..\../view/usersAdmin.php:430
 msgid "Contraseña:"
 msgstr "Password:"
 
@@ -1309,24 +1298,24 @@ msgid "Registro UBUPal"
 msgstr "UBUPal Register"
 
 #: ..\..\../view/register.php:64 ..\..\../view/teachersAdmin.php:34
-#: ..\..\../view/teachersAdmin.php:267 ..\..\../view/usersAdmin.php:40
-#: ..\..\../view/usersAdmin.php:342
+#: ..\..\../view/teachersAdmin.php:267 ..\..\../view/usersAdmin.php:41
+#: ..\..\../view/usersAdmin.php:343
 msgid "DNI no válido"
 msgstr "Invalid ID number"
 
 #: ..\..\../view/register.php:68 ..\..\../view/register.php:72
 #: ..\..\../view/register.php:76 ..\..\../view/teachersAdmin.php:38
 #: ..\..\../view/teachersAdmin.php:42 ..\..\../view/teachersAdmin.php:46
-#: ..\..\../view/usersAdmin.php:44 ..\..\../view/usersAdmin.php:48
-#: ..\..\../view/usersAdmin.php:52 ..\..\../view/usersAdmin.php:346
+#: ..\..\../view/usersAdmin.php:45 ..\..\../view/usersAdmin.php:49
+#: ..\..\../view/usersAdmin.php:53 ..\..\../view/usersAdmin.php:347
 msgid "Formato no válido"
 msgstr "Invalid format"
 
 #: ..\..\../view/register.php:80 ..\..\../view/register.php:85
 #: ..\..\../view/teachersAdmin.php:50 ..\..\../view/teachersAdmin.php:54
 #: ..\..\../view/teachersAdmin.php:152 ..\..\../view/teachersAdmin.php:156
-#: ..\..\../view/usersAdmin.php:56 ..\..\../view/usersAdmin.php:60
-#: ..\..\../view/usersAdmin.php:205 ..\..\../view/usersAdmin.php:209
+#: ..\..\../view/usersAdmin.php:61 ..\..\../view/usersAdmin.php:206
+#: ..\..\../view/usersAdmin.php:210
 msgid ""
 "Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"
 msgstr ""
@@ -1334,8 +1323,8 @@ msgstr ""
 "character"
 
 #: ..\..\../view/register.php:90 ..\..\../view/teachersAdmin.php:59
-#: ..\..\../view/teachersAdmin.php:160 ..\..\../view/usersAdmin.php:65
-#: ..\..\../view/usersAdmin.php:213
+#: ..\..\../view/teachersAdmin.php:160 ..\..\../view/usersAdmin.php:66
+#: ..\..\../view/usersAdmin.php:214
 msgid "Las contraseñas no coinciden"
 msgstr "Passwords don't match"
 
@@ -1362,13 +1351,13 @@ msgid "Confirme contraseña"
 msgstr "Retype the password"
 
 #: ..\..\../view/register.php:188 ..\..\../view/teachersAdmin.php:221
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:274
-#: ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:275
+#: ..\..\../view/usersAdmin.php:304
 msgid "DNI"
 msgstr "ID"
 
 #: ..\..\../view/register.php:189 ..\..\../view/teachersAdmin.php:222
-#: ..\..\../view/teachersAdmin.php:344 ..\..\../view/usersAdmin.php:275
+#: ..\..\../view/teachersAdmin.php:344 ..\..\../view/usersAdmin.php:276
 msgid "Contraseña"
 msgstr "Password"
 
@@ -1409,7 +1398,7 @@ msgid "Se añadió el profesor correctamente."
 msgstr "The lecturer has been successfully added."
 
 #: ..\..\../view/teachersAdmin.php:87 ..\..\../view/teachersAdmin.php:291
-#: ..\..\../view/usersAdmin.php:92 ..\..\../view/usersAdmin.php:370
+#: ..\..\../view/usersAdmin.php:93 ..\..\../view/usersAdmin.php:371
 msgid "Ya existe un usuario con el mismo DNI."
 msgstr "There is already a user with the same ID."
 
@@ -1434,11 +1423,11 @@ msgid "Nuevo profesor"
 msgstr "New lecturer"
 
 #: ..\..\../view/teachersAdmin.php:223 ..\..\../view/teachersAdmin.php:346
-#: ..\..\../view/usersAdmin.php:276
+#: ..\..\../view/usersAdmin.php:277
 msgid "Repita contraseña"
 msgstr "Retype the password"
 
-#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:303
+#: ..\..\../view/teachersAdmin.php:237 ..\..\../view/usersAdmin.php:304
 msgid "Código usuario"
 msgstr "User code"
 
@@ -1454,8 +1443,8 @@ msgstr "Lecturer's groups"
 msgid "Modificar contraseña:"
 msgstr "Change password"
 
-#: ..\..\../view/teachersAdmin.php:339 ..\..\../view/usersAdmin.php:388
-#: ..\..\../view/usersAdmin.php:420
+#: ..\..\../view/teachersAdmin.php:339 ..\..\../view/usersAdmin.php:389
+#: ..\..\../view/usersAdmin.php:421
 msgid "Alumno:"
 msgstr "Student:"
 
@@ -1479,41 +1468,64 @@ msgstr ""
 msgid "Ir a la página de inicio"
 msgstr "Go to homepage"
 
-#: ..\..\../view/usersAdmin.php:88
+#: ..\..\../view/usersAdmin.php:57
+msgid ""
+"Prueba Debe contener entre 8 - 10 caracteres, al menos un dígito y un "
+"alfanumérico"
+msgstr ""
+"Must contain 8 - 10 characters, at least one digit and one alphanumeric "
+"character"
+
+#: ..\..\../view/usersAdmin.php:89
 msgid "Se añadió el alumno correctamente."
 msgstr "The document has been successfully added."
 
-#: ..\..\../view/usersAdmin.php:117
+#: ..\..\../view/usersAdmin.php:118
 msgid "¿Está seguro de que desea eliminar el alumno "
 msgstr "Are you sure you want to deny the student access to"
 
-#: ..\..\../view/usersAdmin.php:137
+#: ..\..\../view/usersAdmin.php:138
 msgid "Se eliminó el alumno correctamente."
 msgstr "The student has been successfully removed."
 
-#: ..\..\../view/usersAdmin.php:183
+#: ..\..\../view/usersAdmin.php:184
 msgid "Las permisos se actualizaron correctamente"
 msgstr "The permissions has beend successfully updated."
 
-#: ..\..\../view/usersAdmin.php:228
+#: ..\..\../view/usersAdmin.php:229
 msgid "La contraseña se modificó correctamente."
 msgstr "The password has been successfully updated."
 
-#: ..\..\../view/usersAdmin.php:266
+#: ..\..\../view/usersAdmin.php:267
 msgid "Nuevo alumno"
 msgstr "New student"
 
-#: ..\..\../view/usersAdmin.php:303 ..\..\../view/usersAdmin.php:419
+#: ..\..\../view/usersAdmin.php:304 ..\..\../view/usersAdmin.php:420
 msgid "Modificar contraseña"
 msgstr "Change password"
 
-#: ..\..\../view/usersAdmin.php:387
+#: ..\..\../view/usersAdmin.php:388
 msgid "Gestionar acceso a grupos:"
 msgstr "Manage group access:"
 
-#: ..\..\../view/usersAdmin.php:431
+#: ..\..\../view/usersAdmin.php:432
 msgid "Confirme contraseña:"
 msgstr "Retype the password:"
+
+#~ msgid "Autora"
+#~ msgstr "Author"
+
+#~ msgid "Tutores"
+#~ msgstr "Supervisors"
+
+#~ msgid "Colaboradora"
+#~ msgstr "Collaborator"
+
+#~ msgid "Licencia"
+#~ msgstr "License"
+
+#~ msgid "Versión"
+#~ msgstr "Version"
 
 #~ msgid "Linea: "
 #~ msgstr "Line:"

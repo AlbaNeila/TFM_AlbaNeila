@@ -274,13 +274,13 @@ ob_start();
             </form>
         </div>
         
-        <div class="formulario" style="top:335px;" >
+        <div class="formulario" style="top:360px;" >
             <h2><?php echo(_("COLECCIÓN: "));?><?php echo $coleccion;?></h2>         
         </div>
         <?php
             if($idColeccion != 1){
         ?>
-        <div class="formulario" style="top:320px; text-align: right;width: 85%;" >
+        <div class="formulario" style="top:400px; text-align: right;width: 85%;" >
             <h3><a href="#gestionarGrupos"><?php echo(_("Gestionar grupos"));?></a></h3>
         </div>
         <?php

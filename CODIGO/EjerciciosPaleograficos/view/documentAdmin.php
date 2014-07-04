@@ -17,7 +17,8 @@ ob_start();
 <script>
     $(document).ready(function(){
        window.location = $('#closeModal').attr('href');
-       window.location = $('#closeModal2').attr('href'); 
+       window.location = $('#closeModal2').attr('href');
+       $('.dhx_combo_option_img').remove(); 
     });
 
     function validateForm() {

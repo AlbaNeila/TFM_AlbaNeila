@@ -18,6 +18,7 @@ ob_start();
     
     $(document).ready(function(){
        window.location = $('#closeModal').attr('href');  
+       $('.dhx_combo_option_img').remove();
     });
 
     function validateForm() {
@@ -517,7 +518,7 @@ ob_start();
             </form>
         </div>
         
-        <div class="formulario" style="top:372px;left:32px;" >
+        <div class="formulario" style="top:405px;left:32px;" >
         <table>
             <tr><td><label class="labelModal"><?php echo(_("Seleccione una colección:"));?></label></td></tr>
              <tr><td><div id="combo_selectcollection" style="width:200px; height:20px;"></div></td></tr>         
@@ -540,7 +541,7 @@ ob_start();
         </script>
         
         
-        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:440px;left:36px;"></div>
+        <div class="gridAfterForm" id="gridExercises" style="width: 95%; height: 85%;top:480px;left:36px;"></div>
 <div id="labelAux"></div>
         <script>
            var mygrid = new dhtmlXGridObject('gridExercises');

@@ -23,6 +23,7 @@ ob_start();
         label.setAttribute("id", "noRecords");
         label.setAttribute("style", "width: 70%; height: 90%;top:500px;text-align: center;");                            
         $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
+        $('.dhx_combo_option_img').remove();
     });
     
     function validateForm() {

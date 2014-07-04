@@ -15,6 +15,7 @@ ob_start();
     $(document).ready(function(){
        window.location = $('#closeModal2').attr('href');
        window.location = $('#closeModal').attr('href'); 
+       $('.dhx_combo_option_img').remove();
     });
     
     function validateForm() {
@@ -53,7 +54,7 @@ ob_start();
                 flag = false;
             }
             if(!check_password("#password")){
-                set_tooltip($("#password"),"<?php echo(_("Debe contener entre 8-10 caracteres, al menos un dígito y un alfanumérico"));?>");
+                set_tooltip($("#password"),"<?php echo(_("Prueba Debe contener entre 8 - 10 caracteres, al menos un dígito y un alfanumérico"));?>");
                 flag = false;
             }else{
                     if(!check_password("#password2")){

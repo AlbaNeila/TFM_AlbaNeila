@@ -14,7 +14,10 @@ include('../init.php');
 <script src="../lib/dhtmlxCombo/codebase/ext/dhtmlxcombo_extra.js"></script>
 
 <script>
-
+    $(document).ready(function(){
+       86390391E 
+    });
+    
     function validateForm() {
         var flag = true;
         var u = check_empty($("#nombrecoleccion"),"<?php echo(_("Este campo es requerido"));?>");
