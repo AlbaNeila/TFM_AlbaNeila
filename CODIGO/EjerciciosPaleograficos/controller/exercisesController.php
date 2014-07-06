@@ -49,6 +49,20 @@
             break;
     }
     
+    /**
+     * Function to add a new Exercise.
+     *
+     * Insert the new exercise in the database and update the grupo_ejercicio_coleccion table with the permissions of the 'groups' received in the groups post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * Echo 2 if if also exist an exercise with the same name
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function newExercise(){
         $flag="";
         $idDocument = mysqli_real_escape_string($GLOBALS['link'],$_POST['idDocument']);
@@ -95,7 +109,20 @@
         }
         echo $flag;
     }
-
+    
+    /**
+     * Function to delete an Exercise.
+     *
+     * Delete an exercise form the data base with the id exercise received in the 'idEj' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function deleteExercise(){
        $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         
@@ -109,6 +136,19 @@
         }
     }
     
+    /**
+     * Function to update the number of tips (dificult degree) of an exercise.
+     *
+     * Update the idDificultad value from the database of the id exercise received in the 'idEj' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updateTips(){
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
@@ -122,6 +162,19 @@
         }
     }
     
+    /**
+     * Function to update the type of target of an exercise.
+     *
+     * Update the type of target value from the database of the id exercise received in the 'idEj' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updateTarget(){
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
@@ -135,6 +188,19 @@
         }
     }
     
+    /**
+     * Function to update the value of the target of an exercise.
+     *
+     * Update the value of the target from the database of the id exercise received in the 'idEj' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updateValueTarget(){
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
@@ -153,6 +219,19 @@
         }
     }
     
+    /**
+     * Function to update the correction mode of an exercise.
+     *
+     * Update the correction mode from the database of the id exercise received in the 'idEj' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updateCorrectionMode(){
         $idEj = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEj']);
         $value= mysqli_real_escape_string($GLOBALS['link'],$_POST['value']);
@@ -166,6 +245,19 @@
         }
     }
     
+    /**
+     * Function to check if the Exercise can be update and if it's OK update it.
+     *
+     * Check that the name of the exercise it's not repeat and update the Exercise information with the new data receive in the row post variable.
+     * Echo 0 if if also exist an exercise with the same name
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
@@ -187,6 +279,19 @@
         }
     }
     
+    /**
+     * Function to update the group access permissions to an exercise in a collection.
+     *
+     * Update the grupo_ejercicio_coleccion table with the permissions of the 'groups' received in the groups post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updatePermissionsGroup(){
         $groups = $_POST["groups"];
         $groups= json_decode("$groups",true);
@@ -223,7 +328,20 @@
         }
         echo $flag;
     }
-
+    
+    /**
+     * Function to update the order of an exercise.
+     *
+     * Update the order of an exercise exchanging the value between two exercises.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updateOrder(){
         $idEjUp = mysqli_real_escape_string($GLOBALS['link'],$_POST['idEjUp']);
         $orderUp= mysqli_real_escape_string($GLOBALS['link'],$_POST['orderUp']);
@@ -240,6 +358,19 @@
         }
     }
     
+    /**
+     * Function to check if the order of an exercise can be update.
+     *
+     * Check if some exercise of the collection with the id received in the 'idCollection' post variable is already used by a student.
+     * Echo 0 if the exercise can be updated
+     * Echo 1 if the exercise can't be updated
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkUpdateOrder(){
         $idCollection=$_POST['idCollection'];
         $noUpdate=0;
@@ -256,6 +387,17 @@
         echo $noUpdate;
     }
     
+    /**
+     * Function to access to an exercise by a student.
+     *
+     * Get the document and exercise information and the path to the image of the document.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function accessEj(){
         $idDocument = $_POST['idDocument'];
         $idExercise = $_POST['idExercise'];
@@ -303,7 +445,18 @@
         
         print($outputdata);  
     }
-
+    
+    /**
+     * Function to update the exercise list of a student when the sudent finish an exercise.
+     *
+     * If the exercise has been passed, will found the next exercise to do and this will be activated.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access public
+     *  @return void
+     */
     function finishEj(){
         $superado = $_POST['superado'];
         $idExercise = $_POST['idExercise'];
@@ -328,6 +481,19 @@
         }
     }
     
+     /**
+     * Function that increases the number of attempts when an exercise starts.
+     *
+     * The number of attempts of an exercises increases one.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access public
+     *  @return void
+     */
     function initExercise(){
         $idExercise = $_POST['idExercise'];
         

@@ -1,5 +1,12 @@
 <?php
-
+/**
+* Class User.
+*
+* @package  model
+* @author   Alba Neila Neila <ann0005@alu.ubu.es>
+* @version  1.0
+* @access   public
+*/
 class User{
     private $idUser;
     private $user;

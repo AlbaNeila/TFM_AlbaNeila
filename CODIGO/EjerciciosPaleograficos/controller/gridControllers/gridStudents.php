@@ -1,19 +1,16 @@
-<?php   
+<?php  
+    //PHP file to generate the XML document with all the students of a group, to load a dhtmlxgrid.
+     
     header("Content-type: text/xml"); 
     session_start();  
-
-   include('../../model/persistence/gridService.php');
-
+    include('../../model/persistence/gridService.php');
 
     $result = gridService::getStudents($_REQUEST['idGrupo']);
-    
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
-
     
     while($fila = mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");

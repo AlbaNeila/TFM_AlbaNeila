@@ -1,7 +1,8 @@
 <?php  
+    //PHP file to generate the XML document with all the groups of the application to manage the group access to the collections, to load a dhtmlxgrid.
+    
     header("Content-type: text/xml");  
     session_start();  
-
     include('../../model/persistence/gridService.php');
 
     $idSearched = $_REQUEST['idSearched'];
@@ -18,19 +19,16 @@
         $result2 =gridService::getGroupByCollectionId($idSearched);
     }
 
-    
     $grupos = array();
     while($row = mysql_fetch_array($result2))
-        {
-            $grupos[] = $row['idGrupo'];
-        }
-    
+    {
+        $grupos[] = $row['idGrupo'];
+    }
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
     
     while($fila = @mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");

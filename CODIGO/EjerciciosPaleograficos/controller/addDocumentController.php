@@ -1,5 +1,5 @@
 <?php
-ob_start();
+    ob_start();
     session_start();
     include('../model/persistence/documentService.php');
     
@@ -23,6 +23,19 @@ ob_start();
             break;
     }
     
+    /**
+    * Function to add a new document to one or more collection by a lecturer.
+    *
+    * Insert the new document in the database and upload the image and the transcription to the img_xml folder.
+    * Also will update the coleccion_documento table with the collections received in the idColeccion post variable.
+    * If the upload fails will redirect to an error page, else will reload the actual page.
+    *
+    *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+    *  @package controller
+    *  @version  1.0
+    *  @access   public
+    *  @return void
+    */
     function addNewDocs(){
         $coleccion = $_POST['coleccion'];
         $idColeccion = $_POST['idColeccion'];
@@ -76,7 +89,20 @@ ob_start();
         }
         
     }
-
+    
+    /**
+     * Function to add a new document to one or more collection by the administrator.
+     *
+     * Insert the new document in the database and upload the image and the transcription to the img_xml folder.
+     * Also will update the coleccion_documento table with the collections received in the idColeccion post variable.
+     * If the upload fails will redirect to an error page, else will reload the actual page.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function addNewDocsAdmin(){
         $col = $_POST['idHidden'];
         $coleccionesArray = preg_split('/[;]+/',$col);
@@ -129,6 +155,18 @@ ob_start();
         
     }
     
+    /**
+     * Function to update the image and the translation of a document by a lecturer.
+     *
+     * If the function receive the two files will update the image and the transcription of the document with the id received in the idDoc post variable.
+     * At the end will reload the actual page.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function changeDocs(){
         if($_FILES['changeimagen']['size'] > 0 && $_FILES['changetranscripcion']['size'] > 0){
             $idDocument = $_POST['idDoc'];
@@ -171,7 +209,19 @@ ob_start();
             }
         }
     }
-
+    
+    /**
+     * Function to update the image and the translation of a document by the administrator.
+     *
+     * If the function receive the two files will update the image and the transcription of the document with the id received in the idDoc post variable.
+     * At the end will reload the actual page. 
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function changeDocsAdmin(){
         if($_FILES['changeimagen']['size'] > 0 && $_FILES['changetranscripcion']['size'] > 0){
             $idDocument = $_POST['idDoc'];
@@ -214,7 +264,18 @@ ob_start();
             }
         }
     }
-
+    
+    /**
+     * Function to access a document by a student.
+     *
+     * Get the document information and the path to the image of the document.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function accessDoc(){
         $idDocument = $_POST['idDocument'];
         

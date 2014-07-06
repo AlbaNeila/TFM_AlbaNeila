@@ -1,26 +1,23 @@
 <?php
+    //PHP file to generate the XML document with the documents of a collection to manage the collection access to a document, to load a dhtmlxgrid.
+    
     header("Content-type: text/xml");    
     session_start();  
-
     include('../../model/persistence/gridService.php');
-
 
     $result = gridService::getCollections();
     $result2 = gridService::getCollectionIdByDoc($_REQUEST['idSearched']);
 
-    
     $colecciones = array();
     while($row = mysql_fetch_array($result2))
-        {
-            $colecciones[] = $row['idColeccion'];
-        }
-    
+    {
+        $colecciones[] = $row['idColeccion'];
+    }
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
     
     while($fila = @mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");

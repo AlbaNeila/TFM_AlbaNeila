@@ -1,10 +1,10 @@
-<?php      
+<?php    
+    //PHP file to generate the XML document with all the groups of the application for students to require access to the groups, to load a dhtmlxgrid.
+      
     header("Content-type: text/xml");
 	include('../../model/persistence/gridService.php');
 
-
 	$result = gridService::getGroupsToRegister();
-	
 	
 	$dom = new DOMDocument("1.0","UTF-8");
 	$dom->formatOutput = true;

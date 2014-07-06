@@ -30,6 +30,7 @@ ob_start();
             });
             request.success(function(request){
                     if($.trim(request) == "1"){
+                        flag= true;
                         set_tooltip_general("<?php echo(_("Se añadió el grupo correctamente."));?>"); 
                     }
                     if($.trim(request) == "0"){

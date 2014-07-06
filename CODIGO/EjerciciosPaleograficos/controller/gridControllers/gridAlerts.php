@@ -1,19 +1,17 @@
-<?php 
+<?php
+    //PHP file to generate the XML document with the group access requests of students, to load a dhtmlxgrid.
+     
     header("Content-type: text/xml");   
     session_start();  
-
     include('../../model/persistence/gridService.php');
 
     $idGrupo = $_REQUEST['idGrupo'];
-
     $result = gridService::getAlertsStudents($idGrupo);
-    
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
     
     while($fila = @mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");

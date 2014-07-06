@@ -126,10 +126,10 @@ include("../model/persistence/acceso_db.php");
                 header("Location: ../view/usersAdmin.php");
             }
             if($_SESSION['usuario_tipo'] == "PROFESOR"){
-                header("Location: ../view/usersAdmin.php");
+                header("Location: ../view/groupTeacher.php");
             }
             if($_SESSION['usuario_tipo'] == "ALUMNO"){
-                header("Location: ../view/groupTeacher.php");
+                header("Location: ../view/groupStudent.php");
             }
 	    }
 	?>

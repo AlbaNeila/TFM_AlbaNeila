@@ -1,7 +1,9 @@
 <?php
-header("Content-type: text/xml");
-session_start();
-include('../../model/persistence/gridService.php');
+    //PHP file to generate the XML document with all the students of the application, to load a dhtmlxgrid.
+    
+    header("Content-type: text/xml");
+    session_start();
+    include('../../model/persistence/gridService.php');
 
     $result = gridService::getStudentsAdmin();
     
@@ -9,7 +11,6 @@ include('../../model/persistence/gridService.php');
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
     
     while($fila = @mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");

@@ -346,7 +346,6 @@ ob_start();
                         row[cont]=c.getValue();
                         cont++;
                     });
-                    //row[1]=nValue;
                     var idDoc = mygrid.cellById(rId,0).getAttribute("idDoc");
                     
                     if(nValue == ""){

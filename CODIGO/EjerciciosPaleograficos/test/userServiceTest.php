@@ -1,5 +1,6 @@
 <?php
 include ("../model/persistence/userService.php");
+include_once("../model/User.php");
 /**
 * Class to test the UserService class
 *
@@ -30,7 +31,7 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     *
     */
     public function testGetUserByNameTrue() {
-        $userName = "95144194W";
+        $userName = "63297008L";
 
         $result = userService::getUserByName($userName);
         $rows=$result->num_rows;
@@ -40,12 +41,27 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
+    * Test to check the function getUserById 
+    *
+    */
+    public function testGetUserById() {
+        $idUser = 7;
+
+        $user = userService::getUserById($idUser);
+        if($user!=null){
+            $this->assertEquals("HECTOR", $user->getName());
+            $this->assertEquals("PELAYO ALAMO", $user->getSurnames());
+            $this->assertEquals("hpa@alu.ubu.es", $user->getEmail());
+        } 
+    }
+    
+    /**
     * Test to check the function checkNameNotRepeat true 
     *
     */
     public function testCheckNameNotRepeatTrue() {
-        $nameUser="64560942B";
-        $idUser=5;
+        $nameUser="63297008L";
+        $idUser=13;
 
         $result = userService::checkNameNotRepeat($nameUser, $idUser);
         $rows=$result->num_rows;
@@ -59,8 +75,8 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     *
     */
     public function testCheckNameNotRepeatFalse() {
-        $nameUser="19264724Q";
-        $idUser=5;
+        $nameUser="63297008L";
+        $idUser=12;
 
         $result = userService::checkNameNotRepeat($nameUser, $idUser);
         $rows=$result->num_rows;
@@ -70,42 +86,52 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-    * Test to check the functions insertUser and insertTeacher
+    * Test to check the function insertUser
     *
     */
-    public function testInsertUserTeacher() {
+    public function testInsertUser() {
         $dniUser = "21483098V";
         $passwordUser = "TEST1234";
         $nameUser = "NAME";
         $surnamesUser = "SURNAMES";
         $emailUser = "email@email.com";
         
+        $resultBeforeUser  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='ALUMNO'");
+        $rowsBeforeUser = $resultBeforeUser->num_rows;
+        $resultBeforeUser->close();
+        
+        
+        userService::insertUser($dniUser, $passwordUser, $nameUser, $surnamesUser, $emailUser);
+
+        $resultAfterUser  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='ALUMNO'");
+        $rowsAfterUser = $resultAfterUser->num_rows;
+        $resultAfterUser->close();
+
+
+        $this->assertGreaterThan($rowsBeforeUser,$rowsAfterUser);        
+    }
+
+    /**
+    * Test to check the function insertTeacher
+    *
+    */
+    public function testInsertTeacher() {        
         $dniTeacher = "67302109S";
         $passwordTeacher = "TEST1234";
         $nameTeacher = "NAME";
         $surnamesTeacher = "SURNAMES";
         $emailTeacher = "email@email.com";
         
-        $resultBeforeUser  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='ALUMNO'");
-        $rowsBeforeUser = $resultBeforeUser->num_rows;
-        $resultBeforeUser->close();
-        
         $resultBeforeTeacher  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='PROFESOR'");
         $rowsBeforeTeacher = $resultBeforeTeacher->num_rows;
         $resultBeforeTeacher->close();
         
-        userService::insertUser($dniUser, $passwordUser, $nameUser, $surnamesUser, $emailUser);
         userService::insertTeacher($dniTeacher, $passwordTeacher, $nameTeacher, $surnamesTeacher, $emailTeacher);
-
-        $resultAfterUser  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='ALUMNO'");
-        $rowsAfterUser = $resultAfterUser->num_rows;
-        $resultAfterUser->close();
         
         $resultAfterTeacher  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='PROFESOR'");
         $rowsAfterTeacher = $resultAfterTeacher->num_rows;
         $resultAfterTeacher->close();
 
-        $this->assertGreaterThan($rowsBeforeUser,$rowsAfterUser);
         $this->assertGreaterThan($rowsBeforeTeacher,$rowsAfterTeacher);
         
     }
@@ -115,8 +141,8 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     *
     */
     public function testDeleteById() {
-        $dniUser = "21483098V";
-        $dniTeacher = "67302109S";
+        $dniUser="21483098V";
+        $dniTeacher="67302109S";
         
         $resultBeforeUser  = mysqli_query($GLOBALS['link'],"SELECT * FROM usuario WHERE tipo='ALUMNO'");
         $rowsBeforeUser = $resultBeforeUser->num_rows;
@@ -160,15 +186,14 @@ class userServiceTest extends PHPUnit_Framework_TestCase {
     *
     */
     public function testUpdateById() {
-        $name = "63297008L";
-        $password = "PAULA123";
-        $dni = "PAULA";
+        $dni = "63297008L";
+        $name = "PAULA";
         $surnames = "OLMEDO ARMENTEROS";
         $email = "paula@email.com";
         $idUser=13;
 
-        userService::updateById($dni, $surnames, $email, $name, $password, $idUser);
-        $user = userService::getUserByName($name);
+        userService::updateById($name, $surnames, $email, $dni, $idUser);
+        $user = userService::getUserByName($dni);
         if($user){
             $newEmail = $user->fetch_assoc();
             $newEmail = $newEmail['email'];

@@ -1,13 +1,13 @@
 <?php   
-header("Content-type: text/xml"); 
+    //PHP file to generate the XML document with the teachers discharged to load a dhtmlxcombo.
+    
+    header("Content-type: text/xml"); 
     session_start();  
     include('../../model/persistence/comboService.php');
 
     if($_REQUEST['method']=="admin"){
         $result = comboService::getTeachers();
     }
-    
-    
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;

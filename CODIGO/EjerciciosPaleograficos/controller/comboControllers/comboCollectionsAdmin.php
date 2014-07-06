@@ -1,9 +1,9 @@
 <?php   
-header("Content-type: text/xml");
+    //PHP file to generate the XML document with the collections of the Admin to load a dhtmlxcombo.
+    
+    header("Content-type: text/xml");
     session_start();
     include('../../model/persistence/comboService.php');  
-    
-    
 
     $result = comboService::getCollectionsOfAdmin();
     

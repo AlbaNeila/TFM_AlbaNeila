@@ -20,6 +20,20 @@
             break;
     }
     
+    /**
+     * Function to delete a Document.
+     *
+     * Delete a document form the data base with the id document received in the idDoc post variable.
+     * Also delete the image and the transcription files from the img_xml folder.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function deleteDoc(){
         $idDoc = mysqli_real_escape_string($GLOBALS['link'],$_POST['idDoc']);
         
@@ -44,6 +58,19 @@
 
     }
     
+    /**
+     * Function to check if the name document is already exist.
+     *
+     * Check if the name received in the document post variable is repeat.
+     * Echo 1 if the document name is not repeat.
+     * Echo 2 if the document name is repeat.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkNameDocument(){
         $document = $_POST['document'];
         $existDocument = documentService::getByName($document);
@@ -57,6 +84,19 @@
         }
     }
     
+    /**
+     * Function to check if the Document can be update and if it's OK update it.
+     *
+     * Check that the name of the document it's not repeat and update the Document information with the new data receive in the row post variable.
+     * Echo 0 if if also exist a document with the same name
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
@@ -74,6 +114,19 @@
             }
     }
 
+    /**
+     * Function to update the group permissions to access a collection.
+     *
+     * Update the grupo_coleccion table with the new permissions and with the id of collection received in the idCollection post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function updatePermissionsGroup(){
         $groups = $_POST["groups"];
         $groups= json_decode("$groups",true);

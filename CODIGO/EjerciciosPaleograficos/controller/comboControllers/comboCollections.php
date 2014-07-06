@@ -1,5 +1,7 @@
-<?php      
-header("Content-type: text/xml");
+<?php    
+    //PHP file to generate the XML document with the collections of a teacher to load a dhtmlxcombo.
+      
+    header("Content-type: text/xml");
     session_start();  
     include('../../model/persistence/comboService.php');
 

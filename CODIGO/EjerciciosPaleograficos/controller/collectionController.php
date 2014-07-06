@@ -21,7 +21,21 @@
             break;
 
     }
-
+    
+    /**
+     * Function to add a new Collection.
+     *
+     * Insert the new document in the database and update the grupo_coleccion table with the permissions of the groups received in the groups post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * Echo 2 if if also exist a group with the same name
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function newCollection(){
         $flag = 1;
         $collection = mysqli_real_escape_string($GLOBALS['link'],$_POST['collection']);
@@ -53,6 +67,19 @@
         echo $flag;
     }
     
+    /**
+     * Function to check if the Collection can be update and if it's OK update it.
+     *
+     * Check that the name of the collection it's not repeat and update the Collection information with the new data receive in the row post variable.
+     * Echo 0 if if also exist a collection with the same name
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
@@ -69,6 +96,19 @@
 
     }
     
+    /**
+     * Function to delete a Collection.
+     *
+     * Delete a collection form the data base with the id collection received in the coleccion post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function deleteCollection(){
         $idColeccion = mysqli_real_escape_string($GLOBALS['link'],$_POST['coleccion']);
     
@@ -83,6 +123,19 @@
 
     }
     
+    /**
+     * Function to accept the group access request of students.
+     *
+     * Accept the group access request of an array of students updating the solicitud value to 0 in the usuario_grupo table.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function acceptRequest(){
         $idGrupo = $_POST["idGrupo"];
         $alumnos = $_POST["alumnos"];
@@ -104,6 +157,19 @@
        }
     }
     
+    /**
+     * Function to reject the group access request of students.
+     *
+     * Reject the group access request of an array of students removing them from the usuario_grupo table.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function rejectRequest(){
         $idGrupo = $_POST["idGrupo"];
         $alumnos = $_POST["alumnos"];
@@ -125,6 +191,19 @@
        }
     }
     
+    /**
+     * Save the access to a document from collections.
+     *
+     * Update the coleccion_documento table with the collections received in the collections post variable and the id of the document received in the idDocument post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function saveDocumentAccess(){
         $idDocument=mysqli_real_escape_string($GLOBALS['link'],$_POST['idDocument']);
         $collections = $_POST["collections"];

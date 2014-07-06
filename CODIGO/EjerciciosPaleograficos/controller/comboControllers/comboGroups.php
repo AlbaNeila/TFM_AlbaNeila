@@ -1,5 +1,7 @@
-<?php   
-header("Content-type: text/xml"); 
+<?php  
+    //PHP file to generate the XML document with groups according to the method parameter received to load a dhtmlxcombo.
+    
+    header("Content-type: text/xml"); 
     session_start();  
     include('../../model/persistence/comboService.php');
 
@@ -12,8 +14,6 @@ header("Content-type: text/xml");
     if($_REQUEST['method']=="otro"){
         $result = comboService::getGroupsOfTeacher($_SESSION['usuario_id']);
     }
-    
-    
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;

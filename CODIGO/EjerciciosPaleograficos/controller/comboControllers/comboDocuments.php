@@ -1,11 +1,12 @@
 <?php  
-header("Content-type: text/xml");    
-     session_start();  
+    //PHP file to generate the XML document with the documents of a collection to load a dhtmlxcombo.
+    
+    header("Content-type: text/xml");    
+    session_start();  
     include('../../model/persistence/comboService.php');
 
     $idColeccion =$_REQUEST['idCollection'];
-   $result = comboService::getDocumentsOfCollection($idColeccion);
-    
+    $result = comboService::getDocumentsOfCollection($idColeccion);
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;

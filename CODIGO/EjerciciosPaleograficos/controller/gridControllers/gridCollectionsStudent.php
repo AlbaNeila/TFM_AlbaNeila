@@ -1,17 +1,16 @@
-<?php 
+<?php
+    //PHP file to generate the XML document with the collections of a student, to load a dhtmlxgrid.
+     
     header("Content-type: text/xml");   
-    session_start();  
-
+    session_start();
     include('../../model/persistence/gridService.php');
 
     $result = gridService::getCollectionsByStudent($_SESSION['usuario_id']);
-    
     
     $dom = new DOMDocument("1.0","UTF-8");
     $dom->formatOutput = true;
     $rows = $dom->appendChild($dom->createElement("rows"));
     $cont = 0;
-    
     
     while($fila = @mysql_fetch_array($result)){
         $domElement = $dom->createElement("row");
