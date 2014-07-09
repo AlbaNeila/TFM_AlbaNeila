@@ -131,7 +131,7 @@
             }else{
                 $user = userService::getUserById($alumnos[$cont]);
                 if($user!=null){
-                    $subject = "UBUPal: Your request group has been accepted";
+                    $subject = "UBUPal: Your group request has been accepted";
                     $message = "Hello, now you can access the group: ".$nameGroup." because the teacher has accepted your request. \n Regards.";
                     $headers = 'From: ubupal@ubu.es' . "\r\n";                
                     mail($user->getEmail(), $subject, $message, $headers);
@@ -163,7 +163,7 @@
             }else{
                 $user = userService::getUserById($alumnos[$cont]);
                 if($user!=null){
-                    $subject = "UBUPal: Your request group has been rejected";
+                    $subject = "UBUPal: Your group request has been rejected";
                     $message = "Hello, the teacher hasn't accepted your request to access the group: ".$nameGroup."\n Regards.";
                     $headers = 'From: ubupal@ubu.es' . "\r\n";                
                     mail($user->getEmail(), $subject, $message, $headers);

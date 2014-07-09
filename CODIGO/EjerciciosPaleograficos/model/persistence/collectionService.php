@@ -28,7 +28,7 @@ class collectionService{
     static function insertCollection($collection,$description){
         $result = mysqli_query($GLOBALS['link'],"INSERT INTO coleccion (coleccion.nombre, coleccion.descripcion) VALUES ('".$collection."','".$description."')");
         if($result){
-            $result2 = mysqli_query($GLOBALS['link'],"SELECT coleccion.idColeccion FROM grupo WHERE coleccion.nombre='".$collection."'");
+            $result2 = mysqli_query($GLOBALS['link'],"SELECT coleccion.idColeccion FROM coleccion WHERE coleccion.nombre='".$collection."'");
             if($row = mysqli_fetch_assoc($result2)){
                 return $row['idColeccion'];
             }else{

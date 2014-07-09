@@ -281,11 +281,11 @@
         
         $document =documentService::getById($idDocument);
         if($document!=FALSE){
-                $imagen = $document->getImageDocument();
-                $nombre = $document->getNameDocument();
-                $descripcion = $document->getDescriptionDocument();
-                $fecha = $document->getDateDocument();
-                $tipoEscritura = $document->getTypeWritingDocument();
+                $imagen = utf8_encode($document->getImageDocument());
+                $nombre = utf8_encode($document->getNameDocument());
+                $descripcion = utf8_encode($document->getDescriptionDocument());
+                $fecha = utf8_encode($document->getDateDocument());
+                $tipoEscritura = utf8_encode($document->getTypeWritingDocument());
                 
                 $res= 1;
         }else{

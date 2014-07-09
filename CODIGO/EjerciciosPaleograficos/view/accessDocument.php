@@ -24,7 +24,22 @@ ob_start();
 <script>
     var img="";
     
+    $(window).on('load', function (e) {
+        $('.div1').width($('#doc').width());
+        $('.div2').width($('#doc').width());
+    });
+    
     $(document).ready(function(){
+        
+        $('.wrapper1').on('scroll', function (e) {
+            $('.wrapper2').scrollLeft($('.wrapper1').scrollLeft());
+        }); 
+        $('.wrapper2').on('scroll', function (e) {
+            $('.wrapper1').scrollLeft($('.wrapper2').scrollLeft());
+        });
+        
+        
+        
         var idDocument=$('#idDocument').val();
         
         if(idDocument!=""){
@@ -62,6 +77,13 @@ ob_start();
      });
      
 </script>
+<style>
+.wrapper1, .wrapper2 { width: 100%; overflow-x: scroll; overflow-y: hidden; }
+.wrapper1 { height: 25px; }
+.wrapper2 {}
+.div1 { height: 27px; }
+.div2 { overflow: none; }
+</style>
 <?php
 $GLOBALS['TEMPLATE']['extra_head']= ob_get_clean();
 include ('menu/menu1.php');
@@ -94,12 +116,18 @@ ob_start();
            </div>
     </div>
       
-    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -4px;">
+    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -16px;">
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
-       
-   <div id="contentImage" style="text-align: center;margin-top:2%;overflow-x:auto;">
+    
+   
+   <div class="wrapper1">
+      <div class="div1"></div>
+   </div>
+   <div class="wrapper2">  
+   <div class="div2" id="contentImage" style="text-align: center;">
         <img  id="doc">
+   </div>
    </div>
    
    <form action="documentStudent.php" name="access" id="access" method="post" style="display:none;">

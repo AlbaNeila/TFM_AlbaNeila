@@ -25,8 +25,6 @@ ob_start();
         var flag = true;
         var u = check_empty($("#nombredoc"),"<?php echo(_("Este campo es requerido"));?>");
         var p = check_empty($("#descripciondoc"),"<?php echo(_("Este campo es requerido"));?>");
-        var t = check_empty($("#tipoesc"),"<?php echo(_("Este campo es requerido"));?>");
-        var f = check_empty($("#fechadoc"),"<?php echo(_("Este campo es requerido"));?>");
         var img = check_empty($("#imagen"),"<?php echo(_("Este campo es requerido"));?>");
         var tr = check_empty($("#transcripcion"),"<?php echo(_("Este campo es requerido"));?>");
         
@@ -65,7 +63,7 @@ ob_start();
             } 
         }
         
-        if(u || p || t ||f || img || tr || !flag){
+        if(u || p || img || tr || !flag){
             flag= false;
         }
         else{
@@ -294,7 +292,7 @@ ob_start();
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200,'checkbox');
                     dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
-                    combo.setOptionHeight(250);
+                    combo.setOptionHeight(150);
                     combo.enableOptionAutoPositioning();
                     combo.loadXML("../controller/comboControllers/comboCollectionsAdmin.php");  
                 </script>

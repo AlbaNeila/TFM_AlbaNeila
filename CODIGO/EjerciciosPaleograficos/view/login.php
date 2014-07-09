@@ -108,7 +108,7 @@ include("../model/persistence/acceso_db.php");
         	<label><?php echo(_("DNI:"));?></label>
 			<input  type="text" name="usuario_nombre" id="usuario" />
         	<label ><?php echo(_("Contraseña:"));?></label>
-        	<input  type="password" name="usuario_clave" id="password"/>
+        	<input  type="password" autocomplete="off" name="usuario_clave" id="password"/>
             <input class="buttonInicio" type="submit" name="enviar" value="<?php echo(_("Entrar"));?>" id="login" />
             <a href="register.php"><?php echo(_("Registro de alumnos"));?></a> <br />
             <a href="forgotPassword.php"><?php echo(_("¿Ha olvidado la contraseña?"));?></a>    

@@ -79,6 +79,8 @@ ob_start();
                             document.getElementById('descripcion').textContent=json.descripcion;
                             document.getElementById('fecha').textContent=json.fecha;
                             document.getElementById('tipoEscritura').textContent=json.tipoEscritura;
+                            $("#ej1").text($("#nombreej").text());
+                            $("#doc1").text($("#nombre").text());
                             comprobarTranscripcion=json.comprobarTranscripcion;
                             tipoObjetivo=json.tipoObjetivo;
                             valorObjetivo=json.valorObjetivo;
@@ -387,7 +389,10 @@ ob_start();
    <input type="hidden" name="idExercise" id="idExercise" value="<?php echo $idExercise;?>"/>
    <input type="hidden" name="type" id="type" value="<?php echo $type;?>"/>
    
-   <div id="accordion" class="accordionStyle">
+   <div  class="formulario titleExercise" style="height: 10px;">
+        <h1><?php echo(_("Ejercicio \""));?><label id="ej1"></label><?php echo(_("\" sobre el Documento \""));?><label id="doc1"></label><?php echo"\"";?></h1>
+    </div>
+   <div id="accordion" class="accordionStyle" style="margin-top: 70px;margin-bottom: 25px;">
         <h3><?php echo(_("Información Documento "));?></h3>
         <div style="overflow: auto;">
             <table style="float:left;margin-top:-4px;margin-left:5px;font-size:100%;table-layout: fixed;"  cellspacing="10">
@@ -433,7 +438,7 @@ ob_start();
            </div>
     </div>
       
-    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -4px;">
+    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -16px !important;width: 86%;height: 5px;">
         <h3><a href="#" onclick="check_goBack()"><?php echo(_("Volver"));?></a></h3>
     </div>
     <div class="textUbupal" >

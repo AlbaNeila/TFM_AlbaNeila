@@ -12,6 +12,7 @@ class Document{
     public function Document($idDocument,$name,$description,$date,$typeWriting,$image,$transcription){
         $this->idDocument = $idDocument;
         $this->name = $name;
+        $this->description = $description;
         $this->date = $date;
         $this->typeWriting = $typeWriting;
         $this->image = $image;

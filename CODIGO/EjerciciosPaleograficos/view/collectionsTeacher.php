@@ -15,7 +15,7 @@ include('../init.php');
 
 <script>
     $(document).ready(function(){
-       86390391E 
+        $('.dhx_combo_option_img').remove();
     });
     
     function validateForm() {

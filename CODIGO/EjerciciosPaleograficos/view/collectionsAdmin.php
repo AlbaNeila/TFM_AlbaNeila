@@ -271,7 +271,7 @@ ob_start();
     
    <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
-             <div style="width: 500px;">
+             <div style="width: 550px;">
                 <a href="#close" id="closeModal" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
                     <h3><?php echo(_("Gestionar acceso de grupos:"));?></h3>
                     <label class="labelModal"><?php echo(_("Colección:"));?></label>
@@ -283,7 +283,7 @@ ob_start();
                         var mygrid2 = new dhtmlXGridObject('gridGestionGrupos');
                         mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
                         mygrid2.setHeader("<?php echo(_("Grupo"));?>,<?php echo(_("Descripción"));?>, <?php echo(_("Permitir acceso"));?>, <?php echo(_("Denegar acceso"));?>");
-                        mygrid2.setInitWidths("*,*,70,70");
+                        mygrid2.setInitWidths("150,*,70,70");
                         mygrid2.setColAlign("center,center,center,center");
                         mygrid2.setColTypes("ro,ro,ro,ro");
                         mygrid2.enableSmartRendering(true);

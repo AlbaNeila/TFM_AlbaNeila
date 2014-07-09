@@ -180,8 +180,8 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 			<p><?php echo(_("Todos los campos del formulario son obligatorios."));?></p>
 			<div class="divForm">
 				<label><?php echo(_("Apellidos"));?></label></td> <td><input tabindex="2" type="text" name="usuario_apellidos" id="apellidos"/></td>
-				<label><?php echo(_("Email"));?></label></td> <td><input tabindex="4" type="text" name="usuario_email" id="email"/></td>
-				<label><?php echo(_("Confirme contraseña"));?></label></td> <td><input tabindex="6" type="password" name="usuario_clave_conf" id="password2"/></td>
+				<label><?php echo(_("Email"));?></label></td> <td><input tabindex="4" type="text" autocomplete="off" name="usuario_email" id="email"/></td>
+				<label><?php echo(_("Confirme contraseña"));?></label></td> <td><input tabindex="6" autocomplete="off" type="password" name="usuario_clave_conf" id="password2"/></td>
 			</div>	
 			<div class="divForm">
 				<label><?php echo(_("Nombre"));?></label></td> <td><input tabindex="1" type="text" name="nombre"  id="nombre"/></td>

@@ -103,7 +103,7 @@ ob_start();
                     if($.trim(request) == "1"){
                         mygrid.clearAll();
                         mygrid.loadXML("../controller/gridControllers/gridExercises.php?idCollection="+selectedCollection,onLoadFunction);
-                        set_tooltip_general_error("<?php echo(_("Se eliminó el ejercicio correctamente."));?>"); 
+                        set_tooltip_general("<?php echo(_("Se eliminó el ejercicio correctamente."));?>"); 
                     }
                     else{
                         set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
