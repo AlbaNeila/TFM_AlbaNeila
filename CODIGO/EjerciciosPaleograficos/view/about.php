@@ -28,10 +28,10 @@ include('../init.php');
         <form action="login.php" method="post" id="forgotPassword" onsubmit="return validateForm()">
             <h1 style="text-decoration: underline;"><?php echo(_("UBUPal: Acerca de"));?></h1>
             <div class="formulario" style="width: 89%" >
-        <table class="aboutTable" style="margin-left: 21%;">
+        <table class="aboutTable" style="margin-left: 11%;">
 
             <tr>
-                <td> <label class="td_labelHelp"><?php echo(_("UBUPal: "));?></label><label class="td_labelHelp2"><?php echo(_("Aplicación web para la realización de ejercicios paleográficos."));?></label></td>
+                <td><label class="td_labelHelp2" style="font-size: 160%;"><?php echo(_("Aplicación web para la realización de ejercicios paleográficos."));?></label></td>
             </tr>
             <tr>
                 <td ><label class="td_labelHelp"><?php echo(_("Autora: "));?></label><label class="td_labelHelp2">Alba Neila Neila</label></td>

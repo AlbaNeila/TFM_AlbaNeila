@@ -54,7 +54,7 @@ ob_start();
     var inputsVisibles = new Array();
     var Areas = new Array();
     var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
-    
+    var isFinish=false;
     
     
     $(document).ready(function(){       
@@ -142,19 +142,25 @@ ob_start();
         if(comprobarTranscripcion==1){
             $('#correccion').text('<?php echo(_("Paso a paso"))?>');
             if($('#type').val()=="do"){
-            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
+            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es:"));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                          message.append('<label style="font-weight:bold;"><?php echo(_(" PASO A PASO."))?></label>');
                           message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
                           message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
-                          message.append($('<p><?php echo(_("Si selecciona la opción Continuar comenzará el ejercicio y contabilizará como un intento de realización."));?></p>'));
+                          message.append($('<label><?php echo(_("Si selecciona la opción Continuar comenzará el ejercicio y "));?></label>'));
+                          message.append('<label style="font-weight:bold;"><?php echo(_("contabilizará como un intento "))?></label>');
+                          message.append($('<label><?php echo(_("de realización."));?></label>'));
             }else{
-                var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: PASO A PASO."));?>'}),
+                var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: "));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                          message.append('<label style="font-weight:bold;"><?php echo(_("PASO A PASO."))?></label>');
                           message.append($('<p><?php echo(_("Esto significa que cada fragmento de transcripción, se evaluará una vez que haya sido introducido texto en su casilla correspondiente."));?></p>'));
                           message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
-                          message.append($('<p><?php echo(_("Recuerde que este ejercicio ya ha sido superado, por lo que no se sumará un intento de realización. Si selecciona la opción Continuar comenzará el ejercicio."));?></p>'));
+                          message.append($('<label><?php echo(_("Recuerde que este ejercicio ya ha sido superado, por lo que "));?></label>'));
+                          message.append('<label style="font-weight:bold;"><?php echo(_("no se sumará un intento "))?></label>');
+                          message.append($('<label><?php echo(_("de realización. Si selecciona la opción Continuar comenzará el ejercicio."));?></label>'));
             }
                 
             dialogue( message.add(ok).add(cancel), '<?php echo(_("INICIAR EJERCICIO"))?>');
@@ -162,6 +168,29 @@ ob_start();
                 checkInputTranscription(this);
             });
         }else{
+            if($('#type').val()=="do"){
+            var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: "));?>'}),
+                  ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
+                  cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                  message.append('<label style="font-weight:bold;"><?php echo(_("AL FINAL."))?></label>');
+                  message.append($('<p><?php echo(_("Esto significa que cuando se de por finalizado el ejercicio se podrá pulsar el botón Corregir para terminar el ejercicio y obtener la puntuación conseguida."));?></p>'));
+                  message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
+                  message.append($('<label><?php echo(_("Si selecciona la opción Continuar comenzará el ejercicio y "));?></label>'));
+                  message.append('<label style="font-weight:bold;"><?php echo(_("contabilizará como un intento "))?></label>');
+                  message.append($('<label><?php echo(_("de realización."));?></label>'));
+            }else{
+               var message = $('<p />', { text: '<?php echo(_("El modo de corrección de este ejercicio es: "));?>'}),
+                  ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {initExercise();}}),
+                  cancel = $('<button />', {text: '<?php echo(_("Salir"))?>', click: function() {exit();}});
+                  message.append('<label style="font-weight:bold;"><?php echo(_("AL FINAL."))?></label>');
+                  message.append($('<p><?php echo(_("Esto significa que cuando se de por finalizado el ejercicio se podrá pulsar el botón Corregir para terminar el ejercicio y obtener la puntuación conseguida."));?></p>'));
+                  message.append($('<p><?php echo(_("En función de la configuración establecida por el profesor, pueden mostrarse fragmentos de transcripción resueltos, para ayudar al alumno a la resolución del ejercicio."));?></p>'));
+                  message.append($('<label><?php echo(_("Recuerde que este ejercicio ya ha sido superado, por lo que "));?></label>'));
+                  message.append('<label style="font-weight:bold;"><?php echo(_("no se sumará un intento "))?></label>');
+                  message.append($('<label><?php echo(_("de realización. Si selecciona la opción Continuar comenzará el ejercicio."));?></label>')); 
+            }
+            dialogue( message.add(ok).add(cancel), '<?php echo(_("INICIAR EJERCICIO"))?>');
+            
             $('#correccion').text('Al final');
             $('#contentTranscription').append('<br><input id="checkEj" type="button" onclick="checkExercise()" value="<?php echo(_("Corregir"));?>" style="float:right;margin:1%;"></input>')
             $('#contentTranscription').click(function(){
@@ -281,6 +310,7 @@ ob_start();
                                       var message = $('<p />', { text: '<?php echo(_("¡Ha finalizado el ejercicio con éxito!"));?>'}),
                                       ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
                                       cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+                                      message.append($('<p><?php echo(_("El resultado obtenido sobre el ejercicio "));?><label style="font-style:italic;">'+$('#nombreej').text()+'</label><?php echo(_(" ha sido: "));?><label style="font-weight:bold;">'+resultado+'</label></p>'));
                                       message.append($('<p><?php echo(_(" Si pulsa la opción Revisar podrá repasar sus respuestas. Posteriormente pordrá acceder a él sin que contabilicen intentos de realización."));?></p>'));
                               }else{
                                       var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio: "));?>'}),
@@ -291,6 +321,7 @@ ob_start();
                               }
                     
                 dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
+                isFinish=true;
                             }
                             else{
                                 set_tooltip_general_error("<?php echo(_("Ocurrió un error inesperado. Por favor, vuelva a intentarlo más tarde."));?>"); 
@@ -304,11 +335,14 @@ ob_start();
               message.append($('<p><?php echo(_("Si pulsa la opción Revisar podrá repasar sus respuestas."));?></p>'));
             }else{
               var message = $('<p />', { text: '<?php echo(_("Lo siento no ha superado el objetivo del ejercicio: "));?>'}),
-                                      cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
-              message.append('<p>'+$('#objetivo').val()+'</p>');
-              message.append($('<p><?php echo(_("Vuelva a intentarlo de nuevo."));?></p>'));
+               ok = $('<button />', {text: '<?php echo(_("Revisar"))?>'}),
+              cancel = $('<button />', {text: '<?php echo(_("Volver"))?>', click: function() {exit();}});
+              message.append('<label style="font-weight:bold;">'+$('#objetivo').text()+'.</label>');
+                                      message.append($('<p><?php echo(_("El resultado obtenido sobre el ejercicio "));?><label style="font-style:italic;">'+$('#nombreej').text()+'</label><?php echo(_(" ha sido: "));?><label style="font-weight:bold;">'+resultado+'</label></p>'));
+              message.append($('<p><?php echo(_("Si pulsa la opción Revisar podrá repasar sus respuestas."));?></p>'));
           }
           dialogue( message.add(ok).add(cancel), '<?php echo(_("EJERCICIO FINALIZADO"))?>');
+          isFinish=true;
         }
     }
     
@@ -346,6 +380,7 @@ ob_start();
             }
     }
     
+    //Iluminate the transcription input when occurs the event onClick on the <div>
     function iluminateTransc(div){
         var idInput= '#' +$(div).attr('id') + 'input';
         if(!$(idInput).attr('disabled')){
@@ -354,6 +389,7 @@ ob_start();
         }
     }
     
+    //Remove the ilumination on the transcription input when occurs the event onBlur on the <input>
     function desIluminateTransc(input){
         var idInput = $(input).attr('id');
         var idTransc ='#';
@@ -362,6 +398,7 @@ ob_start();
         $(input).css({ "box-shadow": "","border-color": "","outline": ""});
     }
     
+    //Iluminate the corresponding div over the image when occurs the event onClick on the <input>
     function iluminateDiv(input){
         var idInput = $(input).attr('id');
         var idTransc ='#';
@@ -370,11 +407,15 @@ ob_start();
     }
     
     function check_goBack(){
+        if(isFinish==false){
         var message = $('<p />', { text: '<?php echo(_("Si abandona la página, se dará por finalizado el ejercicio."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Abandonar"))?>', click: function() {okCheckExercise();}}),
                           cancel = $('<button />', {text: '<?php echo(_("Volver"))?>'});
                 
         dialogue( message.add(ok).add(cancel), '<?php echo(_("FINALIZAR EJERCICIO"))?>');
+        }else{
+           exit(); 
+        }
     }
     
 </script>

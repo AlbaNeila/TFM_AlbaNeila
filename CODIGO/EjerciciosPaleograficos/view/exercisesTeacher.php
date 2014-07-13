@@ -467,7 +467,7 @@ ob_start();
                     var combo = new dhtmlXCombo("combo_collection","comboCollection",200);
                     //dhtmlx.skin = 'dhx_skyblue';
                     combo.enableOptionAutoWidth(true);
-                    combo.setOptionHeight(250);
+                    combo.setOptionHeight(150);
                     combo.enableOptionAutoPositioning();
                     combo.loadXML("../controller/comboControllers/comboCollections.php");
                     combo.attachEvent("onChange", function(){

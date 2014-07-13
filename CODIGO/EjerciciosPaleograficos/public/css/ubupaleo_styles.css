@@ -313,6 +313,10 @@ p{
 	background-color: #AC233E;
     color:white;
     cursor:pointer;  
+}
+
+#accordion .ui-helper-reset .ui-widget-content .ui-corner-bottom .ui-accordion-content-active{
+	height: auto;
 } 
 
 .td_label_info{

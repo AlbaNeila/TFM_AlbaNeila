@@ -297,18 +297,18 @@ ob_start();
         
         <a href="#openModal" id="anchorOpenModal"></a>
         <div id="openModal" class="modalDialog">
-            <div>
+            <div style="width: 480px;">
             <a href="#close" id="closeModal" onclick="$('#idHidden').remove();" title="<?php echo(_("Cerrar"));?>" class="close">X</a>
             <h3><?php echo(_("Solicitud de acceso"));?></h3>
             <label class="labelModal"><?php echo(_("Grupo:"));?></label>
             <label id="groupName"></label>
             <p></p>
-            <div id="gridRequests" style="width: 90%; height: 90%"></div>
+            <div id="gridRequests" style="width: 100%; height: 90%"></div>
         <script>
             var mygrid2 = new dhtmlXGridObject('gridRequests');
             mygrid2.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
             mygrid2.setHeader("<?php echo(_("Nombre"));?>, <?php echo(_("Apellidos"));?>, <?php echo(_("Email"));?>, <?php echo(_("Seleccionar"));?>");
-            mygrid2.setInitWidths("*,*,*,100");
+            mygrid2.setInitWidths("100,*,*,100");
             mygrid2.setColAlign("left,left,left,center");
             mygrid2.setColTypes("ro,ro,ro,ch");
             mygrid2.enableSmartRendering(true);
