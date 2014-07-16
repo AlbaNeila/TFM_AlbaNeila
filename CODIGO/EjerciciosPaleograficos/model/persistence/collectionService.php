@@ -84,7 +84,7 @@ class collectionService{
     
     //DELETE QUERIES
     static function deleteGroupCollectionByIds($idGroup,$idCol){
-        $return = mysqli_query($GLOBALS['link'],"DELETE FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$idGroup."' AND grupo_coleccion.idColeccion='".$idCol."'");
+        $result = mysqli_query($GLOBALS['link'],"DELETE FROM grupo_coleccion WHERE grupo_coleccion.idGrupo= '".$idGroup."' AND grupo_coleccion.idColeccion='".$idCol."'");
         if($result){
             return true;
         }else{

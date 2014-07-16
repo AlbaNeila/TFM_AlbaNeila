@@ -25,7 +25,7 @@ class documentService{
     }
     
     static function checkNameNotRepeat($nombre,$idDoc){
-        $return = mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".$nombre."' and documento.idDocumento<>'".$idDoc."'");
+        $result = mysqli_query($GLOBALS['link'],"SELECT documento.nombre FROM documento WHERE documento.nombre= '".$nombre."' and documento.idDocumento<>'".$idDoc."'");
         if($row = mysqli_fetch_assoc($result)){
             return true;
         }else{

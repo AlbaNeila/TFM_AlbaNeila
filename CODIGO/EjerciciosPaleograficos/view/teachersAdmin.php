@@ -218,8 +218,8 @@ ob_start();
                      <td class="td_label"><label><?php echo(_("Email"));?></label></td><td><input type="text" id="emailprofesor"/></td>
                 </tr>
                  <tr>
-                     <td class="td_label"><label><?php echo(_("DNI"));?></label></td><td><input type="text" id="dniprofesor" /></td>
-                     <td class="td_label"><label><?php echo(_("Contraseña"));?></label></td><td><input type="password" id="password" /></td>
+                     <td class="td_label"><label><?php echo(_("DNI"));?></label></td><td><input autocomplete="off" type="text" id="dniprofesor" /></td>
+                     <td class="td_label"><label><?php echo(_("Contraseña"));?></label></td><td><input autocomplete="off" type="password" id="password" /></td>
                      <td class="td_label"><label><?php echo(_("Repita contraseña"));?></label></td><td><input type="password" id="password2" /></td>
                 </tr>
                 <tr>

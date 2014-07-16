@@ -12,17 +12,14 @@ include ("../model/persistence/collectionService.php");
 class collectionServiceTest extends PHPUnit_Framework_TestCase {
     
     /**
-    * Test that verifies the function getByName returns nothing with a name collection that isn't exist
+    * Test that verifies the function getByName returns nothing with a name collection that don't exist
     *
     */
     public function testGetByNameEmpty() {
         $collectionName = "";
 
         $result = collectionService::getByName($collectionName);
-        $rows=$result->num_rows;
-        $result->close();
-
-        $this->assertEquals(0, $rows);
+        $this->assertFalse($result);
     }
     
     /**
@@ -34,12 +31,8 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         $idCollection="";
 
         $result = collectionService::getByName(utf8_decode($collectionName));
-        if($result){
-            $idCollection = $result->fetch_assoc();
-        }
 
-
-        $this->assertEquals(1, $idCollection['idColeccion']);
+        $this->assertTrue($result);
     }
     
     /**
@@ -51,12 +44,7 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         $idCollection=6;
 
         $result = collectionService::checkNameNotRepeat($collectionName, $idCollection);
-        $rows = $result ->num_rows;
-        
-        $this->assertEquals(0, $rows);
-        
-        //Clean database
-        
+        $this->assertFalse($result);   
     }
     
     /**
@@ -68,10 +56,7 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         $idCollection=6;
 
         $result = collectionService::checkNameNotRepeat($collectionName, $idCollection);
-        $rows = $result ->num_rows;
-
-
-        $this->assertEquals(1, $rows);
+        $this->assertTrue($result);
     }
     
     /**
@@ -85,15 +70,15 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         $resultBefore  = mysqli_query($GLOBALS['link'],"SELECT * FROM coleccion");
         $rowsBefore = $resultBefore->num_rows;
         
-        collectionService::insertCollection(utf8_decode($collectionName), utf8_decode($collectionDescription));
+        $idNewCollection = collectionService::insertCollection(utf8_decode($collectionName), utf8_decode($collectionDescription));
 
         $resultAfter  = mysqli_query($GLOBALS['link'],"SELECT * FROM coleccion");
         $rowsAfter = $resultAfter->num_rows;
 
-
         $this->assertGreaterThan($rowsBefore,$rowsAfter);
         
-        collectionService::deleteById(7);
+        
+        collectionService::deleteById($idNewCollection);
         
         $resultAfterDelete = mysqli_query($GLOBALS['link'],"SELECT * FROM coleccion");
         $rowsAfterDelete = $resultAfterDelete->num_rows;
@@ -102,8 +87,8 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         
     }
     
-    /**
-    * Test that verifies the function insertCollection insert a collection and the function deleteById delete it 
+     /**
+    * Test that verifies the function updateByid update a collection
     *
     */
     public function testUpdateById(){
@@ -114,80 +99,43 @@ class collectionServiceTest extends PHPUnit_Framework_TestCase {
         $resultBefore  = mysqli_query($GLOBALS['link'],"SELECT * FROM coleccion");
         $rowsBefore = $resultBefore->num_rows;
         
-        collectionService::updateById($collectionName, $collectionDescription, $idCollection);
+        $resultUpdate = collectionService::updateById($collectionName, $collectionDescription, $idCollection);
         $result = collectionService::getByName($collectionName);
-        if($result){
-            $idNewCollection = $result->fetch_assoc();
-        }
-
-        $this->assertEquals($idNewCollection['idColeccion'],$idCollection);
+        
+        $this->assertTrue($resultUpdate);
         
     }
     
     /**
-    * Test that verifies the function insertGroupCollection insert a new row, the function getGroupCollectionByIds return the row and the function deleteGroupCollectionByIds delete it 
+    * Test that verifies the function insertGroupCollection, getGroupCollectionByIds  
     *
     */
-    public function testInsertGetDeleteGroupCollection(){
-        $idCollection = 5;
-        $idGroup = 3;
+    public function testInsertGroupCollection(){
+       $idGroup=1;
+       $idCol=4;
         
         $resultBefore  = mysqli_query($GLOBALS['link'],"SELECT * FROM grupo_coleccion");
         $rowsBefore = $resultBefore->num_rows;
         
-        collectionService::insertGroupCollection($idGroup, $idCollection);
+        $result = collectionService::insertGroupCollection($idGroup,$idCol);
+        $result2 = collectionService::getGroupCollectionByIds($idGroup,$idCol);
 
         $resultAfter  = mysqli_query($GLOBALS['link'],"SELECT * FROM grupo_coleccion");
         $rowsAfter = $resultAfter->num_rows;
-
-
+        
+        $this->assertTrue($result2);
+        $this->assertTrue($result);
         $this->assertGreaterThan($rowsBefore,$rowsAfter);
         
-        $result = collectionService::getGroupCollectionByIds($idGroup, $idCollection);
-        $idGroupInserted = $result->fetch_assoc();
         
-        $this->assertEquals($idGroup,$idGroupInserted['idGrupo']);
+        $result3 = collectionService::deleteGroupCollectionByIds($idGroup,$idCol);
         
-        collectionService::deleteGroupCollectionByIds($idGroup, $idCollection);
-        
+        $this->assertTrue($result3);
         $resultAfterDelete = mysqli_query($GLOBALS['link'],"SELECT * FROM grupo_coleccion");
         $rowsAfterDelete = $resultAfterDelete->num_rows;
         
         $this->assertEquals($rowsBefore,$rowsAfterDelete);
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }
 ?>

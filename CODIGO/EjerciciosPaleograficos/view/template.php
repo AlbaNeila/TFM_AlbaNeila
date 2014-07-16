@@ -35,7 +35,6 @@ include('../init.php');
 	?>
 	<script>
 		function changeLanguage(language){
-		    var sURL = unescape(window.location.pathname);
 			var request = $.ajax({
 			  type: "POST",
 			  url: "../controller/languageController.php",

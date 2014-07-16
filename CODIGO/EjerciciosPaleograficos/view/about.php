@@ -36,9 +36,6 @@ include('../init.php');
             <tr>
                 <td ><label class="td_labelHelp"><?php echo(_("Autora: "));?></label><label class="td_labelHelp2">Alba Neila Neila</label></td>
             </tr>
-             <tr>
-                <td ><label class="td_labelHelp"><?php echo(_("Email: "));?></label><label class="td_labelHelp2">ann0005@alu.ubu.es</label></td>
-            </tr>
             <tr>
                 <td ><label class="td_labelHelp"><?php echo(_("Tutores: "));?></label><label class="td_labelHelp2">Álvaro Herrero Cosío y Sonia Serna Serna</label></td>
             </tr>
@@ -46,16 +43,13 @@ include('../init.php');
                 <td ><label class="td_labelHelp"><?php echo(_("Colaboradora: "));?></label><label class="td_labelHelp2">Mª Carmen Alameda Araus</label></td>
             </tr>
             <tr>
-                <td ><label class="td_labelHelp"><?php echo(_("Licencia: "));?></label><label class="td_labelHelp2"></label></td>
+                <td ><label class="td_labelHelp"><?php echo(_("Licencia: "));?></label><a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="../public/img/license.png" style="margin-top:3%;"></a></td>
             </tr>
             <tr>
-                <td ><label class="td_labelHelp"><?php echo(_("Versión: "));?></label><label class="td_labelHelp2">1.0</label></td>
+                <td ><label class="td_labelHelp"><?php echo(_("Versión: "));?></label><label class="td_labelHelp2">1.0<?php echo(_(" - Julio de 2014"));?></label></td>
             </tr>
             <tr>
-                <td ><label class="td_labelHelp"><?php echo(_("Fecha: "));?></label><label class="td_labelHelp2"><?php echo(_("Julio de 2014"));?></label></td>
-            </tr>
-            <tr>
-                <td><img src="../public/img/ubulogo2.png" style="margin:1%;height: 80px;"></td>
+                <td><a target="_blank" href="http://wwww.ubu.es/"><img src="../public/img/ubulogo2.png" style="margin:3%;height: 80px;"></a></td>
             </tr>
         </table>      
     </div>
