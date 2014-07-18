@@ -1,6 +1,8 @@
 <?php
 include("../model/persistence/acceso_db.php");
 /**
+* loginService class.
+* 
 * Class to access to the database from loginController.
 *
 * @package  model/persistence

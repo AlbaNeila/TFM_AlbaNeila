@@ -1,6 +1,16 @@
 <?php
 include("../model/persistence/acceso_db.php");
 include("../model/Collection.php");
+/**
+* collectionService class.
+* 
+* This class is used to access to the data base when collectionController need it.
+*
+* @package  model/persistence
+* @author   Alba Neila Neila <ann0005@alu.ubu.es>
+* @version  1.0
+* @access   public
+*/
 class collectionService{
     
     

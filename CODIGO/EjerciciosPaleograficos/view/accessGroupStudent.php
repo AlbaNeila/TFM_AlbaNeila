@@ -16,6 +16,7 @@ if(isset($_POST['idGrupo'])){
 ?>
 
     <script>
+        //Access to the selected collection
         function accessCollection(){
             var rowId = mygrid.getSelectedId();
             var idColeccion = mygrid.cellById(rowId, 0).getValue();
@@ -27,7 +28,7 @@ if(isset($_POST['idGrupo'])){
             $('form#access').submit();       
         }
     
-    
+    //If the grid hasn't got records set the information label of this
     onLoadFunction = function onLoadFunction(){
        if(mygrid.getRowsNum()==0){
             var label = document.createElement("label");

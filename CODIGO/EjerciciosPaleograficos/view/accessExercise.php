@@ -56,7 +56,7 @@ ob_start();
     var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
     var isFinish=false;
     
-    
+    //Initialize the exercise
     $(document).ready(function(){       
         var idDocument=$('#idDocument').val();
         var idExercise=$('#idExercise').val();
@@ -93,10 +93,10 @@ ob_start();
                 });
         }
         
-        //Coloca los div de encima de la imagen
+        //Put the divs over the image
         initialize();
         
-        //Controla el scroll de los dos divs
+        //Control the scroll of the divs
         $('#contentImage').scrollTop(0);
         var $divs = $('#contentImage, #contentTranscription');
         var sync = function(e){
@@ -108,7 +108,7 @@ ob_start();
         $divs.on( 'scroll', sync);
         
         
-        //En función de la dificultad del ejercicio, coloca las pistas aleatoriamente
+        //Set the random tips
         if(idDificultad==0 || idDificultad==1){ //30% inputs
             if(idDificultad==0){
                 var numInptusVisibles=Math.round(numRec*0.3);
@@ -130,7 +130,7 @@ ob_start();
            total=inputsVisibles.length;
         }
         
-        //Objetivo
+        //Set the target
         if(tipoObjetivo == '% palabras acertadas'){
             $('#objetivo').text(valorObjetivo+'<?php echo(_(" % de palabras acertadas"))?>');
         }else{
@@ -138,7 +138,7 @@ ob_start();
         }
 
         
-        //Modo de corrección del ejercicio: 1->paso a paso 0-> al final
+        //Correction mode of the exercise: 1->step by step 0-> at the end
         if(comprobarTranscripcion==1){
             $('#correccion').text('<?php echo(_("Paso a paso"))?>');
             if($('#type').val()=="do"){
@@ -200,6 +200,7 @@ ob_start();
  
     });
     
+    //Start the exercise and sum one attempt
     function initExercise(){
         if($('#type').val() == "do"){
            var request = $.ajax({
@@ -218,12 +219,13 @@ ob_start();
                     }); 
             }
     }
-
+    
+    //Leave the exercise
     function exit(){
         $('form#access').submit();
     } 
     
-    
+    //Ask to check the exercise now
     function checkExercise(){
          var message = $('<p />', { text: '<?php echo(_("Si selecciona la opción Continuar se realizará la corrección del ejercicio."));?>'}),
                           ok = $('<button />', {text: '<?php echo(_("Continuar"))?>', click: function() {okCheckExercise();}}),
@@ -232,6 +234,7 @@ ob_start();
         dialogue( message.add(ok).add(cancel), '<?php echo(_("CORREGIR EJERCICIO"))?>');
     }
     
+    //Check the exercise
     function okCheckExercise(){
         $('#contentTranscription input:text').each(function(index) {
             if(!$(this).attr('disabled')){
@@ -252,6 +255,7 @@ ob_start();
         finishExercise();
     }
     
+    //Check one transcription
     function checkInputTranscription(input){
         var idInput = $(input).attr('id');
         var idTransc ='#';
@@ -270,6 +274,7 @@ ob_start();
         }
     }
     
+    //Correct the exercise
     function finishExercise(){
         var correctos=0;
         var superado=0;
@@ -355,7 +360,7 @@ ob_start();
      });
 
 
-    
+    //Initialize the exercise with the divs and the inputs
     function initialize(){
         //HeightOffset = parseInt(document.getElementById('ej').offsetTop);
         HeightOffset=0;
@@ -406,6 +411,7 @@ ob_start();
         $(idTransc).css({ "border":"3px dashed #AC233E","outline": "0px" });
     }
     
+    //Ask for leave the exercise
     function check_goBack(){
         if(isFinish==false){
         var message = $('<p />', { text: '<?php echo(_("Si abandona la página, se dará por finalizado el ejercicio."));?>'}),

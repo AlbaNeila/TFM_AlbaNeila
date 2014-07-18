@@ -1,5 +1,15 @@
 <?php
 include("../model/persistence/acceso_db.php");
+/**
+* exerciseService class.
+* 
+* This class is used to access to the data base when exerciseController need it.
+*
+* @package  model/persistence
+* @author   Alba Neila Neila <ann0005@alu.ubu.es>
+* @version  1.0
+* @access   public
+*/
 class exerciseService{
     
     

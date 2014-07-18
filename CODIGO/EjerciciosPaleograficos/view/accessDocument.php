@@ -24,11 +24,13 @@ ob_start();
 <script>
     var img="";
     
+    //function to syncronize the horizontal scrollbars
     $(window).on('load', function (e) {
         $('.div1').width($('#doc').width());
         $('.div2').width($('#doc').width());
     });
     
+    //function to syncronize the horizontal scrollbars
     $(document).ready(function(){
         
         $('.wrapper1').on('scroll', function (e) {
@@ -68,6 +70,7 @@ ob_start();
         }
     });
     
+    //function to initialize the accordion element
      $(function() {
          var icons = {
          header: "iconClosed",    // custom icon class
@@ -116,7 +119,7 @@ ob_start();
            </div>
     </div>
       
-    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -16px;">
+    <div id="documentGoBack" class="formulario" style="text-align: right;right:20px;margin-top: -16px;height:5px;">
         <h3><a href="#" onclick="$('form#access').submit();"><?php echo(_("Volver"));?></a></h3>
     </div>
     

@@ -49,11 +49,11 @@
             }
             $delete = documentService::deleteById($idDoc);
             if($delete!=FALSE){
-                 echo 1; //Delete document OK
+                 echo 1;
             }
         }
         else{
-            echo 0; //Error
+            echo 0;
         }
 
     }
@@ -76,7 +76,7 @@
         $existDocument = documentService::getByName($document);
         
 
-        if(!$existDocument) { //Si no hay filas es que no existe otro documento con el mismo nombre
+        if(!$existDocument) {
             echo 1;
         }
         else{
@@ -104,7 +104,7 @@
         
         $repeatDocument = documentService::checkNameNotRepeat($row[0], $idDocument);
 
-            if(!$repeatDocument) { //Si no hay filas es que no existe otro documento con el mismo nombre, por lo que actualizamos la fila
+            if(!$repeatDocument) {
                 $update = documentService::updateById($idDocument,utf8_decode($row[0]),utf8_decode($row[1]),utf8_decode($row[3]),utf8_decode($row[2]));
                 if($update!=FALSE)
                     echo 1;
@@ -140,7 +140,7 @@
         foreach($groups as $group){
             $groupCollection = collectionService::getGroupCollectionByIds($group, $idCollection);
             if($permissions[$cont]==true){
-                if(!$groupCollection){//Si no hay filas -> Insert
+                if(!$groupCollection){
                      $insert = collectionService::insertGroupCollection($group, $idCollection);
                      if(!$insert){
                          $flag = 0;
@@ -148,7 +148,7 @@
                 }
             }
             else{
-                if($groupCollection){//Si hay filas -> Delete
+                if($groupCollection){
                     $delete = collectionService::deleteGroupCollectionByIds($group, $idCollection);
                     if(!$delete){
                          $flag = 0;

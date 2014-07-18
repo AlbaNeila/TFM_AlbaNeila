@@ -1,7 +1,7 @@
 <?php
+    //Finish the session and redirect to the login page
+    
     session_start();
-
-    // Comprobamos que se haya iniciado la sesión
     if(isset($_SESSION['usuario_nombre'])) {
         session_destroy();
         header("Location: ../view/login.php");

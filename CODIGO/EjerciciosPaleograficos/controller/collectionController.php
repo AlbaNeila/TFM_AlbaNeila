@@ -25,10 +25,10 @@
     /**
      * Function to add a new Collection.
      *
-     * Insert the new document in the database and update the grupo_coleccion table with the permissions of the groups received in the groups post variable.
+     * Insert the new collection in the database and update the grupo_coleccion table with the permissions of the groups received in the groups post variable.
      * Echo 0 if error
      * Echo 1 if ok
-     * Echo 2 if if also exist a group with the same name
+     * Echo 2 if if also exist a collection with the same name
      * 
      *  @author Alba Neila Neila <ann0005@alu.ubu.es>
      *  @package controller
@@ -46,7 +46,7 @@
         $existCollection = collectionService::getByName(utf8_decode($collection));
         
 
-        if(!$existCollection) { //Si no hay filas es que no existe otra coleccion con el mismo nombre, por lo que insertamos la nueva colección
+        if(!$existCollection) { 
             $idCollection = collectionService::insertCollection(utf8_decode($collection), utf8_decode($description));
             if($idCollection!=null) {
                 foreach($groups as $group){
@@ -61,7 +61,7 @@
             }
         }
         else{
-            $flag = 2; //Ya existe un grupo con el mismo nombre
+            $flag = 2; 
         }        
 
         echo $flag;
@@ -85,7 +85,7 @@
         $row = json_decode("$row",true);
         $repeatCollection = collectionService::checkNameNotRepeat($row[1], $row[0]);
         
-        if(!$repeatCollection) { //Si no hay filas es que no existe atra colección con el mismo nombre, por lo que actualizamos la fila
+        if(!$repeatCollection) { 
             $update = collectionService::updateById(utf8_decode($row[1]), utf8_decode($row[2]), $row[0]);
             if($update!=FALSE)
                 echo 1;
@@ -99,7 +99,7 @@
     /**
      * Function to delete a Collection.
      *
-     * Delete a collection form the data base with the id collection received in the coleccion post variable.
+     * Delete a collection from the data base with the id collection received in the coleccion post variable.
      * Echo 0 if error
      * Echo 1 if ok
      * 
@@ -115,10 +115,10 @@
         $delete = collectionService::deleteById($idColeccion);
         
         if($delete!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1; 
         }
         else{
-            echo 0; //Error
+            echo 0; 
         }
 
     }
@@ -210,7 +210,6 @@
         $collections = json_decode("$collections",true);
         $return = 1;
         
-        //Para borrar las filas de las colecciones en las que ya no esta el documento
         $result = documentService::getColeccionDocumentoByIdDoc($idDocument);
         if($result!=FALSE){
             while($row=mysqli_fetch_assoc($result)) {
@@ -218,18 +217,17 @@
                 if(in_array($row['idColeccion'],$collections)){
                     $flag = true;
                 }
-                if(!$flag){// si no esta la coleccion en la lista, borramos la fila porque se le ha denegado el acceso
+                if(!$flag){
                     $delete = documentService::deleteColleccionDocumentoByIds($row['idColeccion'], $idDocument);
                     if(!$delete){
                         $return =0;
                     }
-                }// si no no hacemos nada, porque el usuario le ha dado acceso y ya lo tiene
+                }
             }
         }else{
             $return =0;
         }
         
-        //Para añadir las filas de las colecciones a las que se le ha proporcionado acceso al documento ahora
          foreach($collections as $idCollection){
              $result2 = documentService::getColleccionDocumentoByIds($idDocument, $idCollection);
              if(!$fila=mysqli_fetch_assoc($result2)){//Si no hay filas -> Insert

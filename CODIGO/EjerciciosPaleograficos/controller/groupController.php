@@ -34,20 +34,32 @@
             break;
     }
 
+    /**
+     * Function to add a new Group.
+     *
+     * Insert the new group in the database and update the permissions to access to the public collection.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * Echo 2 if if also exist an group with the same name
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function newGroup(){
         $grupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
         $descripcion = mysqli_real_escape_string($GLOBALS['link'],$_POST['descripcion']);
     
         $existGroup = groupService::getByName(utf8_decode($grupo));
-        
 
-            if(!$existGroup) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
+            if(!$existGroup) { 
                 $idGroup = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $_SESSION['usuario_id']);
                 if($idGroup != null){
-                    //Insertamos en la colección pública
                     $reg2 = collectionService::insertGroupCollection($idGroup,1);
                     if($reg2) {
-                        echo 1; //Nuevo grupo OK
+                        echo 1;
                     }else{
                         echo 2;
                     }
@@ -56,11 +68,25 @@
                 }
             }
             else{
-                echo 0; //Ya existe un grupo con el mismo nombre
+                echo 0;
             }
 
     }
     
+    /**
+     * Function to add a new Group by the administrator.
+     *
+     * Insert the new group in the database and update the permissions to access to the public collection.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * Echo 2 if if also exist an group with the same name
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version  1.0
+     *  @access   public
+     *  @return void
+     */
     function newGroupAdmin(){
         $grupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
         $descripcion = mysqli_real_escape_string($GLOBALS['link'],$_POST['descripcion']);
@@ -68,21 +94,33 @@
     
         $existGroup = groupService::getByName(utf8_decode($grupo));
         
-            if(!$existGroup) { //Si no hay filas es que no existe otro grupo con el mismo nombre, por lo que insertamos el nuevo grupo
+            if(!$existGroup) { 
                 $idGroup = groupService::insertGroup(utf8_decode($grupo), utf8_decode($descripcion), $profesor);
                 if($idGroup != null){
-                    //Insertamos en la colección pública
                     $reg2 = collectionService::insertGroupCollection($idGroup,1);
                     if($reg2) {
-                        echo 1; //Nuevo grupo OK
+                        echo 1;
                     }
                 }
             }
             else{
-                echo 0; //Ya existe un grupo con el mismo nombre
+                echo 0;
             }
     }
     
+    /**
+     * Function to check if the Group can be update and if it's OK update it.
+     *
+     * Check that the name of the group it's not repeat and update the Group information with the new data receive in the row post variable.
+     * Echo 0 if if also exist a group with the same name
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkUpdateGrid(){
         $row = $_POST["row"];
         $row = json_decode("$row",true);
@@ -102,6 +140,19 @@
         }
     }
     
+    /**
+     * Function to delete a Group.
+     *
+     * Delete a group from the data base with the id group received in the 'grupo' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function deleteGroup(){
         $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['grupo']);
     
@@ -116,6 +167,19 @@
 
     }
     
+     /**
+     * Function to accept the group access request of students.
+     *
+     * Accept the group access request of an array of students updating the 'solicitud' value to 0 in the usuario_grupo table and sending an email to notificate.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function acceptRequest(){
         $idGrupo = $_POST["idGrupo"];
         $nameGroup = $_POST["nameGroup"];
@@ -146,6 +210,19 @@
        }
     }
     
+     /**
+     * Function to deny the group access request of students.
+     *
+     * Deny the group access request of an array of students removing them from the usuario_grupo table and sending an email to notificate.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function rejectRequest(){
         $idGrupo = $_POST["idGrupo"];
         $nameGroup = $_POST["nameGroup"];
@@ -177,7 +254,20 @@
         echo 0;   
        }
     }
-    
+
+    /**
+     * Function to remove a student from a group.
+     *
+     * Deny the group access of a student form the id group received in the idGrupo post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function deleteStudent(){
         $idAlumno = mysqli_real_escape_string($GLOBALS['link'],$_POST['idAlumno']);
         $idGrupo = mysqli_real_escape_string($GLOBALS['link'],$_POST['idGrupo']);
@@ -185,13 +275,26 @@
         $result = groupService::deleteUserGroupByIds($idGrupo, $idAlumno);
         
         if($result!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1; 
         }
         else{
-            echo 0; //Error
+            echo 0;
         }
     }
     
+    /**
+     * Function to request access to a group.
+     *
+     * Send a request to access to the group with the id gropup received in the 'idGroup' post variable.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function requestAccess(){
         $idGroup = mysqli_real_escape_string($GLOBALS['link'],$_POST['idGroup']);
         

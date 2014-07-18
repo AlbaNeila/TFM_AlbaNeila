@@ -52,7 +52,6 @@
             $type = mysqli_real_escape_string($GLOBALS['link'],$_POST['type']);
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
-            //Insertamos en la BD
             $idDoc = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
             if($idDoc!=null) {
                 $uploaddir = '../img_xml/';
@@ -116,7 +115,6 @@
             $type = mysqli_real_escape_string($GLOBALS['link'],$_POST['type']);
             $date = mysqli_real_escape_string($GLOBALS['link'],$_POST['date']); 
         
-            //Insertamos en la BD
             $idDoc = documentService::insertDocument(utf8_decode($name), utf8_decode($description), utf8_decode($date), utf8_decode($type));
             if($idDoc!=null) {                    
                 $uploaddir = '../img_xml/';
@@ -196,7 +194,6 @@
             
                 $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 if($update!=FALSE){
-                    //Delete old files
                     try{
                     unlink($imagen);
                     unlink($transcripcion);
@@ -250,7 +247,6 @@
             
                 $update = documentService::updateFilesById($idDocument, utf8_decode($uploadimg), utf8_decode($uploadxml));
                 if($update!=FALSE){
-                    //Delete old files
                     try{
                     unlink($imagen);
                     unlink($transcripcion);

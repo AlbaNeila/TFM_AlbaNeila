@@ -19,6 +19,19 @@ ob_start();
 
     }
     
+    /**
+     * Check that the Id and password are correct and login to the application.
+     *
+     * Check if the id and the password received exist in the data base.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function checkLogin(){
     	$usuario_nombre = mysqli_real_escape_string($GLOBALS['link'],$_POST['usuario']);
         $usuario_clave = mysqli_real_escape_string($GLOBALS['link'],$_POST['password']);
@@ -41,6 +54,17 @@ ob_start();
     	}
     }
     
+    /**
+     * Redirect to the main page of the application depends of the rol.
+     *
+     * Check the user rol that is accessing to the application and redirect to the main page of the application.
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function login(){
         if($_SESSION['usuario_tipo'] == "PROFESOR"){
             header("Location: ../view/groupTeacher.php");
@@ -53,6 +77,19 @@ ob_start();
         }
     }
     
+    /**
+     * Update the password of the user.
+     *
+     * Create a new password to the user with the id received in the 'dni' post variable and send a notification.
+     * Echo 0 if error
+     * Echo 1 if ok
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return void
+     */
     function newPassword(){
         $dni = mysqli_real_escape_string($GLOBALS['link'],$_POST['dni']);
         $flag=0;
@@ -74,6 +111,16 @@ ob_start();
         echo $flag;
     }
     
+    /**
+     * Generate a random string as password.
+     *
+     * 
+     *  @author Alba Neila Neila <ann0005@alu.ubu.es>
+     *  @package controller
+     *  @version 1.0
+     *  @access public
+     *  @return $randomString new password
+     */
     function generateRandomString() {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';

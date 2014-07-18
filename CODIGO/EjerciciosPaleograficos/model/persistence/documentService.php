@@ -1,6 +1,17 @@
 <?php
 include("../model/persistence/acceso_db.php");
 include("../model/Document.php");
+include("../model/Collection.php");
+/**
+* documentService class.
+* 
+* This class is used to access to the data base when documentController need it.
+*
+* @package  model/persistence
+* @author   Alba Neila Neila <ann0005@alu.ubu.es>
+* @version  1.0
+* @access   public
+*/
 class documentService{
     
     

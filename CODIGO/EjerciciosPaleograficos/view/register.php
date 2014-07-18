@@ -137,19 +137,7 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 		    return flag;
 		}
 	
-         onLoadFunction = function onLoadFunction(){
-                if(mygrid.getRowsNum()==0){
-                    var label = document.createElement("label");
-                label.setAttribute("class", "gridAfterForm");                           
-                label.setAttribute("id", "noRecords");
-                label.setAttribute("style", "width: 75%; height: 90%;top:420px;text-align: center;");                            
-                $(label).text("<?php echo(_("- No se encontraron resultados -"));?>");
-                document.getElementById("labelAux").appendChild(label);
-            }else{
-               $("#noRecords").remove();
-            }
-        }
-					 
+		 
 		function doInitGrid(){
 			mygrid = new dhtmlXGridObject('gridRegistro');
 			mygrid.setImagePath("../lib/dhtmlxGrid/codebase/imgs/");
@@ -164,7 +152,7 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 			mygrid.setSizes();
 			mygrid.setSkin("dhx_skyblue");
 			mygrid.init();					
-			mygrid.loadXML("../controller/gridControllers/gridRegistro.php",onLoadFunction);			
+			mygrid.loadXML("../controller/gridControllers/gridRegistro.php");			
 		}
 		
 	
@@ -190,7 +178,6 @@ include("../model/persistence/acceso_db.php"); // incluimos el archivo de conexi
 			</div>	
 			<label><?php echo(_("Grupo"));?></label>		   
 			<div id="gridRegistro" style="width: 96%; height: 100%"></div>
-<div id="labelAux"></div>
 
 			<p><?php echo(_("Introduzca el texto de la imagen:"));?></p>
 			<table>

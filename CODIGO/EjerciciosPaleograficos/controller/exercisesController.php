@@ -82,12 +82,11 @@
         
         $result = exerciseService::getByName(utf8_decode($name));
         if($result!=FALSE){
-            if(!$row=mysqli_fetch_assoc($result)) { //Si no hay filas es que no existe otro documento con el mismo nombre
+            if(!$row=mysqli_fetch_assoc($result)) {
                  $insert = exerciseService::insertExercise(utf8_decode($name), $correction, utf8_decode($target), $targetnum, $idDocument, $dificult);
                  if(!$insert){
                      $flag = 0;
                  }else{
-                     //Insertar en la ternaria
                       $result2 = exerciseService::getByName(utf8_decode($name));
                       $result2 = mysqli_fetch_assoc($result2);
                       $idEjercicio = $result2['idEjercicio'];
@@ -104,7 +103,7 @@
                       }
                  }
             }else{
-                $flag = 2;//Otro ejercicio con el mismo nombre
+                $flag = 2;
             }
         }
         echo $flag;
@@ -129,10 +128,10 @@
        $result = exerciseService::deleteById($idEj);
         
         if($result!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1;
         }
         else{
-            echo 0; //Error
+            echo 0;
         }
     }
     
@@ -212,10 +211,10 @@
         
         $result = exerciseService::updateValueTargetById(utf8_decode($value), $idEj);
         if($result!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1;
         }
         else{
-            echo 0; //Error
+            echo 0;
         }
     }
     
@@ -238,10 +237,10 @@
         
         $result = exerciseService::updateCorrectionModeById($value, $idEj);
         if($result!=FALSE){
-                    echo 1; //Delete grupo OK
+                    echo 1; 
         }
         else{
-            echo 0; //Error
+            echo 0;
         }
     }
     

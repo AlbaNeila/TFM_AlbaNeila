@@ -1,4 +1,6 @@
 <?php
+    
+    //Get a group description to create a tooltip in the students register page
 	include('../model/persistence/groupService.php');
 	
 	$grupo = $_POST['grupo'];

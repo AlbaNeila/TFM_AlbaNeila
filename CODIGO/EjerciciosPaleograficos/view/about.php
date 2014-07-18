@@ -15,7 +15,8 @@ include('../init.php');
     <script type="text/javascript" src="../public/js/check_inputfields.js"></script>
 
     <script>    
-
+    
+    //Redirect to the login page
     function goBack(){
         location.href='login.php';
     }

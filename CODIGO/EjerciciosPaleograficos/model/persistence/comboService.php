@@ -1,5 +1,15 @@
 <?php
 include("../../model/persistence/grid_acceso_db.php");
+/**
+* comboService class.
+* 
+* This class is used to access to get the information of the data base to load the DHTMLXCombos.
+*
+* @package  model/persistence
+* @author   Alba Neila Neila <ann0005@alu.ubu.es>
+* @version  1.0
+* @access   public
+*/
 class comboService{
     //SELECT QUERIES
    static function getCollectionsOfTeacher($idUser){

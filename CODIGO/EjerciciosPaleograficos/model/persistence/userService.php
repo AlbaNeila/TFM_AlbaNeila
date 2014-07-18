@@ -2,7 +2,9 @@
 include("../model/persistence/acceso_db.php");
 include("../model/User.php");
 /**
-* Class to access to the database from userController.
+* userService class.
+* 
+* This class is used to access to the data base when userController need it.
 *
 * @package  model/persistence
 * @author   Alba Neila Neila <ann0005@alu.ubu.es>
